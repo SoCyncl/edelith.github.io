@@ -870,6 +870,7 @@ h2 a {
         ". recapping";
     width: 100%;
     column-gap: 43px;
+    align-items: start; /* This ensures all grid items align at the top */
 }
 .sidebar-left, .side {
     /* Assuming potential custom styles for sidebars here */
@@ -900,6 +901,16 @@ p, li {
     color: var(--emphasized-text);
     margin: 5px 2px;
 }
+.friday h2,
+.recapping h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: "Alexandria";
+    color: var(--emphasized-text);
+    margin: 0 2px 5px 2px; /* Consistent margins */
+    display: flex;
+}
+
 .recap-updates h3,
 .todo h3,
 .recap h3 {
@@ -912,9 +923,10 @@ p, li {
 /*--------------------------- Recap -------------------- */
 .recapping {
     grid-area: recapping;
+    align-self: start; /* Explicit alignment */
 }
 .recapping h2 {
-    margin-top: -3px;
+    margin-top: 0; /* Remove any top margin that might be pushing it down */
     justify-content: flex-end;
     display: flex;
 }
@@ -953,6 +965,7 @@ p, li {
 /*---------------------------Fun fact Friday -------------------- */
 .friday {
     grid-area: friday;
+    align-self: start; /* Explicit alignment */
 }
 .friday .box {
     padding: 15px;
@@ -1033,6 +1046,11 @@ p, li {
 }
 .almanac a:hover .book-link {
     rotate: -10deg;
+}
+
+.book-link {
+   transition: transform 0.3s ease-in, ease-out 0.3s;
+    z-index: 10;
 }
 
 /*--------------------------- Random Character -------------------- */
