@@ -1,0 +1,1150 @@
+:root {
+--cursor: url(/assets/img/cursor.png), auto;
+--cursor-hover: url(/assets/img/link.png), pointer;
+--logo: url(/assets/img/themes/default/logo.png);
+--default-text: #ddddc5;
+--emphasized-text: #ddddc5;
+--nav-bg: #00000000;
+--content-bg: #415554;
+--box-bg: #5d786f;
+--box-br: #99a58d;
+--footer-bg: #2c373a;
+--link-hover-color: #fff ;
+--link-color: #bbe5ff;
+--header-img: url(/assets/img/themes/default/banner_bg.gif);
+--biblio-img: url(/assets/img/homepage/biblio.gif);
+--site-bg-img: url(/assets/img/homepage/background.jpg);
+--quilliam-vis: block;
+--biblio-pos: 3px 22px;
+}
+
+a {
+    color: var(--link-color); /* New custom color */
+    cursor: var(--cursor-hover);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out; /* Smoother transition */
+}
+
+a:hover, a:focus {
+    color: var(--link-hover-color); /* Hover color */
+}
+.ira {
+	position: absolute;
+	width: 360px;
+	right: 20px;
+	top: 166px;
+	z-index: 100;
+	max-width: 100%; /* Prevents overflow */
+  }
+
+.chunk {
+    clip-path: polygon(
+        50% 0%,    /* Top point */
+        100% 50%,  /* Right point */
+        50% 100%,  /* Bottom point */
+        0% 50%     /* Left point */
+    );
+    width: 20px;
+    height: 20px;
+}
+.chunk-img {
+    width: 20px;
+    height: 20px;
+    margin: -10px 5px 5px 5px;
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+.bg-primary {
+    background-color: var(--box-br);
+}
+
+.bg-secondary {
+    background-color: var(--box-br);
+}
+#statuscafe {
+	padding: .5em;
+	background: var(--box-bg);
+	border: 3px solid var(--box-br);
+	color: var(--default-text);
+	border-radius: 5px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+/* Layout Fix */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: lucida grande,verdana,arial,helvetica;
+	font-size: 12px;
+	background: #000;
+    background-image: var(--site-bg-img);
+	background-size: contain;
+	color: var(--default-text);
+}
+img {
+	max-width: 150px;
+}
+.outer {
+	width: 1650px;
+	margin: auto;
+	position: relative;
+}
+.header {
+	background: #999;
+	width: 100%;
+	height: 230px;
+    top: 90px;
+	border: 3px solid var(--box-br);
+    background: var(--logo), var(--header-img);
+    background-size: 200px, cover;
+    background-repeat: no-repeat, repeat;
+    background-position: center, center;
+}
+.all-content {
+	background: var(--content-bg);
+	border: 3px solid var(--box-br);
+	padding: 24px;
+	min-height: calc(100vh - 280px);
+	position: relative;
+}
+/* clearfix for .white */
+.white::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*-------------------------navbar---------------------------------------*/
+.navbar {
+    position: relative;
+    z-index: 999;
+    background: var(--nav-bg); 
+    text-align: left;
+    color: var(--default-text); 
+    font-size: 1.0em;
+    padding: 5px 25px;
+    display: flex;
+    justify-content: space-between;
+    font-family: lucida grande,verdana,arial,helvetica;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 30px; /* Space for dancing Biblios */
+}
+
+.navbar a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--default-text);
+    padding: 5px 4px;
+    margin: 0 0px;
+    transition: color 0.3s;
+    font-weight: bold;
+    position: relative; /* For absolute positioning of icons */
+}
+
+.navbar a:hover, .navbar a:focus {
+    color: #fff;
+}
+
+.navlink {
+    display: inline-block;
+    margin-left: 8px;
+    border: 3px solid var(--box-br);
+    padding: 12px 33px 12px 40px; /* Extra left padding for icons */
+    background: var(--content-bg);
+}
+
+/* Dancing Biblios - now absolutely positioned */
+.navigation a::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: bounce-dance 1s ease-in-out infinite;
+    z-index: 1000; /* Ensure they appear above everything */
+}
+
+/* Individual Biblio colors and positions */
+.navigation a:nth-child(1)::before {
+    background: url(/assets/img/homepage/Biblio_yellow.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(2)::before {
+    background: url(/assets/img/homepage/Biblio_brown.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(3)::before {
+    background: url(/assets/img/homepage/Biblio_gray.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(4)::before {
+    background: url(/assets/img/homepage/Biblio_blue.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(5)::before {
+    background: url(/assets/img/homepage/Biblio_red.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(6)::before {
+    background: url(/assets/img/homepage/Biblio_purple.png) center/contain no-repeat;
+    left: 24px;
+}
+
+.navigation a:nth-child(7)::before {
+    background: url(/assets/img/homepage/Biblio_orange.png) center/contain no-repeat;
+    left: 24px;
+}
+
+/* Bounce animation */
+@keyframes bounce-dance {
+  0%, 10% { transform: translateY(-50%); }
+  30% { transform: translateY(calc(-50% - 6px)); }
+  50% { transform: translateY(-50%); }
+  100% { transform: translateY(-50%); }
+}
+
+/* Animation delays */
+.navigation a:nth-child(1)::before { animation-delay: 0.3s; }
+.navigation a:nth-child(2)::before { animation-delay: 0.4s; }
+.navigation a:nth-child(3)::before { animation-delay: 0.5s; }
+.navigation a:nth-child(4)::before { animation-delay: 0.6s; }
+.navigation a:nth-child(5)::before { animation-delay: 0.7s; }
+.navigation a:nth-child(6)::before { animation-delay: 0.8s; }
+.navigation a:nth-child(7)::before { animation-delay: 0.9s; }
+/*-------------------big main content box-------------------- */
+.content {
+	width: 950px;
+	background: var(--footer-bg);
+    border-radius: 5px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+ 
+}
+/* -------------- right side box ------------ */
+.side {
+	width: 280px; 
+	background: var(--content-bg);
+
+}
+.clear {
+	clear: both;
+}
+.side-box {
+	background: var(--box-bg);
+	padding: 12px;
+    border: 3px solid var(--box-br);
+    border-radius: 5px;
+	min-height: 200px;
+}
+
+/* -------------- Home Navigation with all the little pictures ------------ */
+.homenav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.homenav-button {
+    width: 65px;
+    height: 65px;
+    transition: all 0.3s ease-in-out; /* Changed to 'all' and simplified */
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.homenav a {
+    display: block;
+    transition: all 0.3s ease-in-out; /* Added transition to the anchor */
+}
+
+.homenav a:hover {
+    transform: rotate(-10deg) scale(1.1); /* Combined transforms */
+}
+
+.homenav a:hover .homenav-label {
+    opacity: 1;
+    transform: rotate(10deg); /* Using transform instead of rotate */
+}
+.homenav a:hover .homenav-button {
+    animation: wobble 2.8s ease-in-out infinite; /* Loops smoothly */
+    transform: 
+        scale(1.1) 
+        rotate(-10deg);
+}
+@keyframes wobble {
+    0%, 100% {
+        transform: translateY(0); /* Start and end at normal position */
+    }
+    50% {
+        transform: translateY(-8px); /* Move up mid-animation */
+    }
+}
+.homenav-label {
+    position: absolute;
+    font-size: 17px;
+    font-variant-caps: small-caps;
+    font-family: 'Nanum Pen Script', cursive;
+    transition: all 0.3s ease-in-out; /* Consistent transition */
+    opacity: 0;
+    font-weight: bold;
+    color: var(--emphasized-text);
+    margin-left: -6px;
+    margin-top: -20px;
+    box-shadow: 3px 3px 10px 0 #193b30;
+}
+
+.homenav span {
+    background-color: var(--box-bg);
+    border-radius: 3px;
+    padding: 1px 5px;
+}
+/* -------------- left side box ------------ */
+.main {
+	display: flex;
+	gap: 20px;
+}
+
+
+.lower-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+	gap: 16px;
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+.lower-grid .block {
+	background: var(--box-bg);
+    border: 2px solid var(--box-br);
+	padding: 16px;
+}
+textarea.code {
+	background: #FFF;
+	color: var(--box-bg);
+	font-family: monospace;
+	padding: 12px;
+	width: 100%;
+}
+.breadcrumbs {
+	background: var(--box-bg);
+	display: inline-block;
+	padding: 3px 6px;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #AAA;
+}
+.breadcrumbs a {
+	text-decoration: none;
+	color: #AAA;
+	font-weight: bold;
+}
+.nav a {
+	color: var(--default-text);
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 11px;
+	font-weight: bold;
+}
+h1 {
+	background: var(--box-br);
+	color: var(--content-bg);
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding: 3px 6px;
+}
+h2 {
+	font-size: 1em;
+	border-bottom: 1px dotted var(--emphasized-text);
+}
+.border {
+	border: 1px solid var(--box-br);
+}
+
+/* SOFTWARE */
+.thumbnail > div {
+	height: 85px;
+	width: 145px;
+	border: 1px dashed #FFF;
+	vertical-align: middle;
+	background-size: 160%;
+	background-position: top;
+	float: left;
+	margin-right: 14px;
+}
+.item {
+	margin-bottom: 24px;
+	min-height: 110px;
+}
+.item-small {
+	margin-bottom: 24px;
+}
+h2 a {
+	text-decoration: none;
+	color: var(--emphasized-text);
+}
+.post-info {
+	font-style: italic;
+	margin-bottom: 12px;
+}
+.nav-item.nav-top {
+	border: none;
+    
+}
+/* .site-title {
+	color: var(--emphasized-text);
+	margin-top: 40px;
+	margin-left: 70px;
+}
+.site-title a {
+	color: var(--emphasized-text);
+	text-decoration: none;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 65px;
+}
+*/
+.update1 {
+	display: inline;
+	margin-right: 24px;
+}
+.updates1 {
+	font-size: 15px;
+    color: var(--emphasized-text);
+	margin-top: 12px;
+	margin-bottom: 3px;
+}
+  
+.post-content img {
+	max-width: 90%;
+}
+.muted {
+	opacity: 0.3;
+}
+.recent-image img {
+	width: 50px;
+	border: 1px solid var(--box-br);
+}
+.footer {
+	background: var(--footer-bg);
+	border: 1px solid var(--content-bg);
+	text-align: center;
+	padding: 20px;
+	font-size: 11px;
+	margin-top: 24px;
+	margin-bottom: 10px;
+	line-height: 1.6;
+}
+.footer a {
+	color: var(--default-text);
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+
+/*---------------- LEFT SIDEBAR WIDGETS ----------------*/
+.box {
+    background: var(--box-bg);
+    color: var(--default-text);
+    margin: 10px 0px 15px 0px;
+    padding: 7px;
+    border-radius: 5px;
+}
+.sidebar-left {
+	width: 250px;
+	margin-right: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 14px;
+	color: var(--default-text);
+	margin-left: 35px;
+}
+
+.talkin {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background-color: var(--box-bg);
+    position: absolute;
+    display: block;
+    top: 390px;
+    left: 42px;
+    height: 80px;
+    rotate: 160deg;
+    color: transparent;
+    z-index: 0;
+  	margin-left: 35px;
+}
+
+.log-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--box-bg);
+	padding: 8px 12px;
+	border: 3px solid var(--box-br);
+	border-radius: 5px;
+	position: relative;
+}
+
+.updates {
+    overflow-y: scroll!important;
+    height: 310px;
+    z-index: 2;
+    position: relative;
+}
+
+.log-title h2 {
+    font-size: 1.5rem;
+    background: none;
+    color: var(--emphasized-text);
+    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.edelpost {
+    position: absolute;
+    top: -60px;
+    left: 165px;
+    scale: 60%;
+    z-index: 3;
+}
+
+.rss-link {
+    position: absolute;
+    scale: 25%;
+    top: -55px;
+    left: 85px;
+}
+
+.rss-link:hover {
+    animation-name: tilt-shaking;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+}
+
+.updates::-webkit-scrollbar{display: none;}
+.updates {scrollbar-width: none;}
+
+.feed-title {
+    display: none;
+}
+
+.feed-item-title {
+    font-family: "Alexandria";
+    margin-bottom: -17px;
+    margin-top: 3px;
+    padding-bottom: 1px;
+}
+
+.feed-item-title a {
+    color: var(--default-text);
+    pointer-events: none;
+    font-weight: normal;
+}
+
+.feed-item-title:after {
+    content: "";
+    display: block;
+    width: 80%;
+    border-bottom: 2px dashed;
+    border-style: none none dashed;
+    border-color: var(--default-text);
+    margin-top: 1px;
+}
+
+.feed-item-title:before {
+    content: "";
+    background-image: url(/assets/img/homepage/moogle.png);
+    display: inline-block;
+    height: 28px;
+    width: 16px;
+    background-size: cover;
+    margin-right: 3px;
+}
+
+
+.biblio {
+    display: block;
+    position: relative;
+    left: 15px;
+    bottom: 0;
+    height: 230px;
+
+    z-index: 3;
+    background-image: var(--biblio-img);
+    background-size: 230px;
+    background-position: var(--biblio-pos);
+    background-repeat: no-repeat;
+    pointer-events: none;
+    margin-top: -60px;
+}
+
+.quilliam {
+    display: var(--quilliam-vis);
+    position: relative;
+    left: 165px;
+    bottom: 195px;
+    width: 28px;
+    height: 28px;    
+    z-index: 4;
+    cursor: var(--cursor-hover);
+}
+
+.quilliam:active {
+    scale: 95%!important
+}
+
+/* status cafe */
+.status {
+    margin-top: -43px;
+}
+
+#statuscafe-username {
+    margin-bottom: .5em;
+}
+
+#statuscafe-content {
+    margin: 0 0.5em 0.5em 0.5em;
+}
+    
+.status hr {
+    margin-top: -10px
+}
+/* ------------------------MUSIC AND STUFF----------------------*/
+/* ------volume slider----------------------*/
+/* Volume Control Styles */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 5px;
+}
+
+.volume-control i {
+    color: var(--default-text);
+    align-items: center;
+}
+
+.volume-slider {
+    width: 80px;
+    cursor: var(--cursor-hover);
+    -webkit-appearance: none;
+    height: 5px;
+    background: var(--content-bg);
+    border-radius: 5px;
+    border: 1px solid var(--box-br);
+    align-items: center;
+    
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 70%;
+    background: var(--default-text);
+    cursor: var(--cursor-hover);
+    border: 1px solid var(--box-br);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 70%;
+    background: var(--default-text);
+    cursor: var(--cursor-hover);
+    border: 1px solid var(--box-br);
+}
+
+/* ------Music and stuff----------------------*/
+.playlist {
+    background-color: var(--content-bg);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "MS PGothic", sans-serif;
+    height: 50px;
+    color: var(--default-text); /* Add this to ensure text color */
+    padding: 5px; /* Add some padding */
+}
+
+   
+.playlist h1, .playlist h2, .playlist h3, .playlist h4, .playlist h5 {
+    padding:0;
+    margin: 0;
+}
+.playlist {
+    justify-content: end;    
+}
+.music {
+    display: inline-block;
+    max-width: 220px;
+    background-color: var(--content-bg);
+    overflow-x: hidden;
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    z-index: 3;
+    color: var(--default-text); 
+}
+
+#music-title {
+    --gap: 1rem;
+    display: inline-block;
+    width: max-content;
+    font-size: 1.3em;
+    margin-bottom: 3px;
+    font-family: 'Nanum Pen Script', cursive;
+    animation: scroll 15s linear infinite;
+    padding-left: 100%;
+    white-space: nowrap; 
+    color: var(--default-text); 
+}
+
+.music-controls {
+    text-align: center;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+    font-size: 0.98em;
+    color: var(--default-text); /* Ensure text color */
+}
+
+.music button {
+    color: var(--default-text); /* Changed from --primary to use your theme color */
+    background-color: transparent;
+    padding: 2px 5px;
+    border: none;
+    cursor: var(--cursor-hover);
+    transition: ease-in 0.2s, ease-out 0.2s;
+    font-size: 1em; /* Ensure proper font size */
+}
+
+.music button:hover {
+    color: var(--link-hover-color); /* Use your hover color */
+}
+
+.music select {
+    color: var(--default-text);
+    background-color: var(--box-bg); /* Changed from transparent */
+    width: 130px;
+    padding: 2px 5px;
+    border: 3px solid var(--box-br); /* Added border */
+    border-radius: 5px;
+    cursor: var(--cursor-hover);
+    transition: ease-in 0.2s, ease-out 0.2s;
+    font-family: lucida grande,verdana,arial,helvetica;
+    font-size: 0.9em; /* Adjust font size */
+    
+}
+.music select:focus {
+    outline: none;
+    border: 3px solid var(--box-br) !important;
+    box-shadow: 0 0 0 2px var(--box-bg);
+}
+.music select:hover {
+    border: 3px solid var(--box-bg);
+    border-radius: 5px;
+}
+
+.music select:focus, .music select:active {
+    color: var(--default-text);
+    background-color: var(--content-bg);
+    border: 3px solid var(--box-bg);
+    border-radius: 5px;
+}
+
+.music option{
+    background-color: var(--content-bg);
+    border: 3px solid var(--box-bg);
+    border-radius: 5px;
+    cursor: var(--cursor-hover);
+}
+
+.music optgroup{
+    background-color: var(--content-bg);
+    border: 3px solid var(--box-bg);
+    border-radius: 5px;
+    cursor: var(--cursor-hover);
+}
+
+/* Add the scroll animation */
+@keyframes scroll {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/*---------------------------scroll bar-------------------- */
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--box-bg); /* Uses your box background color */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--box-br); /* Uses your box border color */
+    border-radius: 5px;
+    border: 2px solid var(--box-bg); /* Creates a nice border effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--link-hover-color); /* Changes color on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--box-br) var(--box-bg);
+}
+.updates {
+    scrollbar-width: thin;
+    scrollbar-color: var(--box-br) var(--box-bg);
+}
+
+.updates::-webkit-scrollbar {
+    width: 8px;
+}
+
+.updates::-webkit-scrollbar-track {
+    background: var(--box-bg);
+}
+
+.updates::-webkit-scrollbar-thumb {
+    background: var(--box-br);
+    border-radius: 4px;
+}
+/*--------------------------- Layout and structure -------------------- */
+.about {
+    width: 100%;
+    margin-bottom: 20px;
+    position: static;
+    z-index: auto;
+}
+.griddy {
+    display: grid;
+    grid-template-columns: 40% 54%;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+        "friday recapping"
+        "friday recapping"
+        "almanac recapping"
+        ". recapping";
+    width: 100%;
+    column-gap: 43px;
+}
+.sidebar-left, .side {
+    /* Assuming potential custom styles for sidebars here */
+}
+
+/*--------------------------- Typography -------------------- */
+body {
+    line-height: 1.2;
+    font-size: 0.95rem;
+}
+p, li {
+    line-height: 1.6;
+}
+.book-link {
+    font-family: "Alexandria";
+    font-variant-caps: small-caps;
+    font-size: 33px;
+    color: var(--emphasized-text);
+    margin: auto;
+    margin-top: -20px;
+}
+.friday h2,
+.recapping h2,
+.random h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: "Alexandria";
+    color: var(--emphasized-text);
+    margin: 5px 2px;
+}
+.recap-updates h3,
+.todo h3,
+.recap h3 {
+    border-bottom: 2px dashed var(--default-text);
+    padding: 5px;
+    padding-bottom: 7px;
+    font-size: 19px;
+}
+
+/*--------------------------- Recap -------------------- */
+.recapping {
+    grid-area: recapping;
+}
+.recapping h2 {
+    margin-top: -3px;
+    justify-content: flex-end;
+    display: flex;
+}
+.recapping img {
+    padding: 10px;
+    position: relative;
+    max-width: 100% !important;
+    width: 300px !important;
+}
+.recapping .box {
+    padding: 15px;
+}
+.recap-updates {
+    margin-top: -15px;
+}
+.recap-updates li,
+.recap li,
+.todo li {
+    margin-left: -12px;
+    margin-bottom: 5px;
+}
+.recap-updates ul {
+    margin-top: 3px;
+}
+.recap-updates-scroll {
+    height: 200px;
+    overflow-y: auto;
+    padding: 0px 10px 3px 0px;
+}
+.recap-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/*---------------------------Fun fact Friday -------------------- */
+.friday {
+    grid-area: friday;
+}
+.friday .box {
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.friday > .box h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--emphasized-text);
+    margin: 5px 0 0 0;
+    text-align: right;
+}
+.friday-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.friday h2::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    background-image: url(/assets/img/homepage/fishfavicon.gif);
+}
+.friday p {
+    margin: 0 0 4px;
+    text-align: center;
+}
+
+/*---------------------------Almanac -------------------- */
+.almanac {
+    grid-area: almanac;
+    height: 300px;
+    margin-top: 10px;
+}
+.almanac .box {
+    padding: 15px;
+    background-color: transparent;
+    width: 100%;
+}
+.almanac .box a {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.solsitheian-almanac {
+    height: 240px;
+    width: 100%;
+}
+.book {
+    background-image: url(/assets/img/homepage/guestbookbook.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 300px;
+    height: 213px;
+    position: relative;
+    z-index: 3;
+}
+.quilliam-bookmark {
+    background-image: url(/assets/img/homepage/booglepeek.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90px;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+    margin-top: -189px;
+    margin-left: 42px;
+    transition: ease-in 0.3s, ease-out 0.3s;
+}
+.almanac a:hover .quilliam-bookmark {
+    margin-top: -219px;
+    margin-left: 4px;
+}
+.almanac a:hover .book-link {
+    rotate: -10deg;
+}
+
+/*--------------------------- Random Character -------------------- */
+#randomizer img {
+    max-width: 200px;
+    margin-bottom: 8px;
+}
+#randomizer h2 {
+    margin-top: 4px;
+}
+.random {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 265px;
+    padding: 15px;
+    text-align: center;
+}
+.random button {
+    position: absolute;
+    margin-top: -32px;
+    padding: 8px 15px;
+    background: var(--box-br);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.random button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/*--------------------------- MVP / Featured -------------------- */
+.featured {
+    padding: 15px;
+    text-align: center;
+}
+.featured img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/*---------------------------Hawk Tuah -------------------- */
+#hawktuah {
+    float: right;
+    margin-top: -85px;
+    margin-left: 12px;
+    width: 200px;
+    transform-origin: center center;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,1));
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+}
+#hawktuah.click-animation {
+    animation: bounce 0.6s;
+}
+#hawktuah:hover {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
+    z-index: 10;
+}
+#hawktuah:not(:hover) {
+    animation: none;
+}
+@keyframes bounce {
+    0% { transform: scale(1.1) rotate(2deg); }
+    25% { transform: scale(1.2) rotate(5deg); }
+    50% { transform: scale(0.95) rotate(-2deg); }
+    75% { transform: scale(1.05) rotate(1deg); }
+    100% { transform: scale(1.1) rotate(2deg); }
+}
+
+/*---------------------------UTILITY / SEPARATOR / MISC-------------------- */
+.separator {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.line {
+    width: 45%;
+    background-color: #cdcdcd;
+    height: 2px;
+    opacity: 0.25;
+}
+.line-dot {
+    border-style: dotted none none none;
+    border-width: 5px;
+    width: 100%;
+    border-color: var(--default-text);
+    height: 2px;
+    opacity: 0.25;
+}
+
+/*---------------------------ransitions / Effects-------------------- */
+a {
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: var(--box-br);
+}
+.box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+
