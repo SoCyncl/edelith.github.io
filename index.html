@@ -1,55 +1,58 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyncl Vault</title>
+    <title>Solstitheo Archives</title>
     <meta property="og:url" content="https://cyncl.nekoweb.org">    
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Cyncl Vault" />
-    <meta property="og:description" content="Online portfolio of @Cyncl.Art" />  
+    <meta property="og:title" content="Solstitheo Archives" />
+    <meta property="og:description" content="Welcome to Immortal City of Edelith" />  
     <meta property="og:image" content="assets/img/favicon.png">
     <link rel="stylesheet" href="../css/home.css">
     <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="scripts/navbar.js" type="text/javascript" defer></script>
     <script src="scripts/playlist.js" type="text/javascript" defer></script>
     <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
-    <script src="scripts/randomizer.js" type="text/javascript" defer></script>
-</head>
-<body>	  
-	<div class="outer">
-		<div class="header">
-			<!--<div class="site-title">
-				<a href="home.html">C Y N C L</a>
-				<div class="subtitle">Worldbuilding site ! !</div>
-			</div>-->
-		</div>
-		<marquee class="updates1">
-			<div class="update1">7-3-2025 // main page updated</div>
-			<div class="update1">7-3-2025 // updated everything</div>
-			<div class="update1">7-3-2025 // im losing my mindddddddd</div>
-		</marquee>
-		    <div class="navbar">
-		        <div class="navigation">
-		            <a href="/"><div class="navlink">Home</div></a>
-		            <a href="quill-and-terms.html"><div class="navlink">Quill&Terms</div></a>
-		            <a href="characters/index.html"><div class="navlink">Characters</div></a>
-		            <a href="recap.html"><div class="navlink">Recap</div></a>
-		            <a href="fun-fact-friday.html"><div class="navlink">Fun Fact Friday</div></a>
-		            <a href="beastiary.html"><div class="navlink">Beastiary</div></a>
-		            <a href="regions.html"><div class="navlink">Regions</div></a>
-		        </div>
-		    </div>
-		<img class="ira" src="../assets/img/homepage/ira.webp">
+    <script src="/scripts/randomizer.js" type="text/javascript" defer></script>
+    <link rel="preload" href="/scripts/header.js" as="script">
 
-		<div class="all-content">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 150); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
+</head>
+<body>
+  <div class="clouds">
+    <div class="clouds-1"></div>
+    
+    <div class="logo">
+  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+</div>
+    <div class="clouds-2"></div>
+    <div class="clouds-3"></div>
+  </div>
+
+
+<transparent-navbar class=fade-block></transparent-navbar>
+	<div class="outer">
+    <nav-block class=fade-block></nav-block>
+
+		<div class="all-content fade-block">
 			<div class="main">
 				
 				<!-- Left Sidebar -->
-				<div class="sidebar-left">
+				<div class="sidebar-left fade-block">
 					<div class="log-title">
 						<h2>EdelPost</h2>
 						<a href="/feed.xml" class="rss-link"><img src="assets/img/homepage/tomestoneofsyndication.png"></a>
@@ -98,9 +101,11 @@
   
             
 				<!-- Main Content -->
-				<div class="content">
+				<div class="content fade-block">
+
+              
 				        	<!-- About box -->
-         <div class="box about">
+         <div class="box about fade-block">
                <h1>The Solstitheo Archives</h1>
                   <img id="hawktuah" src="assets/img/homepage/hawk_tuah.png" style="float: right; margin-top: -85px; margin-left: 12px; width: 200px;">
                   
@@ -146,26 +151,33 @@
                 <p>Please enjoy your stay!</p>
             </div>
 				  
+				  				    <!-- Search Bar -->
+              <div class="search-wrapper fade-block" style="margin-bottom: 20px;">
+                  <input type="text" id="search-input" placeholder="Search..." style="width: 100%; padding: 6px; border-radius: 8px; border: 3px solid var(--box-br); background: var(--box-bg)">
+                  <ul id="search-results" style="list-style: none; padding: 0; margin-top: 5px; background: var(--content-bg); position: absolute; width: 100%; z-index: 1; border-radius: 6px; border: 3px solid var(--box-bg);"></ul>
+                </div>
+                
+                
 				         	<!-- Navigation-->
 					<div class="homenav">
-						<a href="/quill-and-terms.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/quill-and-terms.png);"></div><span class="homenav-label">Quill & Terms</span></a>
+						<a href="/pages/quill-and-terms.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/quill-and-terms.png);"></div><span class="homenav-label">Quill & Terms</span></a>
 							<div class="chunk bg-primary"></div>
-						<a href="characters/index.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/characters.png);"></div><span class="homenav-label">Characters</span></a>
+						<a href="/pages/characters/index.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/characters.png);"></div><span class="homenav-label">Characters</span></a>
 							<div class="chunk bg-secondary"></div>
-						<a href="/recap.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/recap.png);"></div><span class="homenav-label">Recap</span></a>
+						<a href="/pages/recap.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/recap.png);"></div><span class="homenav-label">Recap</span></a>
 							<div class="chunk bg-primary"></div>
-						<a href="/fun-fact-friday.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/edelith-fun-fact-friday.png); background-size: 67px;"></div><span class="homenav-label">Edelith Fun Fact Friday</span></a>
+						<a href="/pages/fun-fact-friday.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/edelith-fun-fact-friday.png); background-size: 67px;"></div><span class="homenav-label">Edelith Fun Fact Friday</span></a>
 							<div class="chunk bg-secondary"></div>
-						<a href="beastiary.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/beastiary.png);"></div><span class="homenav-label">Beastiary</span></a>
+						<a href="/pages/beastiary.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/beastiary.png);"></div><span class="homenav-label">Beastiary</span></a>
 						  <div class="chunk bg-primary"></div>
-						<a href="regions.html"><div class="homenav-button" style="background-image: url(assets/img/homepage/mapbutton.png);"></div><span class="homenav-label">Regions</span></a>  
+						<a href="/pages/regions.html"><div class="homenav-button fade-block" style="background-image: url(assets/img/homepage/mapbutton.png);"></div><span class="homenav-label">Regions</span></a>  
 					 </div>
 					 
 					 
 					<!-- Three-Block Grid -->
            <div class="griddy">
 
-                <div class="recapping">
+                <div class="recapping fade-block">
                     <h2>Session Recap</h2>
                     <div class="box">
                     <div class="line-dot"></div>
@@ -190,7 +202,7 @@
                     </div>
                 </div>
                 
-               <div class="friday">
+               <div class="friday fade-block">
                 <h2>Edelith Fun Fact Friday</h2>
                 <div class="box">
                 <div class="line-dot"></div>
@@ -205,21 +217,21 @@
                 </div>
                 </div> 
 
-                <div class="almanac">
+                <div class="almanac fade-block">
                     <div class="box"> 
                         <a href="https://a.co/d/1AJUVRl" target="_blank"> 
                             <div class="solsitheian-almanac">
-                                <div class="book"></div>
+                                <div class="journal"></div>
                                 <div class="quilliam-bookmark"></div>
                             </div>
-                            <span class="book-link">Solstitheian almanac out now!</span>
+                            <span class="journal-link">Solstitheian almanac out now!</span>
                         </a>
                     </div>
                 </div>
            </div>
             </div>
 				<!-- Right Sidebar -->
-				<div class="side">
+				<div class="side fade-block">
 					<playlist-block></playlist-block>  
 					<br>
 					<div class ="side-box">
@@ -228,13 +240,14 @@
                         <h3>MVP of the Session</h3>
                     </div>
                     <div class="box featured">
-                        <img src="assets/img/placeholderavi.png">
+                        <img class=featured-img src="assets/img/placeholderavi.png">
                         <a href="characters/index.html" style="margin-top: 5px">Eight Nanako</a>
                         <p>For absolutly desimating the demons with a single spell.</p>
                     </div>
                   </div>
 					<br>
 					<div class="side-box">
+
                     <!-- Random Character Box -->
             <div class="box random">
                 <h2>Random Character</h2>
@@ -245,9 +258,173 @@
 				</div>
 			</div>
 		</div>
-		<footer-block></footer-block>
+		<img class="fade-block ira" src="../assets/img/homepage/ira.webp">
+
 	</div>
+			<footer-block class=fade-block></footer-block>
+<script>
+  let searchData = [];
+
+  fetch('/search-data.json')
+    .then(res => res.json())
+    .then(data => {
+      searchData = data;
+    });
+
+  const input = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('search-results');
+
+  input.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    resultsContainer.innerHTML = '';
+
+    if (query.length === 0) {
+      resultsContainer.style.display = 'none';
+      return;
+    }
+
+    const results = searchData.filter(item =>
+      item.title.toLowerCase().includes(query) ||
+      item.keywords.toLowerCase().includes(query)
+    ).slice(0, 5); // limit to 5 suggestions
+
+    resultsContainer.style.display = results.length > 0 ? 'block' : 'none';
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '<li style="padding: 6px; color: #ccc;">No results</li>';
+    } else {
+      results.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${item.url}" style="display: block; padding: 6px; z-index: 99; color: var(--emphasized-text); text-decoration: none;">${item.title}</a>`;
+        li.addEventListener('mouseover', () => li.style.background = '#444');
+        li.addEventListener('mouseout', () => li.style.background = 'none');
+        resultsContainer.appendChild(li);
+      });
+    }
+  });
+
+  // Optional: Hide results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!document.querySelector('.box').contains(e.target)) {
+      resultsContainer.style.display = 'none';
+    }
+  });
+  window.addEventListener('DOMContentLoaded', () => {
+  resultsContainer.style.display = 'none';
+});
+
+</script>
+
+	
 <style>
+.all-content {
+  margin-top: 350px;
+}
+
+.ira {
+  top: -131px;
+}
+/* Search Input */
+#search-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--emphasized-text);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+#search-input:focus {
+  border-color: var(--content-bg);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--footer-bg);
+}
+
+/* Wrapper for search container */
+.search-wrapper {
+  position: relative;
+  z-index: 10000;
+}
+
+/* Results Dropdown */
+#search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  margin-top: 6px;
+  padding: 4px 0;
+  z-index: 10001;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.7),
+    0 0 18px rgba(58, 50, 40, 0.3);
+}
+
+/* Each list item */
+#search-results li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;   /* 🧨 FORCE remove gray */
+}
+
+/* Remove gray hover from li completely */
+#search-results li:hover {
+  background: transparent !important;
+}
+
+/* Actual link styling */
+#search-results li a {
+  display: block;
+  padding: 10px 14px;
+  color: var(--emphasized-text);
+  text-decoration: none;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Aesthetic hover style */
+#search-results li a:hover {
+  background: rgba(136, 250, 255, 0.1);
+  color: #ffffff;
+  transform: translateX(6px);
+  box-shadow: 0 0 6px rgba(136, 250, 255, 0.2), 0 0 12px rgba(136, 250, 255, 0.1);
+}
+
+#search-results li:last-child a {
+  border-bottom: none;
+}
+
+/* Ensure no bleed-through */
+.box {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional glow animation */
+@keyframes glowfade {
+  0%   { box-shadow: 0 0 4px #2a211b; }
+  50%  { box-shadow: 0 0 10px #2a211b; }
+  100% { box-shadow: 0 0 4px #2a211b; }
+}
+
+
+
 .random h2 {
     font-size: 1.1rem;
     font-weight: 400;
@@ -273,7 +450,6 @@
 .random center {
     margin-top: 3px;
 }  
-</style>
-
+</style>  
 </body>
 </html>
