@@ -13,41 +13,46 @@
     <link rel="stylesheet" href="../css/home.css">
     <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
     <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <script src="/scripts/header.js" type="text/javascript" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 150); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
 </head>
 <body>
+  <div class="clouds">
+    <div class="clouds-1"></div>
+    
+    <div class="logo">
+  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+</div>
+    <div class="clouds-2"></div>
+    <div class="clouds-3"></div>
+  </div>
+
+
+<transparent-navbar class=fade-block></transparent-navbar>
     <div class="outer">
-        <div class="header">
-            <div class="site-title">
-                <a href="home.html">S O L S T I T H E O</a>
-                <div class="subtitle">Worldbuilding site ! !</div>
-            </div>
-        </div>
-        <marquee class="updates1">
-            <div class="update1">7-3-2025 // Glossary updated</div>
-            <div class="update1">7-3-2025 // Added new terms</div>
-        </marquee>
-        <div class="navbar">
-            <div class="navigation">
-                <a href="/"><div class="navlink">Home</div></a>
-                <a href="quill-and-terms.html"><div class="navlink">Quill&Terms</div></a>
-                <a href="characters/index.html"><div class="navlink">Characters</div></a>
-                <a href="recap.html"><div class="navlink">Recap</div></a>
-                <a href="fun-fact-friday.html"><div class="navlink">Fun Fact Friday</div></a>
-                <a href="beastiary.html"><div class="navlink">Beastiary</div></a>
-                <a href="regions.html"><div class="navlink">Regions</div></a>
-            </div>
-        </div>
-            
-        <div class="all-content">
+    
+        <div class="all-content fade-block">
             <div class="main">
                 <!-- Left Sidebar -->
-                <div class="sidebar-left">
-                    <div class="log-title">
+                <div class="sidebar-left fade-block">
+                    <div class="log-title fade-block">
                         <h2>EdelPost</h2>
                         <a href="/feed.xml" class="rss-link"><img src="/assets/img/homepage/tomestoneofsyndication.png"></a>
                         <img src="/assets/img/homepage/mogmail.gif" class="edelpost">
                     </div>
-                    <div class="box updates">
+                    <div class="box updates fade-block">
                         <script src="//rss.bloople.net/?url=https%3A%2F%2Fsolstitheo.neocities.org%2Ffeed.xml&showtitle=false&type=js"></script>
                     </div>
         
@@ -67,11 +72,11 @@
                 </div>
                 
                 <!-- Main Content -->
-                <div class="content">
-                  <div class="glossary-header">
+                <div class="content fade-block">
+                  <div class="glossary-header fade-block">
                     <div class="glossary-full">
                         <h1>Glossary</h1>
-                        <div class="separator">
+                        <div class="separator fade-block">
                            <div class="line-dot"></div>
                             <div class="chunk bg-primary" style="margin-left: 1px;"></div>
                             <img src="/assets/img/homepage/Biblio_brown.png">
@@ -80,7 +85,7 @@
                         </div>
                     </div>
                 
-                    <div class="alphabet-nav">
+                    <div class="alphabet-nav fade-block">
                         <a href="#a">A</a>
                         <a href="#b">B</a>
                         <a href="#c">C</a>
@@ -111,7 +116,7 @@
                 </div>
 
                     
-                    <div class="glossary-content">
+                    <div class="glossary-content fade-block">
                         <h3 id="a">A</h3>
                         <hr>
                         <ul>
@@ -239,14 +244,14 @@
                 </div>
                 
                 <!-- Right Sidebar -->
-                <div class="side">
-                    <div class="side-box">
+                <div class="side fade-block">
+                    <div class="side-box fade-block">
                         <b>Glossary Notes</b><br>
                         <p>This glossary contains all key terms from the Solstitheo worldbuilding project.</p>
                         <p>Last updated: 7/7/2025</p>
                     </div>
                     <br>
-                    <div class="side-box">
+                    <div class="side-box fade-block">
                          <div class="blurb-tags">
                           <div class="tag top-button">
                             <a href="#top">
@@ -259,13 +264,14 @@
                 </div>
             </div>
         </div>
+         <img class="ira fade-block" src="../assets/img/homepage/ira.webp">    
         <footer-block></footer-block>
     </div>
 
     <style>
     .glossary-header {
       position: sticky;
-      top: 0;
+      top: 70px;
       z-index: 10;
       background-color: var(--box-bg);
       border: 3px solid var(--box-br);
@@ -321,6 +327,7 @@
     }
 
     .glossary-header.squished {
+      top: 70px;
       padding: 8px 12px;
       background-color: var(--content-bg);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -346,7 +353,7 @@
       }
       
       .glossary-content h3 {
-        scroll-margin-top: 130px; /* adjust this based on your sticky header height */
+        scroll-margin-top: 200px; /* adjust this based on your sticky header height */
         color: var(--emphasized-text);
         font-size: 1.5em;
         margin-top: 30px;
