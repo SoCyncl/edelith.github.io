@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/assets/img/ico/red.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyncl Vault</title>
+    <meta property="og:url" content="https://cyncl.nekoweb.org">    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cyncl Vault" />
+    <meta property="og:description" content="Online portfolio of @Cyncl.Art" />  
+    <meta property="og:image" content="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/book.css">
+    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts/playlist.js" type="text/javascript" defer></script>
+    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <script src="/scripts/randomizer.js" type="text/javascript" defer></script>
+    <script src="/scripts/header.js" type="text/javascript" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 150); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
+</head>
+<body>
+<side-bar-nav class=fade-block></side-bar-nav>
+	<div class="outer fading-content">
+    <nav-block class=fade-block></nav-block>
+
+		<div class="all-content fade-block">
+		  
+		  <!-- Main-->
+			<div class="main">
+			  
+			  
+			<!-- Left Sidebar -->
+				<div class="sidebar-left fade-block">
+					<div class="log-title">
+						<h2>EdelPost</h2>
+						<a href="/feed.xml" class="rss-link"><img src="/assets/img/homepage/tomestoneofsyndication.png"></a>
+						<img src="/assets/img/homepage/mogmail.gif" class="edelpost">
+					</div>
+					<div class="box updates">
+						<script src="//rss.bloople.net/?url=https%3A%2F%2Fsolstitheo.neocities.org%2Ffeed.xml&showtitle=false&type=js"></script>
+					</div>
+		
+					<div class="talksprite">
+					  <div class="talkin">-------</div>
+					  <div class="biblio"></div>
+					
+					  <img src="/assets/img/homepage/booglenose.png" class="quilliam" value="quilliam" onclick="squeak();">
+					
+					
+					<script>
+					  const korokSounds = [
+						"https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-yahaha.mp3",
+						"https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-question1.mp3",
+						"https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-hurt1.mp3",
+						"https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-hurt2.mp3",
+						"https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-question2.mp3",
+
+					  ];
+					
+					  function squeak() {
+						const randomIndex = Math.floor(Math.random() * korokSounds.length);
+						const audio = new Audio(korokSounds[randomIndex]);
+						audio.volume = 0.45;
+						audio.play();
+					  }
+					</script>
+		
+					  
+					</div>
+		
+					<div class="status">
+						<div id="statuscafe">
+							<div id="statuscafe-username"></div>
+							<div id="statuscafe-content"></div>
+						</div><script src="https://status.cafe/current-status.js?name=cyncl" defer></script>
+					</div>
+				
+			</div>						
+  
+            
+				<!-- Main Content -->
+				<div class="content fade-block">
+            <div class="box about fade-block">
+               <h1>Edelith Fun Facts!!</h1>
+                <p><b class="text-primary">The Library </b>features lore drops from Edelith fun fact fridays in a book fashion, because i thought it was cool.</p>
+                <p>Look around, they update weekly!</p>
+            </div>		
+            
+            
+            <div class="container">
+                <div class="preview" style="cursor: pointer;" data-book="almanac">
+                      <div class="preview-cover pr-cover1">
+                        <div class="effect"></div>
+                        <div class="light"></div>
+                      </div>
+                      <div class="preview-inside"></div>
+                      <div class="title">
+                        <p class="title-label">Solstitheian Logbook</p>
+                      </div>
+                    </div>
+                <div class="preview" style="cursor: pointer;" data-book="angel">
+                    <div class="preview-cover pr-cover2">
+                        <div class="effect"></div>
+                        <div class="light"></div>
+                    </div>
+                    <div class="preview-inside"></div>
+                    <div class="title">
+                        <p class="title-label">Witnesses of an Angel</p>
+                    </div>
+                </div>
+                <div class="preview" style="cursor: pointer;" data-book="travels">
+                    <div class="preview-cover pr-cover3">
+                        <div class="effect"></div>
+                        <div class="light"></div>
+                    </div>
+                    <div class="preview-inside"></div>
+                    <div class="title">
+                        <p class="title-label">Travels of a Post-Wake Edelith</p>
+                    </div>
+                </div>
+            </div>
+    			</div>
+    	
+         
+      <!-- Right Sidebar -->
+				<div class="side fade-block">
+					<playlist-block></playlist-block>  
+					<br>
+					<div class ="side-box">
+             <!-- MVP of the Session Box -->
+                    <div class="featured-title">
+                        <h3>MVP of the Session</h3>
+                    </div>
+                    <div class="box featured">
+                        <img class=featured-img src="/assets/img/placeholderavi.png">
+                        <a href="/characters/index.html" style="margin-top: 5px">Eight Nanako</a>
+                        <p>For absolutly desimating the demons with a single spell.</p>
+                    </div>
+                  </div>
+					<br>
+					<div class="side-box">
+
+                    <!-- Random Character Box -->
+            <div class="box random">
+                <h2>Random Character</h2>
+                <div id="randomizer"></div>
+                <button id="dice" onclick="randomCharacter()"><i class="fa-solid fa-dice"></i></button>
+            </div>
+					</div>
+				</div>     
+         
+
+       </div>
+   </div>  
+   
+ 	<img class="fade-block ira" src="/assets/img/homepage/ira.webp">
+ 	<footer-block class=fade-block></footer-block>
+</div>
+
+
+
+    <div id="book-modal" style="display: none;">
+        <div class="book-container"></div>
+    </div>
+
+<div id="blur-overlay"></div>
+
+<script>
+function handleBlurRemoval() {
+  const overlay = document.getElementById('blur-overlay');
+  const content = document.querySelectorAll('.page-transition');
+  
+  if (overlay && overlay.classList.contains('active')) {
+    overlay.classList.remove('active');
+    overlay.classList.add('deactivate');
+    
+    // Fade content back in
+    content.forEach(el => {
+      el.classList.remove('fade-out');
+    });
+    
+    setTimeout(() => {
+      overlay.classList.remove('deactivate');
+    }, 650);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Add page-transition class to main outer content
+  const elementsToFade = document.querySelectorAll('.outer');
+  elementsToFade.forEach(el => {
+    el.classList.add('page-transition');
+  });
+
+  // Handle initial load
+  handleBlurRemoval();
+  
+  // Handle blur + redirect on .preview click
+  document.querySelectorAll('.preview').forEach(preview => {
+    preview.addEventListener('click', function(e) {
+      e.preventDefault();
+      const book = this.getAttribute('data-book');
+      if (!book) return;
+      
+      const targetHref = `/book/${book}.html`;
+      const overlay = document.getElementById('blur-overlay');
+      const content = document.querySelectorAll('.page-transition');
+      
+      if (overlay) {
+        // Fade out content
+        content.forEach(el => {
+          el.classList.add('fade-out');
+        });
+        
+        // Apply blur
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          window.location.href = targetHref;
+        }, 650); // match CSS transition duration
+      }
+    });
+  });
+});
+
+// Handle back/forward navigation
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    handleBlurRemoval();
+  }
+});
+
+// Initial fade-in animation for .fade-block
+window.addEventListener("load", () => {
+  const blocks = document.querySelectorAll(".fade-block");
+  
+  blocks.forEach((block, i) => {
+    setTimeout(() => {
+      block.classList.add("visible");
+    }, i * 150); // stagger 150ms between each block
+  });
+});
+</script>
+
+
+
+<style>
+/*---------------------------------content-------------------------- */
+.page-transition {
+  transition: opacity 0.6s ease !important;
+  opacity: 1 !important;
+}
+
+.page-transition.fade-out {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.fading-content {
+  transition: opacity 0.6s ease !important;
+  opacity: 1 !important;
+}
+
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+    .ira {
+      top: -172px;
+    }
+    
+#blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0px);
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  pointer-events: none;
+  transition: backdrop-filter 0.6s ease, background-color 0.6s ease;
+  opacity: 0;
+  
+}
+
+#blur-overlay.active {
+  pointer-events: all;
+  backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.6);
+  opacity: 1;
+}
+
+#blur-overlay.deactivate {
+  backdrop-filter: blur(0px);
+  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/*---------------------------------little preview book--------------------------- */
+
+    
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    
+    .preview {
+      width: 225px;
+      height: 350px;
+      position:relative;
+      text-align: center;
+      margin:2.5%;
+    }
+    
+    .preview-cover {
+      position: absolute;
+      z-index:1;
+      width: 100%;
+      height: 100%;
+      transform-origin: 0 50%;
+      -webkit-transform-origin: 0 50%;
+      background: #111;
+      background-size:cover;
+      border-radius: 3px;
+      box-shadow: 
+        inset 4px 1px 3px #ffffff60,
+        inset 0 -1px 2px #00000080;
+      transition: all .5s ease-in-out;
+      -webkit-transition: all .5s ease-in-out;
+    }
+    
+    .pr-cover1 {
+      background: url('/assets/book/almanac/front-cover.jpg');
+    }
+    
+    .pr-cover2 {
+      background: url('/assets/book/angel/angel-cover.png');
+    }
+    
+    .pr-cover3 {
+      background: url('/assets/book/travels/post-wake-cover.png');
+    }
+    
+    .preview .preview-cover {
+      background-size: 100% 100%;
+    }
+    
+    
+    .effect {
+      width: 20px;
+      height: 100%;
+      margin-left: 10px;
+      border-left: 2px solid #00000010;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+      transition: all .5s ease;
+    }
+    
+    .light {
+      width: 90%;
+      height: 100%;
+      position: absolute;
+      border-radius: 3px; 
+      background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
+      top: 0;
+      right:0;
+      opacity: .1;
+      transition: all .5s ease;
+      -webkit-transition: all .5s ease;
+    }
+    
+    .preview:hover { cursor:pointer; }
+    
+    .preview:hover .preview-cover {
+      transform: perspective(2000px) rotateY(-30deg);
+      -webkit-transform: perspective(2000px) rotateY(-30deg);
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      box-shadow: 
+        inset 4px 1px 3px #ffffff60,
+        inset 0 -1px 2px #00000080,
+        10px 0px 10px -5px #00000030
+    }
+    
+    .preview:hover .effect {
+      width: 40px;
+     /** margin-left:13px;
+      opacity: 0.5; **/
+    }
+    
+    .preview:hover .light {
+      opacity: 1;
+      width: 70%;
+    }
+    
+    .preview-inside{
+      width: calc(100% - 2px);
+      height:96%;
+      position:relative;
+      top: 2%;
+      border: 1px solid grey;
+      border-radius:3px;
+      background: white;
+      box-shadow: 
+      10px 40px 40px -10px #00000030,
+      inset -2px 0 0 grey,
+      inset -3px 0 0 #dbdbdb,
+      inset -4px 0 0 white,
+      inset -5px 0 0 #dbdbdb,
+      inset -6px 0 0 white,
+      inset -7px 0 0 #dbdbdb,
+      inset -8px 0 0 white,
+      inset -9px 0 0 #dbdbdb;
+    }
+    
+    .title {
+        min-height: 40px; /* Ensures space for the title-label */
+        position: relative; /* Needed for absolute child positioning */
+    }
+    
+    .title-label {
+        position: absolute; /* Changed back to absolute for precise placement */
+        z-index: 10;
+        font-size: 22px;
+        font-variant-caps: small-caps;
+        font-family: 'Nanum Pen Script', cursive;
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        font-weight: bold;
+        color: white;
+        width: 100%;
+        text-align: center;
+        top: 22px; /* Adjust this to position above the book */
+        left: 0;
+        margin: 0;
+        line-height: 1.3;
+        box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+        background-color: var(--box-bg);
+        border-radius: 3px;
+        padding: 1px 5px;
+        pointer-events: none; /* Prevents hover interference */
+    }
+    
+    .preview:hover .title-label {
+        opacity: 1;
+        transform: rotate(3deg) scale(1.05); /* Combined effects */
+    }
+        
+    
+    .btn {
+      position:relative;
+      background: #aaa;
+      color: #fff;
+      font-weight: bold;
+      padding: 15px 30px;
+      font-size: 16px;
+      letter-spacing:1px;
+      border-radius: 50px;
+      bottom: -50px;
+      display: inline-block;
+      opacity: 0;
+      transition: all 1s ease-in-out;
+      -webkit-transition: all 1s ease-in-out;
+    }
+    
+    .preview:hover .btn, .preview:hover .title {
+      opacity: 1;
+    }
+    
+    /*---------------------------------Modal-------------------------- */      
+    
+    
+    body.modal-open {
+    position: fixed;
+    width: 100%;
+    
+    }
+
+    #book-modal {
+      opacity: 1;
+      visibility: visible;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      display: flex; /* Always keep flex, hide with opacity/visibility */
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    
+    #book-modal.show {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    
+    #book-modal .scene {
+      display: flex;
+      pointer-events: auto;
+    }
+    
+    #book-modal .scene > * {
+      pointer-events: auto;
+    }
+    
+            .book-container {
+            background: invisible;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+    </style>
+</body>
+</html>
