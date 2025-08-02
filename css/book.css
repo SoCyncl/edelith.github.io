@@ -1,0 +1,461 @@
+/* RESET CSS */
+
+
+/* VARIABLES */
+:root {
+    --dark-color: rgb(2, 4, 8);
+    --dark-hover: rgba(255, 255, 255, 0.1);
+    --light-color: rgb(245, 245, 245);
+    --light-hover: rgba(0, 0, 0, 0.1);
+}
+
+/* GENERAL */
+
+
+.chapter-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    color: #5c2c0d;
+    text-align: center;
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+}
+
+.section-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.4rem;
+    margin: 1.5rem 0 0.5rem;
+    color: #5c2c0d;
+    font-weight: 600;
+}
+
+/* Page numbers */
+.page-number {
+    position: absolute;
+    bottom: 30px;
+    font-size: 0.9rem;
+    color: #5c2c0d;
+}
+
+.page-number.left {
+    left: 70px;
+}
+
+.page-number.right {
+    right: 70px;
+}
+
+/* Decorative elements */
+.drop-cap {
+    float: left;
+    font-family: 'IM Fell English', serif;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    margin: 0.2rem 0.5rem 0 0;
+    color: #5c2c0d;
+}
+
+.decorative-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c9a66b, transparent);
+    margin: 1.5rem 0;
+}
+
+/* Date and location styling */
+.entry-date {
+    font-style: italic;
+    text-align: right;
+    margin-bottom: 1rem;
+    color: #7a5c38;
+}
+
+.entry-location {
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+    color: #7a5c38;
+}
+
+/* Illuminated initials (for special paragraphs) */
+.illuminated {
+    background-color: #eee8c8;
+    border: 1px solid #c9a66b;
+    padding: 15px;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.illuminated::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid #c9a66b;
+    pointer-events: none;
+}
+
+/* Front matter styling (title page, etc) */
+.title-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.book-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #5c2c0d;
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+.book-subtitle {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: #7a5c38;
+    font-style: italic;
+}
+
+.book-author {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.3rem;
+    margin-top: 3rem;
+    color: #5c2c0d;
+}
+
+.publishing-info {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #7a5c38;
+}
+
+/* Table of contents styling */
+.toc {
+    padding: 60px;
+}
+
+.toc-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #5c2c0d;
+}
+
+.toc-entry {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dotted #c9a66b;
+}
+
+.toc-entry a {
+    color: #5c2c0d;
+    text-decoration: none;
+}
+
+.toc-entry a:hover {
+    color: #8b4513;
+    text-decoration: underline;
+}
+
+
+   .chapter-title2 {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    color: #5c2c0d;
+    text-align: center;
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+    margin: -36px 0 -1rem; /* Negative top margin */
+    }
+    
+/*---------------------------------Modal-------------------------- */      
+    
+    
+    body.modal-open {
+    position: fixed;
+    width: 100%;
+    
+    }
+
+    #book-modal {
+      opacity: 1;
+      visibility: visible;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      display: flex; /* Always keep flex, hide with opacity/visibility */
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    
+    #book-modal.show {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    
+    #book-modal .scene {
+      display: flex;
+      pointer-events: auto;
+    }
+    
+    #book-modal .scene > * {
+      pointer-events: auto;
+    }
+
+/*---------------------------------Book cover-------------------------- */           
+/* Container for positioning */
+.image-container {
+  position: absolute;
+    top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensures shadows don't bleed outside */
+  box-shadow: 
+    inset  4px  1px 3px #ffffff60, 
+    inset  0   -1px 2px #00000080;
+}
+
+.full-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: stretch;
+  top: 0;
+  left: 0;
+}
+
+.effect2 {
+  width: 32px;
+  height: 100%;
+  position: absolute;
+  left: 36px;
+  top: 0;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+  transition: all 0.5s ease;
+  z-index: 3; /* Ensure it appears above the image */
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.effect3 {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 50%;
+  -webkit-transform-origin: 0 50%;
+
+  box-shadow: inset 7px 3px 11px #ffffff60, inset 0 -1px 2px #00000080;
+  transition: all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+}
+
+.light2 {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  border-radius: 3px; 
+  background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
+  top: 0;
+  right: 0;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+  z-index: 2; /* Between image and effect2 */
+  pointer-events: none;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #0066cc;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+.progress-bar:hover {
+  background: #004d99;
+}
+/*---------------------------------back-cover-------------------------- */   
+.effect-cover1 {
+  width: 32px;
+  height: 100%;
+  position: absolute;
+  right: 36px; /* Flipped from left to right */
+  top: 0;
+  background-image: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+  transition: all 0.5s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.effect-cover2 {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  transform-origin: 100% 50%; /* Flip pivot to the right edge */
+  -webkit-transform-origin: 100% 50%;
+
+  box-shadow: inset -7px 3px 11px #ffffff60, inset 0 -1px 2px #00000080; /* Flip X shadow */
+  transition: all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+}
+
+.light-cover {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  border-radius: 3px;
+  background-image: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
+  top: 0;
+  left: 0; /* Flipped from right */
+  opacity: 0.3;
+  transition: all 0.5s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/*---------------------------------Big Book-------------------------- */    
+
+body {
+  background: black;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  width: 45%;
+  height: 90%;
+  margin: 5% auto;
+  perspective: 1000px;
+  position: relative;
+  left: 0;
+  transition: left 0.5s ease;
+}
+.scene.opened {
+  left: 23%;
+}
+.scene.last-page {
+  left: 46%;
+}
+
+@media (max-width: 1200px) {
+  .scene {
+    width: 60%;
+    margin: 10% auto;
+  }
+  .scene.opened {
+    left: 15%;
+  }
+  .scene.last-page {
+    left: 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .scene {
+    width: 80%;
+    margin: 10% auto;
+  }
+  .scene.opened,
+  .scene.last-page {
+    left: 0;
+  }
+}
+
+.book {
+  position: relative;
+  width: 90%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.page {
+  cursor: pointer;
+  position: absolute;
+  color: black;
+  width: 100%;
+  height: 100%;
+    transition: transform 300ms;
+  transform: translateZ(-1px);
+  transform-style: preserve-3d;  
+  transform-origin: left center;
+}
+
+
+
+.front,
+.back {
+  position: absolute;
+  
+  width: 100%;
+  height: 100%;
+  padding: 10% 5% 5%;
+  box-sizing: border-box;
+  
+  backface-visibility: hidden;
+}
+.back {
+  transform: rotateY(180deg);
+  
+background: #FDFCE5;
+background: linear-gradient(90deg, rgba(253, 252, 229, 1) 92%, rgba(231, 229, 205, 1) 97%, rgba(193, 189, 164, 1) 99%, rgba(159, 153, 126, 1) 100%);
+}
+
+.front {
+background: #FDFCE5;
+background: linear-gradient(270deg, rgba(253, 252, 229, 1) 92%, rgba(231, 229, 205, 1) 97%, rgba(193, 189, 164, 1) 99%, rgba(159, 153, 126, 1) 100%);
+}
+.page.active {
+  z-index: 1;
+  transform: translateZ(0);
+}
+.page.flipped {
+  transform: translateZ(0) rotateY(-180deg);
+}
+.page.flipped:last-of-type {
+  z-index: 1;
+}
+
+.qr {
+  margin: 50px auto;
+  max-width: 50%;
+}
+.qr img {
+  display: block;
+}
