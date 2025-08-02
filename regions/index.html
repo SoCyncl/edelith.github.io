@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="../assets/img/boogleicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regions • Solstitheo</title>
+    <meta property="og:url" content="/index.html">    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Regions • Soltitheo" /> 
+    <meta property="og:description" content="All your favorite regions from the Solstitheo Campaign!" /> 
+    <meta property="og:image" content="../assets/img/faviconpng.png">
+    <link rel="stylesheet" id="themeStylesheetLink" href="../css/themes/default.css">
+    <link rel="stylesheet" href="../css/homestyle.css">
+    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
+    <script src="/scripts/navbar.js" type="text/javascript" defer></script>
+    <script src="/scripts/juicebar.js" type="text/javascript" defer></script>
+    <script src="/scripts/footer.js" type="text/javascript" defer></script>
+    <script>
+        function toggleClass() {
+           let divElement = document.getElementById('sidebar');
+           divElement.classList.toggle("mobile-active");
+
+           const slideOut = document.getElementById("slideOut")
+           if(slideOut.classList.contains("fa-caret-right")){
+                slideOut.classList.remove("fa-caret-right");
+                slideOut.classList.add("fa-caret-left");
+            }
+            else{
+                slideOut.classList.add("fa-caret-right");
+                slideOut.classList.remove("fa-caret-left");
+            }
+        }
+     </script>
+</head>
+<body>
+    
+<script>
+/*
+      <>=======() 
+      (/\___   /|\\          ()==========<>_
+            \_/ | \\        //|\   ______/ \)
+              \_|  \\      // | \_/
+                \|\/|\_   //  /\/
+                 (oo)\ \_//  /
+                //_/\_\/ /  |
+               @@/  |=\  \  |
+                    \_=\_ \ |
+                      \==\ \|\_ snd
+                   __(\===\(  )\
+                  (((~) __(_/   |
+                       (((~) \  /
+                       ______/ /
+                       '------'
+*/
+</script>
+
+<div class="wrapper">
+    <nav-block></nav-block>
+    <div class="header">
+    </div>
+    <juice-block></juice-block>
+    <div class="wrapper-2">
+        <div class="main">
+            <div class="main">
+              <h2 class="section-title">Regions of Edelith</h2> <!-- Moved here -->
+               <div class="regions">
+
+                              
+                      <a href="https://solstitheo.neocities.org/regions/edelith/" class="region-link">
+                          <div class="region-box" style="background-image: url('/edelith/img/backdrop.png');">
+                              <img class="region-logo" src="/edelith/img/logo.png" alt="Edelith Proper">
+                              <div class="region-name">Edelith Proper</div>
+                          </div>
+                      </a>
+                  
+                      <a href="https://solstitheo.neocities.org/regions/tarpaul-pit/" class="region-link">
+                          <div class="region-box" style="background-image: url('/tarpaul-pit/img/backdrop.png');">
+                              <img class="region-logo" src="/tarpaul-pit/img/logo.png" alt="Tarpaul Pit">
+                              <div class="region-name">Tarpaul Pit</div>
+                          </div>
+                      </a>
+                      
+                  
+                      <a href="https://solstitheo.neocities.org/regions/new-arvegum/" class="region-link">
+                          <div class="region-box" style="background-image: url('/new-arvegum/img/backdrop.png');">
+                              <img class="region-logo" src="/new-arvegum/img/logo.png" alt="New Arvegum">
+                              <div class="region-name">New Arvegum</div>
+                          </div>
+                      </a>
+                  
+                      <a href="https://solstitheo.neocities.org/regions/macabrell/" class="region-link">
+                          <div class="region-box" style="background-image: url('/macabrell/img/backdrop.png');">
+                              <img class="region-logo" src="/macabrell/img/logo.png" alt="Macabrell">
+                              <div class="region-name">Macabrell</div>
+                          </div>
+                      </a>
+                  
+                      <a href="https://solstitheo.neocities.org/regions/adamo/" class="region-link">
+                          <div class="region-box" style="background-image: url('/adamo/img/backdrop.png');">
+                              <img class="region-logo" src="/adamo/img/logo.png" alt="Adamo's Cross">
+                              <div class="region-name">Adamo's Cross</div>
+                          </div>
+                      </a>
+                      
+                      <a href="https://solstitheo.neocities.org/regions/obsidian/" class="region-link">
+                          <div class="region-box" style="background-image: url('/obsidian/img/backdrop.png');">
+                              <img class="region-logo" src="/obsidian/img/logo.png" alt="Obsidian Crystalis">
+                              <div class="region-name">Obsidian Crystalis</div>
+                          </div>
+                      </a>
+                  
+                      <!-- Room for more regions -->
+                      <!--
+                      <div class="region-box" style="background-image: url('images/yourimage.png');">
+                          <img class="region-logo" src="logos/yourlogo.png" alt="New Region">
+                          <div class="region-name">New Region</div>
+                      </div>
+                      -->
+                  
+                  </div>
+
+
+            <!-- <img src="worlds/dreamscapes/img/raceimg/nautplaceholder.png" style="width: 350px;"> -->
+
+        </div>
+            
+
+        </div>
+
+
+    </div>
+    <br>
+    <footer-block></footer-block>
+</div>
+
+</body>
+
+</html>
+
+<style>
+
+.main {
+    width: 100%;
+    margin-top: 15px;
+    margin-left: 0px;
+}
+
+.regions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+    gap: 20px; 
+    padding-top: 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2em;
+    color: #f0e6d2;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+    
+}
+.region-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+
+.region-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    
+}
+
+.region-box {
+    position: relative;
+    width: 280px;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #111;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.region-box:hover {
+    transform: scale(1.03);
+}
+
+.region-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+}
+
+.region-box:hover .region-logo {
+    opacity: 0;
+}
+
+.region-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(15, 15, 15, 0.6);
+    color: #f0e6d2;
+    font-size: 1.1em;
+    text-align: center;
+    padding: 8px;
+    font-family: 'Georgia', serif;
+}
+
+.fotm .box {
+    width: 350px;
+}
+
+@media (max-width: 910px) { 
+
+.main > .box {
+    margin-top: -15px;
+}
+
+.main {
+    padding: 0px;
+    width: auto;
+}
+
+
+}
+
+</style>

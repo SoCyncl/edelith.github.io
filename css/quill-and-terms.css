@@ -1,0 +1,445 @@
+
+
+   /* .juice, .navbar, .footer {
+        background-image: url(/worlds/dreamscapes/img/stardustbar.png)!important;
+    } */
+
+    .navbar, .juice {
+        background-position: 0px !important;
+    }
+
+    .header {
+        height: 250px!important;
+        overflow: hidden;
+        background: var(--header-img)!important; 
+        background-size: 200px, cover;
+        background-repeat: no-repeat, repeat;
+        background-position: center, center;
+    }
+
+    .navlink {
+        margin-left: 8px!important;
+    }
+
+    .main {
+        margin: auto;
+        width: 97%;
+        min-height: 700px;
+        padding: 20px
+    }
+
+    .navbar {
+        z-index: 999;
+        background: var(--nav-bg); 
+        text-align: left;
+        color: var(--default-text); 
+        font-size: 1.2em!important;
+        padding: 2px 10px!important;
+        display: flex;
+        justify-content: space-between;
+        font-family: "MS PGothic", sans-serif;
+    }
+
+    .navbar a {
+font-weight: normal!important;
+    }
+    
+    .main > .box {
+        background-color: transparent;
+        margin-top: -30px;
+    }
+    
+    .world-select, .misc-select {
+        background-color: transparent;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin: auto;
+    }
+    
+    .blurb-tags {
+        display: flex;
+    }
+    
+    .tag {
+        background-color: var(--box-bg);
+        margin-right: 10px;
+        padding: 6px;
+        text-transform: uppercase;
+    
+    }
+    
+    .world-select img, .world-select button, .misc-select img, .misc-select button {
+        all: unset;
+        text-transform: uppercase;
+        font-weight: 200;
+        font-size: 20px;
+        border-radius: 0px;
+        position: relative;
+        margin: 1px;
+        padding: 7px;
+        top: 0;
+        transition: ease 0.4s;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
+ .world-select img, .misc-select img {
+    width: 200px;
+    min-height: 200px;
+ }
+
+ .misc-select {
+    margin-top: -25px;
+ }
+
+    .world-select button, .misc-select button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .world-select img:hover, .misc-select img:hover {
+        cursor: var(--cursor-hover);
+        top: -7px;
+    }
+    
+    .world-select a, .misc-select a {
+        color: var(--default-text);
+    }
+    
+    .world-select a:hover, .misc-select a:hover {
+        color: var(--primary);
+    }
+    
+    .world-blurb {
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .justfuckingworkdawg {
+        display: flex;
+    }
+    
+    .tabcontent {
+        display: none;
+        height: 390px;
+    }
+    
+    .blurb-header h1, .overview-header h1 {
+        font-family: "Open Sans", "Droid Sans", "Calibri", sans-serif;
+        font-size: 2.3em;
+        text-transform: uppercase;
+        line-height: 30px;
+    }
+    
+    .overview-header > .separator {
+        width: 28%;
+        margin-top: 6px;
+    }
+    
+.overview-header > .separator > .line-dot {
+    width: 31%;
+}
+
+.blurb-header span {
+    font-style: italic;
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+
+
+.blurb-content > .line-dot {
+    width: 100%;
+    margin-bottom: 3px;
+    margin-top: -8px;
+}
+
+.blurb hr {
+    margin-top: 10px;
+}
+
+.overview hr, .blurb hr {
+    border-style: solid none none none;
+    border-width: 2px;
+    width: 100%;
+    border-color: var(--primary);
+    height: 2px;
+    opacity: 0.25;
+}
+
+.overview {
+    display: flex;
+    flex-direction: column;
+}
+
+    .line-dot {
+        border-style: dotted none none none;
+        border-width: 5px;
+        width: 43%;
+        border-color: var(--primary);
+        height: 2px;
+        opacity: 0.25;
+    }
+    
+    .blurb-image {
+        width: 225px;
+        height: 300px;
+        position: relative;
+        top: -302px;
+        left: 952px;
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+    }
+
+    .overview-pictures {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .overview-image {
+        width: 395px;
+        height: 80px;   
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+    }
+    
+    .blurb-header, .overview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .active {
+        display: block;
+    }
+    
+    .overview-content {
+        margin-top: -19px;
+        display: flex;
+    }
+
+    .overview-blurb {
+        width: 70%;
+        padding-right: 13px;
+    }
+
+    .overview-notes {
+        width: 30%;
+    }
+
+    .overview-notes > .line-dot {
+        width: 98%;
+        border-color: var(--wrapper-bg);
+        opacity: 1;
+        margin: auto;
+        margin-top: 7px;
+    }
+
+    .overview-notes > .fa-thumbtack {
+        color: var(--primary);
+        position: absolute;
+        top: 54px;
+        right: 15px;
+        font-size: 33px;
+        rotate: 40deg;
+    }
+
+    .overview-notes li {
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-family: "MS PGothic", sans-serif;
+    }
+
+    .overview-notes ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 5px;
+    }
+
+    .blurb-content {
+        width: 78%;
+        margin-top: -19px;
+        height: 300px;
+        overflow: hidden;
+    }
+    
+    .blurb {
+        margin-left: 10px;
+    }
+    
+    .wip img{
+        filter: saturate(0);
+    }
+    
+    .separator {
+        align-items: center;
+        margin-top: -10px;
+    }
+    
+    .readmore {
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        float: right;
+    }
+
+    .tagline {
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        float: right;
+        justify-content: right;
+        margin-top: 7px;
+    }
+    
+    .readmore i {
+        margin-left: 5px;
+    }
+    
+    #empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .blurb-image img {
+        margin-top: 54px;
+        margin-left: 30px;
+        filter: drop-shadow(var(--wrapper-bg) 5px 5px 0px);
+    }
+    
+    .empty-image {
+        position: absolute;
+        top: 793px;
+        left: 980px;
+    }
+    
+    @media (max-width: 910px) {
+    .main > .box {
+        margin-top: -15px!important;
+    }
+    
+    .main {
+        padding: 0px!important;
+    }
+    
+    .world-select button, .misc-select button {
+        width: 150px;
+    }
+    
+.blurb-tags, .overview-notes {
+    display: none;
+}
+
+.misc-select img, .world-select img {
+    width: 150px;
+    min-height: 150px!important;
+}
+
+    .blurb-header, .overview-header {
+            align-items: flex-start;
+            flex-direction: column;
+            flex-wrap: wrap;
+    }
+    
+    .blurb-header hr, .overview hr{
+        display: none;
+    }
+    
+    .blurb-header h1 {
+        line-height: 30px;
+    }
+    
+    .tag {
+        padding: 4px;
+        font-size: 14px;
+        margin-top: -14px;
+    }
+    
+    .blurb {
+        margin-left: 0px;
+    }
+    
+    .world-blurb {
+        margin: auto;
+        width: 88vw;
+        overflow: visible;
+    }
+    
+    .blurb-content {
+        width: 100%;
+        margin-top: -19px;
+        height: 100%;
+    }
+    
+    .blurb-image {
+        width: 100%;
+        height: 130px;
+        position: static;
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    
+    .line-dot {
+        width: 30%;
+    }
+    
+    .empty-image {
+        position: static;
+        top: 644px;
+        left: 985px;
+    }
+    
+    .blurb-image img {
+        margin-top: 6px;
+        margin-left: 246px;
+        width: 140px;
+    }
+    
+    .overview-header > .separator {
+        width: 99%;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+
+    .overview-blurb {
+        width: 100%;
+        padding-right: 13px;
+    }
+
+    .misc-select {
+        margin-top: 30px!important;
+    }
+
+
+    #inbetween > .justfuckingworkdawg > .blurb > .blurb-content > .readmore {
+        font-size: 1.1em;
+    }
+
+    #inbetween span, #argonautica span {
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+
+    #lunarcommission span{
+        margin-left: 0px!important;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+
+    .tabcontent {
+        height: auto!important;
+    }
+
+    :root {
+        --header-img: url(/worlds/dreamscapes/img/dreamscapesheader.webp) bottom/cover no-repeat;
+        }
+
+    }
+
+    

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glitch Morph Text</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100vh;
+      background: #050000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .glitch-text {
+      font-family: monospace;
+      font-size: 4rem;
+      color: #ff3c00;
+      display: flex;
+      gap: 0.1em;
+      filter: url(#warp);
+    }
+
+    .letter {
+      display: inline-block;
+      animation: flicker 2s infinite alternate;
+    }
+
+    .letter:nth-child(odd) {
+      animation-delay: 0.2s;
+    }
+    .letter:nth-child(even) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes flicker {
+      0%   { opacity: 1; transform: scale(1) rotate(0deg); }
+      30%  { opacity: 0.8; transform: scale(1.2) rotate(1deg); }
+      60%  { opacity: 0.9; transform: scale(0.95) rotate(-2deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    svg {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch-text" id="glitchText"></div>
+
+
+
+  <script>
+    const phrases = [
+      "⟟⧫⟒⋏⧫⟟",
+      "HELLO?",
+      "IS⧫ANYONE⟒THERE",
+      "🜃🜄🜁🜂",
+      "⟁⟊⧖⫷⟟",
+      "WAKE⋏UP",
+      "SYSTEM⚠ERROR"
+    ];
+
+    const glitchText = document.getElementById("glitchText");
+    const glyphs = "⟟⧫⟒⋏⧖⫷⟊⟁🝰☈⚡⚠☠╳⌁⧗⧙⧘".split("");
+
+    let current = 0;
+
+    function scrambleTo(text) {
+      glitchText.innerHTML = '';
+      const target = text.split('');
+      target.forEach((char, i) => {
+        const span = document.createElement('span');
+        span.classList.add('letter');
+        span.textContent = getRandomGlyph();
+        glitchText.appendChild(span);
+
+        // Staggered transformation
+        setTimeout(() => morphLetter(span, char), i * 100);
+      });
+    }
+
+    function morphLetter(el, finalChar) {
+      let cycles = 0;
+      const maxCycles = 10;
+      const interval = setInterval(() => {
+        el.textContent = getRandomGlyph();
+        cycles++;
+        if (cycles >= maxCycles) {
+          el.textContent = finalChar;
+          clearInterval(interval);
+        }
+      }, 30 + Math.random() * 40);
+    }
+
+    function getRandomGlyph() {
+      return glyphs[Math.floor(Math.random() * glyphs.length)];
+    }
+
+    // Cycle through messages
+    setInterval(() => {
+      current = (current + 1) % phrases.length;
+      scrambleTo(phrases[current]);
+    }, 4000);
+
+    // Start with first message
+    scrambleTo(phrases[current]);
+  </script>
+</body>
+</html>
