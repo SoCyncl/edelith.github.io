@@ -5,18 +5,16 @@ class playlist extends HTMLElement {
   
     connectedCallback() {
       this.innerHTML = `
-    <div class="playlist">
-        <div class="music">
-            <span id="music-title"></span>
-            <div class="music-controls">
-                <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
-                <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-                <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-                
-                <label for="trackList" hidden>Music Track Picker:</label>
-                <select id="trackList" onchange="ChangeSongTrackList()">
+					        <div class="musicbox">
+            <div class="music-player fade-block">
+              <h2>Now Playing</h2>
+              <div class="music">
+                <span id="music-title" class="music-title">Nothing Playing</span>
+                <div class="music-controls">
+                  <label for="trackList" hidden>Track Picker</label>
+                  <select id="trackList" onchange="ChangeSongTrackList()">
                     <option value="none" selected>Pick a song...</option>
-                    <optgroup label="Elden Ring Night Reign">
+                            <optgroup label="Elden Ring Night Reign">
                         <option value="3">Adel, Baron Of Night - Elden Ring Nightreign</option>
                         <option value="4">Gladius, Beast Of Night - Elden Ring Nightreign</option>
                         <option value="5">Heolstor the Nightlord - Elden Ring Nightreign</option>
@@ -43,16 +41,20 @@ class playlist extends HTMLElement {
                         <option value="1">Grassland 4 - Kirby's Dreamland 3</option>
                         <option value="2">Friends 3 - Kirby's Dreamland 3</option>
                     </optgroup>
-                </select>
-            </div>
-            <audio id="music-tag" src="" autoplay></audio>
-            <div class="volume-control">
-                    <i class="fa-solid fa-volume-high"></i>
-                    <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
-                </div>
+            </select>
+            
+                              <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
+                  <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
+                  <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
+          </div>
+          <div class="volume-control">
+            <i class="fa-solid fa-volume-high"></i>
+            <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
+          </div>
+          <audio id="music-tag" src="" autoplay></audio>
         </div>
-    </div> 
-      `;
+      </div>
+      `;  // Removed extra closing div here
     }
 }
 
