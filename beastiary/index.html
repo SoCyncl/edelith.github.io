@@ -1,0 +1,964 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/assets/img/ico/purple.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beastiary • Solstitheo</title>
+    <meta property="og:url" content="/index.html">    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Beastiary • Solstitheo" />
+    <meta property="og:description" content="The entire painstakingly long Beastiary" />  
+    <meta property="og:image" content="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/scripts/isotope.pkgd.min.js"></script>
+    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <script src="/scripts/randomizer.js" type="text/javascript" defer></script>
+    <script src="/scripts/header.js" type="text/javascript" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+        <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 150); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
+        <script>
+        function toggleClass() {
+           let divElement = document.getElementById('sidebar');
+           divElement.classList.toggle("mobile-active");
+
+           const slideOut = document.getElementById("slideOut")
+           if(slideOut.classList.contains("fa-caret-right")){
+                slideOut.classList.remove("fa-caret-right");
+                slideOut.classList.add("fa-caret-left");
+            }
+            else{
+                slideOut.classList.add("fa-caret-right");
+                slideOut.classList.remove("fa-caret-left");
+            }
+        }
+     </script>
+</head>
+<body>	  
+<side-bar-nav class=fade-block></side-bar-nav>
+	<div class="outer">
+    <nav-block class="fade-block"></nav-block>
+
+		<div class="all-content fade-block">
+			<div class="main">
+				
+				
+    <div class="mobile-toggle">
+        <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i> Filters </button>
+        </div> 
+    <!-- Left Sidebar -->
+        <div class="sidebar-left fade-block">
+          <div class="box box-left fade-block">
+          <div class="toggles fade-block">
+              <div class="filter fade-block">
+                  <h1>FILTERS</h1>
+                  <ul>
+                      <li><button data-filter='*' class="filter-btn active">Show all</button></li>
+                      <li><button data-filter='.newarvegum' class="filter-btn">New Arvegum</button></li>
+                      <li><button data-filter='.obsidiancrystalis' class="filter-btn">Obsidian Crystalis</button></li>
+                      <li><button data-filter='.edelithproper' class="filter-btn">Edelith Proper</button></li>
+                      <li><button data-filter='.steelsidelegion' class="filter-btn">Steelside Legion</button></li>
+                      <li><button data-filter='.tarpaulpit' class="filter-btn">Tarpaul Pit</button></li>
+                      <li><button data-filter='.mythical' class="filter-btn">Mythical</button></li>
+                      <li><button data-filter='.pantheon' class="filter-btn">Pantheon</button></li>
+                      <li><button data-filter='.demonic' class="filter-btn">Demonic</button></li>
+                  </ul>
+              </div>
+              <div class="sort fade-block">
+                  <h2>SORTING OPTIONS</h2>
+                  <ul>
+                      <li><button data-sort-by="name" data-sort-ascending="true" class="sort-btn active">A-Z</button></li>
+                      <li><button data-sort-by="name" data-sort-ascending="false" class="sort-btn">Z-A</button></li>
+                      <li><button data-sort-by="newest" class="sort-btn">Newest to oldest</button></li>
+                      <li><button data-sort-by="oldest" class="sort-btn">Oldest to newest</button></li>
+                       <div class="other-stuff fade-block">
+                          <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+                      </div>
+                  </ul>
+              </div>
+          </div>
+        </div>
+      </div>  
+      
+				<!-- Main Content -->
+				<div class="content fade-block">
+        <!-- Tab buttons -->
+        <div class="tab-buttons fade-block">
+            <button class="tablinks fade-block" onclick="openTab(event, 'Fauna')" id="defaultOpen"><i class="fa-solid fa-paw fa-xs"></i> Fauna </button>
+            <button class="tablinks fade-block" onclick="openTab(event, 'Flora')"><i class="fa-solid fa-leaf fa-xs"></i> Flora </button>
+        </div>
+        
+        <!-- Tab content -->
+        <div id="Fauna" class="tabcontent fade-block">
+            <div class="grid-holder">
+                <div class="grid fade-block">
+                    <!-- Beasts & Monsters -->
+                    <div class="grid-item obsidiancrystalis" data-category="001">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/crystalline_husk.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Crystalline Husk</h3>
+                            <div class="info-deets">
+                                Crystal-infused humanoid constructs
+                            </div>
+                            <div class="infodesc">
+                                Former humans transformed by crystalline growths from Obsidian Crystalis. They retain basic humanoid form but are completely encased in jagged crystal formations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item obsidiancrystalis" data-category="002">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/crystalline_horse.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Crystalline Horse Husk</h3>
+                            <div class="info-deets">
+                                Equine crystal constructs
+                            </div>
+                            <div class="infodesc">
+                                Larger and faster than their humanoid counterparts, these crystalline equines were likely warhorses or beasts of burden before their transformation.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item obsidiancrystalis" data-category="003">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/crystal_salamander.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Crystal Salamanders</h3>
+                            <div class="info-deets">
+                                Small crystalline amphibians
+                            </div>
+                            <div class="infodesc">
+                                Salamanders infused with crystalline growths that give them a gem-like appearance. They are surprisingly resilient and can regenerate lost crystal limbs.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item obsidiancrystalis" data-category="004">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/gem_stalker.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Gem Stalkers</h3>
+                            <div class="info-deets">
+                                Ceiling-dwelling predators
+                            </div>
+                            <div class="infodesc">
+                                These terrifying predators blend into crystalline ceilings, dropping down on unsuspecting prey. Their bodies refract light to become nearly invisible when motionless.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item demonic" data-category="005">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/corrosion_droplet.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Corrosion Droplets</h3>
+                            <div class="info-deets">
+                                Living blobs of corrosive slime
+                            </div>
+                            <div class="infodesc">
+                                These amorphous demons secrete highly corrosive fluids that can dissolve most materials. They move slowly but are extremely dangerous to touch.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item tarpaulpit" data-category="006">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/dust_dreg.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Dust Dregs</h3>
+                            <div class="info-deets">
+                                Sand creatures of lost memory
+                            </div>
+                            <div class="infodesc">
+                                Former villagers of Tarpaul Pit transformed into creatures of living sand, their memories and identities lost to the desert winds.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item demonic" data-category="007">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/imp.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Imps</h3>
+                            <div class="info-deets">
+                                Small winged demons
+                            </div>
+                            <div class="infodesc">
+                                The lowest rank of demons, these small but vicious creatures travel in swarms and delight in causing mischief and pain.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item mythical" data-category="008">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/cherubrim.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Cherubrim</h3>
+                            <div class="info-deets">
+                                Angelic beings
+                            </div>
+                            <div class="infodesc">
+                                Large angelic constructs wielding shields and flaming swords originating from the Circlet of the Sun and tasked with defending Edelith.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item demonic" data-category="009">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/construct_conquest.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Construct of Conquest</h3>
+                            <div class="info-deets">
+                                Massive mechanical demon
+                            </div>
+                            <div class="infodesc">
+                                A large metallic archer demon among the higher ranks of Conquest's Construct Guard, primarily used to besiege distant lands.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item demonic" data-category="010">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/combatant_conquest.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Combatant of Conquest</h3>
+                            <div class="info-deets">
+                                Lesser demonic warriors
+                            </div>
+                            <div class="infodesc">
+                                Warriors under the Construct's influence, these demons form the bulk of Conquest's forces.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item demonic" data-category="011">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/construct_guard.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Construct Guard</h3>
+                            <div class="info-deets">
+                                Elite demonic garrison
+                            </div>
+                            <div class="infodesc">
+                                A garrison of Conquest's most lethal demons capable of razing entire cities.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item mythical" data-category="012">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/glass_angel.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Glass Angels</h3>
+                            <div class="info-deets">
+                                Polygonal light apparitions
+                            </div>
+                            <div class="infodesc">
+                                Ethereal beings comprised of light that serve as the sentinels of the Stillight District.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-item pantheon" data-category="013">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/solidaritus.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Solidaritus</h3>
+                            <div class="info-deets">
+                                The Igniting Daybreak
+                            </div>
+                            <div class="infodesc">
+                                Realized God of Destiny; Ambition, Arcana, and Life.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-item pantheon" data-category="014">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/partirnax.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Partirnax</h3>
+                            <div class="info-deets">
+                                The Rising Dawn
+                            </div>
+                            <div class="infodesc">
+                                Enlightened God of Innovation; Forge, Knowledge, and War.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-item pantheon" data-category="015">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/annuatera.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Annuatera</h3>
+                            <div class="info-deets">
+                                The Flourishing Zenith
+                            </div>
+                            <div class="infodesc">
+                                Gloried Goddess of Fertility; Life, Nature, and Tempest.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-item pantheon" data-category="016">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/hiebrief .png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Hiebrief </h3>
+                            <div class="info-deets">
+                                The Decaying Dusk
+                            </div>
+                            <div class="infodesc">
+                                Shrouded Goddess of Deceit; Shadow, Trickery, and Twilight.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-item pantheon" data-category="016">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/totarash  .png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Totarash  </h3>
+                            <div class="info-deets">
+                                The Smoldering Nightfall
+                            </div>
+                            <div class="infodesc">
+                                Silenced Deity of Tranquility; Grave, Order, and Peace.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="Flora" class="tabcontent">
+            <div class="grid-holder">
+                <div class="grid">
+                    <div class="grid-item mythical" data-category="101">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/edelith_pod.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Edelith Pod</h3>
+                            <div class="info-deets">
+                                Synthetic divine capsule
+                            </div>
+                            <div class="infodesc">
+                                A floral-like synthetic capsule launched from the Circlet of the Sun which holds the power to regrow the wastes with enormous surges of divine power.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item newarvegum mythical" data-category="102">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/enfernabloom.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Enfernabloom</h3>
+                            <div class="info-deets">
+                                Demon-repellant lotus
+                            </div>
+                            <div class="infodesc">
+                                A lotus-like flower from foreign lands gifted to the people of New Arvegum by the mythic hero Kojin, which when burned emits a calming and demon-repellant smoke.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item mythical" data-category="103">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/luminessence.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Luminessence</h3>
+                            <div class="info-deets">
+                                Divine residue
+                            </div>
+                            <div class="infodesc">
+                                The lingering residue of powerful creatures connected to the Circlet of the Sun's immortality. Glows with a soft divine light.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-item steelsidelegion" data-category="104">
+                        <div class="avi-container"> 
+                            <img src="/assets/img/bestiary/thunderstroke.png"> 
+                        </div>
+                        <div class="info"> 
+                            <h3 class="name">Thunderstroke</h3>
+                            <div class="info-deets">
+                                Arcane electrical current
+                            </div>
+                            <div class="infodesc">
+                                An arcane current of electricity stored within cannisters utilized by the Steelside Legion to enhance their metal attributes' performance and resistance against the Corrosion.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    
+      	<!-- Right Sidebar -->
+				<div class="side fade-block">
+					<playlist-block></playlist-block>  
+					<br>
+					<div class ="side-box fade-block">
+             <!-- MVP of the Session Box -->
+                    <div class="featured-title">
+                        <h3>MVP of the Session</h3>
+                    </div>
+                    <div class="box featured fade-block">
+                        <img src="/assets/img/placeholderavi.png">
+                        <a href="characters/index.html" style="margin-top: 5px">Eight Nanako</a>
+                        <p>For absolutly desimating the demons with a single spell.</p>
+                    </div>
+                  </div>
+					<br>
+					<div class="side-box fade-block">
+                    <!-- Random Character Box -->
+            <div class="box random fade-block">
+                <h2>Random Character</h2>
+                <div id="randomizer"></div>
+                <button id="dice" onclick="randomCharacter()"><i class="fa-solid fa-dice"></i></button>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<img class="ira fade-block" src="/assets/img/homepage/ira.webp">
+		<footer-block></footer-block>
+	</div>
+<!-- Isotope -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Isotope
+    var $grid = $('.grid').isotope({
+        itemSelector: '.grid-item',
+        layoutMode: 'fitRows',
+        getSortData: {
+            name: '.name',
+            category: '[data-category]'
+        },
+        transitionDuration: '0.9s'
+    });
+    
+    // Filter button handler
+    $('.filter button').on('click', function() {
+        var filterValue = $(this).attr('data-filter');
+        $grid.isotope({ filter: filterValue });
+        
+        // Update active class
+        $('.filter button').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Sort button handler
+    $('.sort button').on('click', function() {
+        var sortByValue = $(this).attr('data-sort-by');
+        var sortDirection;
+        
+        if (sortByValue === 'newest') {
+            sortDirection = false;
+        } else if (sortByValue === 'oldest') {
+            sortDirection = true;
+        } else {
+            sortDirection = $(this).attr('data-sort-ascending') === 'true';
+        }
+        
+        $grid.isotope({ 
+            sortBy: sortByValue,
+            sortAscending: sortDirection
+        });
+        
+        $('.sort button').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Back to top button
+    $('#myBtn').on('click', function() {
+        $('html, body').animate({ scrollTop: 0 }, 'smooth');
+        return false;
+    });
+});
+
+// Tab functionality
+function openTab(evt, tabName) {
+    // Hide all tab content
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    
+    // Remove active class from all tab buttons
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    
+    // Show the current tab and add active class to the button
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+    
+    // Reinitialize Isotope for the visible grid
+    $('.grid').isotope('layout');
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>	
+
+
+<style>
+.tab-buttons {
+    padding: 5px;
+    padding-top: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+    
+.tab-buttons button {
+    all: unset;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 20px;
+    border-radius: 0px;
+    position: relative;
+    margin: 1px;
+    padding: 7px;
+    top: 0;
+    transition:  ease 0.4s;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.tab-buttons button:hover {
+    cursor: var(--cursor-hover);
+    top: -7px;
+}
+
+.tab-buttons button {
+    color: var(--backing);
+}
+
+.tab-buttons button:hover:nth-child(1) {
+    color: var(--primary);
+}
+
+.tab-buttons button:hover:nth-child(2) {
+    color: var(--secondary);
+}
+
+.tabcontent {
+    display: none;
+}
+
+/* Show the active tab */
+.tabcontent.active {
+    display: block;
+}
+
+.content {
+  width: 900px;
+}
+/*---------------------------Random------------------ */
+.random h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    background: none;
+    color: var(--emphasized-text);
+    margin-top: 0px;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.random {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 265px;
+}
+
+.randomavi {
+    width: 210px;
+    height: 210px;
+}
+
+.random center {
+    margin-top: 3px;
+}  
+/*---------------------------Sticky------------------ */
+.sidebar-left,
+.side {
+  position: sticky;
+  top: 20px;
+  height: max-content;
+
+}
+
+/*---------------------------Left sidebar------------------ */
+.sidebar-left {
+    width: 250px;
+    height: 700px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 16px;
+    color: var(--default-text);
+    margin-left: 35px;
+}
+
+.box-left {
+    border: 3px solid var(--box-br);
+    border-radius: 5px;
+}
+/*--------------------------Grid for the actual character blocks-----------------------*/
+.grid-holder {
+    margin-left: 0px;
+    width: 980px;
+    min-height: 1000px;
+}
+.grid {
+    width: 100%;
+    padding-bottom: 30px;   
+    z-index: 100;
+}
+
+.grid-item {
+    display: block;
+    float: left;
+    margin: 1%;
+    padding: 10px;
+    width: 200px;
+}
+
+/* Image style */
+
+.grid-item img {
+    transition: ease-in 0.3s, ease-out 0.3s;
+    width: 100%;
+    height: auto;
+}
+
+.grid-item:hover a img {
+    margin-top: -7px;
+    margin-bottom: 7px;
+}
+/*--------------------------Stuff for the actual character blocks-----------------------*/
+.avi-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+/* Content container info */
+
+.info {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Info heading */
+
+/* Content container info */
+
+.info {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Info heading */
+
+.info h3:hover {
+    color: var(--box-br);
+}
+/* Character Name */
+.info h3 {
+    font-size: 22px; /* was 20px */
+    font-weight: 600;
+    color: var(--default-text);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Role (like Bard, Wizard, etc.) */
+.info-deets {
+    font-size: 17px; /* was 16px */
+    font-weight: 500;
+}
+
+/* Description */
+.infodesc {
+    font-size: 14px; /* was 12px */
+    line-height: 1.5;
+    font-family: 'Nanum Pen Script', cursive;
+    opacity: 0.85;
+}
+
+/*--------------------------Left-side buttons-----------------------*/
+
+.filter-btn.active, .sort-btn.active {
+    background-color: var(--content-bg);
+    color: var(--content-br);
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 2px 6px;
+    box-shadow: 0 0 5px var(--box-bg);
+}
+
+button {
+    cursor: var(--cursor-hover);
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+}
+
+.toggles {
+    position: sticky;
+    top: 0;
+}
+
+.filter li, .sort li {
+    list-style: none;
+    margin-bottom: 4px;
+    transition: ease-in 0.2s, ease-out 0.2s;
+}
+
+.filter li:hover, .sort li:hover {
+    color: var(--content-br);
+}
+
+.filter ul, .sort ul {
+    margin-left: -23px;
+    margin-top: 3px;
+}
+
+.filter i, .other-stuff i {
+    margin-right: 8px;
+}
+
+.filter h1, .sort h2 {
+    border-bottom: 2px dashed var(--default-text);
+    padding: 5px;
+    padding-bottom: 7px;
+    margin: 5px 10px;
+    margin-left: -1px;
+    font-size: 19px;
+}
+
+.active::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../assets/img/boogleicon.ico);
+    height: 16px;
+    width: 16px;
+    margin-left: 10px;
+    margin-top: -1px;
+}
+
+
+
+#myBtn {
+    background-color: transparent;
+    font-size: 18px;
+    padding: 9px 14px;
+    border-radius: 5px;
+    border: 1px solid var(--box-bg);
+    font-weight: bold;
+    color: var(--default-text);
+    transition: ease-in 0.2s, ease-out 0.2s;
+}
+
+#myBtn:hover {
+    background-color: var(--content-bg);
+    border-color: var(--box-br);
+    color: var(--box-bg);
+}
+/*--------------------------other stuff-----------------------*/
+.other-stuff span {
+    font-family: "MS PGothic", sans-serif;
+}
+
+.other-stuff {
+    margin-top: 30px;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+}
+.other-stuff {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+/*--------------------------Mobile-----------------------*/
+
+.hide {
+    display: none;
+}
+
+.mobile-toggle {
+    display: none;
+    position: absolute;
+    top: -42px;
+    left: -5px;
+}
+
+.mobile-toggle i {
+    font-size: 20px;
+    margin-top: -9px;
+    margin-right: 5px;
+}
+
+.mobile-toggle button {
+    text-align: center;
+    background-color: var(--box-bg);
+    font-size: 20px;
+    padding: 2px;
+    padding-right: 7px;
+    border-radius: 5px;
+    cursor: var(--cursor-hover);
+    border: 1px solid var(--box-bg);
+    font-weight: bold;
+    color: var(--light);
+    margin-bottom: 10px;
+    height: 32px;
+    text-align: center;
+}
+
+@media(max-width:910px) {
+
+    html, body {
+        overflow-x: hidden;
+      }
+      body {
+        position: relative
+      }
+
+      .mobile-toggle {
+        display: block;
+    }
+
+      .sidebar-left {
+        display: block;
+      } 
+
+      .grid-holder {
+        margin-left: 5px;
+        width: 100%;
+    }
+
+    .grid-item {
+        width: 140px;
+    }
+
+    .avi-container {
+        max-width: 100%;
+        height: 140px;
+        width: 140px;
+        position: relative;
+    }
+
+    .sidebar-left {
+        width: 107%;
+        height: 103%;
+        position: absolute !important;
+        top: -5px;
+        left: -108%;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        transition: left 0.2s;
+        background-color: var(--nav-bg);
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        z-index: 900;
+        margin-left: -13px;
+    }
+
+    .mobile-active {
+        left: 0 !important;
+    }
+
+    #myBtn {
+        display: none;
+    }
+
+} 
+
+@media(max-width:376px) {
+    .grid-item {
+        width: 140px;
+    }
+
+    .avi-container {
+        max-width: 100%;
+        height: 140px;
+        width: 140px;
+        position: relative;
+    }
+}
+
+@media(min-width:425px) and (max-width:767px){
+
+    .grid-holder {
+        margin-left: 27px;
+        width: 100%;
+    }
+    
+}
+
+@media(min-width:768px) and (max-width:911px) {
+    .sidebar-left {
+        margin-left: -22px;
+    }
+}
+</style>
+
+</body>
+</html>
