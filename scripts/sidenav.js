@@ -221,31 +221,31 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_yellow.png" class="nav-icon" alt="Homepage">
             <span>Homepage</span>
           </a>
-          <a href="/pages/quill-and-terms">
+          <a href="/quill-and-terms">
             <img src="/assets/img/homepage/Biblio_brown.png" class="nav-icon" alt="Quill & Terms">
             <span>Quill & Terms</span>
           </a>
-          <a href="/pages/characters/index.html">
+          <a href="/characters/index.html">
             <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Characters">
             <span>Characters</span>
           </a>
-          <a href="/pages/recap">
+          <a href="/recap">
             <img src="/assets/img/homepage/Biblio_blue.png" class="nav-icon" alt="Recap">
             <span>Recap</span>
           </a>
-          <a href="/pages/fun-fact-friday">
+          <a href="/fun-fact-friday">
             <img src="/assets/img/homepage/Biblio_red.png" class="nav-icon" alt="Fun Fact Friday">
             <span>Fun Fact Friday</span>
           </a>
-          <a href="/pages/beastiary/index.html">
+          <a href="/beastiary/index.html">
             <img src="/assets/img/homepage/Biblio_purple.png" class="nav-icon" alt="Beastiary">
             <span>Beastiary</span>
           </a>
-          <a href="/pages/regions/index.html">
+          <a href="/regions/index.html">
             <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">
             <span>Regions</span>
           </a>
-          <a href="">
+          <a href="/info">
             <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Info">
             <span>Info</span>
           </a>
