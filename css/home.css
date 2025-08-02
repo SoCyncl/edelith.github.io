@@ -1,23 +1,58 @@
 :root {
---cursor: url(/assets/img/cursor.png), auto;
---cursor-hover: url(/assets/img/link.png), pointer;
---logo: url(/assets/img/themes/default/logo.png);
---default-text: #ddddc5;
---emphasized-text: #ddddc5;
---nav-bg: #00000000;
---content-bg: #415554;
---box-bg: #5d786f;
---box-br: #99a58d;
---footer-bg: #2c373a;
---link-hover-color: #fff ;
---link-color: #bbe5ff;
---header-img: url(/assets/img/themes/default/banner_bg.gif);
---biblio-img: url(/assets/img/homepage/biblio.gif);
---site-bg-img: url(/assets/img/homepage/background.jpg);
---quilliam-vis: block;
---biblio-pos: 3px 22px;
+  --cursor: url(/assets/img/cursor.png), auto;
+  --cursor-hover: url(/assets/img/link.png), pointer;
+  --logo: url(/assets/img/themes/default/logo.png);
+
+/* Text Colors */
+/* Text Colors */
+  --default-text: #c5c8ca;        /* soft fog grey */
+  --default-text2: #70757a;       /* weathered steel */
+  --emphasized-text: #e3e6e8;     /* pale frost */
+
+  /* Navigation & Backgrounds */
+  --nav-bg: #1e2226;              /* true eigengrau - near-black slate */
+  --content-bg: #262b30;          /* midnight stone - slightly lighter for contrast */
+
+  /* Box Styling */
+  --box-bg: #2f353b;              /* shadowed iron */
+  --box-br: #8c949a;              /* cold iron trim */
+
+  /* Footer */
+  --footer-bg: #16191d;           /* deepest granite */
+
+  /* Links */
+  --link-color: #98a2ab;          /* frosted steel */
+  --link-hover-color: #ccd2d8;    /* pale mist glow */
+
+  /* Graphics / Backgrounds */
+  --header-img: url(/assets/img/themes/default/banner_bg.gif);
+  --biblio-img: url(/assets/img/homepage/biblio.gif);
+  --site-bg-img: url('/assets/img/homepage/background1.jpg');
+
+  /* Misc */
+  --quilliam-vis: block;
+  --biblio-pos: 3px 22px;
 }
 
+
+
+/* Initial hidden state */
+.fade-block {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Final state */
+.fade-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html {
+      scroll-behavior: smooth;
+      overflow-y: scroll; 
+    }
 a {
     color: var(--link-color); /* New custom color */
     cursor: var(--cursor-hover);
@@ -32,7 +67,7 @@ a:hover, a:focus {
 	position: absolute;
 	width: 360px;
 	right: 20px;
-	top: 166px;
+	top: -135px;
 	z-index: 100;
 	max-width: 100%; /* Prevents overflow */
   }
@@ -84,11 +119,28 @@ body {
 	font-family: lucida grande,verdana,arial,helvetica;
 	font-size: 12px;
 	background: #000;
-    background-image: var(--site-bg-img);
 	background-size: contain;
 	color: var(--default-text);
 }
-img {
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  background-image: var(--site-bg-img);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  filter: blur(8px);
+  opacity: 0.9;
+}
+
+featured-img {
 	max-width: 150px;
 }
 .outer {
@@ -108,6 +160,7 @@ img {
     background-position: center, center;
 }
 .all-content {
+  margin-top: 350px;
 	background: var(--content-bg);
 	border: 3px solid var(--box-br);
 	padding: 24px;
@@ -121,119 +174,87 @@ img {
 	clear: both;
 }
 
-/*-------------------------navbar---------------------------------------*/
-.navbar {
-    position: relative;
-    z-index: 999;
-    background: var(--nav-bg); 
-    text-align: left;
-    color: var(--default-text); 
-    font-size: 1.0em;
-    padding: 5px 25px;
-    display: flex;
-    justify-content: space-between;
-    font-family: lucida grande,verdana,arial,helvetica;
-}
-
-.navigation {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-left: 30px; /* Space for dancing Biblios */
-}
-
-.navbar a {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--default-text);
-    padding: 5px 4px;
-    margin: 0 0px;
-    transition: color 0.3s;
-    font-weight: bold;
-    position: relative; /* For absolute positioning of icons */
-}
-
-.navbar a:hover, .navbar a:focus {
-    color: #fff;
-}
-
-.navlink {
-    display: inline-block;
-    margin-left: 8px;
-    border: 3px solid var(--box-br);
-    padding: 12px 33px 12px 40px; /* Extra left padding for icons */
-    background: var(--content-bg);
-}
-
-/* Dancing Biblios - now absolutely positioned */
-.navigation a::before {
-    content: '';
+/*-------------------------Clouds Header---------------------------------------*/
+    
+   .logo{
     position: absolute;
-    width: 20px;
-    height: 20px;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    animation: bounce-dance 1s ease-in-out infinite;
-    z-index: 1000; /* Ensure they appear above everything */
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;       /* adjust as needed */
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    z-index: 3;
+    animation: slow-fade 40s ease-in-out infinite;
 }
 
-/* Individual Biblio colors and positions */
-.navigation a:nth-child(1)::before {
-    background: url(/assets/img/homepage/Biblio_yellow.png) center/contain no-repeat;
-    left: 24px;
-}
+  @keyframes slow-fade {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
 
-.navigation a:nth-child(2)::before {
-    background: url(/assets/img/homepage/Biblio_brown.png) center/contain no-repeat;
-    left: 24px;
-}
+  .logo img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+  }
+    
+    /* Keyframes for cloud layers */
+    @keyframes clouds-loop-1 {
+      to { background-position: -1000px 0; }
+    }
+    @keyframes clouds-loop-2 {
+      to { background-position: -1000px 0; }
+    }
+    @keyframes clouds-loop-3 {
+      to { background-position: -1579px 0; }
+    }
 
-.navigation a:nth-child(3)::before {
-    background: url(/assets/img/homepage/Biblio_gray.png) center/contain no-repeat;
-    left: 24px;
-}
+    .clouds {
+      opacity: 0.4;
+      pointer-events: none;
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+    }
 
-.navigation a:nth-child(4)::before {
-    background: url(/assets/img/homepage/Biblio_blue.png) center/contain no-repeat;
-    left: 24px;
-}
+    .clouds-1,
+    .clouds-2,
+    .clouds-3 {
+      background-repeat: repeat-x;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 500px;
+    }
 
-.navigation a:nth-child(5)::before {
-    background: url(/assets/img/homepage/Biblio_red.png) center/contain no-repeat;
-    left: 24px;
-}
+    .clouds-1 {
+      background-image: url("https://s.cdpn.io/15514/clouds_2.png");
+      animation: clouds-loop-1 20s infinite linear;
+      z-index: 0;
+    }
 
-.navigation a:nth-child(6)::before {
-    background: url(/assets/img/homepage/Biblio_purple.png) center/contain no-repeat;
-    left: 24px;
-}
+    .clouds-2 {
+      background-image: url("https://s.cdpn.io/15514/clouds_1.png");
+      animation: clouds-loop-2 15s infinite linear;
+      z-index: 2;
+    }
 
-.navigation a:nth-child(7)::before {
-    background: url(/assets/img/homepage/Biblio_orange.png) center/contain no-repeat;
-    left: 24px;
-}
-
-/* Bounce animation */
-@keyframes bounce-dance {
-  0%, 10% { transform: translateY(-50%); }
-  30% { transform: translateY(calc(-50% - 6px)); }
-  50% { transform: translateY(-50%); }
-  100% { transform: translateY(-50%); }
-}
-
-/* Animation delays */
-.navigation a:nth-child(1)::before { animation-delay: 0.3s; }
-.navigation a:nth-child(2)::before { animation-delay: 0.4s; }
-.navigation a:nth-child(3)::before { animation-delay: 0.5s; }
-.navigation a:nth-child(4)::before { animation-delay: 0.6s; }
-.navigation a:nth-child(5)::before { animation-delay: 0.7s; }
-.navigation a:nth-child(6)::before { animation-delay: 0.8s; }
-.navigation a:nth-child(7)::before { animation-delay: 0.9s; }
+    .clouds-3 {
+      background-image: url("https://s.cdpn.io/15514/clouds_3.png");
+      animation: clouds-loop-3 17s infinite linear;
+      z-index: 4;
+    }
 /*-------------------big main content box-------------------- */
 .content {
 	width: 950px;
-	background: var(--footer-bg);
+	background: var(--nav-bg);
     border-radius: 5px;
 	padding: 16px;
 	display: flex;
@@ -264,6 +285,7 @@ img {
     align-items: center;
     flex-wrap: wrap;
     margin-bottom: 10px;
+    z-index: 999;
 }
 
 .homenav-button {
@@ -304,6 +326,7 @@ img {
 }
 .homenav-label {
     position: absolute;
+    z-index: 10;
     font-size: 17px;
     font-variant-caps: small-caps;
     font-family: 'Nanum Pen Script', cursive;
@@ -313,14 +336,16 @@ img {
     color: var(--emphasized-text);
     margin-left: -6px;
     margin-top: -20px;
-    box-shadow: 3px 3px 10px 0 #193b30;
+    box-shadow: 3px 3px 10px 0 var(--footer-bg);
 }
 
 .homenav span {
     background-color: var(--box-bg);
     border-radius: 3px;
     padding: 1px 5px;
+    z-index: 2;
 }
+
 /* -------------- left side box ------------ */
 .main {
 	display: flex;
@@ -439,13 +464,13 @@ h2 a {
 	margin-bottom: 3px;
 }
   
-.post-content img {
+.post-content featured-img {
 	max-width: 90%;
 }
 .muted {
 	opacity: 0.3;
 }
-.recent-image img {
+.recent-image featured-img {
 	width: 50px;
 	border: 1px solid var(--box-br);
 }
@@ -456,7 +481,7 @@ h2 a {
 	padding: 20px;
 	font-size: 11px;
 	margin-top: 24px;
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 	line-height: 1.6;
 }
 .footer a {
@@ -491,8 +516,7 @@ h2 a {
     background-color: var(--box-bg);
     position: absolute;
     display: block;
-    top: 390px;
-    left: 42px;
+    top: 380px;
     height: 80px;
     rotate: 160deg;
     color: transparent;
@@ -639,9 +663,12 @@ h2 a {
 /* ------------------------MUSIC AND STUFF----------------------*/
 /* ------volume slider----------------------*/
 /* Volume Control Styles */
+
+
 .volume-control {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     margin-right: 5px;
 }
@@ -683,130 +710,151 @@ h2 a {
 }
 
 /* ------Music and stuff----------------------*/
+/* 🎵 Music Container */
 .playlist {
-    background-color: var(--content-bg);
+    background-color: var(--box-bg); /* Aged oak for depth */
+    border: 3px solid var(--box-br); /* Brass border */
+    border-radius: 5px;
+    color: var(--default-text);
     display: flex;
-    flex-flow: row nowrap;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    font-family: "MS PGothic", sans-serif;
-    height: 50px;
-    color: var(--default-text); /* Add this to ensure text color */
-    padding: 5px; /* Add some padding */
-}
-
-   
-.playlist h1, .playlist h2, .playlist h3, .playlist h4, .playlist h5 {
-    padding:0;
-    margin: 0;
-}
-.playlist {
-    justify-content: end;    
-}
-.music {
-    display: inline-block;
-    max-width: 220px;
-    background-color: var(--content-bg);
-    overflow-x: hidden;
-    background-position: left;
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 5px;
-    z-index: 3;
-    color: var(--default-text); 
-}
-
-#music-title {
-    --gap: 1rem;
-    display: inline-block;
-    width: max-content;
-    font-size: 1.3em;
-    margin-bottom: 3px;
     font-family: 'Nanum Pen Script', cursive;
-    animation: scroll 15s linear infinite;
-    padding-left: 100%;
-    white-space: nowrap; 
-    color: var(--default-text); 
+    font-size: 1rem;
+    padding: 8px 14px;
+    margin-top: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
+/* 🎶 Track Title Marquee */
+#music-title {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-marquee 18s linear infinite;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--emphasized-text);
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-right: 20px; /* Ensure it doesn't touch the edge */
+}
+
+@keyframes scroll-marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.musicbox {
+    background: var(--box-bg);
+    color: var(--default-text);
+    margin: 10px 0px 15px 0px;
+    padding: 7px;
+    border: 3px solid var(--box-br);
+    border-radius: 5px;
+}
+
+.music-player {
+    position: relative;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* 💿 Music Controls Container */
 .music-controls {
-    text-align: center;
     display: flex;
-    justify-content: end;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 5px;
-    margin-right: 10px;
-    font-size: 0.98em;
-    color: var(--default-text); /* Ensure text color */
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0;
 }
 
+/* 🎛 Control Buttons */
 .music button {
-    color: var(--default-text); /* Changed from --primary to use your theme color */
-    background-color: transparent;
-    padding: 2px 5px;
+    background: none;
     border: none;
+    color: var(--link-color);
     cursor: var(--cursor-hover);
-    transition: ease-in 0.2s, ease-out 0.2s;
-    font-size: 1em; /* Ensure proper font size */
+    font-size: 1.1em;
+    padding: 4px 8px;
+    transition: color 0.3s ease;
 }
 
 .music button:hover {
-    color: var(--link-hover-color); /* Use your hover color */
+    color: var(--link-hover-color);
 }
 
+/* 🎚 Volume Control Styles */
+.volume-control {
+      margin-left: auto;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.volume-slider {
+    width: 80px;
+    height: 6px;
+    background-color: var(--content-bg);
+    border: 1px solid var(--box-br);
+    border-radius: 3px;
+    cursor: var(--cursor-hover);
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--emphasized-text);
+    border: 1px solid var(--box-br);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--emphasized-text);
+    border: 1px solid var(--box-br);
+}
+
+/* 🎧 Playlist Selector */
 .music select {
+   max-width: 100%;
+    width: auto;
+    box-sizing: border-box;
+    margin: 5px 0;
+    position: relative;
+    background-color: var(--box-bg);
     color: var(--default-text);
-    background-color: var(--box-bg); /* Changed from transparent */
-    width: 130px;
-    padding: 2px 5px;
-    border: 3px solid var(--box-br); /* Added border */
-    border-radius: 5px;
+    border: 2px solid var(--box-br);
+    border-radius: 4px;
+    font-size: 0.95em;
+    font-family: 'Lucida Grande', Verdana, sans-serif;
+    padding: 4px 8px;
     cursor: var(--cursor-hover);
-    transition: ease-in 0.2s, ease-out 0.2s;
-    font-family: lucida grande,verdana,arial,helvetica;
-    font-size: 0.9em; /* Adjust font size */
-    
+    transition: border 0.3s ease;
 }
-.music select:focus {
-    outline: none;
-    border: 3px solid var(--box-br) !important;
-    box-shadow: 0 0 0 2px var(--box-bg);
-}
+
 .music select:hover {
-    border: 3px solid var(--box-bg);
-    border-radius: 5px;
+    border-color: var(--link-hover-color);
 }
 
-.music select:focus, .music select:active {
+.music option,
+.music optgroup {
+    background-color: var(--content-bg);
     color: var(--default-text);
-    background-color: var(--content-bg);
-    border: 3px solid var(--box-bg);
-    border-radius: 5px;
 }
 
-.music option{
-    background-color: var(--content-bg);
-    border: 3px solid var(--box-bg);
-    border-radius: 5px;
-    cursor: var(--cursor-hover);
-}
-
-.music optgroup{
-    background-color: var(--content-bg);
-    border: 3px solid var(--box-bg);
-    border-radius: 5px;
-    cursor: var(--cursor-hover);
-}
-
-/* Add the scroll animation */
+/* 🌀 Marquee animation */
 @keyframes scroll {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(-100%);
-    }
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
 }
+
 
 /*---------------------------scroll bar-------------------- */
 /* Custom scrollbar styling */
@@ -884,7 +932,7 @@ body {
 p, li {
     line-height: 1.6;
 }
-.book-link {
+.journal-link {
     font-family: "Alexandria";
     font-variant-caps: small-caps;
     font-size: 33px;
@@ -930,7 +978,7 @@ p, li {
     justify-content: flex-end;
     display: flex;
 }
-.recapping img {
+.recapping featured-img {
     padding: 10px;
     position: relative;
     max-width: 100% !important;
@@ -1019,7 +1067,7 @@ p, li {
     height: 240px;
     width: 100%;
 }
-.book {
+.journal {
     background-image: url(/assets/img/homepage/guestbookbook.png);
     background-repeat: no-repeat;
     background-size: contain;
@@ -1044,17 +1092,17 @@ p, li {
     margin-top: -219px;
     margin-left: 4px;
 }
-.almanac a:hover .book-link {
+.almanac a:hover .journal-link {
     rotate: -10deg;
 }
 
-.book-link {
+.journal-link {
    transition: transform 0.3s ease-in, ease-out 0.3s;
     z-index: 10;
 }
 
 /*--------------------------- Random Character -------------------- */
-#randomizer img {
+#randomizer featured-img {
     max-width: 200px;
     margin-bottom: 8px;
 }
@@ -1090,7 +1138,7 @@ p, li {
     padding: 15px;
     text-align: center;
 }
-.featured img {
+.featured featured-img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
