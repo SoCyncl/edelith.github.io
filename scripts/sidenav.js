@@ -217,7 +217,7 @@ class NavbarTransparent extends HTMLElement {
         <a href="/home.html" class="logo">Edelith.org</a>
         
         <div class="nav-links">
-          <a href="/home.html">
+          <a href="/index.html">
             <img src="/assets/img/homepage/Biblio_yellow.png" class="nav-icon" alt="Homepage">
             <span>Homepage</span>
           </a>
