@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/assets/img/ico/white.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters • Solstitheo</title>
+    <meta property="og:url" content="/index.html">    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Characters • Solstitheo" />
+    <meta property="og:description" content="All of the characters from Solstitheo Worldbuilding project" />  
+    <meta property="og:image" content="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/scripts/isotope.pkgd.min.js"></script>
+    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <script src="/scripts/randomizer.js" type="text/javascript" defer></script>
+    <script src="/scripts/header.js" type="text/javascript" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+        <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 150); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
+        <script>
+        function toggleClass() {
+           let divElement = document.getElementById('sidebar');
+           divElement.classList.toggle("mobile-active");
+
+           const slideOut = document.getElementById("slideOut")
+           if(slideOut.classList.contains("fa-caret-right")){
+                slideOut.classList.remove("fa-caret-right");
+                slideOut.classList.add("fa-caret-left");
+            }
+            else{
+                slideOut.classList.add("fa-caret-right");
+                slideOut.classList.remove("fa-caret-left");
+            }
+        }
+     </script>
+</head>
+<body>	  
+<side-bar-nav class=fade-block></side-bar-nav>
+	<div class="outer">
+    <nav-block class=fade-block></nav-block>
+
+		<div class="all-content fade-block">
+			<div class="main">
+				
+				<!-- Left Sidebar -->
+    <div class="mobile-toggle">
+        <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i> Filters </button>
+    </div>
+        <div class="sidebar-left fade-block">
+          <div class="box box-left fade-block">
+          <div class="toggles">
+              <div class="filter fade-block">
+                  <h1>FILTERS</h1>
+                  <ul>
+                      <li><button data-filter='*' class="filter-btn active">Show all</button></li>
+                      <li><button data-filter='.class' class="filter-btn">Main Party</button></li>
+                      <li><button data-filter='.tarpaulpit' class="filter-btn">Tarpaul Pit</button></li>
+                      <li><button data-filter='.arvegum' class="filter-btn">Arvegum</button></li>
+                      <li><button data-filter='.macabrell' class="filter-btn">Macabrell</button></li>
+                      <li><button data-filter='.windsofthewaste' class="filter-btn">Winds of the Waste</button></li>
+                      <li><button data-filter='.steelsidelegion' class="filter-btn">Steelside Legion</button></li>
+                      <li><button data-filter='.woodsworn' class="filter-btn">Woodsworn</button></li>
+                      <li><button data-filter='.bjornguard' class="filter-btn">Bjornguard</button></li>
+                  </ul>
+              </div>
+              <div class="sort fade-block">
+                  <h2>SORTING OPTIONS</h2>
+                  <ul>
+                      <li><button data-sort-by="name" data-sort-ascending="true" class="sort-btn active">A-Z</button></li>
+                      <li><button data-sort-by="name" data-sort-ascending="false" class="sort-btn">Z-A</button></li>
+                      <li><button data-sort-by="newest" class="sort-btn">Newest to oldest</button></li>
+                      <li><button data-sort-by="oldest" class="sort-btn">Oldest to newest</button></li>
+                       <div class="other-stuff">
+                          <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>Back to top</button>
+                      </div>
+
+                  </ul>
+              </div>
+          </div>
+        </div>
+      </div>       
+				<!-- Main Content -->
+				<div class="content fade-block">
+        <div class="grid-holder">
+            <div class="grid fade-block">
+
+            <!-- Character -->
+            <div class="grid-item class woodsworn" data-category="003">
+            <div class="avi-container"> 
+                <a href="herb/index.html"> <img src="herb/img/avi.png"> </a> 
+            </div>
+            <div class="info"> 
+                <a href="herb/index.html"><h3 class="name">Herb Passerine</h3></a>
+            <div class="info-deets">
+                Bard
+            </div>
+            <div class="infodesc">
+                Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia. 
+            </div>
+            </div>
+            </div>
+
+            <!-- Character -->
+            <div class="grid-item class bjornguard" data-category="002">
+            <div class="avi-container"> 
+                <a href="peggle/index.html"> <img src="peggle/img/avi.png"> </a> 
+            </div>
+            <div class="info"> 
+                <a href="peggle/index.html"><h3 class="name">Peggle Krastov</h3></a>
+            <div class="info-deets">
+                Barbarian
+            </div>
+            <div class="infodesc">
+               Ashamed of being called Peggle. Peggle Krastov is a Goliath, Bear Totem with anger issues, and a loving niece.
+            </div>
+            </div>
+            </div>
+
+            <!-- Character -->
+            <div class="grid-item class" data-category="001">
+            <div class="avi-container"> 
+                <a href="blobert/index.html"> <img src="blobert/img/avi.png"> </a>
+            </div>    
+            <div class="info"> 
+               <a href="blobert/index.html"> <h3 class="name">Blobert Goopington</h3> </a>
+            <div class="info-deets">
+                Warlock
+            </div>
+            <div class="infodesc">
+                Colorblind and Retarded  Blobert Goopington is a Plasmoid, Hexblade who is now free of being inside a tower, who wants to see the places and things the books he read talked about.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item class" data-category="004">
+            <div class="avi-container"> 
+                <a href="eight/index.html"> <img src="eight/img/avi.png"> </a>
+            </div>    
+            <div class="info"> 
+               <a href="eight/index.html"> <h3 class="name">Eight Nanako</h3> </a>
+            <div class="info-deets">
+                Sorcerer
+            </div>
+            <div class="infodesc">
+                Eight Nanako is a human, divine soul at a crossroads in life who wants to see what the world offers.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item class" data-category="005">
+            <div class="avi-container"> 
+                <a href="baxter/index.html"> <img src="baxter/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="baxter/index.html"> <h3 class="name">Baxter Kokayin</h3> </a>
+            <div class="info-deets">
+                Wizard
+            </div>    
+            <div class="infodesc">
+                Makes up for his height. Baxter Kokayin is a Wood gnome, School of Conjuration with the desire to explore the world as a free man.
+            </div>
+            </div>
+            </div>
+            
+             <!-- Character -->
+            <div class="grid-item steelsidelegion" data-category="006">
+            <div class="avi-container"> 
+                <a href="charon/index.html"> <img src="charon/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="charon/index.html"> <h3 class="name">Charon</h3> </a>
+            <div class="info-deets">
+                Shroud Smuggler
+            </div>    
+            <div class="infodesc">
+                Charon is a Smuggler who assists others to pass the Shroud Of Aurum; his arm resembles the same technology as the Steelside Legion.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item tarpaulpit windsofthewaste" data-category="007">
+            <div class="avi-container"> 
+                <a href="baylis/index.html"> <img src="baylis/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="baylis/index.html"> <h3 class="name">Baylis</h3> </a>
+            <div class="info-deets">
+               Tarpaul Pit
+            </div>    
+            <div class="infodesc">
+                Baylis is a Dragonborne who is struck with two unfathomable diseases: Refractions and Corrosion. He fled Tarpaul Pit in search of a cure at the cost of a bounty on his head.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item tarpaulpit windsofthewaste" data-category="008">
+            <div class="avi-container"> 
+                <a href="skrapp/index.html"> <img src="skrapp/img/avi.png"></a>
+            </div>
+            <div class="info"> 
+               <a href="skrapp/index.html"> <h3 class="name">Skrapp</h3> </a>
+            <div class="info-deets">
+                Winds of The Waste
+            </div>    
+            <div class="infodesc">
+                A Kobold Scoout for the Winds of The Waste, Skrapp is very handy and cunning and uses all her skill for no good.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item tarpaulpit" data-category="009">
+            <div class="avi-container"> 
+                <a href="svahn/index.html"> <img src="svahn/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="svahn/index.html"> <h3 class="name">Svahn</h3> </a>
+            <div class="info-deets">
+                Tarpaul Pit
+            </div>    
+            <div class="infodesc">
+                A guard for Tarpaul Pit and General Strom, Svahn is a human who lives life with caution and does so casually.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item tarpaulpit" data-category="010">
+            <div class="avi-container"> 
+                <a href="amalie/index.html"> <img src="amalie/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="amalie/index.html"> <h3 class="name">Amalie</h3> </a>
+            <div class="info-deets">
+                Tarpaul Pit
+            </div>    
+            <div class="infodesc">
+                A widow who lost her lover during an expedition where the Party met Baylis, behind that somber and sad face lies a woman with sheer guile.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item tarpaulpit" data-category="011">
+            <div class="avi-container"> 
+                <a href="soko/index.html"> <img src="soko/img/avi.png"></a>
+            </div>
+            <div class="info"> 
+               <a href="soko/index.html"> <h3 class="name">Soko</h3> </a>
+            <div class="info-deets">
+                Drunkard
+            </div>    
+            <div class="infodesc">
+                A mischevious alcohol-thirsty Goblin who lives life to the fullest and without care. She idles her time in the Bone Bottom Inn.
+            </div>
+            </div>
+            </div>
+            
+            <!-- Character -->
+            <div class="grid-item class macabrell" data-category="012">
+            <div class="avi-container"> 
+                <a href="mousse/index.html"> <img src="mousse/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="mousse/index.html"> <h3 class="name">Mousse</h3> </a>
+            <div class="info-deets">
+                Blood Hunter
+            </div>    
+            <div class="infodesc">
+                Big Ass Rat. Mousse was a stowaway during the Macrabell Check point, and joined the party because he had nothing better to do.
+            </div>
+            </div>
+            </div>
+            
+             <!-- Character -->
+            <div class="grid-item New Arvegum bjornguard" data-category="012">
+            <div class="avi-container"> 
+                <a href="vaskal/index.html"> <img src="vaskal/img/avi.png"> </a>
+            </div>
+            <div class="info"> 
+               <a href="vaskal/index.html"> <h3 class="name">Vaskal Krastov</h3> </a>
+            <div class="info-deets">
+                Storm Herald
+            </div>    
+            <div class="infodesc">
+                Leader of the Iron Fang Sect of Bjornguard, Vaskal is a cold hunter out for blood of the heir of the Krastov Clan.
+            </div>
+            </div>
+            </div>
+ 
+            
+
+        </div>
+      </div>
+    </div>
+    
+      	<!-- Right Sidebar -->
+				<div class="side fade-block">
+					<playlist-block></playlist-block>  
+					<br>
+					<div class ="side-box fade-block">
+             <!-- MVP of the Session Box -->
+                    <div class="featured-title fade-block">
+                        <h3>MVP of the Session</h3>
+                    </div>
+                    <div class="box featured">
+                        <img src="/assets/img/placeholderavi.png">
+                        <a href="characters/index.html" style="margin-top: 5px">Eight Nanako</a>
+                        <p>For absolutly desimating the demons with a single spell.</p>
+                    </div>
+                  </div>
+					<br>
+					<div class="side-box fade-block">
+                    <!-- Random Character Box -->
+            <div class="box random fade-block">
+                <h2>Random Character</h2>
+                <div id="randomizer"></div>
+                <button id="dice" onclick="randomCharacter()"><i class="fa-solid fa-dice"></i></button>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<img class="ira fade-block" src="/assets/img/homepage/ira.webp">
+		<footer-block></footer-block>
+	</div>
+<!-- Isotope -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Isotope
+    var $grid = $('.grid').isotope({
+        itemSelector: '.grid-item',
+        layoutMode: 'fitRows',
+        getSortData: {
+            name: '.name',
+            category: '[data-category]'
+        },
+        transitionDuration: '0.9s'
+    });
+    
+    // Filter button handler
+    $('.filter button').on('click', function() {
+        var filterValue = $(this).attr('data-filter');
+        $grid.isotope({ filter: filterValue });
+        
+        // Update active class
+        $('.filter button').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Sort button handler
+    $('.sort button').on('click', function() {
+        var sortByValue = $(this).attr('data-sort-by');
+        var sortDirection;
+        
+        if (sortByValue === 'newest') {
+            sortDirection = false;
+        } else if (sortByValue === 'oldest') {
+            sortDirection = true;
+        } else {
+            sortDirection = $(this).attr('data-sort-ascending') === 'true';
+        }
+        
+        $grid.isotope({ 
+            sortBy: sortByValue,
+            sortAscending: sortDirection
+        });
+        
+        $('.sort button').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Back to top button
+    $('#myBtn').on('click', function() {
+        $('html, body').animate({ scrollTop: 0 }, 'smooth');
+        return false;
+    });
+});
+</script>	
+
+
+<style>
+.content {
+  width: 900px;
+}
+/*---------------------------Random------------------ */
+.random h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    background: none;
+    color: var(--emphasized-text);
+    margin-top: 0px;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.random {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 265px;
+}
+
+.randomavi {
+    width: 210px;
+    height: 210px;
+}
+
+.random center {
+    margin-top: 3px;
+}  
+/*---------------------------Sticky------------------ */
+.sidebar-left,
+.side {
+  position: sticky;
+  top: 20px;
+  height: max-content;
+
+}
+
+/*---------------------------Left sidebar------------------ */
+.sidebar-left {
+    width: 250px;
+    height: 700px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 16px;
+    color: var(--default-text);
+    margin-left: 35px;
+}
+
+.box-left {
+    border: 3px solid var(--box-br);
+    border-radius: 5px;
+}
+/*--------------------------Grid for the actual character blocks-----------------------*/
+.grid-holder {
+    margin-left: 0px;
+    width: 980px;
+    min-height: 1000px;
+}
+.grid {
+    width: 100%;
+    padding-bottom: 30px;   
+    z-index: 100;
+}
+
+.grid-item {
+    display: block;
+    float: left;
+    margin: 1%;
+    padding: 10px;
+    width: 200px;
+}
+
+/* Image style */
+
+.grid-item img {
+    transition: ease-in 0.3s, ease-out 0.3s;
+    width: 100%;
+    height: auto;
+}
+
+.grid-item:hover a img {
+    margin-top: -7px;
+    margin-bottom: 7px;
+}
+/*--------------------------Stuff for the actual character blocks-----------------------*/
+.avi-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+/* Content container info */
+
+.info {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Info heading */
+
+.info h3:hover {
+    color: var(--box-br);
+}
+/* Character Name */
+.info h3 {
+    font-size: 22px; /* was 20px */
+    font-weight: 600;
+    color: var(--default-text);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Role (like Bard, Wizard, etc.) */
+.info-deets {
+    font-size: 17px; /* was 16px */
+    font-weight: 500;
+}
+
+/* Description */
+.infodesc {
+    font-size: 14px; /* was 12px */
+    line-height: 1.5;
+    font-family: 'Nanum Pen Script', cursive;
+    opacity: 0.85;
+}
+
+/*--------------------------Left-side buttons-----------------------*/
+
+.filter-btn.active, .sort-btn.active {
+    background-color: var(--content-bg);
+    color: var(--content-br);
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 2px 6px;
+    box-shadow: 0 0 5px var(--box-bg);
+}
+
+button {
+    cursor: var(--cursor-hover);
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+}
+
+.toggles {
+    position: sticky;
+    top: 0;
+}
+
+.filter li, .sort li {
+    list-style: none;
+    margin-bottom: 4px;
+    transition: ease-in 0.2s, ease-out 0.2s;
+}
+
+.filter li:hover, .sort li:hover {
+    color: var(--content-br);
+}
+
+.filter ul, .sort ul {
+    margin-left: -23px;
+    margin-top: 3px;
+}
+
+.filter i, .other-stuff i {
+    margin-right: 8px;
+}
+
+.filter h1, .sort h2 {
+    border-bottom: 2px dashed var(--default-text);
+    padding: 5px;
+    padding-bottom: 7px;
+    margin: 5px 10px;
+    margin-left: -1px;
+    font-size: 19px;
+}
+
+.active::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../assets/img/boogleicon.ico);
+    height: 16px;
+    width: 16px;
+    margin-left: 10px;
+    margin-top: -1px;
+}
+
+
+
+#myBtn {
+    background-color: transparent;
+    font-size: 18px;
+    padding: 9px 14px;
+    border-radius: 5px;
+    border: 1px solid var(--box-bg);
+    font-weight: bold;
+    color: var(--default-text);
+    transition: ease-in 0.2s, ease-out 0.2s;
+}
+
+#myBtn:hover {
+    background-color: var(--content-bg);
+    border-color: var(--box-br);
+    color: var(--box-bg);
+}
+/*--------------------------other stuff-----------------------*/
+.other-stuff span {
+    font-family: "MS PGothic", sans-serif;
+}
+
+.other-stuff {
+    margin-top: 30px;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+}
+.other-stuff {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+/*--------------------------Mobile-----------------------*/
+
+.hide {
+    display: none;
+}
+
+.mobile-toggle {
+    display: none;
+    position: absolute;
+    top: -42px;
+    left: -5px;
+}
+
+.mobile-toggle i {
+    font-size: 20px;
+    margin-top: -9px;
+    margin-right: 5px;
+}
+
+.mobile-toggle button {
+    text-align: center;
+    background-color: var(--box-bg);
+    font-size: 20px;
+    padding: 2px;
+    padding-right: 7px;
+    border-radius: 5px;
+    cursor: var(--cursor-hover);
+    border: 1px solid var(--box-bg);
+    font-weight: bold;
+    color: var(--light);
+    margin-bottom: 10px;
+    height: 32px;
+    text-align: center;
+}
+
+@media(max-width:910px) {
+
+    html, body {
+        overflow-x: hidden;
+      }
+      body {
+        position: relative
+      }
+
+      .mobile-toggle {
+        display: block;
+    }
+
+      .sidebar-left {
+        display: block;
+      } 
+
+      .grid-holder {
+        margin-left: 5px;
+        width: 100%;
+    }
+
+    .grid-item {
+        width: 140px;
+    }
+
+    .avi-container {
+        max-width: 100%;
+        height: 140px;
+        width: 140px;
+        position: relative;
+    }
+
+    .sidebar-left {
+        width: 107%;
+        height: 103%;
+        position: absolute !important;
+        top: -5px;
+        left: -108%;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        transition: left 0.2s;
+        background-color: var(--nav-bg);
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        z-index: 900;
+        margin-left: -13px;
+    }
+
+    .mobile-active {
+        left: 0 !important;
+    }
+
+    #myBtn {
+        display: none;
+    }
+
+} 
+
+@media(max-width:376px) {
+    .grid-item {
+        width: 140px;
+    }
+
+    .avi-container {
+        max-width: 100%;
+        height: 140px;
+        width: 140px;
+        position: relative;
+    }
+}
+
+@media(min-width:425px) and (max-width:767px){
+
+    .grid-holder {
+        margin-left: 27px;
+        width: 100%;
+    }
+    
+}
+
+@media(min-width:768px) and (max-width:911px) {
+    .sidebar-left {
+        margin-left: -22px;
+    }
+}
+</style>
+
+</body>
+</html>
