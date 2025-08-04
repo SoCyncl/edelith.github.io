@@ -1,362 +1,455 @@
-class playlist extends HTMLElement {
-    constructor() {
-      super();
-    }
-  
-    connectedCallback() {
-      this.innerHTML = `
-        <div class="musicbox">
-          <div class="music-player fade-block">
-            <h2>Now Playing</h2>
-            <div class="music">
-              <span id="music-title" class="music-title">Nothing Playing</span>
-              <div class="music-controls">
-                <label for="trackList" hidden>Track Picker</label>
-                <select id="trackList" onchange="ChangeSongTrackList()">
-                  <option value="none" selected>Pick a song...</option>
-                  <optgroup label="Elden Ring Night Reign">
-                    <option value="3">Adel, Baron Of Night - Elden Ring Nightreign</option>
-                    <option value="4">Gladius, Beast Of Night - Elden Ring Nightreign</option>
-                    <option value="5">Heolstor the Nightlord - Elden Ring Nightreign</option>
-                    <option value="6">Caligo, Miasma Of Night - Elden Ring Nightreign</option>
-                    <option value="7">Libra, Creature Of Night - Elden Ring Nightreign</option>
-                    <option value="8">Fulghor, Champion Of Nightglow - Elden Ring Nightreign</option>
-                    <option value="9">Maris, Fathom Of Night - Elden Ring Nightreign</option>
-                    <option value="10">Gnoster, Wisdom Of Night - Elden Ring Nightreign</option>                        
-                  </optgroup>
-                  <optgroup label="Final Fantasy">
-                    <option value="11">Beyond the Darkness - FFX</option>
-                    <option value="12">Full Fathom Five - FFXIV</option>
-                    <option value="18">Starless Skyline - FFXIV</option>
-                    <option value="13">Galdin Quay - FFXV</option>
-                    <option value="14">Hammerhead - FFXV</option>
-                  </optgroup>
-                  <optgroup label="RPG Maker">
-                    <option value="15">Lost Haven/Shillings - Fear and Hunger 2: Termina</option>
-                    <option value="16">Every Schoolday - Fear and Hunger</option>
-                    <option value="17">A Stab of Happiness - OFF</option>
-                  </optgroup>
-                  <optgroup label="Kirby">
-                    <option value="0">Ripple Field 2 - Kirby's Dreamland 3</option>
-                    <option value="1">Grassland 4 - Kirby's Dreamland 3</option>
-                    <option value="2">Friends 3 - Kirby's Dreamland 3</option>
-                  </optgroup>
-                </select>
-                <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
-                <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-                <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-              </div>
-              <div class="volume-control">
-                <i class="fa-solid fa-volume-high"></i>
-                <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
-              </div>
-              <audio id="music-tag" src=""></audio>
-            </div>
-          </div>
+class NavbarTransparent extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+
+    this.shadowRoot.innerHTML = `
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Poppins", sans-serif;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          padding: 15px 30px;
+          background: transparent;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          z-index: 999999999;
+          transition: all 0.5s ease;
+          backdrop-filter: blur(5px);
+        }
+
+        .navbar.scrolled {
+          background: var(--nav-bg);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+          color: var(--default-text);
+          font-size: 24px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+
+        .nav-links {
+          display: flex;
+          gap: 20px;
+        }
+
+        .nav-links a {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: var(--default-text);
+          font-size: 16px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          padding: 8px 12px;
+          border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+          background: var(--default-text);
+          color: var(--nav-bg);
+        }
+
+        .nav-icon {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          margin-right: 10px;
+          transition: all 0.3s ease;
+        }
+
+        .search-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .search-input {
+          font-size: 15px;
+          color: var(--default-text);
+          font-weight: 400;
+          outline: none;
+          height: 40px;
+          width: 440px;
+          border: none;
+          border-radius: 20px;
+          transition: all 0.5s ease;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 0 15px 0 40px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          left: -60px
+        }
+
+        .search-input:focus {
+          border-color: var(--content-bg);
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 0 0 2px rgba(136, 250, 255, 0.2);
+        }
+
+        .bx-search {
+          position: absolute;
+          left: 15px;
+          color: var(--default-text);
+          font-size: 18px;
+        }
+
+        #search-results {
+          position: absolute;
+          top: calc(100% + 10px);
+          left: 0;
+          width: 100%;
+          max-height: 300px;
+          overflow-y: auto;
+          display: none;
+          background: var(--nav-bg);
+          border-radius: 12px;
+          padding: 8px;
+          z-index: 10001;
+          box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #search-results li {
+          list-style: none;
+          margin: 4px 0;
+          padding: 0;
+          border-radius: 8px;
+          overflow: hidden;
+          transition: all 0.2s ease;
+        }
+
+        #search-results li a {
+          display: flex;
+          align-items: center;
+          padding: 10px 12px;
+          color: var(--default-text);
+          text-decoration: none;
+          font-size: 14px;
+          transition: all 0.2s ease;
+          background: transparent !important;
+        }
+
+        #search-results li a:hover {
+          background: rgba(136, 250, 255, 0.2) !important;
+        }
+
+        #search-results li a i {
+          font-size: 16px;
+          margin-right: 10px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-highlight {
+          color: #88faff;
+          font-weight: 500;
+        }
+
+        .search-result-image {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+          margin-right: 10px;
+          border-radius: 3px;
+        }
+
+        .menu-toggle {
+          display: none;
+          font-size: 24px;
+          color: var(--default-text);
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+          .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            gap: 15px;
+            transform: translateY(-150%);
+            transition: transform 0.3s ease;
+            z-index: 999999998;
+          }
+
+          .nav-links.active {
+            transform: translateY(0);
+          }
+
+          .menu-toggle {
+            display: block;
+          }
+
+          .search-input {
+            width: 150px;
+          }
+        }
+
+        /* Animation styles */
+        @keyframes singleFlip {
+          0% {
+            transform: rotateY(0deg);
+          }
+          100% {
+            transform: rotateY(180deg);
+          }
+        }
+      </style>
+      <nav class="navbar">
+        <a href="/" class="logo">Edelith.org</a>
+        
+        <div class="nav-links">
+          <a href="/">
+            <img src="/assets/img/homepage/Biblio_yellow.png" class="nav-icon" alt="Homepage">
+            <span>Homepage</span>
+          </a>
+          <a href="/quill-and-terms">
+            <img src="/assets/img/homepage/Biblio_brown.png" class="nav-icon" alt="Quill & Terms">
+            <span>Quill & Terms</span>
+          </a>
+          <a href="/characters/index.html">
+            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Characters">
+            <span>Characters</span>
+          </a>
+          <a href="/recap">
+            <img src="/assets/img/homepage/Biblio_blue.png" class="nav-icon" alt="Recap">
+            <span>Recap</span>
+          </a>
+          <a href="/fun-fact-friday">
+            <img src="/assets/img/homepage/Biblio_red.png" class="nav-icon" alt="Fun Fact Friday">
+            <span>Fun Fact Friday</span>
+          </a>
+          <a href="/beastiary/index.html">
+            <img src="/assets/img/homepage/Biblio_purple.png" class="nav-icon" alt="Beastiary">
+            <span>Beastiary</span>
+          </a>
+          <a href="/regions/index.html">
+            <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">
+            <span>Regions</span>
+          </a>
+          <a href="/info">
+            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Info">
+            <span>Info</span>
+          </a>
         </div>
-      `;
-    }
-}
 
-customElements.define('playlist-block', playlist);
+        <div class="search-wrapper">
+          <i class='bx bx-search'></i>
+          <input type="text" id="search-input" class="search-input" placeholder="Search...">
+          <ul id="search-results"></ul>
+        </div>
 
-// Music player functionality
-const songs = {
-    s0: {
-        title: 'Ripple Field 2 - Kirby\'s Dreamland 3',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/ripplefield2.mp3'
-    },
-    s1: {
-        title: 'Grassland 4 - Kirby\'s Dreamland 3',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/grassland4.mp3'
-    },
-    s2: {
-        title: 'Friends 3 - Kirby\'s Dreamland 3',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/friends3.mp3'
-    },
-    s3: {
-        title: 'Adel, Baron Of Night - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Adel%2C%20Baron%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s4: {
-        title: 'Gladius, Beast Of Night - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Gladius%2C%20Beast%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s5: {
-        title: 'Heolstor the Nightlord - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Heolstor%20the%20Nightlord%20-%20Elden%20Ring%20Nightreign%20OST.mp3'
-    },
-    s6: {
-        title: "Caligo, Miasma Of Night - Elden Ring Nightreign",
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Caligo%2C%20Miasma%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s7: {
-        title: "Libra, Creature Of Night - Elden Ring Nightreign",
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Libra%2C%20Creature%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s8: {
-        title: 'Fulghor, Champion Of Nightglow - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Fulghor%2C%20Champion%20Of%20Nightglow%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s9: {
-        title: 'Maris, Fathom Of Night - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Maris%2C%20Fathom%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s10: {
-        title: 'Gnoster, Wisdom Of Night - Elden Ring Nightreign',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/Fromsoft/Gnoster%2C%20Wisdom%20Of%20Night%20-%20Elden%20Ring%20Nightreign%20OST%20Official%20Soundtrack%20Original%20Score.mp3'
-    },
-    s11: {
-        title: 'Beyond the Darkness - FFX',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/beyondthedarkness.mp3'
-    },
-    s12: {
-        title: 'Full Fathom Five - FFXIV',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/fullfathomfive.mp3'
-    },
-    s13: {
-        title: 'Galdin Quay - FFXV',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/galdinquay.mp3'
-    },
-    s14: {
-        title: 'Hammerhead - FFXV',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/hammerhead.mp3'
-    },
-    s15: {
-        title: 'Lost Haven/Shillings - Fear and Hunger 2: Termina',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/losthavenshillings.mp3'
-    },
-    s16: {
-        title: 'Every Schoolday - Fear and Hunger',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/everyschoolday.mp3'
-    },
-    s17: {
-        title: 'A Stab of Happiness - OFF',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/astabofhappiness.mp3'
-    },
-    s18: {
-        title: 'Starless Skyline - FFXIV',
-        url: 'https://file.garden/ZRqB-G_MomIqlqQI/music/Starless%20Skyline.mp3'
-    },
-};
+        <i class='bx bx-menu menu-toggle'></i>
+      </nav>
+    `;
+  }
 
-const songTitle = document.getElementById("music-title");
-const songPlay = document.getElementById("music-tag");
-const playButton = document.getElementById("playButton");
+  connectedCallback() {
+    const shadow = this.shadowRoot;
+    const navbar = shadow.querySelector(".navbar");
+    const searchInput = shadow.querySelector("#search-input");
+    const resultsContainer = shadow.querySelector("#search-results");
+    const menuToggle = shadow.querySelector(".menu-toggle");
+    const navLinks = shadow.querySelector(".nav-links");
 
-// Save state every second
-function saveMusicState() {
-    if (songPlay && songPlay.src) {
-        const musicState = {
-            src: songPlay.src,
-            title: songTitle.innerText,
-            currentTime: songPlay.currentTime,
-            volume: songPlay.volume,
-            isPlaying: !songPlay.paused,
-            timestamp: Date.now()
-        };
-        localStorage.setItem("musicState", JSON.stringify(musicState));
-    }
-}
+    // Initialize search data
+    let searchData = [];
 
-// Load saved state
-function loadMusicState() {
-    const savedState = localStorage.getItem("musicState");
-    if (savedState) {
-        try {
-            return JSON.parse(savedState);
-        } catch (e) {
-            console.warn("Failed to parse saved music state", e);
-            return null;
-        }
-    }
-    return null;
-}
+    // Fetch search data
+    fetch('/search-data.json')
+      .then(res => res.json())
+      .then(data => {
+        searchData = data;
+      })
+      .catch(error => {
+        console.error('Error loading search data:', error);
+      });
 
-// Initialize the player
-function initializePlayer() {
-    const savedState = loadMusicState();
-    const volumeSlider = document.getElementById("volumeSlider");
+    // Highlight matching text in search results
+    const highlightText = (text, query) => {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<span class="search-highlight">$1</span>');
+    };
+
+    // Search functionality
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      resultsContainer.innerHTML = '';
     
-    if (savedState) {
-        // Restore saved state
-        songPlay.src = savedState.src;
-        songTitle.innerText = savedState.title;
-        songPlay.volume = savedState.volume;
-        songPlay.currentTime = savedState.currentTime || 0;
-        
-        if (volumeSlider) {
-            volumeSlider.value = savedState.volume;
-        }
-        
-        // Update the play/pause button based on saved state
-        if (savedState.isPlaying) {
-            // Only auto-play if the state is recent (less than 5 seconds old)
-            // This prevents autoplay when coming back after a long time
-            const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
-            
-            if (isRecent) {
-                const playPromise = songPlay.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        playButton.classList.replace("fa-play", "fa-pause");
-                    }).catch(e => {
-                        console.warn("Autoplay failed:", e);
-                        playButton.classList.replace("fa-pause", "fa-play");
-                    });
-                }
-            } else {
-                // If state isn't recent, respect the paused state
-                playButton.classList.replace("fa-pause", "fa-play");
-            }
-        } else {
-            // Explicitly paused state
-            songPlay.pause();
-            playButton.classList.replace("fa-pause", "fa-play");
-        }
-        
-        // Update the dropdown to show the current song
-        updateTrackListSelection(savedState.src);
-    } else {
-        // No saved state, initialize with defaults
-        songPlay.volume = volumeSlider ? volumeSlider.value : 0.25;
-        playButton.classList.replace("fa-pause", "fa-play");
-    }
-}
-
-// Update the track list dropdown to show the current song
-function updateTrackListSelection(src) {
-    if (!src) return;
-    
-    const trackList = document.getElementById("trackList");
-    if (!trackList) return;
-    
-    // Find which song matches the current src
-    for (const [key, song] of Object.entries(songs)) {
-        if (song.url === src) {
-            const songIndex = parseInt(key.replace('s', ''));
-            trackList.value = songIndex;
-            return;
-        }
-    }
-    
-    // If no match found, reset to "none"
-    trackList.value = "none";
-}
-
-function changeVolume() {
-    const volumeSlider = document.getElementById("volumeSlider");
-    songPlay.volume = volumeSlider.value;
-    saveMusicState();
-}
-
-function ChangesongPlay() {
-    const SongList = Object.values(songs);
-    const randomSong = SongList[Math.floor(Math.random() * SongList.length)];
-    songTitle.innerHTML = "Now playing: " + randomSong.title;
-    songPlay.src = randomSong.url;
-    
-    const playPromise = songPlay.play();
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            playButton.classList.replace("fa-play", "fa-pause");
-            saveMusicState();
-        }).catch(e => {
-            console.warn("Play failed:", e);
-            playButton.classList.replace("fa-pause", "fa-play");
-        });
-    }
-}
-
-function ChangeSongTrackList() {
-    const x = document.getElementById("trackList").value;
-    const SongList = Object.values(songs);
-    
-    if (x === "none") {
-        songPlay.pause();
-        songPlay.src = "";
-        songTitle.innerHTML = "Nothing Playing";
-        playButton.classList.replace("fa-pause", "fa-play");
-        localStorage.removeItem("musicState");
+      if (query.length === 0) {
+        resultsContainer.style.display = 'none';
         return;
-    } else {
-        const newSong = SongList[x];
-        songTitle.innerHTML = "Now playing: " + newSong.title;
-        songPlay.src = newSong.url;
+      }
+    
+      const results = searchData.filter(item =>
+        item.title.toLowerCase().includes(query) ||
+        (item.keywords && item.keywords.toLowerCase().includes(query))
+      ).slice(0, 8); // limit to 8 suggestions
+    
+      resultsContainer.style.display = results.length > 0 ? 'block' : 'block';
+    
+      if (results.length === 0) {
+        const noResults = document.createElement('li');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No results found';
+        resultsContainer.appendChild(noResults);
+      } else {
+        results.forEach(item => {
+          const li = document.createElement('li');
+          // Check if image exists in the item
+          const iconContent = item.image 
+            ? `<img src="${item.image}" class="search-result-image" alt="${item.title}">`
+            : `<i class='bx ${item.icon || 'bx-file'}'></i>`;
+          
+          li.innerHTML = `
+            <a href="${item.url}">
+              ${iconContent}
+              ${highlightText(item.title, query)}
+            </a>
+          `;
+          resultsContainer.appendChild(li);
+        });
+      }
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!shadow.querySelector('.search-wrapper').contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+
+    // Show results when input is focused
+    searchInput.addEventListener('focus', () => {
+      if (searchInput.value.trim().length > 0) {
+        resultsContainer.style.display = 'block';
+      }
+    });
+
+    // Keyboard navigation for search results
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const results = resultsContainer.querySelectorAll('li');
+        if (results.length === 0) return;
         
-        const playPromise = songPlay.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                playButton.classList.replace("fa-play", "fa-pause");
-                saveMusicState();
-            }).catch(e => {
-                console.warn("Play failed:", e);
-                playButton.classList.replace("fa-pause", "fa-play");
-            });
+        let currentIndex = -1;
+        results.forEach((result, index) => {
+          if (result.classList.contains('highlighted')) {
+            currentIndex = index;
+            result.classList.remove('highlighted');
+          }
+        });
+        
+        if (e.key === 'ArrowDown') {
+          currentIndex = (currentIndex + 1) % results.length;
+        } else {
+          currentIndex = (currentIndex - 1 + results.length) % results.length;
         }
+        
+        results[currentIndex].classList.add('highlighted');
+        results[currentIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const highlighted = resultsContainer.querySelector('li.highlighted');
+        if (highlighted) {
+          highlighted.querySelector('a').click();
+        }
+      }
+    });
+
+    // Initialize results container as hidden
+    resultsContainer.style.display = 'none';
+
+    // Toggle mobile menu
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('bx-x');
+    });
+
+    // Close mobile menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('bx-x');
+      });
+    });
+
+    // Scroll effect for navbar
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Initialize scroll state
+    if (window.scrollY > 400) {
+      navbar.classList.add('scrolled');
     }
+
+    // Icon animation
+    const navIcons = shadow.querySelectorAll('.nav-icon');
+    let currentIcon = 0;
+    const flipDuration = 400; // milliseconds
+    const pauseBetween = 200; // milliseconds between icons
+    const cyclePause = 3000; // pause before restarting sequence
+    
+    function startFlipAnimation() {
+      if (navIcons.length === 0) return;
+      
+      // Reset current icon
+      navIcons[currentIcon].style.transform = 'rotateY(0deg)';
+      navIcons[currentIcon].style.animation = 'none';
+      
+      // Animate next icon
+      currentIcon = (currentIcon + 1) % navIcons.length;
+      navIcons[currentIcon].style.animation = `singleFlip ${flipDuration}ms ease forwards`;
+      
+      // Schedule next flip or restart cycle
+      setTimeout(() => {
+        if (currentIcon === navIcons.length - 1) {
+          setTimeout(startFlipAnimation, cyclePause);
+        } else {
+          startFlipAnimation();
+        }
+      }, flipDuration + pauseBetween);
+    }
+    
+    // Start animation after initial delay
+    setTimeout(startFlipAnimation, 1000);
+    
+    // Pause/resume on hover
+    navIcons.forEach(icon => {
+      icon.addEventListener('mouseenter', () => {
+        icon.style.animationPlayState = 'paused';
+      });
+      icon.addEventListener('mouseleave', () => {
+        icon.style.animationPlayState = 'running';
+      });
+    });
+  }
 }
 
-function playPauseMusic() {
-    if (songPlay.paused) {
-        const playPromise = songPlay.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                playButton.classList.replace("fa-play", "fa-pause");
-                saveMusicState();
-            }).catch(e => {
-                console.warn("Play failed:", e);
-            });
-        }
-    } else {
-        songPlay.pause();
-        playButton.classList.replace("fa-pause", "fa-play");
-        saveMusicState();
-    }
-}
+customElements.define('transparent-navbar', NavbarTransparent);
 
-function rewindMusic() {
-    songPlay.currentTime = 0;
-    saveMusicState();
-}
-
-songPlay.onended = function() {
-    ChangesongPlay();
-};
-
-// Set up periodic saving
-setInterval(saveMusicState, 1000);
-
-// Initialize when DOM is loaded
-document.addEventListener("DOMContentLoaded", function() {
-    // Wait a brief moment to ensure all elements are ready
-    setTimeout(initializePlayer, 100);
-});
-
-// Save state when page is unloaded
-window.addEventListener("beforeunload", saveMusicState);
-
-// Handle page visibility changes
-document.addEventListener("visibilitychange", function() {
-    if (document.hidden) {
-        // Page is hidden (tab switched or minimized)
-        saveMusicState();
-    } else {
-        // Page is visible again
-        const savedState = loadMusicState();
-        if (savedState && savedState.isPlaying) {
-            // Only resume if it was playing very recently (last 5 seconds)
-            const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
-            if (isRecent) {
-                const playPromise = songPlay.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        playButton.classList.replace("fa-play", "fa-pause");
-                    }).catch(e => {
-                        console.warn("Autoplay failed:", e);
-                    });
-                }
-            }
-        }
-    }
-});
+customElements.define('side-bar-nav', SidebarNav);
