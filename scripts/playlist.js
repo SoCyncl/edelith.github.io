@@ -5,6 +5,17 @@ class playlist extends HTMLElement {
   
     connectedCallback() {
       this.innerHTML = `
+            <style>
+      .ira {
+        	position: absolute;
+        	width: 359px;
+        	right: 25px;
+        	top: -177px;
+        	z-index: 100;
+        	max-width: 114%; /* Prevents overflow */
+          }
+      </style>
+      <img class="fade-block ira" src="../assets/img/homepage/ira.webp">
         <div class="musicbox">
           <div class="music-player fade-block">
             <h2>Now Playing</h2>
