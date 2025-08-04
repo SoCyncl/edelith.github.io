@@ -1,6 +1,7 @@
 class playlist extends HTMLElement {
     constructor() {
       super();
+      this.isOpen = false;
     }
   
     connectedCallback() {
@@ -12,64 +13,201 @@ class playlist extends HTMLElement {
         	right: 25px;
         	top: -177px;
         	z-index: 100;
-        	max-width: 114%; /* Prevents overflow */
+        	max-width: 114%;
+        	cursor: pointer;
+        	transition: transform 0.3s ease;
+        	filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+          }
+          
+      .ira:hover {
+        	transform: scale(1.05);
+          }
+          
+      .musicbox {
+        	position: absolute;
+        	right: 25px;
+        	top: 180px;
+        	width: 300px;
+        	opacity: 0;
+        	visibility: hidden;
+        	transition: opacity 0.3s ease, visibility 0.3s ease;
+        	background: var(--box-bg);
+        	border: 3px solid var(--box-br);
+        	border-radius: 8px;
+        	padding: 15px;
+        	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        	z-index: 99;
+          }
+          
+      .musicbox.visible {
+        	opacity: 1;
+        	visibility: visible;
+          }
+          
+      .music-player {
+        	color: var(--emphasized-text);
+        	font-family: inherit;
+          }
+          
+      .music-title {
+        	display: block;
+        	margin: 10px 0;
+        	padding: 8px 0;
+        	color: var(--emphasized-text);
+        	font-size: 0.95rem;
+        	border-bottom: 1px solid var(--box-br);
+        	white-space: nowrap;
+        	overflow: hidden;
+        	text-overflow: ellipsis;
+          }
+          
+       
+      .music-controls {
+        	display: flex;
+        	flex-wrap: wrap;
+        	gap: 8px;
+        	margin: 15px 0;
+        	align-items: center;
+          }
+          
+      .music-controls select {
+        	flex: 1 1 100%;
+        	padding: 6px 8px;
+        	background: var(--content-bg);
+        	border: 2px solid var(--box-br);
+        	border-radius: 4px;
+        	color: var(--default-text);
+        	font-size: 0.85rem;
+        	max-width: 100%;
+          }
+          
+      .music-controls button {
+        	flex: 1;
+        	padding: 8px 0;
+        	background: var(--nav-bg);
+        	border: 2px solid var(--box-br);
+        	border-radius: 4px;
+        	color: var(--emphasized-text);
+        	cursor: pointer;
+        	transition: all 0.2s ease;
+          }
+          
+      .music-controls button:hover {
+        	background: var(--content-bg);
+        	color: white;
+          }
+          
+      .volume-control {
+        	display: flex;
+        	align-items: center;
+        	gap: 8px;
+        	margin-top: 10px;
+          }
+          
+      .volume-control i {
+        	color: var(--emphasized-text);
+        	font-size: 0.9rem;
+          }
+          
+      .volume-control input[type="range"] {
+        	flex: 1;
+        	height: 4px;
+        	background: var(--content-bg);
+        	border-radius: 2px;
+        	-webkit-appearance: none;
+          }
+          
+      .volume-control input[type="range"]::-webkit-slider-thumb {
+        	-webkit-appearance: none;
+        	width: 14px;
+        	height: 14px;
+        	border-radius: 50%;
+        	background: var(--emphasized-text);
+        	cursor: pointer;
+          }
+          
+      h2 {
+        	margin: 0 0 10px 0;
+        	font-size: 1.1rem;
+        	color: var(--emphasized-text);
+        	font-weight: normal;
           }
       </style>
-      <img class="fade-block ira" src="../assets/img/homepage/ira.webp">
-        <div class="musicbox">
+      <img class="fade-block ira" src="../assets/img/homepage/ira.webp" id="iraImage">
+        <div class="musicbox" id="musicBox">
           <div class="music-player fade-block">
             <h2>Now Playing</h2>
-            <div class="music">
-              <span id="music-title" class="music-title">Nothing Playing</span>
-              <div class="music-controls">
-                <label for="trackList" hidden>Track Picker</label>
-                <select id="trackList" onchange="ChangeSongTrackList()">
-                  <option value="none" selected>Pick a song...</option>
-                  <optgroup label="Elden Ring Night Reign">
-                    <option value="3">Adel, Baron Of Night - Elden Ring Nightreign</option>
-                    <option value="4">Gladius, Beast Of Night - Elden Ring Nightreign</option>
-                    <option value="5">Heolstor the Nightlord - Elden Ring Nightreign</option>
-                    <option value="6">Caligo, Miasma Of Night - Elden Ring Nightreign</option>
-                    <option value="7">Libra, Creature Of Night - Elden Ring Nightreign</option>
-                    <option value="8">Fulghor, Champion Of Nightglow - Elden Ring Nightreign</option>
-                    <option value="9">Maris, Fathom Of Night - Elden Ring Nightreign</option>
-                    <option value="10">Gnoster, Wisdom Of Night - Elden Ring Nightreign</option>                        
-                  </optgroup>
-                  <optgroup label="Final Fantasy">
-                    <option value="11">Beyond the Darkness - FFX</option>
-                    <option value="12">Full Fathom Five - FFXIV</option>
-                    <option value="18">Starless Skyline - FFXIV</option>
-                    <option value="13">Galdin Quay - FFXV</option>
-                    <option value="14">Hammerhead - FFXV</option>
-                  </optgroup>
-                  <optgroup label="RPG Maker">
-                    <option value="15">Lost Haven/Shillings - Fear and Hunger 2: Termina</option>
-                    <option value="16">Every Schoolday - Fear and Hunger</option>
-                    <option value="17">A Stab of Happiness - OFF</option>
-                  </optgroup>
-                  <optgroup label="Kirby">
-                    <option value="0">Ripple Field 2 - Kirby's Dreamland 3</option>
-                    <option value="1">Grassland 4 - Kirby's Dreamland 3</option>
-                    <option value="2">Friends 3 - Kirby's Dreamland 3</option>
-                  </optgroup>
-                </select>
-                <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
-                <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-                <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-              </div>
-              <div class="volume-control">
-                <i class="fa-solid fa-volume-high"></i>
-                <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
-              </div>
-              <audio id="music-tag" src=""></audio>
+            <span id="music-title" class="music-title">Nothing Playing</span>
+            <div class="music-controls">
+              <label for="trackList" hidden>Track Picker</label>
+              <select id="trackList" onchange="ChangeSongTrackList()">
+                <option value="none" selected>Pick a song...</option>
+                <optgroup label="Elden Ring Night Reign">
+                  <option value="3">Adel, Baron Of Night - Elden Ring Nightreign</option>
+                  <option value="4">Gladius, Beast Of Night - Elden Ring Nightreign</option>
+                  <option value="5">Heolstor the Nightlord - Elden Ring Nightreign</option>
+                  <option value="6">Caligo, Miasma Of Night - Elden Ring Nightreign</option>
+                  <option value="7">Libra, Creature Of Night - Elden Ring Nightreign</option>
+                  <option value="8">Fulghor, Champion Of Nightglow - Elden Ring Nightreign</option>
+                  <option value="9">Maris, Fathom Of Night - Elden Ring Nightreign</option>
+                  <option value="10">Gnoster, Wisdom Of Night - Elden Ring Nightreign</option>                        
+                </optgroup>
+                <optgroup label="Final Fantasy">
+                  <option value="11">Beyond the Darkness - FFX</option>
+                  <option value="12">Full Fathom Five - FFXIV</option>
+                  <option value="18">Starless Skyline - FFXIV</option>
+                  <option value="13">Galdin Quay - FFXV</option>
+                  <option value="14">Hammerhead - FFXV</option>
+                </optgroup>
+                <optgroup label="RPG Maker">
+                  <option value="15">Lost Haven/Shillings - Fear and Hunger 2: Termina</option>
+                  <option value="16">Every Schoolday - Fear and Hunger</option>
+                  <option value="17">A Stab of Happiness - OFF</option>
+                </optgroup>
+                <optgroup label="Kirby">
+                  <option value="0">Ripple Field 2 - Kirby's Dreamland 3</option>
+                  <option value="1">Grassland 4 - Kirby's Dreamland 3</option>
+                  <option value="2">Friends 3 - Kirby's Dreamland 3</option>
+                </optgroup>
+              </select>
+              <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
+              <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
+              <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
             </div>
+            <div class="volume-control">
+              <i class="fa-solid fa-volume-high"></i>
+              <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
+            </div>
+            <audio id="music-tag" src=""></audio>
           </div>
         </div>
       `;
+      
+      const iraImage = this.querySelector('#iraImage');
+      const musicBox = this.querySelector('#musicBox');
+      
+      iraImage.addEventListener('click', () => {
+        this.isOpen = !this.isOpen;
+        
+        if (this.isOpen) {
+          iraImage.src = "../assets/img/homepage/ira-active.webp";
+          musicBox.classList.add('visible');
+          
+          // Bounce effect
+          iraImage.style.transform = 'scale(1.1)';
+          setTimeout(() => {
+            iraImage.style.transform = 'scale(1)';
+          }, 300);
+        } else {
+          iraImage.src = "../assets/img/homepage/ira.webp";
+          musicBox.classList.remove('visible');
+        }
+      });
     }
 }
 
 customElements.define('playlist-block', playlist);
+
 
 // Music player functionality
 const songs = {
