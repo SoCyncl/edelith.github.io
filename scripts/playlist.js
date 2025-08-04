@@ -50,7 +50,7 @@ class playlist extends HTMLElement {
                 <i class="fa-solid fa-volume-high"></i>
                 <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
               </div>
-              <audio id="music-tag" src="" autoplay></audio>
+              <audio id="music-tag" src=""></audio>
             </div>
           </div>
         </div>
@@ -152,7 +152,8 @@ function saveMusicState() {
             title: songTitle.innerText,
             currentTime: songPlay.currentTime,
             volume: songPlay.volume,
-            isPlaying: !songPlay.paused
+            isPlaying: !songPlay.paused,
+            timestamp: Date.now()
         };
         localStorage.setItem("musicState", JSON.stringify(musicState));
     }
@@ -163,22 +164,13 @@ function loadMusicState() {
     const savedState = localStorage.getItem("musicState");
     if (savedState) {
         try {
-            const state = JSON.parse(savedState);
-            
-            // Only restore if the state is less than 1 hour old (optional)
-            // This prevents restoring very old states
-            const stateAge = localStorage.getItem("musicStateTimestamp");
-            if (stateAge && (Date.now() - parseInt(stateAge)) > 3600000) {
-                return false;
-            }
-            
-            return state;
+            return JSON.parse(savedState);
         } catch (e) {
             console.warn("Failed to parse saved music state", e);
-            return false;
+            return null;
         }
     }
-    return false;
+    return null;
 }
 
 // Initialize the player
@@ -197,17 +189,29 @@ function initializePlayer() {
             volumeSlider.value = savedState.volume;
         }
         
+        // Update the play/pause button based on saved state
         if (savedState.isPlaying) {
-            const playPromise = songPlay.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    playButton.classList.replace("fa-play", "fa-pause");
-                }).catch(e => {
-                    console.warn("Autoplay failed:", e);
-                    playButton.classList.replace("fa-pause", "fa-play");
-                });
+            // Only auto-play if the state is recent (less than 5 seconds old)
+            // This prevents autoplay when coming back after a long time
+            const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
+            
+            if (isRecent) {
+                const playPromise = songPlay.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playButton.classList.replace("fa-play", "fa-pause");
+                    }).catch(e => {
+                        console.warn("Autoplay failed:", e);
+                        playButton.classList.replace("fa-pause", "fa-play");
+                    });
+                }
+            } else {
+                // If state isn't recent, respect the paused state
+                playButton.classList.replace("fa-pause", "fa-play");
             }
         } else {
+            // Explicitly paused state
+            songPlay.pause();
             playButton.classList.replace("fa-pause", "fa-play");
         }
         
@@ -329,5 +333,30 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(initializePlayer, 100);
 });
 
-// Also save state when page is unloaded
+// Save state when page is unloaded
 window.addEventListener("beforeunload", saveMusicState);
+
+// Handle page visibility changes
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+        // Page is hidden (tab switched or minimized)
+        saveMusicState();
+    } else {
+        // Page is visible again
+        const savedState = loadMusicState();
+        if (savedState && savedState.isPlaying) {
+            // Only resume if it was playing very recently (last 5 seconds)
+            const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
+            if (isRecent) {
+                const playPromise = songPlay.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playButton.classList.replace("fa-play", "fa-pause");
+                    }).catch(e => {
+                        console.warn("Autoplay failed:", e);
+                    });
+                }
+            }
+        }
+    }
+});
