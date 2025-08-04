@@ -63,14 +63,7 @@ a {
 a:hover, a:focus {
     color: var(--link-hover-color); /* Hover color */
 }
-.ira {
-	position: absolute;
-	width: 360px;
-	right: 20px;
-	top: -135px;
-	z-index: 100;
-	max-width: 100%; /* Prevents overflow */
-  }
+
 
 .chunk {
     clip-path: polygon(
@@ -664,51 +657,6 @@ h2 a {
 /* ------volume slider----------------------*/
 /* Volume Control Styles */
 
-
-.volume-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    margin-right: 5px;
-}
-
-.volume-control i {
-    color: var(--default-text);
-    align-items: center;
-}
-
-.volume-slider {
-    width: 80px;
-    cursor: var(--cursor-hover);
-    -webkit-appearance: none;
-    height: 5px;
-    background: var(--content-bg);
-    border-radius: 5px;
-    border: 1px solid var(--box-br);
-    align-items: center;
-    
-}
-
-.volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 70%;
-    background: var(--default-text);
-    cursor: var(--cursor-hover);
-    border: 1px solid var(--box-br);
-}
-
-.volume-slider::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    border-radius: 70%;
-    background: var(--default-text);
-    cursor: var(--cursor-hover);
-    border: 1px solid var(--box-br);
-}
-
 /* ------Music and stuff----------------------*/
 /* 🎵 Music Container */
 .playlist {
@@ -734,7 +682,7 @@ h2 a {
     font-size: 1.25em;
     font-weight: bold;
     color: var(--emphasized-text);
-    max-width: 100%;
+    max-width: auto;
     box-sizing: border-box;
     padding-right: 20px; /* Ensure it doesn't touch the edge */
 }
@@ -761,48 +709,6 @@ h2 a {
     overflow: hidden;
 }
 
-/* 💿 Music Controls Container */
-.music-controls {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 8px 0;
-}
-
-/* 🎛 Control Buttons */
-.music button {
-    background: none;
-    border: none;
-    color: var(--link-color);
-    cursor: var(--cursor-hover);
-    font-size: 1.1em;
-    padding: 4px 8px;
-    transition: color 0.3s ease;
-}
-
-.music button:hover {
-    color: var(--link-hover-color);
-}
-
-/* 🎚 Volume Control Styles */
-.volume-control {
-      margin-left: auto;
-    padding-right: 5px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.volume-slider {
-    width: 80px;
-    height: 6px;
-    background-color: var(--content-bg);
-    border: 1px solid var(--box-br);
-    border-radius: 3px;
-    cursor: var(--cursor-hover);
-}
 
 .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
