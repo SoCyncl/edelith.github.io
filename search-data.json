@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Home",
+    "url": "/home.html",
+    "keywords": "home welcome intro cyncl"
+  },
+  {
+    "title": "Quill & Terms",
+    "url": "/pages/quill-and-terms.html",
+    "keywords": "quill magic glossary lore",
+    "image": "/assets/img/homepage/quill-and-terms.png"
+  },
+  {
+    "title": "Characters",
+    "url": "/pages/characters/index.html",
+    "keywords": "characters list bios profiles",
+    "image": "/assets/img/homepage/characters.png"
+  },
+  {
+    "title": "Recap",
+    "url": "/pages/recap.html",
+    "keywords": "recap sessions story summary",
+    "image": "/assets/img/homepage/recap.png"
+  },
+  {
+    "title": "Beastiary",
+    "url": "/beastiary.html",
+    "keywords": "monsters creatures beastiary fauna",
+    "image": "/assets/img/homepage/beastiary.png"
+  },
+  {
+    "title": "Regions",
+    "url": "/pages/regions.html",
+    "keywords": "map regions cities areas",
+    "image": "/assets/img/homepage/mapbutton.png"
+  },
+  {
+    "title": "Fun Fact Friday",
+    "url": "/pages/edelith-fun-fact-friday.html",
+    "keywords": "fun fact friday fridays book travels almanac",
+    "image": "/assets/img/homepage/edelith-fun-fact-friday.png"
+  },
+  {
+    "title": "Witnesses Of An Angel",
+    "url": "/book/angel.html",
+    "keywords": "book witnesses witness angel",
+    "image": "/assets/img/homepage/edelith-fun-fact-friday.png"
+  },
+  {
+    "title": "Travels Of A Post-Wake Edelith",
+    "url": "/book/travels.html",
+    "keywords": "book travels post wake post-wake edelith damien",
+    "image": "/assets/img/homepage/edelith-fun-fact-friday.png"
+  },
+    {
+    "title": "Solstitheian Logbook",
+    "url": "/book/logbook.html",
+    "keywords": "book almanac logbook solstitheian",
+    "image": "/assets/img/homepage/edelith-fun-fact-friday.png"
+  },
+  {
+    "title": "Herb",
+    "url": "/characters/herb/index.html",
+    "keywords": "characters character herb herbert realboy",
+    "image": "/assets/img/homepage/characters.png"
+  }
+  
+]
