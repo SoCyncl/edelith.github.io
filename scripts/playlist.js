@@ -126,12 +126,6 @@ class playlist extends HTMLElement {
         	cursor: pointer;
           }
           
-      h2 {
-        	margin: 0 0 10px 0;
-        	font-size: 1.1rem;
-        	color: var(--emphasized-text);
-        	font-weight: normal;
-          }
       </style>
       <img class="fade-block ira" src="/assets/img/homepage/ira.webp" id="iraImage">
         <div class="musicbox" id="musicBox">
