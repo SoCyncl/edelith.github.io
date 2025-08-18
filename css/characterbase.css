@@ -1045,7 +1045,7 @@ z-index: 0;
 .dislikes i {
   position: absolute;
   margin-top: -10px;
-  right: 56px;
+  right: 15px;
   font-size: 51px;
   rotate: 16deg;
   color: var(--light);
