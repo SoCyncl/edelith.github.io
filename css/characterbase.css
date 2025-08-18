@@ -1033,7 +1033,6 @@ z-index: 0;
 .likes i {
   position: absolute;
   margin-top: -9px;
-  left: 282px;
   font-size: 51px;
   rotate: 343deg;
   color: var(--light);
