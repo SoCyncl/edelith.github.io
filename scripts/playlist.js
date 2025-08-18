@@ -133,7 +133,7 @@ class playlist extends HTMLElement {
         	font-weight: normal;
           }
       </style>
-      <img class="fade-block ira" src="../assets/img/homepage/ira.webp" id="iraImage">
+      <img class="fade-block ira" src="/assets/img/homepage/ira.webp" id="iraImage">
         <div class="musicbox" id="musicBox">
           <div class="music-player fade-block">
             <h2>Now Playing</h2>
@@ -190,7 +190,7 @@ class playlist extends HTMLElement {
         this.isOpen = !this.isOpen;
         
         if (this.isOpen) {
-          iraImage.src = "../assets/img/homepage/ira-active.webp";
+          iraImage.src = "/assets/img/homepage/ira.webp";
           musicBox.classList.add('visible');
           
           // Bounce effect
@@ -199,7 +199,7 @@ class playlist extends HTMLElement {
             iraImage.style.transform = 'scale(1)';
           }, 300);
         } else {
-          iraImage.src = "../assets/img/homepage/ira.webp";
+          iraImage.src = "/assets/img/homepage/ira.webp";
           musicBox.classList.remove('visible');
         }
       });
