@@ -35,8 +35,8 @@
 }
 
 .musicbox {
-  right: -10px;
-  top: -37px;
+  right: -10px; !important
+  top: -37px; !important
 }
 
 /* Initial hidden state */
