@@ -1036,7 +1036,6 @@ z-index: 0;
 .likes i {
   position: absolute;
   margin-top: -9px;
-  left: 282px;
   font-size: 51px;
   rotate: 343deg;
   color: var(--light);
@@ -1049,7 +1048,7 @@ z-index: 0;
 .dislikes i {
   position: absolute;
   margin-top: -10px;
-  right: 56px;
+  right: 18px;
   font-size: 51px;
   rotate: 16deg;
   color: var(--light);
@@ -1274,22 +1273,21 @@ z-index: 0;
     font-size: 13px;
 }
 
-    .accordion {
-      background-color: transparent;
-      color: var(--default-text);
-      cursor: var(--cursor-hover);
-      width: 100%;
-      text-align: left;
-      border: none;
-      outline: none;
-      transition: 0.4s;
-      position: absolute;
-      bottom: -118px;
-      z-index: 2;
-      font-family: "MS PGothic", sans-serif;
-      top: 58%;
-      font-size: 1.3rem;
-    }
+.accordion {
+  background-color: transparent;
+  color: var(--default-text);
+  cursor: var(--cursor-hover);
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  position: absolute;
+  z-index: 2;
+  font-family: "MS PGothic", sans-serif;
+  top: 92%;
+  font-size: 1.3rem;
+}
   
 .accordion i {
     margin-left: 2px;
@@ -1307,13 +1305,13 @@ z-index: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
   position: absolute;
-  bottom: 18%;
+  bottom: 17%;
   font-size: 16px;
   z-index: 1;
   font-family: "MS PGothic", sans-serif;
-  top: 73%;
+  top: 82%;
   line-height: 1.6;
-  height: 147px;
+  height: 144px;
 }
 
 .panel li {
