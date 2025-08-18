@@ -17,7 +17,20 @@
     <link rel="stylesheet" href="/css/lightbox.css">
     <script src="https://kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
     <script src="/scripts/footer.js" type="text/javascript" defer></script>
-    <script src="/scripts/slimnavbar.js" type="text/javascript" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/page/sidenav.js" defer></script>
+        <script src="scripts/playlist.js" type="text/javascript" defer></script>
+        <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 70); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
     <script>
         function toggleClass() {
            let divElement = document.getElementById('sidebar');
@@ -36,345 +49,328 @@
      </script>
 </head>
 <body>
- 
-<script>
-/*
-                /           /                                               
-                /' .,,,,  ./                                                 
-               /';'     ,/                                                   
-              / /   ,,//,`'`                                                 
-             ( ,, '_,  ,,,' ``                                               
-             |    /@  ,,, ;" `                                               
-            /    .   ,''/' `,``                                              
-           /   .     ./, `,, ` ;                                             
-        ,./  .   ,-,',` ,,/''\,'                                             
-       |   /; ./,,'`,,'' |   |                                               
-       |     /   ','    /    |                                               
-        \___/'   '     |     |                                               
-          `,,'  |      /     `\                                              
-Art by         /      |        ~\                                            
- Ooyamaneko   '       (                                                      
-             :                                                               
-            ; .         \--                                                  
-          :   \         ;
-*/
-</script>  
-
-<div class="wrapper">
-    <slimnav-block></slimnav-block>
-    <div class="header">
-        <div class="mobile-toggle">
-            <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i></button>
-        </div>
-<!-- TEMPLATE_Tags -->
-        <div class="tags-box">
-            <div class="tag tag1">#edelith</div>
-            <div class="tag tag2">#lilguy</div>
-            <div class="tag tag3">#bard</div>
-            <div class="tag tag1">#treecore</div>
-        </div>
-    </div>
-    <div class="juice">
-        <div class="avitar">
-        </div>
-<!-- TEMPLATE_Name -->
-        <div class="name">
-            <h2>Herb</h2>
-        </div>
-<!-- TEMPLATE_Pokemon -->
-        <div class="pokemon-team">
-            <img src="/assets/img/pokemon/rillaboom.png">
-            <img src="/assets/img/pokemon/decidueye.png">
-            <img src="/assets/img/pokemon/rotom-mow.png">
-        </div>
-<!-- TEMPLATE_Pokemon -->
-        <div class="orchestrion">
-            <span id="OrchestrionTitle"></span>
-            <div class="orchestrion-controls">
-                <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></i></button>
-                <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-                <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-                <label for="trackList" hidden>Music Track Picker:</label>
-                <select id="trackList" onchange="ChangeSongTrackList()">
-                    <option value="none" selected>Pick a song...</option>
-<!-- TEMPLATE_Song -->
-                        <option value="0">Zelda - Saria song</option>
-                </select>
+    <div class="clouds">
+    <div class="clouds-1"></div>
+    
+    <div class="logo">
+  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+</div>
+    <div class="clouds-2"></div>
+    <div class="clouds-3"></div>
+  </div>
+<transparent-navbar class="fade-block visible"></transparent-navbar>
+	<div class="outer">
+		<div class="all-content fade-block">
+			<div class="main">
+			  
+			  
+		   <div class="juice">
+            <div class="avitar">
             </div>
-            <audio id="OrchestrionTag" src="#" autoplay></audio>
+    <!-- TEMPLATE_Name -->
+            <div class="name">
+                <h2>Herb</h2>
+            </div>
+    <!-- TEMPLATE_Pokemon -->
+            <div class="pokemon-team">
+                <img src="/assets/img/pokemon/rillaboom.png">
+                <img src="/assets/img/pokemon/decidueye.png">
+                <img src="/assets/img/pokemon/rotom-mow.png">
+            </div>
+    <!-- TEMPLATE_Pokemon -->
+            <div class="orchestrion">
+                <span id="OrchestrionTitle"></span>
+                <div class="orchestrion-controls">
+                    <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></i></button>
+                    <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
+                    <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
+                    <label for="trackList" hidden>Music Track Picker:</label>
+                    <select id="trackList" onchange="ChangeSongTrackList()">
+                        <option value="none" selected>Pick a song...</option>
+    <!-- TEMPLATE_Song -->
+                            <option value="0">Zelda - Saria song</option>
+                    </select>
+                </div>
+                <audio id="OrchestrionTag" src="#" autoplay></audio>
+            </div>
         </div>
-    </div>
-    <div class="tab-buttons">
-            <button class="tablinks overview-button" onclick="openTab(event, 'Overview')" id="defaultOpen"><i class="fa-solid fa-user fa-xs"></i> Overview </button>
-            <button class="tablinks design-button" onclick="openTab(event, 'Design')"><i class="fa-solid fa-palette fa-xs"></i> Design </button>
-            <button class="tablinks lore-button" onclick="openTab(event, 'Lore')"><i class="fa-solid fa-book-bookmark fa-xs"></i> Lore </button>
-            <button class="tablinks relationships-button" onclick="openTab(event, 'Relationships')"><i class="fa-solid fa-users fa-xs"></i> Relationships </button>
-    </div>
-    <div class="wrapper-2">
-        <div class="main">
-
-            <div id="Overview" class="tabcontent">
-            <div class="overview-grid">
-                <div class="moodboard">
-                    <div class="frame"><div id="mood1" class="box"></div></div>
-                    <div class="frame"><div id="mood2" class="box"></div></div>
-                    <div class="frame"><div id="mood3" class="box"></div></div>
-                </div>
-<!-- TEMPLATE_Info -->
-                <div class="box info">
-                    <div class="info-item">
-                        <span>Name</span>
-                        <p>Herb Passerine</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Nickname(s)</span>
-                        <p>Herbert</p>
-                        <p>Avao</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Gender</span>
-                        <p>Male (He/they)</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Age</span>
-                        <p>Unknown</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Race</span>
-                        <p>Woodsworn</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Class</span>
-                        <p>Bard</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Subclass</span>
-                        <p>College Of Spirits</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Occupation</span>
-                        <p>Unemployed</p>
-                    </div>
-                    
-                </div>
-
-                <div class="box focal-image">
-                </div>
-                <div class="box quote">
-                    <div class="punctuation">
-                        <i class="fa-solid fa-quote-left"></i>
-                        <i class="fa-solid fa-quote-right"></i>
-                    </div>
-<!-- TEMPLATE_Quote and info -->
-                    <i class="quote-text">Knock on Wood</i>
-                </div>
-                <div class="box summary">
-                    <h2><span class="text-primary">S</span>ummary</h2>
-                    <hr>
-                    <p>
-                        Herb is a Warforged, College of Masks Bard from The Great Forest. Herb was found by a Deaf bard, who listened to her music by feeling the vibrations of her instruments through them and the ground. She fixed a broken and unresponsive Herb who had multiple broken masks alongside him beyond repair. She taught him how to play music even though she was deaf to it, and how to carve masks to replace broken ones. After her death of old age, Herb would forget her as he would forget everything, but he kept mementos of her and everything else he cares about never truly to forget. His goal is to create a song neither he nor the world will ever forget.
-                    </p>
-                </div>
-                <div class="box personality">
-                    <h2><span class="text-secondary">P</span>ersonality</h2>
-                    <hr>
-                    <p>
-                     Herb is a curious, sentimental, spiteful and painfully oblivious, obsessively clinging to fleeting moments and trinkets in a world he can barely hold onto. Though he forgets names, faces, and places, he never forgets how things made him feel—and that longing drives everything he does.
-                    </p>
-                </div>
-                <div class="box likes">
-                    <i class="fa-solid fa-heart"></i>
-                    <h2><span class="text-primary">L</span>ikes</h2>
-                    <hr>
+          
+			<div class="main">
+			  
+        <div class="sidebar-left">
+            <img src="img/avi.png" id="mobile-avi">
+                    <div class="stamps">
+                        <img style="width: 110px;" src="img/stamp1.png">
+                        <img style="width: 110px;" src="img/stamp2.png">
+           </div> 
+           
+                    <div class="sidebar-links">
+                        <a href="https://solstitheo.neocities.org/characters/" class="link-three"><i  class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to characters </a>
+             <!-- playlist -->
+                        <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh?si=GhSyRkAvRgeA55gkQRfwnw" class="link-two"><i class="fa-solid fa-music"></i> Playlist </a>
+                        <a href="https://solstitheo.neocities.org" class="link-three"><i class="fa-solid fa-house-chimney"></i> Home </a>
+                   
+                          </div>
+                          
+                    <button class="accordion">Related Characters <i class="fa-solid fa-caret-up"></i></button>
+                <div class="panel">
                     <ul>
-                        <li>Peggle</li>
-                        <li>Blobert</li>
-                        <li>Laura</li>
-                        <li>Blovert</li>
+                        <li>Character:<a href="https://solstitheo.neocities.org/characters/blobert/">Blobert Goopington</a></li>
+                        <li>Character:<a href="https://solstitheo.neocities.org/characters/peggle/">Peggle Krastov</a></li>
+                        <li>Character:<a href="https://solstitheo.neocities.org/characters/eight/">Eight Nanako</a></li>
+                        <li>Character:<a href="https://solstitheo.neocities.org/characters/baxter/">Baxter Kokayin</a></li>
+                        <li>Character:<a href="https://solstitheo.neocities.org/characters/mousse/">Mousse</a></li>
                     </ul>
-                </div>
-                    <div class="box likeheart">
-                        <div class="i-box">
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
-                    </div>
-                <div class="box dislikes">
-                    <i class="fa-solid fa-heart-crack"></i>
-                    <h2><span class="text-secondary">D</span>islikes</h2>
-                    <hr>
-                    <ul>
-                        <li>Intrusion of personal space</li>
-                        <li>Desert</li>
-                        <li>Wood chippers</li>
-                        <li>blueberries</li>
-                    </ul>
-                </div>
-                    <div class="box dislikeheart">
-                        <div class="i-box">
-                            <i class="fa-solid fa-heart-crack"></i>
-                        </div>
-                    </div>
-                <div class="box trivia">
-                    <h2><span class="text-tertiary">T</span>rivia</h2>
-                    <hr>
-                    <ul>
-                        <li>Herb's race is eclusive to Arvegum</li>
-                        <li>---</li>
-                        <li>---</li>
-                        <li>---</li>
-                    </ul>
-                </div>
-                <div class="chibi">
-                    <img src="/characters/herb/img/chibi.png">
-                </div>
-            </div>
-            </div>
-
-            <div id="Design" class="tabcontent">
-                <div class="design-grid">
-                    <div class="main-ref box">
-                        <a href="img/placeholder_big.webp" data-lightbox="reference-image">
-                            <img src="img/placeholder.webp">
-                        </a>
-                        <p>Click on the image to view the full reference sheet</p>
-                    </div>
-                    <div class="box basics">
-                        <div class="basics-item">
-                            <span>Height</span>
-                            <p>4'7" (183cm)</p>
-                        </div>
-                        <div class="basics-item">
-                            <span>Build</span>
-                            <p>Slim</p>
-                        </div>
-                        <div class="basics-item">
-                            <span>Demeanor</span>
-                            <p>Laid-back</p>
-                        </div>
-                    </div>
-                    <div class="box notes">
-                        <h2><span class="text-primary">D</span>esign notes</h2>
-                    <hr>
-                    <ul>
-                        <li>Herb was made because the PC listened to "Everywhere at the end of time" and thought playing a character that can't remember would be terrifying to portray.</li>
-                        <li>Herb has a real face underneath his mask, but all Woodsworn will never show it.</li>
-                        <li>He loves to collect feathers and has them around his design.</li>
-                    </ul>
-                    </div>
-                    <div class="box palette">
-<!-- TEMPLATE_Pallete -->                        
-                        <span>Eyes</span>
-                        <div class="swatch" style="background: #2E2E2E;">
-                            <span class="text-dark">#2E2E2E</span>
-                        </div>
-
-                        <span>Body</span>
-                        <div class="swatch" style="background: #bda78c;">
-                            <span class="text-light">#bda78c</span>
-                        </div>
-
-                        <span>Other</span>
-                        <div class="swatch" style="background: #9e996e;">
-                            <span class="text-light">#9e996e</span>
-                        </div>
-                        <div class="swatch" style="background: #665754;">
-                            <span class="text-light">#665754</span>
-                        </div>
-                        <div class="swatch" style="background: #444d40;">
-                            <span class="text-dark">#444d40</span>
-                        </div>
-                        <div class="swatch" style="background: #9f6a4b;">
-                            <span class="text-light">#9f6a4b</span>
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
 
-            <div id="Lore" class="tabcontent">
-                <div class="lore-bg">
-                    <div class="lore-container">
-                        <div class="box">
+        <div class="content">
+          <playlist-block></playlist-block>  
+                <div class="tab-buttons">
+                          <button class="tablinks overview-button" onclick="openTab(event, 'Overview')" id="defaultOpen"><i class="fa-solid fa-user fa-xs"></i> Overview </button>
+                          <button class="tablinks design-button" onclick="openTab(event, 'Design')"><i class="fa-solid fa-palette fa-xs"></i> Design </button>
+                          <button class="tablinks lore-button" onclick="openTab(event, 'Lore')"><i class="fa-solid fa-book-bookmark fa-xs"></i> Lore </button>
+                          <button class="tablinks relationships-button" onclick="openTab(event, 'Relationships')"><i class="fa-solid fa-users fa-xs"></i> Relationships </button>
+                  </div>		
+                  
+                <div id="Overview" class="tabcontent">
+                <div class="overview-grid">
+                    <div class="moodboard">
+                        <div class="frame"><div id="mood1" class="box"></div></div>
+                        <div class="frame"><div id="mood2" class="box"></div></div>
+                        <div class="frame"><div id="mood3" class="box"></div></div>
+                    </div>
+    <!-- TEMPLATE_Info -->
+                    <div class="box info">
+                        <div class="info-item">
+                            <span>Name</span>
+                            <p>Herb Passerine</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Nickname(s)</span>
+                            <p>Herbert</p>
+                            <p>Avao</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Gender</span>
+                            <p>Male (He/they)</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Age</span>
+                            <p>Unknown</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Race</span>
+                            <p>Woodsworn</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Class</span>
+                            <p>Bard</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Subclass</span>
+                            <p>College Of Spirits</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Occupation</span>
+                            <p>Unemployed</p>
+                        </div>
+                        
+                    </div>
+    
+                    <div class="box focal-image">
+                    </div>
+                    <div class="box quote">
+                        <div class="punctuation">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <i class="fa-solid fa-quote-right"></i>
+                        </div>
+    <!-- TEMPLATE_Quote and info -->
+                        <i class="quote-text">Knock on Wood</i>
+                    </div>
+                    <div class="box summary">
+                        <h2><span class="text-primary">S</span>ummary</h2>
+                        <hr>
+                        <p>
+                            Herb is a Warforged, College of Masks Bard from The Great Forest. Herb was found by a Deaf bard, who listened to her music by feeling the vibrations of her instruments through them and the ground. She fixed a broken and unresponsive Herb who had multiple broken masks alongside him beyond repair. She taught him how to play music even though she was deaf to it, and how to carve masks to replace broken ones. After her death of old age, Herb would forget her as he would forget everything, but he kept mementos of her and everything else he cares about never truly to forget. His goal is to create a song neither he nor the world will ever forget.
+                        </p>
+                    </div>
+                    <div class="box personality">
+                        <h2><span class="text-secondary">P</span>ersonality</h2>
+                        <hr>
+                        <p>
+                         Herb is a curious, sentimental, spiteful and painfully oblivious, obsessively clinging to fleeting moments and trinkets in a world he can barely hold onto. Though he forgets names, faces, and places, he never forgets how things made him feel—and that longing drives everything he does.
+                        </p>
+                    </div>
+                    <div class="box likes">
+                        <i class="fa-solid fa-heart"></i>
+                        <h2><span class="text-primary">L</span>ikes</h2>
+                        <hr>
+                        <ul>
+                            <li>Peggle</li>
+                            <li>Blobert</li>
+                            <li>Laura</li>
+                            <li>Blovert</li>
+                        </ul>
+                    </div>
+                        <div class="box likeheart">
+                            <div class="i-box">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                        </div>
+                    <div class="box dislikes">
+                        <i class="fa-solid fa-heart-crack"></i>
+                        <h2><span class="text-secondary">D</span>islikes</h2>
+                        <hr>
+                        <ul>
+                            <li>Intrusion of personal space</li>
+                            <li>Desert</li>
+                            <li>Wood chippers</li>
+                            <li>blueberries</li>
+                        </ul>
+                    </div>
+                        <div class="box dislikeheart">
+                            <div class="i-box">
+                                <i class="fa-solid fa-heart-crack"></i>
+                            </div>
+                        </div>
+                    <div class="box trivia">
+                        <h2><span class="text-tertiary">T</span>rivia</h2>
+                        <hr>
+                        <ul>
+                            <li>Herb's race is eclusive to Arvegum</li>
+                            <li>---</li>
+                            <li>---</li>
+                            <li>---</li>
+                        </ul>
+                    </div>
+                    <div class="chibi">
+                        <img src="/characters/herb/img/chibi.png">
+                    </div>
+                </div>
+                </div>
+    
+                <div id="Design" class="tabcontent">
+                    <div class="design-grid">
+                        <div class="main-ref box">
+                            <a href="img/placeholder_big.webp" data-lightbox="reference-image">
+                                <img src="img/placeholder.webp">
+                            </a>
+                            <p>Click on the image to view the full reference sheet</p>
+                        </div>
+                        <div class="box basics">
+                            <div class="basics-item">
+                                <span>Height</span>
+                                <p>4'7" (183cm)</p>
+                            </div>
+                            <div class="basics-item">
+                                <span>Build</span>
+                                <p>Slim</p>
+                            </div>
+                            <div class="basics-item">
+                                <span>Demeanor</span>
+                                <p>Laid-back</p>
+                            </div>
+                        </div>
+                        <div class="box notes">
+                            <h2><span class="text-primary">D</span>esign notes</h2>
+                        <hr>
+                        <ul>
+                            <li>Herb was made because the PC listened to "Everywhere at the end of time" and thought playing a character that can't remember would be terrifying to portray.</li>
+                            <li>Herb has a real face underneath his mask, but all Woodsworn will never show it.</li>
+                            <li>He loves to collect feathers and has them around his design.</li>
+                        </ul>
+                        </div>
+                        <div class="box palette">
+    <!-- TEMPLATE_Pallete -->                        
+                            <span>Eyes</span>
+                            <div class="swatch" style="background: #2E2E2E;">
+                                <span class="text-dark">#2E2E2E</span>
+                            </div>
+    
+                            <span>Body</span>
+                            <div class="swatch" style="background: #bda78c;">
+                                <span class="text-light">#bda78c</span>
+                            </div>
+    
+                            <span>Other</span>
+                            <div class="swatch" style="background: #9e996e;">
+                                <span class="text-light">#9e996e</span>
+                            </div>
+                            <div class="swatch" style="background: #665754;">
+                                <span class="text-light">#665754</span>
+                            </div>
+                            <div class="swatch" style="background: #444d40;">
+                                <span class="text-dark">#444d40</span>
+                            </div>
+                            <div class="swatch" style="background: #9f6a4b;">
+                                <span class="text-light">#9f6a4b</span>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div id="Lore" class="tabcontent">
+                    <div class="lore-bg">
+                        <div class="lore-container">
+                            <div class="box">
+                                <div class="wip">
+                                    <img src="/assets/img/textwip.png">
+                                    I'll write it... eventually!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="Relationships" class="tabcontent">
+                    <div class="links-container">
+                        <div class="box relationships" style="justify-content: center;">
                             <div class="wip">
                                 <img src="/assets/img/textwip.png">
                                 I'll write it... eventually!
                             </div>
                         </div>
+    
                     </div>
                 </div>
-            </div>
 
-            <div id="Relationships" class="tabcontent">
-                <div class="links-container">
-                    <div class="box relationships" style="justify-content: center;">
-                        <div class="wip">
-                            <img src="/assets/img/textwip.png">
-                            I'll write it... eventually!
+
+                <div class="box featured-gallery">
+                    <div class="featured-header">
+                        <h2><span class="text-primary">F</span>eatured gallery</h2>
+                        <!--<a href="https://toyhou.se/5931076.baby/gallery"><button>Full gallery</button></a>-->
+                    </div>
+                    <div class="gallery-posts">
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
+                        </div>
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
+                        </div>
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
                         </div>
                     </div>
-
+                    <p class="lastcharacterupdate">Page last updated: <span id="updateTime"></span></p>
+                    <script>
+                        let text = document.lastModified;
+                        document.getElementById("updateTime").innerHTML = text;
+                    </script>
                 </div>
+    
             </div>
-<!-- TEMPLATE_Pokemon -->
-            <div class="box featured-gallery">
-                <div class="featured-header">
-                    <h2><span class="text-primary">F</span>eatured gallery</h2>
-                    <!--<a href="https://toyhou.se/5931076.baby/gallery"><button>Full gallery</button></a>-->
-                </div>
-                <div class="gallery-posts">
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                </div>
-                <p class="lastcharacterupdate">Page last updated: <span id="updateTime"></span></p>
-                <script>
-                    let text = document.lastModified;
-                    document.getElementById("updateTime").innerHTML = text;
-                </script>
-            </div>
-
-        </div>
-
-        <div id="sidebar" class="sidebar-left">
-            <img src="img/avi.png" id="mobile-avi">
-            <div class="stamps">
-                <img style="width: 80px;" src="img/stamp1.png">
-                <img style="width: 80px;" src="img/stamp2.png">
-            </div>
-            
-<!-- TEMPLATE_Sidebar -->
-        <div class="sidebar-links">
-            <a href="https://solstitheo.neocities.org/characters/" class="link-three"><i  class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to characters </a>
- <!-- playlist -->
-            <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh?si=GhSyRkAvRgeA55gkQRfwnw" class="link-two"><i class="fa-solid fa-music"></i> Playlist </a>
-            <a href="https://solstitheo.neocities.org" class="link-three"><i class="fa-solid fa-house-chimney"></i> Home </a>
-        </div>
-<!-- TEMPLATE_Sidebar -->
-        <button class="accordion">Related Characters <i class="fa-solid fa-caret-up"></i></button>
-            <div class="panel">
-                <ul>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/blobert/">Blobert Goopington</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/peggle/">Peggle Krastov</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/eight/">Eight Nanako</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/baxter/">Baxter Kokayin</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/mousse/">Mousse</a></li>
-                </ul>
-            </div>
-        </div>
-        
-    </div>
+      
+          </div>
+       </div>
     <br>
     <footer-block></footer-block>
+</div>
 </div>
 
 <!-- Songs -->
@@ -501,20 +497,33 @@ window.addEventListener("load", playStart, false)
 
 <!-- Accordion -->
 <script>
-    var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
+// Update your existing toggleClass function to this:
+function toggleClass() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle("mobile-active");
+    
+    const slideOut = document.getElementById("slideOut");
+    if(slideOut.classList.contains("fa-caret-right")) {
+        slideOut.classList.remove("fa-caret-right");
+        slideOut.classList.add("fa-caret-left");
     } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
+        slideOut.classList.add("fa-caret-right");
+        slideOut.classList.remove("fa-caret-left");
+    }
 }
+
+// Update your accordion script to this:
+document.querySelectorAll('.accordion').forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+        const panel = button.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+});
 </script>
 
 </body>
@@ -539,6 +548,31 @@ for (i = 0; i < acc.length; i++) {
     --mood-center: url(/characters/herb/img/moodimage2.webp) center/cover no-repeat;
     --mood-bottom: url(/characters/herb/img/moodboard.gif) center/cover no-repeat;
     --lorebg: url(/characters/herb/img/lorebg.webp) center/cover no-repeat;
+    --site-bg-img: url('/characters/herb/img/header.webp');
+    
+ /* Colors */
+ 
+    --default-text: #c4d3c2;        /* soft misty leaf */
+    --default-text2: #6b7a6c;       /* weathered bark */
+    --emphasized-text: #e0f0dc;     /* pale fern highlight */
+
+    --nav-bg: #0d1a12;              /* deep evergreen - near-black green */
+    --content-bg: #13241a;          /* shadowed pine - slightly lighter for contrast */
+  
+    /* Box Styling */
+    --box-bg: #1b2f22;              /* forest canopy shade */
+    --box-br: #556b5f;              /* muted moss trim */
+  
+    /* Footer */
+    --footer-bg: #08100b;           /* dark bark */
+  
+    /* Links */
+    --link-color: #7fa68d;          /* mossy green */
+    --link-hover-color: #b8d5c3;    /* pale fern glow */
+
+}
+.all-content {
+  border-radius: 12px;
 }
 
 .name {
