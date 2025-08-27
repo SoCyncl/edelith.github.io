@@ -3,7 +3,7 @@
 
 
 <head>
-    <link rel="icon" type="image/x-icon" href="/assets/img/boogleicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/img/ico/white.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baxter • Solstitheo</title>
@@ -16,8 +16,21 @@
     <link rel="stylesheet" href="/css/characterbase.css">
     <link rel="stylesheet" href="/css/lightbox.css">
     <script src="https://kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
-    <script src="/scripts/footer.js" type="text/javascript" defer></script>
-    <script src="/scripts/slimnavbar.js" type="text/javascript" defer></script>
+    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/sidenav.js" defer></script>
+    <script src="/scripts/playlist.js" type="text/javascript" defer></script>
+        <script>
+    window.addEventListener("load", () => {
+      const blocks = document.querySelectorAll(".fade-block");
+      
+      blocks.forEach((block, i) => {
+        setTimeout(() => {
+          block.classList.add("visible");
+        }, i * 70); // Stagger animation: 150ms between each block
+      });
+    });
+    </script>
     <script>
         function toggleClass() {
            let divElement = document.getElementById('sidebar');
@@ -36,233 +49,226 @@
      </script>
 </head>
 <body>
- 
-<script>
-/*
-                /           /                                               
-                /' .,,,,  ./                                                 
-               /';'     ,/                                                   
-              / /   ,,//,`'`                                                 
-             ( ,, '_,  ,,,' ``                                               
-             |    /@  ,,, ;" `                                               
-            /    .   ,''/' `,``                                              
-           /   .     ./, `,, ` ;                                             
-        ,./  .   ,-,',` ,,/''\,'                                             
-       |   /; ./,,'`,,'' |   |                                               
-       |     /   ','    /    |                                               
-        \___/'   '     |     |                                               
-          `,,'  |      /     `\                                              
-Art by         /      |        ~\                                            
- Ooyamaneko   '       (                                                      
-             :                                                               
-            ; .         \--                                                  
-          :   \         ;
-*/
-</script>  
-
-<div class="wrapper">
-    <slimnav-block></slimnav-block>
-    <div class="header">
-        <div class="mobile-toggle">
-            <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i></button>
-        </div>
-<!-- TEMPLATE_Tags -->
-        <div class="tags-box">
-            <div class="tag tag1">#edelith</div>
-            <div class="tag tag2">#small</div>
-            <div class="tag tag3"><span class="text-light">#drippedtfout</span></div>
-            <div class="tag tag1">#imissallthesessions</div>
-        </div>
-    </div>
-    <div class="juice">
-        <div class="avitar">
-        </div>
-<!-- TEMPLATE_Name -->
-        <div class="name">
-            <h2>Baxter Kokayin</h2>
-        </div>
-<!-- TEMPLATE_Pokemon -->
-        <div class="pokemon-team">
-            <img src="/assets/img/pokemon/venomoth.png">
-            <img src="/assets/img/pokemon/gengar.png">
-            <img src="/assets/img/pokemon/starmie.png">
-        </div>
-<!-- TEMPLATE_Pokemon -->
-        <div class="orchestrion">
-            <span id="OrchestrionTitle"></span>
-            <div class="orchestrion-controls">
-                <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></i></button>
-                <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-                <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-                <label for="trackList" hidden>Music Track Picker:</label>
-                <select id="trackList" onchange="ChangeSongTrackList()">
-                    <option value="none" selected>Pick a song...</option>
-<!-- TEMPLATE_Song -->
-                        <option value="0">Myth & Roid - JINGO JUNGLE</option>
-                </select>
+    <div class="clouds">
+    <div class="clouds-1"></div>
+    
+    <div class="logo">
+  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+</div>
+    <div class="clouds-2"></div>
+    <div class="clouds-3"></div>
+  </div>
+<transparent-navbar class="fade-block visible"></transparent-navbar>
+	<div class="outer">
+		<div class="all-content fade-block">
+			<div class="main">
+			  
+			  
+		   <div class="juice">
+            <div class="avitar">
             </div>
-            <audio id="OrchestrionTag" src="#" autoplay></audio>
+    <!-- TEMPLATE_Name -->
+            <div class="name">
+                <h2>Herb</h2>
+            </div>
+    <!-- TEMPLATE_Pokemon -->
+            <div class="pokemon-team">
+                <img src="/assets/img/pokemon/venomoth.png">
+                <img src="/assets/img/pokemon/gengar.png">
+                <img src="/assets/img/pokemon/starmie.png">
+                <img src="/assets/img/pokemon/venomoth.png">
+                <img src="/assets/img/pokemon/gengar.png">
+                <img src="/assets/img/pokemon/starmie.png">             
+            </div>
         </div>
-    </div>
-    <div class="tab-buttons">
-            <button class="tablinks overview-button" onclick="openTab(event, 'Overview')" id="defaultOpen"><i class="fa-solid fa-user fa-xs"></i> Overview </button>
-            <button class="tablinks design-button" onclick="openTab(event, 'Design')"><i class="fa-solid fa-palette fa-xs"></i> Design </button>
-            <button class="tablinks lore-button" onclick="openTab(event, 'Lore')"><i class="fa-solid fa-book-bookmark fa-xs"></i> Lore </button>
-            <button class="tablinks relationships-button" onclick="openTab(event, 'Relationships')"><i class="fa-solid fa-users fa-xs"></i> Relationships </button>
-    </div>
-    <div class="wrapper-2">
-        <div class="main">
-
-            <div id="Overview" class="tabcontent">
-            <div class="overview-grid">
-                <div class="moodboard">
-                    <div class="frame"><div id="mood1" class="box"></div></div>
-                    <div class="frame"><div id="mood2" class="box"></div></div>
-                    <div class="frame"><div id="mood3" class="box"></div></div>
-                </div>
-<!-- TEMPLATE_Info -->
-                <div class="box info">
-                    <div class="info-item">
-                        <span>Name</span>
-                        <p>Baxter Kokayin</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Nickname(s)</span>
-                         <p>Small one</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Gender</span>
-                        <p>Male (He/they)</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Age</span>
-                        <p>Unknown</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Race</span>
-                        <p>Wood Gnome</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Class</span>
-                        <p>Wizard</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Subclass</span>
-                        <p>School of Conjuration</p>
-                    </div>
-                    <div class="info-item">
-                        <span>Occupation</span>
-                        <p>Lost</p>
-                    </div>
-                    
-                </div>
-
-                <div class="box focal-image">
-                </div>
-                <div class="box quote">
-                    <div class="punctuation">
-                        <i class="fa-solid fa-quote-left"></i>
-                        <i class="fa-solid fa-quote-right"></i>
-                    </div>
-<!-- TEMPLATE_Quote and info -->
-                    <i class="quote-text">I alone am the hungry one</i>
-                </div>
-                <div class="box summary">
-                    <h2><span class="text-primary">S</span>ummary</h2>
-                    <hr>
-                    <p>
-                       Baxter Kokayin is a Wood Gnome Wizard from a far away land. He was raised in a noble family. Baxter was taught in a religious school that focused on Conjuration. He was praised by both his classmates and teachers for being a natural prodigy. Once he graduated the school, he went out on an adventure as a freeman, exploring the outer world and wishing goodbye to his family and friends back in his forest hometown.
-                    </p>
-                </div>
-                <div class="box personality">
-                    <h2><span class="text-secondary">P</span>ersonality</h2>
-                    <hr>
-                    <p>
-                     Despite his natural look, he is very clueless, interrogative, and question-oriented about all things that happen.
-                    </p>
-                </div>
-                <div class="box likes">
-                    <i class="fa-solid fa-heart"></i>
-                    <h2><span class="text-primary">L</span>ikes</h2>
-                    <hr>
+          
+			<div class="main fade-block">
+			  
+        <div class="sidebar-left fade-block">
+            <img src="img/avi.png" id="mobile-avi">
+                    <div class="stamps">
+                        <img style="width: 110px;" src="img/stamp1.png">
+                        <img style="width: 110px;" src="img/stamp2.png">
+           </div> 
+           
+                    <div class="sidebar-links fade-block">
+                        <a href="https://solstitheo.neocities.org/characters/" class="link-three"><i  class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to characters </a>
+             <!-- playlist -->
+                        <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh?si=GhSyRkAvRgeA55gkQRfwnw" class="link-two"><i class="fa-solid fa-music"></i> Playlist </a>
+                        <a href="https://solstitheo.neocities.org" class="link-three"><i class="fa-solid fa-house-chimney"></i> Home </a>
+                   
+                          </div>
+                          
+                    <button class="accordion">Related Characters <i class="fa-solid fa-caret-up"></i></button>
+                <div class="panel">
                     <ul>
-                        <li>----</li>
-                        <li>----</li>
-                        <li>----</li>
-                        <li>----</li>
+                        <li>Character:<a href="/characters/blobert/index.html">Blobert Goopington</a></li>
+                        <li>Character:<a href="/characters/peggle/index.html">Peggle Krastov</a></li>
+                        <li>Character:<a href="/characters/eight/index.html">Eight Nanako</a></li>
+                        <li>Character:<a href="/characters/herb/index.html">Herb Passerine</a></li>
+                        <li>Character:<a href="/characters/mousse/index.html">Mousse</a></li>
                     </ul>
-                </div>
-                    <div class="box likeheart">
-                        <div class="i-box">
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
-                    </div>
-                <div class="box dislikes">
-                    <i class="fa-solid fa-heart-crack"></i>
-                    <h2><span class="text-secondary">D</span>islikes</h2>
-                    <hr>
-                    <ul>
-                        <li>----</li>
-                        <li>----</li>
-                        <li>----</li>
-                        <li>----</li>
-                    </ul>
-                </div>
-                    <div class="box dislikeheart">
-                        <div class="i-box">
-                            <i class="fa-solid fa-heart-crack"></i>
-                        </div>
-                    </div>
-                <div class="box trivia">
-                    <h2><span class="text-tertiary">T</span>rivia</h2>
-                    <hr>
-                    <ul>
-                        <li>----</li>
-                        <li>---</li>
-                        <li>---</li>
-                        <li>---</li>
-                    </ul>
-                </div>
-                <div class="chibi">
-                    <img src="/characters/baxter/img/chibi.webp">
                 </div>
             </div>
-            </div>
 
-            <div id="Design" class="tabcontent">
-                <div class="design-grid">
-                    <div class="main-ref box">
-                        <a href="img/reference.jpg" data-lightbox="reference-image">
-                            <img src="img/referencemini.webp">
-                        </a>
-                        <p>Click on the image to view the full reference sheet</p>
+        <div class="content fade-block">
+          <playlist-block></playlist-block>  
+                <div class="tab-buttons fade-block">
+                          <button class="tablinks overview-button" onclick="openTab(event, 'Overview')" id="defaultOpen"><i class="fa-solid fa-user fa-xs"></i> Overview </button>
+                          <button class="tablinks design-button" onclick="openTab(event, 'Design')"><i class="fa-solid fa-palette fa-xs"></i> Design </button>
+                          <button class="tablinks lore-button" onclick="openTab(event, 'Lore')"><i class="fa-solid fa-book-bookmark fa-xs"></i> Lore </button>
+                          <button class="tablinks relationships-button" onclick="openTab(event, 'Relationships')"><i class="fa-solid fa-users fa-xs"></i> Relationships </button>
+                  </div>		
+                  
+                <div id="Overview" class="tabcontent fade-block">
+                <div class="overview-grid">
+                    <div class="moodboard">
+                        <div class="frame"><div id="mood1" class="box"></div></div>
+                        <div class="frame"><div id="mood2" class="box"></div></div>
+                        <div class="frame"><div id="mood3" class="box"></div></div>
                     </div>
-                    <div class="box basics">
-                        <div class="basics-item">
-                            <span>Height</span>
-                            <p>3'2" (96cm)</p>
+    <!-- TEMPLATE_Info -->
+                    <div class="box info fade-block">
+                       <div class="info-item">
+                            <span>Name</span>
+                            <p>Baxter Kokayin</p>
                         </div>
-                        <div class="basics-item">
-                            <span>Build</span>
-                            <p>Small</p>
+                        <div class="info-item">
+                            <span>Nickname(s)</span>
+                             <p>Small one</p>
                         </div>
-                        <div class="basics-item">
-                            <span>Demeanor</span>
-                            <p>Mysterious</p>
+                        <div class="info-item">
+                            <span>Gender</span>
+                            <p>Male (He/they)</p>
                         </div>
+                        <div class="info-item">
+                            <span>Age</span>
+                            <p>Unknown</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Race</span>
+                            <p>Wood Gnome</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Class</span>
+                            <p>Wizard</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Subclass</span>
+                            <p>School of Conjuration</p>
+                        </div>
+                        <div class="info-item">
+                            <span>Occupation</span>
+                            <p>Lost</p>
+                        </div>
+                        
                     </div>
-                    <div class="box notes">
-                        <h2><span class="text-primary">D</span>esign notes</h2>
-                    <hr>
-                    <ul>
-                        <li>-----</li>
-                        <li>-----</li>
-                        <li>-----</li>
-                    </ul>
+    
+                    <div class="box focal-image">
                     </div>
-                    <div class="box palette">
-<!-- TEMPLATE_Pallete -->                  
-                        <span>Hat</span>
+                    <div class="box quote">
+                        <div class="punctuation">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <i class="fa-solid fa-quote-right"></i>
+                        </div>
+    <!-- TEMPLATE_Quote and info -->
+                        <i class="quote-text">I alone am the hungry one</i>
+                    </div>
+                    <div class="box summary fade-block">
+                        <h2><span class="text-primary">S</span>ummary</h2>
+                        <hr>
+                        <p>
+                           Baxter Kokayin is a Wood Gnome Wizard from a far away land. He was raised in a noble family. Baxter was taught in a religious school that focused on Conjuration. He was praised by both his classmates and teachers for being a natural prodigy. Once he graduated the school, he went out on an adventure as a freeman, exploring the outer world and wishing goodbye to his family and friends back in his forest hometown.
+                        </p>
+                    </div>
+                    <div class="box personality fade-block">
+                        <h2><span class="text-secondary">P</span>ersonality</h2>
+                        <hr>
+                        <p>
+                        Despite his natural look, he is very clueless, interrogative, and question-oriented about all things that happen.
+                    </div>
+                    <div class="box likes fade-block">
+                        <i class="fa-solid fa-heart"></i>
+                        <h2><span class="text-primary">L</span>ikes</h2>
+                        <hr>
+                        <ul>
+                            <li>----</li>
+                            <li>----</li>
+                            <li>----</li>
+                            <li>----</li>
+                        </ul>
+                    </div>
+                        <div class="box likeheart">
+                            <div class="i-box">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                        </div>
+                    <div class="box dislikes">
+                        <i class="fa-solid fa-heart-crack"></i>
+                        <h2><span class="text-secondary">D</span>islikes</h2>
+                        <hr>
+                        <ul>
+                            <li>----</li>
+                            <li>----</li>
+                            <li>----</li>
+                            <li>----</li>
+                        </ul>
+                    </div>
+                        <div class="box dislikeheart">
+                            <div class="i-box">
+                                <i class="fa-solid fa-heart-crack"></i>
+                            </div>
+                        </div>
+                    <div class="box trivia">
+                        <h2><span class="text-tertiary">T</span>rivia</h2>
+                        <hr>
+                        <ul>
+                            <li>----</li>
+                            <li>---</li>
+                            <li>---</li>
+                            <li>---</li>
+                        </ul>
+                    </div>
+                    <div class="chibi">
+                        <img src="/characters/baxter/img/chibi.png">
+                    </div>
+                </div>
+                </div>
+    
+                <div id="Design" class="tabcontent fade-block">
+                    <div class="design-grid">
+                        <div class="main-ref box">
+                            <a href="img/placeholder_big.webp" data-lightbox="reference-image">
+                                <img src="img/placeholder.webp">
+                            </a>
+                            <p>Click on the image to view the full reference sheet</p>
+                        </div>
+                        <div class="box basics">
+                            <div class="basics-item">
+                                <span>Height</span>
+                                    <p>3'2" (96cm)</p>
+                            </div>
+                            <div class="basics-item">
+                                <span>Build</span>
+                                <p>Small</p>
+                            </div>
+                            <div class="basics-item">
+                                <span>Demeanor</span>
+                                <p>Mysterious</p>
+                            </div>
+                        </div>
+                        <div class="box notes">
+                            <h2><span class="text-primary">D</span>esign notes</h2>
+                        <hr>
+                        <ul>
+                            <li>-----</li>
+                            <li>-----</li>
+                            <li>-----</li>
+                        </ul>
+                        </div>
+                        <div class="box palette">
+    <!-- TEMPLATE_Pallete -->                        
+                            <span>Hat</span>
                         <div class="swatch" style="background: #3c365b;">
                             <span class="text-light">#3c365b</span>
                         </div>
@@ -309,195 +315,74 @@ Art by         /      |        ~\
                         <div class="swatch" style="background: #f6c117;">
                             <span class="text-dark">#f6c117</span>
                         </div>
-
+    
+                        </div>
+    
                     </div>
-
                 </div>
-            </div>
-
-            <div id="Lore" class="tabcontent">
-                <div class="lore-bg">
-                    <div class="lore-container">
-                        <div class="box">
+    
+                <div id="Lore" class="tabcontent">
+                    <div class="lore-bg">
+                        <div class="lore-container">
+                            <div class="box">
+                                <div class="wip">
+                                    <img src="/assets/img/textwip.png">
+                                    I'll write it... eventually!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="Relationships" class="tabcontent">
+                    <div class="links-container">
+                        <div class="box relationships" style="justify-content: center;">
                             <div class="wip">
                                 <img src="/assets/img/textwip.png">
                                 I'll write it... eventually!
                             </div>
                         </div>
+    
                     </div>
                 </div>
-            </div>
 
-            <div id="Relationships" class="tabcontent">
-                <div class="links-container">
-                    <div class="box relationships" style="justify-content: center;">
-                        <div class="wip">
-                            <img src="/assets/img/textwip.png">
-                            I'll write it... eventually!
+
+                <div class="box featured-gallery">
+                    <div class="featured-header">
+                        <h2><span class="text-primary">F</span>eatured gallery</h2>
+                        <!--<a href="https://toyhou.se/5931076.baby/gallery"><button>Full gallery</button></a>-->
+                    </div>
+                    <div class="gallery-posts">
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
+                        </div>
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
+                        </div>
+                        <div class="featured-post">
+                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+                            <img src="img/placeholder.webp"></a>
                         </div>
                     </div>
-
+                    <p class="lastcharacterupdate">Page last updated: <span id="updateTime"></span></p>
+                    <script>
+                        let text = document.lastModified;
+                        document.getElementById("updateTime").innerHTML = text;
+                    </script>
                 </div>
+    
             </div>
-<!-- TEMPLATE_Pokemon -->
-            <div class="box featured-gallery">
-                <div class="featured-header">
-                    <h2><span class="text-primary">F</span>eatured gallery</h2>
-                    <!--<a href="https://toyhou.se/5931076.baby/gallery"><button>Full gallery</button></a>-->
-                </div>
-                <div class="gallery-posts">
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                    <div class="featured-post">
-                        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                        <img src="img/placeholder.webp"></a>
-                    </div>
-                </div>
-                <p class="lastcharacterupdate">Page last updated: <span id="updateTime"></span></p>
-                <script>
-                    let text = document.lastModified;
-                    document.getElementById("updateTime").innerHTML = text;
-                </script>
-            </div>
-
-        </div>
-
-        <div id="sidebar" class="sidebar-left">
-            <img src="img/avi.png" id="mobile-avi">
-            <div class="stamps">
-                <img style="width: 80px;" src="img/stamp1.png">
-                <img style="width: 80px;" src="img/stamp2.png">
-            </div>
-            
-<!-- TEMPLATE_Sidebar -->
-        <div class="sidebar-links">
-            <a href="https://solstitheo.neocities.org/characters/" class="link-three"><i  class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to characters </a>
- <!-- playlist -->
-            <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh?si=GhSyRkAvRgeA55gkQRfwnw" class="link-two"><i class="fa-solid fa-music"></i> Playlist </a>
-            <a href="https://solstitheo.neocities.org" class="link-three"><i class="fa-solid fa-house-chimney"></i> Home </a>
-        </div>
-<!-- TEMPLATE_Sidebar -->
-        <button class="accordion">Related Characters <i class="fa-solid fa-caret-up"></i></button>
-            <div class="panel">
-                <ul>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/blobert/">Blobert Goopington</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/peggle/">Peggle Krastov</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/herb/">Herb Passerine</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/eight/">Eight Nanako</a></li>
-                    <li>Character:<a href="https://solstitheo.neocities.org/characters/mousse/">Mousse</a></li>
-                </ul>
-            </div>
-        </div>
-        
-    </div>
+      
+          </div>
+       </div>
     <br>
     <footer-block></footer-block>
 </div>
-
-<!-- Songs -->
-<script>
-// built off of Nickolox's music player code... which is built off of Dokodemo's! 
-// so credits to them both
-
-const songs = {
-    s1: {
-        title: 'Myth & Roid - JINGO JUNGLE',
-        url: 'https://file.garden/aE4BmvQeoiKwc59V/JINGO%20JUNGLE.mp3'
-    }
-};
+</div>
 
 
-const songTitle = document.getElementById("OrchestrionTitle");
-const songPlay = document.getElementById("OrchestrionTag");
-const playButton = document.getElementById("playButton");
-
-function ChangesongPlay() {
-    songPlay.volume = 0.25;
-    const SongList = Object.values(songs);
-    const randomSong = SongList[Math.floor(Math.random() * SongList.length)];
-    songTitle.innerHTML = randomSong.title;
-    songPlay.src = randomSong.url;
-    if(playButton.classList.contains("fa-pause") && !songPlay.paused){
-        playButton.classList.remove("fa-pause");
-        playButton.classList.add("fa-play");
-    }
-    else{
-        playButton.classList.add("fa-pause");
-        playButton.classList.remove("fa-play");
-    }
-}
-
-function ChangeSongTrackList() {
-    if(playButton.classList.contains("fa-pause") && !songPlay.paused){
-        playButton.classList.remove("fa-pause");
-        playButton.classList.add("fa-play");
-    }
-    else{
-        playButton.classList.add("fa-pause");
-        playButton.classList.remove("fa-play");
-    }
-}
-
-function ChangeSongTrackList() {
-    const x = document.getElementById("trackList").value;
-    const SongList = Object.values(songs);
-    if (x == "None") {
-        // This just gets the console to stop having a whinge about the "Pick a track" option
-    } else {
-        const newSong = SongList[x];
-        songTitle.innerHTML = newSong.title;
-        songPlay.src = newSong.url;
-        playButton.classList.add("fa-pause");
-        playButton.classList.remove("fa-play");
-    }
-}
-
-songPlay.onended = function () {
-    ChangesongPlay();
-};
-
-function playPauseMusic(){
-    if(playButton.classList.contains("fa-pause")){
-        songPlay.pause();
-        playButton.classList.remove("fa-pause");
-        playButton.classList.add("fa-play");
-    }
-    else{
-        songPlay.play()
-        playButton.classList.add("fa-pause");
-        playButton.classList.remove("fa-play");
-    }
-}
-
-function rewindMusic() {
-    songPlay.currentTime = 0;
-}
-
-function playStart(){
-    songPlay.volume = 0.20;
-    const SongList = Object.values(songs);
-    const mainSong = songs.s1;
-    songTitle.innerHTML = mainSong.title;
-    songPlay.src = mainSong.url;
-    if(playButton.classList.contains("fa-pause") != songPlay.paused){
-        songPlay.pause();
-        playButton.classList.remove("fa-pause");
-        playButton.classList.add("fa-play");
-    }
-    else{
-        playButton.classList.add("fa-pause");
-        playButton.classList.remove("fa-play");
-    }
-}
-
-window.addEventListener("load", playStart, false)
-</script>
 
 <!-- Tabs -->
 <script>
@@ -524,20 +409,33 @@ window.addEventListener("load", playStart, false)
 
 <!-- Accordion -->
 <script>
-    var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
+// Update your existing toggleClass function to this:
+function toggleClass() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle("mobile-active");
+    
+    const slideOut = document.getElementById("slideOut");
+    if(slideOut.classList.contains("fa-caret-right")) {
+        slideOut.classList.remove("fa-caret-right");
+        slideOut.classList.add("fa-caret-left");
     } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
+        slideOut.classList.add("fa-caret-right");
+        slideOut.classList.remove("fa-caret-left");
+    }
 }
+
+// Update your accordion script to this:
+document.querySelectorAll('.accordion').forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+        const panel = button.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+});
 </script>
 
 </body>
@@ -545,7 +443,13 @@ for (i = 0; i < acc.length; i++) {
 </html>
 
 <style>
+.ira {
+  top: -262px;
+}
 
+.musicbox {
+  top: -93px;
+}
 :root {
     --primary: #7f77ae;
     --secondary: #85939b;
@@ -562,6 +466,34 @@ for (i = 0; i < acc.length; i++) {
     --mood-center: url(/characters/baxter/img/moodimage2.webp) center/cover no-repeat;
     --mood-bottom: url(/characters/baxter/img/moodimage3.webp) center/cover no-repeat;
     --lorebg: url(/characters/baxter/img/lorebg.webp) center/cover no-repeat;
+    --site-bg-img: url('/characters/baxter/img/header.webp');
+    
+ /* Colors */
+ 
+    /* Text */
+    --default-text: #d8c4f7;        /* soft lavender mist */
+    --default-text2: #a17ac9;       /* deep amethyst */
+    --emphasized-text: #fceaa6;     /* warm magical gold */
+
+    /* Backgrounds */
+    --nav-bg: #2c1a3b;              /* dark royal purple - near-black for contrast */
+    --content-bg: #3e2954;          /* shadowed violet - lighter for readability */
+
+    /* Box Styling */
+    --box-bg: #4b3366;              /* enchanted twilight */
+    --box-br: #d4b86a;              /* antique gold trim */
+
+    /* Footer */
+    --footer-bg: #1b0d28;           /* deep night purple */
+
+    /* Links */
+    --link-color: #c5a762;          /* mystical gold */
+    --link-hover-color: #f7e48b;    /* glowing spell effect */
+
+
+}
+.all-content {
+  border-radius: 12px;
 }
 
 .name {
@@ -629,9 +561,9 @@ for (i = 0; i < acc.length; i++) {
 }
 
 .chibi img {
-    bottom: 112px;
-    right: 40px;
-    width: 370px;
+    bottom: 70px;
+    right: 6px;
+    width: 230px;
 }
 
 .likes i {
