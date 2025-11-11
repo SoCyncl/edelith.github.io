@@ -68,405 +68,102 @@
 		<div class="all-content fade-block">
 			<div class="main">
 				
-				
-    <div class="mobile-toggle">
-        <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i> Filters </button>
-        </div> 
-    <!-- Left Sidebar -->
-        <div class="sidebar-left fade-block">
-          <div class="box box-left fade-block">
-          <div class="toggles fade-block">
-              <div class="filter fade-block">
-                  <h1>FILTERS</h1>
-                  <ul>
-                      <li><button data-filter='*' class="filter-btn active">Show all</button></li>
-                      <li><button data-filter='.newarvegum' class="filter-btn">New Arvegum</button></li>
-                      <li><button data-filter='.obsidiancrystalis' class="filter-btn">Obsidian Crystalis</button></li>
-                      <li><button data-filter='.edelithproper' class="filter-btn">Edelith Proper</button></li>
-                      <li><button data-filter='.steelsidelegion' class="filter-btn">Steelside Legion</button></li>
-                      <li><button data-filter='.tarpaulpit' class="filter-btn">Tarpaul Pit</button></li>
-                      <li><button data-filter='.mythical' class="filter-btn">Mythical</button></li>
-                      <li><button data-filter='.pantheon' class="filter-btn">Pantheon</button></li>
-                      <li><button data-filter='.demonic' class="filter-btn">Demonic</button></li>
-                  </ul>
-              </div>
-              <div class="sort fade-block">
-                  <h2>SORTING OPTIONS</h2>
-                  <ul>
-                      <li><button data-sort-by="name" data-sort-ascending="true" class="sort-btn active">A-Z</button></li>
-                      <li><button data-sort-by="name" data-sort-ascending="false" class="sort-btn">Z-A</button></li>
-                      <li><button data-sort-by="newest" class="sort-btn">Newest to oldest</button></li>
-                      <li><button data-sort-by="oldest" class="sort-btn">Oldest to newest</button></li>
-                       <div class="other-stuff fade-block">
-                          <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
-                      </div>
-                  </ul>
-              </div>
-          </div>
-        </div>
-      </div>  
       
 				<!-- Main Content -->
 				<div class="content fade-block">
-        <!-- Tab buttons -->
-        <div class="tab-buttons fade-block">
-            <button class="tablinks fade-block" onclick="openTab(event, 'Fauna')" id="defaultOpen"><i class="fa-solid fa-paw fa-xs"></i> Fauna </button>
-            <button class="tablinks fade-block" onclick="openTab(event, 'Flora')"><i class="fa-solid fa-leaf fa-xs"></i> Flora </button>
-        </div>
-        
-        <!-- Tab content -->
-        <div id="Fauna" class="tabcontent fade-block">
-            <div class="grid-holder">
-                <div class="grid fade-block">
-                    <!-- Beasts & Monsters -->
-                    <div class="grid-item obsidiancrystalis" data-category="001">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/crystalline_husk.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Crystalline Husk</h3>
-                            <div class="info-deets">
-                                Crystal-infused humanoid constructs
-                            </div>
-                            <div class="infodesc">
-                                Former humans transformed by crystalline growths from Obsidian Crystalis. They retain basic humanoid form but are completely encased in jagged crystal formations.
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="grid-item obsidiancrystalis" data-category="002">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/crystalline_horse.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Crystalline Horse Husk</h3>
-                            <div class="info-deets">
-                                Equine crystal constructs
-                            </div>
-                            <div class="infodesc">
-                                Larger and faster than their humanoid counterparts, these crystalline equines were likely warhorses or beasts of burden before their transformation.
-                            </div>
-                        </div>
-                    </div>
+        <input type="checkbox" id="cover_checkbox">
+        <input type="checkbox" id="page1_checkbox">
+        <input type="checkbox" id="page2_checkbox">
+        <input type="checkbox" id="page3_checkbox">
+        <input type="checkbox" id="page4_checkbox">
+        <input type="checkbox" id="page5_checkbox">
 
-                    <div class="grid-item obsidiancrystalis" data-category="003">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/crystal_salamander.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Crystal Salamanders</h3>
-                            <div class="info-deets">
-                                Small crystalline amphibians
-                            </div>
-                            <div class="infodesc">
-                                Salamanders infused with crystalline growths that give them a gem-like appearance. They are surprisingly resilient and can regenerate lost crystal limbs.
-                            </div>
-                        </div>
-                    </div>
+        <!-- Flip Book -->
+        <div id="flip_book">
+            <div class="front_cover">
+                <label for="cover_checkbox" id="cover"></label>
+            </div>
 
-                    <div class="grid-item obsidiancrystalis" data-category="004">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/gem_stalker.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Gem Stalkers</h3>
-                            <div class="info-deets">
-                                Ceiling-dwelling predators
-                            </div>
-                            <div class="infodesc">
-                                These terrifying predators blend into crystalline ceilings, dropping down on unsuspecting prey. Their bodies refract light to become nearly invisible when motionless.
-                            </div>
-                        </div>
-                    </div>
+            <div class="page" id="page1">
+                <div class="front_page">
+                    <label for="page1_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                    <img class="front_content" src="./assets/images/pages/page1.webp" alt="Front content">
+                </div>
 
-                    <div class="grid-item demonic" data-category="005">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/corrosion_droplet.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Corrosion Droplets</h3>
-                            <div class="info-deets">
-                                Living blobs of corrosive slime
-                            </div>
-                            <div class="infodesc">
-                                These amorphous demons secrete highly corrosive fluids that can dissolve most materials. They move slowly but are extremely dangerous to touch.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item tarpaulpit" data-category="006">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/dust_dreg.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Dust Dregs</h3>
-                            <div class="info-deets">
-                                Sand creatures of lost memory
-                            </div>
-                            <div class="infodesc">
-                                Former villagers of Tarpaul Pit transformed into creatures of living sand, their memories and identities lost to the desert winds.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item demonic" data-category="007">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/imp.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Imps</h3>
-                            <div class="info-deets">
-                                Small winged demons
-                            </div>
-                            <div class="infodesc">
-                                The lowest rank of demons, these small but vicious creatures travel in swarms and delight in causing mischief and pain.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item mythical" data-category="008">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/cherubrim.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Cherubrim</h3>
-                            <div class="info-deets">
-                                Angelic beings
-                            </div>
-                            <div class="infodesc">
-                                Large angelic constructs wielding shields and flaming swords originating from the Circlet of the Sun and tasked with defending Edelith.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item demonic" data-category="009">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/construct_conquest.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Construct of Conquest</h3>
-                            <div class="info-deets">
-                                Massive mechanical demon
-                            </div>
-                            <div class="infodesc">
-                                A large metallic archer demon among the higher ranks of Conquest's Construct Guard, primarily used to besiege distant lands.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item demonic" data-category="010">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/combatant_conquest.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Combatant of Conquest</h3>
-                            <div class="info-deets">
-                                Lesser demonic warriors
-                            </div>
-                            <div class="infodesc">
-                                Warriors under the Construct's influence, these demons form the bulk of Conquest's forces.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item demonic" data-category="011">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/construct_guard.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Construct Guard</h3>
-                            <div class="info-deets">
-                                Elite demonic garrison
-                            </div>
-                            <div class="infodesc">
-                                A garrison of Conquest's most lethal demons capable of razing entire cities.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item mythical" data-category="012">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/glass_angel.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Glass Angels</h3>
-                            <div class="info-deets">
-                                Polygonal light apparitions
-                            </div>
-                            <div class="infodesc">
-                                Ethereal beings comprised of light that serve as the sentinels of the Stillight District.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item pantheon" data-category="013">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/solidaritus.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Solidaritus</h3>
-                            <div class="info-deets">
-                                The Igniting Daybreak
-                            </div>
-                            <div class="infodesc">
-                                Realized God of Destiny; Ambition, Arcana, and Life.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item pantheon" data-category="014">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/partirnax.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Partirnax</h3>
-                            <div class="info-deets">
-                                The Rising Dawn
-                            </div>
-                            <div class="infodesc">
-                                Enlightened God of Innovation; Forge, Knowledge, and War.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item pantheon" data-category="015">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/annuatera.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Annuatera</h3>
-                            <div class="info-deets">
-                                The Flourishing Zenith
-                            </div>
-                            <div class="infodesc">
-                                Gloried Goddess of Fertility; Life, Nature, and Tempest.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item pantheon" data-category="016">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/hiebrief .png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Hiebrief </h3>
-                            <div class="info-deets">
-                                The Decaying Dusk
-                            </div>
-                            <div class="infodesc">
-                                Shrouded Goddess of Deceit; Shadow, Trickery, and Twilight.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item pantheon" data-category="016">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/totarash  .png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Totarash  </h3>
-                            <div class="info-deets">
-                                The Smoldering Nightfall
-                            </div>
-                            <div class="infodesc">
-                                Silenced Deity of Tranquility; Grave, Order, and Peace.
-                            </div>
-                        </div>
-                    </div>
+                <div class="back_page">
+                    <label for="page1_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                    <img class="back_content" src="./assets/images/pages/page2.webp" alt="Back content">
                 </div>
             </div>
-        </div>
-        
-        <div id="Flora" class="tabcontent">
-            <div class="grid-holder">
-                <div class="grid">
-                    <div class="grid-item mythical" data-category="101">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/edelith_pod.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Edelith Pod</h3>
-                            <div class="info-deets">
-                                Synthetic divine capsule
-                            </div>
-                            <div class="infodesc">
-                                A floral-like synthetic capsule launched from the Circlet of the Sun which holds the power to regrow the wastes with enormous surges of divine power.
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="grid-item newarvegum mythical" data-category="102">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/enfernabloom.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Enfernabloom</h3>
-                            <div class="info-deets">
-                                Demon-repellant lotus
-                            </div>
-                            <div class="infodesc">
-                                A lotus-like flower from foreign lands gifted to the people of New Arvegum by the mythic hero Kojin, which when burned emits a calming and demon-repellant smoke.
-                            </div>
-                        </div>
-                    </div>
+            <div class="page" id="page2">
+                <div class="front_page">
+                    <label for="page2_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                    <img class="front_content" src="./assets/images/pages/page3.webp" alt="Front content">
+                </div>
 
-                    <div class="grid-item mythical" data-category="103">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/luminessence.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Luminessence</h3>
-                            <div class="info-deets">
-                                Divine residue
-                            </div>
-                            <div class="infodesc">
-                                The lingering residue of powerful creatures connected to the Circlet of the Sun's immortality. Glows with a soft divine light.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item steelsidelegion" data-category="104">
-                        <div class="avi-container"> 
-                            <img src="/assets/img/bestiary/thunderstroke.png"> 
-                        </div>
-                        <div class="info"> 
-                            <h3 class="name">Thunderstroke</h3>
-                            <div class="info-deets">
-                                Arcane electrical current
-                            </div>
-                            <div class="infodesc">
-                                An arcane current of electricity stored within cannisters utilized by the Steelside Legion to enhance their metal attributes' performance and resistance against the Corrosion.
-                            </div>
-                        </div>
-                    </div>
+                <div class="back_page">
+                    <label for="page2_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                    <img class="back_content" src="./assets/images/pages/page4.webp" alt="Back content">
                 </div>
             </div>
+
+            <div class="page" id="page3">
+                <div class="front_page">
+                    <label for="page3_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                    <img class="front_content" src="./assets/images/pages/page5.webp" alt="Front content">
+                </div>
+
+                <div class="back_page">
+                    <label for="page3_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                    <img class="back_content" src="./assets/images/pages/page6.webp" alt="Back content">
+                </div>
+            </div>
+
+            <div class="page" id="page4">
+                <div class="front_page">
+                    <label for="page4_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                    <img class="front_content" src="./assets/images/pages/page7.webp" alt="Front content">
+                </div>
+
+                <div class="back_page">
+                    <label for="page4_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                    <img class="back_content" src="./assets/images/pages/page8.webp" alt="Back content">
+                </div>
+            </div>
+
+            <div class="page" id="page5">
+                <div class="front_page">
+                    <label for="page5_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                    <img class="front_content" src="./assets/images/pages/page9.webp" alt="Front content">
+                </div>
+
+                <div class="back_page">
+                    <label for="page5_checkbox"></label>
+                    <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                    <img class="back_content" src="./assets/images/pages/page10.webp" alt="Back content">
+                </div>
+            </div>
+
+            <div class="back_cover"></div>
         </div>
-      </div>
-    
-      	<!-- Right Sidebar -->
-				<div class="side fade-block">
+
+
+
 					<playlist-block></playlist-block>  
 					<br>
-					<div class ="side-box fade-block">
-             <!-- MVP of the Session Box -->
-                    <div class="featured-title">
-                        <h3>MVP of the Session</h3>
-                    </div>
-                    <div class="box featured fade-block">
-                        <img src="/assets/img/placeholderavi.png">
-                        <a href="characters/index.html" style="margin-top: 5px">Eight Nanako</a>
-                        <p>For absolutly desimating the demons with a single spell.</p>
-                    </div>
-                  </div>
-					<br>
-					<div class="side-box fade-block">
-                    <!-- Random Character Box -->
-            <div class="box random fade-block">
-                <h2>Random Character</h2>
-                <div id="randomizer"></div>
-                <button id="dice" onclick="randomCharacter()"><i class="fa-solid fa-dice"></i></button>
-            </div>
+				
+
 					</div>
 				</div>
 			</div>
