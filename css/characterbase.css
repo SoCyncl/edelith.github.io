@@ -790,6 +790,7 @@ z-index: 0;
     background: var(--box-bg);
     color: var(--default-text);
     border-radius: 5px;
+	width: 100%;
 }
     
 .box img {
