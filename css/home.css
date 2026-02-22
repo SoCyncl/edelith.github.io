@@ -487,6 +487,10 @@ h2 a {
 }
 
 
+
+
+
+
 /*---------------- LEFT SIDEBAR WIDGETS ----------------*/
 .box {
     background: var(--box-bg);
@@ -657,11 +661,7 @@ h2 a {
     margin-top: -10px
 }
 /* ------------------------MUSIC AND STUFF----------------------*/
-/* ------volume slider----------------------*/
-/* Volume Control Styles */
 
-/* ------Music and stuff----------------------*/
-/* 🎵 Music Container */
 .playlist {
     background-color: var(--box-bg); /* Aged oak for depth */
     border: 3px solid var(--box-br); /* Brass border */
@@ -758,15 +758,101 @@ h2 a {
     color: var(--default-text);
 }
 
-/* 🌀 Marquee animation */
+
 @keyframes scroll {
     0%   { transform: translateX(0%); }
     100% { transform: translateX(-100%); }
 }
 
+/* ==========================================================================
+   STORIES SECTION
+   ========================================================================== */
+/* ==========================================================================
+   FEATURED NEWS SECTION
+   ========================================================================== */
+.featured-news {
+    margin: 40px 0 60px 0;
+}
 
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.news-card {
+    position: relative;
+    overflow: hidden;
+    height: 380px;
+    border-radius: 6px;
+    background: #000;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.news-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.news-card:hover img {
+    transform: scale(1.08);
+}
+
+.news-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 20%, transparent 100%);
+    color: #fff;
+}
+
+.news-author {
+    font-size: 0.9rem;
+    color: #ccc;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.news-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-tag {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
+
+.news-date {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
 /*---------------------------scroll bar-------------------- */
-/* Custom scrollbar styling */
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -1120,5 +1206,3 @@ a:hover {
 .box:hover {
     transform: translateY(-3px);
 }
-
-
