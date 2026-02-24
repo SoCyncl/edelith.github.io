@@ -26,7 +26,7 @@ class playlist extends HTMLElement {
       .musicbox {
         	position: absolute;
         	right: 25px;
-        	top: 180px;
+        	top: -36px;
         	width: 300px;
         	opacity: 0;
         	visibility: hidden;
@@ -60,25 +60,115 @@ class playlist extends HTMLElement {
         	overflow: hidden;
         	text-overflow: ellipsis;
           }
-          
-       
+
+      /* Playlist accordion */
+      .playlist-accordion {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          margin: 10px 0;
+          max-height: 180px;
+          overflow-y: auto;
+          padding-right: 2px;
+      }
+
+      .playlist-accordion::-webkit-scrollbar {
+          width: 4px;
+      }
+      .playlist-accordion::-webkit-scrollbar-track {
+          background: var(--content-bg);
+          border-radius: 2px;
+      }
+      .playlist-accordion::-webkit-scrollbar-thumb {
+          background: var(--box-br);
+          border-radius: 2px;
+      }
+
+      .pl-category {
+          width: 100%;
+      }
+
+      .pl-category-btn {
+          width: 100%;
+          text-align: left;
+          padding: 7px 10px;
+          background: var(--nav-bg);
+          border: 2px solid var(--box-br);
+          border-radius: 4px;
+          color: var(--emphasized-text);
+          font-size: 0.85rem;
+          font-weight: bold;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: background 0.2s ease;
+          font-family: inherit;
+      }
+
+      .pl-category-btn:hover {
+          background: var(--content-bg);
+      }
+
+      .pl-category-btn .pl-arrow {
+          font-size: 0.7rem;
+          transition: transform 0.2s ease;
+          opacity: 0.7;
+      }
+
+      .pl-category-btn.open .pl-arrow {
+          transform: rotate(90deg);
+      }
+
+      .pl-songs {
+          display: none;
+          flex-direction: column;
+          gap: 2px;
+          margin-top: 2px;
+          padding-left: 8px;
+      }
+
+      .pl-songs.open {
+          display: flex;
+      }
+
+      .pl-song-btn {
+          width: 100%;
+          text-align: left;
+          padding: 5px 8px;
+          background: transparent;
+          border: 1px solid transparent;
+          border-radius: 3px;
+          color: var(--default-text);
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          font-family: inherit;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+      }
+
+      .pl-song-btn:hover {
+          background: var(--content-bg);
+          border-color: var(--box-br);
+          color: var(--emphasized-text);
+      }
+
+      .pl-song-btn.playing {
+          color: var(--emphasized-text);
+          font-weight: bold;
+          border-color: var(--box-br);
+          background: var(--content-bg);
+      }
+
+      /* Transport controls row */
       .music-controls {
         	display: flex;
         	flex-wrap: wrap;
         	gap: 8px;
-        	margin: 15px 0;
+        	margin: 10px 0 0 0;
         	align-items: center;
-          }
-          
-      .music-controls select {
-        	flex: 1 1 100%;
-        	padding: 6px 8px;
-        	background: var(--content-bg);
-        	border: 2px solid var(--box-br);
-        	border-radius: 4px;
-        	color: var(--default-text);
-        	font-size: 0.85rem;
-        	max-width: 100%;
           }
           
       .music-controls button {
@@ -90,6 +180,7 @@ class playlist extends HTMLElement {
         	color: var(--emphasized-text);
         	cursor: pointer;
         	transition: all 0.2s ease;
+          font-family: inherit;
           }
           
       .music-controls button:hover {
@@ -132,38 +223,64 @@ class playlist extends HTMLElement {
           <div class="music-player fade-block">
             <h2>Now Playing</h2>
             <span id="music-title" class="music-title">Nothing Playing</span>
+
+            <!-- Accordion playlist -->
+            <div class="playlist-accordion" id="playlistAccordion">
+
+              <div class="pl-category">
+                <button class="pl-category-btn" onclick="toggleCategory(this)">
+                  Elden Ring Nightreign <span class="pl-arrow">&#9654;</span>
+                </button>
+                <div class="pl-songs">
+                  <button class="pl-song-btn" onclick="playSongByIndex(3, this)">Adel, Baron Of Night</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(4, this)">Gladius, Beast Of Night</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(5, this)">Heolstor the Nightlord</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(6, this)">Caligo, Miasma Of Night</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(7, this)">Libra, Creature Of Night</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(8, this)">Fulghor, Champion Of Nightglow</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(9, this)">Maris, Fathom Of Night</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(10, this)">Gnoster, Wisdom Of Night</button>
+                </div>
+              </div>
+
+              <div class="pl-category">
+                <button class="pl-category-btn" onclick="toggleCategory(this)">
+                  Final Fantasy <span class="pl-arrow">&#9654;</span>
+                </button>
+                <div class="pl-songs">
+                  <button class="pl-song-btn" onclick="playSongByIndex(11, this)">Beyond the Darkness — FFX</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(12, this)">Full Fathom Five — FFXIV</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(18, this)">Starless Skyline — FFXIV</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(13, this)">Galdin Quay — FFXV</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(14, this)">Hammerhead — FFXV</button>
+                </div>
+              </div>
+
+              <div class="pl-category">
+                <button class="pl-category-btn" onclick="toggleCategory(this)">
+                  RPG Maker <span class="pl-arrow">&#9654;</span>
+                </button>
+                <div class="pl-songs">
+                  <button class="pl-song-btn" onclick="playSongByIndex(15, this)">Lost Haven/Shillings — Fear &amp; Hunger 2</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(16, this)">Every Schoolday — Fear &amp; Hunger</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(17, this)">A Stab of Happiness — OFF</button>
+                </div>
+              </div>
+
+              <div class="pl-category">
+                <button class="pl-category-btn" onclick="toggleCategory(this)">
+                  Kirby <span class="pl-arrow">&#9654;</span>
+                </button>
+                <div class="pl-songs">
+                  <button class="pl-song-btn" onclick="playSongByIndex(0, this)">Ripple Field 2 — Dreamland 3</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(1, this)">Grassland 4 — Dreamland 3</button>
+                  <button class="pl-song-btn" onclick="playSongByIndex(2, this)">Friends 3 — Dreamland 3</button>
+                </div>
+              </div>
+
+            </div>
+
             <div class="music-controls">
-              <label for="trackList" hidden>Track Picker</label>
-              <select id="trackList" onchange="ChangeSongTrackList()">
-                <option value="none" selected>Pick a song...</option>
-                <optgroup label="Elden Ring Night Reign">
-                  <option value="3">Adel, Baron Of Night - Elden Ring Nightreign</option>
-                  <option value="4">Gladius, Beast Of Night - Elden Ring Nightreign</option>
-                  <option value="5">Heolstor the Nightlord - Elden Ring Nightreign</option>
-                  <option value="6">Caligo, Miasma Of Night - Elden Ring Nightreign</option>
-                  <option value="7">Libra, Creature Of Night - Elden Ring Nightreign</option>
-                  <option value="8">Fulghor, Champion Of Nightglow - Elden Ring Nightreign</option>
-                  <option value="9">Maris, Fathom Of Night - Elden Ring Nightreign</option>
-                  <option value="10">Gnoster, Wisdom Of Night - Elden Ring Nightreign</option>                        
-                </optgroup>
-                <optgroup label="Final Fantasy">
-                  <option value="11">Beyond the Darkness - FFX</option>
-                  <option value="12">Full Fathom Five - FFXIV</option>
-                  <option value="18">Starless Skyline - FFXIV</option>
-                  <option value="13">Galdin Quay - FFXV</option>
-                  <option value="14">Hammerhead - FFXV</option>
-                </optgroup>
-                <optgroup label="RPG Maker">
-                  <option value="15">Lost Haven/Shillings - Fear and Hunger 2: Termina</option>
-                  <option value="16">Every Schoolday - Fear and Hunger</option>
-                  <option value="17">A Stab of Happiness - OFF</option>
-                </optgroup>
-                <optgroup label="Kirby">
-                  <option value="0">Ripple Field 2 - Kirby's Dreamland 3</option>
-                  <option value="1">Grassland 4 - Kirby's Dreamland 3</option>
-                  <option value="2">Friends 3 - Kirby's Dreamland 3</option>
-                </optgroup>
-              </select>
               <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
               <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
               <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
@@ -201,6 +318,47 @@ class playlist extends HTMLElement {
 }
 
 customElements.define('playlist-block', playlist);
+
+
+// ── Accordion toggle ────────────────────────────────────────────────────────
+function toggleCategory(btn) {
+    const songs = btn.nextElementSibling;
+    const isOpen = songs.classList.contains('open');
+
+    // Close all open categories first
+    document.querySelectorAll('.pl-songs.open').forEach(s => s.classList.remove('open'));
+    document.querySelectorAll('.pl-category-btn.open').forEach(b => b.classList.remove('open'));
+
+    // Open the clicked one if it wasn't already open
+    if (!isOpen) {
+        songs.classList.add('open');
+        btn.classList.add('open');
+    }
+}
+
+// ── Play a song by its index in the songs object ─────────────────────────────
+function playSongByIndex(index, btnEl) {
+    const song = songs['s' + index];
+    if (!song) return;
+
+    // Update "playing" highlight
+    document.querySelectorAll('.pl-song-btn.playing').forEach(b => b.classList.remove('playing'));
+    if (btnEl) btnEl.classList.add('playing');
+
+    songTitle.innerHTML = "Now playing: " + song.title;
+    songPlay.src = song.url;
+
+    const playPromise = songPlay.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            playButton.classList.replace("fa-play", "fa-pause");
+            saveMusicState();
+        }).catch(e => {
+            console.warn("Play failed:", e);
+            playButton.classList.replace("fa-pause", "fa-play");
+        });
+    }
+}
 
 
 // Music player functionality
@@ -316,13 +474,35 @@ function loadMusicState() {
     return null;
 }
 
+// Highlight the currently playing song button (called after state restore)
+function restorePlayingHighlight(src) {
+    if (!src) return;
+    for (const [key, song] of Object.entries(songs)) {
+        if (song.url === src || src.includes(encodeURIComponent(song.url)) || src === song.url) {
+            const index = parseInt(key.replace('s', ''));
+            // Find the button for this index
+            const btn = document.querySelector(`.pl-song-btn[onclick="playSongByIndex(${index}, this)"]`);
+            if (btn) {
+                btn.classList.add('playing');
+                // Open its parent category
+                const songsDiv = btn.closest('.pl-songs');
+                const categoryBtn = songsDiv?.previousElementSibling;
+                if (songsDiv && categoryBtn) {
+                    songsDiv.classList.add('open');
+                    categoryBtn.classList.add('open');
+                }
+            }
+            return;
+        }
+    }
+}
+
 // Initialize the player
 function initializePlayer() {
     const savedState = loadMusicState();
     const volumeSlider = document.getElementById("volumeSlider");
     
     if (savedState) {
-        // Restore saved state
         songPlay.src = savedState.src;
         songTitle.innerText = savedState.title;
         songPlay.volume = savedState.volume;
@@ -331,11 +511,10 @@ function initializePlayer() {
         if (volumeSlider) {
             volumeSlider.value = savedState.volume;
         }
+
+        restorePlayingHighlight(savedState.src);
         
-        // Update the play/pause button based on saved state
         if (savedState.isPlaying) {
-            // Only auto-play if the state is recent (less than 5 seconds old)
-            // This prevents autoplay when coming back after a long time
             const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
             
             if (isRecent) {
@@ -349,42 +528,16 @@ function initializePlayer() {
                     });
                 }
             } else {
-                // If state isn't recent, respect the paused state
                 playButton.classList.replace("fa-pause", "fa-play");
             }
         } else {
-            // Explicitly paused state
             songPlay.pause();
             playButton.classList.replace("fa-pause", "fa-play");
         }
-        
-        // Update the dropdown to show the current song
-        updateTrackListSelection(savedState.src);
     } else {
-        // No saved state, initialize with defaults
         songPlay.volume = volumeSlider ? volumeSlider.value : 0.25;
         playButton.classList.replace("fa-pause", "fa-play");
     }
-}
-
-// Update the track list dropdown to show the current song
-function updateTrackListSelection(src) {
-    if (!src) return;
-    
-    const trackList = document.getElementById("trackList");
-    if (!trackList) return;
-    
-    // Find which song matches the current src
-    for (const [key, song] of Object.entries(songs)) {
-        if (song.url === src) {
-            const songIndex = parseInt(key.replace('s', ''));
-            trackList.value = songIndex;
-            return;
-        }
-    }
-    
-    // If no match found, reset to "none"
-    trackList.value = "none";
 }
 
 function changeVolume() {
@@ -398,6 +551,9 @@ function ChangesongPlay() {
     const randomSong = SongList[Math.floor(Math.random() * SongList.length)];
     songTitle.innerHTML = "Now playing: " + randomSong.title;
     songPlay.src = randomSong.url;
+
+    // Clear playing highlight — random pick, can't easily target button
+    document.querySelectorAll('.pl-song-btn.playing').forEach(b => b.classList.remove('playing'));
     
     const playPromise = songPlay.play();
     if (playPromise !== undefined) {
@@ -408,35 +564,6 @@ function ChangesongPlay() {
             console.warn("Play failed:", e);
             playButton.classList.replace("fa-pause", "fa-play");
         });
-    }
-}
-
-function ChangeSongTrackList() {
-    const x = document.getElementById("trackList").value;
-    const SongList = Object.values(songs);
-    
-    if (x === "none") {
-        songPlay.pause();
-        songPlay.src = "";
-        songTitle.innerHTML = "Nothing Playing";
-        playButton.classList.replace("fa-pause", "fa-play");
-        localStorage.removeItem("musicState");
-        return;
-    } else {
-        const newSong = SongList[x];
-        songTitle.innerHTML = "Now playing: " + newSong.title;
-        songPlay.src = newSong.url;
-        
-        const playPromise = songPlay.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                playButton.classList.replace("fa-play", "fa-pause");
-                saveMusicState();
-            }).catch(e => {
-                console.warn("Play failed:", e);
-                playButton.classList.replace("fa-pause", "fa-play");
-            });
-        }
     }
 }
 
@@ -472,7 +599,6 @@ setInterval(saveMusicState, 1000);
 
 // Initialize when DOM is loaded
 document.addEventListener("DOMContentLoaded", function() {
-    // Wait a brief moment to ensure all elements are ready
     setTimeout(initializePlayer, 100);
 });
 
@@ -482,13 +608,10 @@ window.addEventListener("beforeunload", saveMusicState);
 // Handle page visibility changes
 document.addEventListener("visibilitychange", function() {
     if (document.hidden) {
-        // Page is hidden (tab switched or minimized)
         saveMusicState();
     } else {
-        // Page is visible again
         const savedState = loadMusicState();
         if (savedState && savedState.isPlaying) {
-            // Only resume if it was playing very recently (last 5 seconds)
             const isRecent = savedState.timestamp && (Date.now() - savedState.timestamp) < 5000;
             if (isRecent) {
                 const playPromise = songPlay.play();
