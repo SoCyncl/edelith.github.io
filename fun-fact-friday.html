@@ -1169,7 +1169,7 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
 
   var $grid = $('.grid').isotope({
     itemSelector: '.grid-item',
@@ -1180,33 +1180,26 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     },
     sortBy: 'date',
-    sortAscending: false // default: newest first
+    sortAscending: false
   });
 
-  // CATEGORY FILTERING (editorial tabs)
+  // CATEGORY FILTERING
   $('.archive-filters button').on('click', function () {
     var filterValue = $(this).attr('data-filter');
-
     $grid.isotope({ filter: filterValue });
-
     $('.archive-filters button').removeClass('active');
     $(this).addClass('active');
   });
 
-  // DATE SORTING (right-side controls)
+  // DATE SORTING
   $('.archive-sort button').on('click', function () {
     var sortOrder = $(this).attr('data-sort');
-
-    $grid.isotope({
-      sortAscending: sortOrder === 'oldest'
-    });
-
+    $grid.isotope({ sortAscending: sortOrder === 'oldest' });
     $('.archive-sort button').removeClass('active');
     $(this).addClass('active');
   });
 
 });
-
 </script>
 
 
