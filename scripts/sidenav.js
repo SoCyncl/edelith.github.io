@@ -345,9 +345,9 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">
             <span>Regions</span>
           </a>
-          <a href="/info">
-            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Info">
-            <span>Info</span>
+          <a href="shop.edelith.org">
+            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Shop">
+            <span>Shop</span>
           </a>
         </div>
 
