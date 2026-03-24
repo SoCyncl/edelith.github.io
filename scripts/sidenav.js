@@ -321,7 +321,7 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_yellow.png" class="nav-icon" alt="Homepage">
             <span>Homepage</span>
           </a>
-          <a href="/quill-and-terms">
+          <a href="/quill-and-terms.html">
             <img src="/assets/img/homepage/Biblio_brown.png" class="nav-icon" alt="Quill & Terms">
             <span>Quill &amp; Terms</span>
           </a>
@@ -329,11 +329,11 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Characters">
             <span>Characters</span>
           </a>
-          <a href="/recap">
+          <a href="/recap.html">
             <img src="/assets/img/homepage/Biblio_blue.png" class="nav-icon" alt="Recap">
             <span>Recap</span>
           </a>
-          <a href="/fun-fact-friday">
+          <a href="/fun-fact-friday,html">
             <img src="/assets/img/homepage/Biblio_red.png" class="nav-icon" alt="Fun Fact Friday">
             <span>Fun Fact Friday</span>
           </a>
@@ -345,7 +345,7 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">
             <span>Regions</span>
           </a>
-          <a href="https://shop.edelith.org">
+          <a href="/shop.html">
             <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Shop">
             <span>Shop</span>
           </a>
