@@ -14,7 +14,6 @@
     <meta name="theme-color" content="#2a211b">
     <link rel="canonical" href="https://edelith.org/fun-fact-friday.html">
 
-
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://edelith.org/fun-fact-friday.html">
     <meta property="og:title" content="Edelith Fun Fact Friday - Solstitheo Archives">
@@ -23,9 +22,8 @@
     <meta property="og:image:alt" content="Solstitheo Archives Logo">
     <meta property="og:site_name" content="Solstitheo Archives">
     <meta property="og:locale" content="en_US">
+	
     <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/book.css">
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
@@ -35,1278 +33,280 @@
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="/scripts/isotope.pkgd.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="/scripts/sidenav.js" defer></script>
     <script src="/scripts/playlist.js" type="text/javascript" defer></script>
+    <script src="/scripts/fff-loader.js"></script>
+
     <script>
-    window.addEventListener("load", () => {
-      const blocks = document.querySelectorAll(".fade-block");
-      
-      blocks.forEach((block, i) => {
-        setTimeout(() => {
-          block.classList.add("visible");
-        }, i * 70); // Stagger animation: 150ms between each block
-      });
-    });
+        window.addEventListener("load", () => {
+            document.querySelectorAll(".fade-block").forEach((el, i) =>
+                setTimeout(() => el.classList.add("visible"), i * 70)
+            );
+        });
     </script>
 </head>
 <body>
-  <div class="clouds">
+
+<!-- ─── CLOUDS ────────────────────────────────────────── -->
+<div class="clouds">
     <div class="clouds-1"></div>
-    
-    <div class="logo">
-  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
-</div>
+    <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives" loading="eager"></div>
     <div class="clouds-2"></div>
     <div class="clouds-3"></div>
-  </div>
-<transparent-navbar class=fade-block></transparent-navbar>
-	<div class="outer fading-content">
-
-		<div class="all-content fade-block">
-		  
-		  
-		  
-		  
-		  <!-- Main-->
-			<div class="main">
-			  
-			  
-
-            
-				<!-- Main Content -->
-				<div class="content fade-block">
-            <div class="box about fade-block">
-               <h1>Edelith Fun Facts!!</h1>
-                <p><b class="text-primary">The Library </b>features lore drops from Edelith fun fact fridays in a book fashion, because i thought it was cool.</p>
-                <p>Look around, they update weekly!</p>
-            </div>		
-            
-          <!-- Filter + Sort Controls -->
-          <div class="controls">
-            
-            <!-- Category Filters -->
-            <div class="archive-controls">
-            
-              <div class="archive-filters">
-                <span class="filter-label">FILTER BY</span>
-                <button class="active" data-filter="*">Everything</button>
-                <button data-filter=".solstithean">Solstithean Logbook</button>
-                <button data-filter=".angel">Whispers of an Angel</button>
-                <button data-filter=".edelith">Travels of a Post-Wake Edelith</button>
-                <button data-filter=".short">From the Grapevine</button>
-                <button data-filter=".yordenriser">Chronicle of Yordenriser</button>
-                <button data-filter=".steelside">Steelside Classification</button>
-                <button data-filter=".sermons">Sermons</button>
-              </div>
-            
-              <div class="archive-sort">
-                <span class="filter-label">SORT BY</span>
-                <button class="active" data-sort="newest">Newest</button>
-                <button data-sort="oldest">Oldest</button>
-              </div>
-            
-            </div>
-            
-                      
-                      
-            
-            <div class="grid content">
-<!--            Solstithean Logbook                        -->                
-                	<!-- Deities -->
-                          <div class="grid-item solstithean" data-date="2025-2-21">
-    
-                                <a href="/fun-fact-friday/Solstithean-Logbook/deities-of-solstitheo.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Solstithean Logbook</h5>
-                                      <h3 class="news-title">Deities of Solstitheo</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Short Lore</span>
-                                        <span class="news-date">Feb 21, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- refraction and corrosion -->
-                          <div class="grid-item solstithean" data-date="2025-2-21">
-    
-                                <a href="/fun-fact-friday/Solstithean-Logbook/refraction-and-corrosion.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Solstithean Logbook</h5>
-                                      <h3 class="news-title">Refraction And Corrosion</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Short Lore</span>
-                                        <span class="news-date">Feb 21, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              </div>
-                          
-                 	<!-- Edelith pods -->                          
-                          <div class="grid-item solstithean" data-date="2025-2-28">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/edelith-pods.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">The Edelith Pods</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">Short Lore</span>
-                                    <span class="news-date">Feb 28, 2025</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>
-
-                 	<!-- Tarpaul pit -->                          
-                          <div class="grid-item solstithean" data-date="2025-2-28">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/tarpaul-pit.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">The Tarpaul Pit</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">Short Lore</span>
-                                    <span class="news-date">Feb 28, 2025</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>
-
-                 	<!-- The Winds of edelith -->                          
-                          <div class="grid-item solstithean" data-date="2025-3-8">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/winds-of-edelith.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">Winds of Edelith</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">Short Lore</span>
-                                    <span class="news-date">Mar 8, 2025</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>
- 
-                	<!-- The Great Schism -->                         
-                          <div class="grid-item solstithean" data-date="2025-3-14">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/the-great-schism.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">The Great Solstithean Schism</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">Short Lore</span>
-                                    <span class="news-date">Mar 14, 2025</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>
-
-                	<!-- The Old Lights and the New Lights -->                         
-                          <div class="grid-item solstithean" data-date="2026-1-13">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/the-old-lights-and-the-new-lights.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">The Old Lights and the New Lights</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">Short Lore</span>
-                                    <span class="news-date">Jan 13, 2026</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>      
-
-                	<!-- The Saints of the Corrosion -->                         
-                          <div class="grid-item solstithean" data-date="2026-1-18">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/saints-of-the-corrosion.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">Saints of the Corrosion</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">In Depth</span>
-                                    <span class="news-date">Jan 18, 2026</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>                          
-                          
-                	<!-- Inquisition -->                         
-                          <div class="grid-item solstithean" data-date="2026-2-14">
-
-                            <a href="/fun-fact-friday/Solstithean-Logbook/manor-seversova.html" class="news-card-link">
-                              <div class="news-card">
-                                <img src="/fun-fact-friday/Solstithean-Logbook/cover.webp">
-                          
-                                <div class="news-content">
-                                  <h5 class="news-author">Solstithean Logbook</h5>
-                                  <h3 class="news-title">The Inquisition of Manor Seversova</h3>
-                          
-                                  <div class="news-meta">
-                                    <span class="news-tag">In Depth</span>
-                                    <span class="news-date">Feb 14, 2026</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          
-                          </div>      
-
-
-
-
-
-<!--            Whispers of an angel                       -->                
-                	<!-- Residents of Tarpaul -->
-                          <div class="grid-item angel" data-date="2025-3-21">
-    
-                                <a href="/fun-fact-friday/whispers-of-an-angel/residents-of-tarpaul.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">Residents of Tarpaul pit</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">Mar 21, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- The Steelside Legion -->
-                          <div class="grid-item angel" data-date="2025-3-28">
-    
-                                <a href="/fun-fact-friday/whispers-of-an-angel/steelside-legion.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">The Steelside Legion</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">Mar 28, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              </div>
-                          
-                 	<!-- Reminiscing -->                          
-                          <div class="grid-item angel" data-date="2025-4-4">
-    
-                                <a href="/fun-fact-friday/whispers-of-an-angel/reminiscing.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">Reminiscing</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">April 4, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- Detestable Horsemen -->                          
-                          <div class="grid-item angel" data-date="2025-4-11">
-    
-                                <a href="/fun-fact-friday/whispers-of-an-angel/horsemen.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">Detestable Horsemen</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">April 11, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- Sköllarium University -->                          
-                          <div class="grid-item angel" data-date="2025-4-18">
-    
-                                <a href="/fun-fact-friday/whispers-of-an-angel/sköllarium-university.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">Sköllarium University</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">April 18, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
- 
-                	<!-- Conquest -->                         
-                          <div class="grid-item angel" data-date="2026-1-17">
-
-                                <a href="/fun-fact-friday/whispers-of-an-angel/conquest.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/whispers-of-an-angel/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Whispers of an Angel</h5>
-                                      <h3 class="news-title">Conquest.</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"L"</span>
-                                        <span class="news-date">Jan 17, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-                          
-
-
-
-
-
-
-
-
-
-<!--            The Travels of a Post wake Edelith                      -->                
-                	<!--Dedication -->
-                          <div class="grid-item edelith" data-date="2025-8-15">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/dedication.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">Dedication</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-tag">Memorial</span>
-                                        <span class="news-date">Aug 15, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- Adamo's Cross -->
-                          <div class="grid-item edelith" data-date="2025-4-25">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/adamos-cross.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">Adamo's Cross</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">April 25, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>
-                          
-                 	<!-- Arvegum Plains -->                          
-                          <div class="grid-item edelith" data-date="2025-5-2">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/arvegum-plains.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">Arvegum Plains</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">May 2, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- New Arvegum -->                          
-                          <div class="grid-item edelith" data-date="2025-5-16">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/new-arvegum.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">New Arvegum</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">May 16, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- Demonology of Edelith -->                          
-                          <div class="grid-item edelith" data-date="2025-5-24">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/demonology-of-edelith.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">Demonology of Edelith</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">May 24, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
- 
-                	<!-- The Woodsworn -->                         
-                          <div class="grid-item edelith" data-date="2025-6-14">
-
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">The Woodsworn</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">June 14, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-                          
-                  	<!-- The Serpentborne -->
-                          <div class="grid-item edelith" data-date="2025-6-20">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/serpentborne.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">The Serpentborne</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">June 20, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>
-                          
-                 	<!-- The Coronal Valley -->                          
-                          <div class="grid-item edelith" data-date="2025-6-27">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/the-coronal-valley.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">The Coronal Valley</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">June 27, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- The Prophecy -->                          
-                          <div class="grid-item edelith" data-date="2025-7-4">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/prophecy.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">The Prophecy</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">July 4, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- Torthúil, Village of Abundance -->                          
-                          <div class="grid-item edelith" data-date="2025-7-12">
-    
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/torthuil.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">Torthúil, Village of Abundance</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">July 12, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
- 
-                	<!-- Gorta -->                         
-                          <div class="grid-item edelith" data-date="2025-7-25">
-
-                                <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/famine.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                                      <h3 class="news-title">The Horsewoman of Famine, Gorta Tuoni</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">July 25, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>                         
-
-
-                          
-                          
-                          
-                          
-                          
-                          
-<!--            Short Stories                      -->                
-                	<!--To the krastovs -->
-                          <div class="grid-item short" data-date="2025-8-1">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/to-the-krastovs.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">To The Krastovs</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"E"</span>
-                                        <span class="news-date">Aug 1, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- Happy Birthday -->
-                          <div class="grid-item short" data-date="2025-8-1">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/dearest-broomhilda.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Dearest Broomhilda</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Peggle Krastov"</span>
-                                        <span class="news-date">Aug 1, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>
-                          
-                 	<!-- Remember me -->                          
-                          <div class="grid-item short" data-date="2025-8-8">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/remember-me.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Remember Me</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Herb Passerine"</span>
-                                        <span class="news-date">Aug 8, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                  	<!-- The swordsman swoops! -->
-                          <div class="grid-item short" data-date="2025-8-8">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/swoops.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Swordsman Swoops</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">A Short Story By Damien Zerxes</span>
-                                        <span class="news-date">Aug 8, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>
-
-                 	<!-- Nikolas' Monster -->                          
-                          <div class="grid-item short" data-date="2025-8-15">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/nikolas-monster.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Nikolas' Monster</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"THE Dr. Nikolas Frytz Klatlberg"</span>
-                                        <span class="news-date">Aug 15, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-                 	<!-- Sköllarium board -->                          
-                          <div class="grid-item short" data-date="2025-8-22">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/-board.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">To the Sköllarium Board</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Amelia Kokayin"</span>
-                                        <span class="news-date">Aug 22, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
- 
-                  	<!-- Prophecies of a Demon -->                          
-                          <div class="grid-item short" data-date="2025-8-22">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/prophecies-of-a-demon.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/demon/demon.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Prophecies of a Demon</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"A Demon"</span>
-                                        <span class="news-date">Aug 22, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
- 
-                	<!-- awerness -->                         
-                          <div class="grid-item short" data-date="2025-8-29">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/awareness.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Awareness</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Pizzaz"</span>
-                                        <span class="news-date">Aug 29, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-                          
-                 	<!-- The Nature of Life: A Short Thesis -->                          
-                          <div class="grid-item short" data-date="2026-1-12">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/nature-of-life.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">The Nature of Life: A Short Thesis</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"Damien Zerxes"</span>
-                                        <span class="news-date">Jan 12, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-
-
-
-                 	<!-- Trailer of Edelith -->                          
-                          <div class="grid-item short" data-date="2025-9-20">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/trailer.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Trailer of Seversova Arc</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"The DM"</span>
-                                        <span class="news-date">Sept 20, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>
-                          
-                 	<!-- Edelithian Cuisine -->                          
-                          <div class="grid-item short" data-date="2026-1-30">
-    
-                                <a href="/fun-fact-friday/from-the-grapevine/cuisine.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/from-the-grapevine/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">From the Grapevine</h5>
-                                      <h3 class="news-title">Cuisine of Edelith</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Short Lore</span>
-                                        <span class="news-date">Jan 30, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>                          
-                          
-                          
-                          
-                          
-                          
-                          
-<!--            Chronicles of Yordenriser                      -->                
-                	<!--Timeline -->
-                          <div class="grid-item yordenriser" data-date="2025-8-28">
-    
-                                <a href="/fun-fact-friday/yordenriser/timeline.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/yordenriser/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Chronicles of Yordenriser</h5>
-                                      <h3 class="news-title">A Timeline of Events, Part One</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"H. D. Yordenriser"</span>
-                                        <span class="news-date">Aug 8, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- Conquestian campaign -->
-                          <div class="grid-item yordenriser" data-date="2025-12-19">
-    
-                                <a href="/fun-fact-friday/yordenriser/edelith-gothitas.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/yordenriser/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Chronicles of Yordenriser</h5>
-                                      <h3 class="news-title">Conquestian Campaign of Edelith Gothitas</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"H. D. Yordenriser"</span>
-                                        <span class="news-tag">(1502-Annua 23 to 1504-Luna 44)</span>                                         
-                                        <span class="news-date">Dec 19, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>
-                          
-                 	<!-- Dawn of the Schism -->                          
-                          <div class="grid-item yordenriser" data-date="2026-1-15">
-    
-                                <a href="/fun-fact-friday/yordenriser/dawn-of-the-schism.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/yordenriser/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Chronicles of Yordenriser</h5>
-                                      <h3 class="news-title">The Dawn of the Great Schism</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"H. D. Yordenriser"</span>
-                                        <span class="news-date">Jan 15, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>     
-
-                 	<!--movements of the high priestesses -->                          
-                          <div class="grid-item yordenriser" data-date="2026-2-21">
-    
-                                <a href="/fun-fact-friday/yordenriser/movements.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/yordenriser/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Chronicles of Yordenriser</h5>
-                                      <h3 class="news-title">Movements of the High Priestesses</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"H. D. Yordenriser"</span>
-                                        <span class="news-date">Feb 22, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>     
-
-
-
-
-
-
-
-
-
-                          
-<!--            Steelside Classifications                     -->                
-                	<!--Alloy Rusty -->
-                          <div class="grid-item steelside" data-date="2025-10-31">
-    
-                                <a href="/fun-fact-friday/steelside-legion/alloy-rusty.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/steelside-legion/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Steelside Legion</h5>
-                                      <h3 class="news-title">Alloy Rusty</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Auxiliary Operations Division</span>
-                                        <span class="news-date">Oct 31, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- Aureate Mollusk -->
-                          <div class="grid-item steelside" data-date="2025-12-26">
-    
-                                <a href="/fun-fact-friday/steelside-legion/aureate-mollusk.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/steelside-legion/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Steelside Legion</h5>
-                                      <h3 class="news-title">Aureate Mollusk</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Espionage Operations Division</span>
-                                        <span class="news-date">Dec 26, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>                          
- 
-                  	<!-- Graylung-initation -->
-                          <div class="grid-item steelside" data-date="2026-2-7">
-    
-                                <a href="/fun-fact-friday/steelside-legion/graylung.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/steelside-legion/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Steelside Legion</h5>
-                                      <h3 class="news-title">Graylung Initiation</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">Recruitment Division</span>
-                                        <span class="news-date">Feb 7, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              
-                              </div>          
- 
- 
- 
- 
- 
- 
- 
- 
- 
-<!--            Sermons                    -->                
-                	<!-- The Proto -->
-                          <div class="grid-item sermons" data-date="2025-11-28">
-    
-                                <a href="/fun-fact-friday/sermons/the-proto.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/sermons/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Sermons</h5>
-                                      <h3 class="news-title">The Proto.</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"High Priestess Ferman, Last Matriarch of Edelith"</span>
-                                        <span class="news-date">Nov 28, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                          </div>
-    
-                 	<!-- The Chora -->
-                          <div class="grid-item sermons" data-date="2025-11-28">
-    
-                                <a href="/fun-fact-friday/sermons/the-chora.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/sermons/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Sermons</h5>
-                                      <h3 class="news-title">The Chora.</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"High Priestess Ferman, Last Matriarch of Edelith"</span>
-                                        <span class="news-date">Nov 28, 2025</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                              
-                              </div>    
-                          
-                 	<!-- The Heretical Movement -->                          
-                          <div class="grid-item sermons" data-date="2026-1-14">
-    
-                                <a href="/fun-fact-friday/sermons/heretical-movement.html" class="news-card-link">
-                                  <div class="news-card">
-                                    <img src="/fun-fact-friday/sermons/cover.webp">
-                              
-                                    <div class="news-content">
-                                      <h5 class="news-author">Sermons</h5>
-                                      <h3 class="news-title">Heretical Movement.</h3>
-                              
-                                      <div class="news-meta">
-                                        <span class="news-tag">"High Priestess Ferman, Last Matriarch of Edelith"</span>
-                                        <span class="news-date">Jan 14, 2026</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                          
-                          </div>    
-            </div>
-    			</div>
- 
-         
-    </div>
-       </div>
-   </div>  
- 	<footer-block class=fade-block></footer-block>
 </div>
 
+<transparent-navbar class="fade-block"></transparent-navbar>
+
+<div class="outer">
+    <nav-block class="fade-block"></nav-block>
+
+    <div class="all-content fade-block">
+        <div class="fff-page">
+
+            <!-- ══ MASTHEAD ════════════════════════════════════ -->
+            <div class="fff-masthead lore-box lore-box--gold fade-block">
+                <div class="fff-masthead-inner">
+                    <div class="fff-masthead-label">Edelith Fun Fact Friday</div>
+                    <h1 class="fff-masthead-title">The Library</h1>
+                    <div class="fff-masthead-rule">
+                        <div class="fff-masthead-rule-line"></div>
+                        <span>✦</span>
+                        <div class="fff-masthead-rule-line"></div>
+                    </div>
+                    <p class="fff-masthead-desc">
+                        Lore drops from the world of Edelith, compiled and catalogued.
+                        Entries update weekly — look around.
+                    </p>
+                </div>
+                <div class="fff-masthead-vol">
+                    <span>Vol. I — Ongoing</span>
+                    <span class="fff-masthead-dot">◆</span>
+                    <span>The Immortal City of Edelith</span>
+                </div>
+            </div>
+
+            <!-- ══ FILTER + SORT CONTROLS ════════════════════ -->
+            <div class="fff-controls fade-block">
+                <div class="fff-filters-group">
+                    <span class="fff-controls-label">Filter by</span>
+                    <div class="fff-filters" id="fffFilters">
+                        <button class="fff-filter-btn active" data-filter="*">Everything</button>
+                        <button class="fff-filter-btn" data-filter=".solstithean">Solstithean Logbook</button>
+                        <button class="fff-filter-btn" data-filter=".angel">Whispers of an Angel</button>
+                        <button class="fff-filter-btn" data-filter=".edelith">Travels of a Post-Wake Edelith</button>
+                        <button class="fff-filter-btn" data-filter=".short">From the Grapevine</button>
+                        <button class="fff-filter-btn" data-filter=".yordenriser">Chronicle of Yordenriser</button>
+                        <button class="fff-filter-btn" data-filter=".steelside">Steelside Classification</button>
+                        <button class="fff-filter-btn" data-filter=".sermons">Sermons</button>
+                    </div>
+                </div>
+                <div class="fff-sort-group">
+                    <span class="fff-controls-label">Sort by</span>
+                    <div class="fff-sort" id="fffSort">
+                        <button class="fff-sort-btn active" data-sort="newest">Newest</button>
+                        <button class="fff-sort-btn" data-sort="oldest">Oldest</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ CARD GRID — populated by fff-loader.js ════ -->
+            <div class="grid fff-grid" id="fffGrid"></div>
+
+        </div>
+    </div>
+</div>
+
+<footer-block class="fade-block"></footer-block>
+
+<!-- ─── INIT ──────────────────────────────────────────── -->
 <script>
-window.addEventListener('load', function () {
-
-  var $grid = $('.grid').isotope({
-    itemSelector: '.grid-item',
-    layoutMode: 'fitRows',
-    getSortData: {
-      date: function (itemElem) {
-        return new Date(itemElem.getAttribute('data-date'));
-      }
-    },
-    sortBy: 'date',
-    sortAscending: false
-  });
-
-  // CATEGORY FILTERING
-  $('.archive-filters button').on('click', function () {
-    var filterValue = $(this).attr('data-filter');
-    $grid.isotope({ filter: filterValue });
-    $('.archive-filters button').removeClass('active');
-    $(this).addClass('active');
-  });
-
-  // DATE SORTING
-  $('.archive-sort button').on('click', function () {
-    var sortOrder = $(this).attr('data-sort');
-    $grid.isotope({ sortAscending: sortOrder === 'oldest' });
-    $('.archive-sort button').removeClass('active');
-    $(this).addClass('active');
-  });
-
-});
+    $(document).ready(function () {
+        FFFLoader.initFullPage({
+            gridId:    'fffGrid',
+            filtersId: 'fffFilters',
+            sortId:    'fffSort',
+            dataUrl:   '/data/fff-entries.json'
+        });
+    });
 </script>
 
-
-
+<!-- ─── PAGE-SPECIFIC STYLES ──────────────────────────── -->
 <style>
-/*---------------------------------content-------------------------- */
-.content {
-    width: 100%;
+
+.fff-page {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
 }
 
-.parent {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 19px;
-}
-/* ===== Archive Filter Bar ===== */
-
-.archive-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  margin-bottom: 32px;
+/* ══ MASTHEAD ══════════════════════════════════════════ */
+.fff-masthead {
+    padding: 36px 48px 28px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Shared label */
-.filter-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.6;
-  margin-right: 12px;
-  white-space: nowrap;
+.fff-masthead::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: var(--ink-mid);
+    mask:
+        radial-gradient(28px at 28px 28px,
+            #0000 calc(98% - 6px), #000 calc(100% - 6px) 98%, #0000) -28px -28px,
+        linear-gradient(90deg, #000 14px, #0000 0)
+            -6px 50% / 100% calc(100% - 56px + 6px) repeat-x,
+        linear-gradient(#000 14px, #0000 0)
+            50% -6px / calc(100% - 56px + 6px) 100% repeat-y;
+}
+.fff-masthead > * { position: relative; z-index: 2; }
+
+.fff-masthead-inner { max-width: 100%; }
+
+.fff-masthead-label {
+    font-family: var(--f-label);
+    font-size: 0.6rem; letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold); opacity: 0.7;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-/* Filters */
-.archive-filters,
-.archive-sort {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.fff-masthead-title {
+    font-family: var(--f-display);
+    font-size: 2.6rem; letter-spacing: 3px;
+    color: var(--frost);
+    background: none; padding: 0;
+    margin: 0 0 14px; line-height: 1.1;
+    text-align: center;
 }
 
-/* Buttons become text links */
-.archive-filters button,
-.archive-sort button {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
-  cursor: pointer;
-  position: relative;
-  transition: color 0.2s ease;
+.fff-masthead-rule {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+}
+.fff-masthead-rule span { color: var(--gold); font-size: 0.7rem; flex-shrink: 0; }
+.fff-masthead-rule-line {
+    height: 1px; flex: 1;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.fff-masthead-rule .fff-masthead-rule-line:last-child {
+    background: linear-gradient(270deg, var(--gold-dim), transparent);
 }
 
-/* Hover */
-.archive-filters button:hover,
-.archive-sort button:hover {
-  color: #fff;
+.fff-masthead-desc {
+    font-family: var(--f-italic);
+    font-style: italic; font-size: 1.2rem;
+    line-height: 1.7; color: var(--fog);
+    margin: 0;
+    text-align: center;
 }
 
-/* Active underline */
-.archive-filters button.active,
-.archive-sort button.active {
-  color: #fff;
+.fff-masthead-vol {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(201,168,76,0.2);
+    font-family: var(--f-label);
+    font-size: 0.58rem; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--fog-dim);
+}
+.fff-masthead-dot { color: var(--gold-dim); font-size: 0.5rem; }
+
+/* ══ CONTROLS BAR ══════════════════════════════════════ */
+.fff-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 18px 22px;
+    background: var(--void);
+    border-left: 3px solid var(--gold-dim);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    margin-bottom: 28px;
+    position: relative;
 }
 
-.archive-filters button.active::after,
-.archive-sort button.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 100%;
-  height: 2px;
-  background: #c9a24d; /* subtle gold like your example */
+.fff-controls-label {
+    font-family: var(--f-label);
+    font-size: 0.55rem; letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--fog-dim);
+    display: block; margin-bottom: 8px;
 }
 
+.fff-filters-group { flex: 1; min-width: 0; }
+.fff-sort-group    { flex-shrink: 0; }
 
-
-.grid.content {
-  width: 100%;
-  max-width: 1400px; /* adjust to taste */
-  margin: 0 auto;
+.fff-filters,
+.fff-sort {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 4px 0;
 }
 
+.fff-filter-btn,
+.fff-sort-btn {
+    font-family: var(--f-label);
+    font-size: 0.87rem; letter-spacing: 1px;
+    background: none; border: none;
+    color: var(--fog-dim);
+    cursor: var(--cursor-hover);
+    padding: 4px 10px;
+    position: relative;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
 
+.fff-filters .fff-filter-btn + .fff-filter-btn::before,
+.fff-sort .fff-sort-btn + .fff-sort-btn::before {
+    content: "◆";
+    position: absolute; left: -1px;
+    font-size: 0.35rem; color: var(--gold-dim);
+    top: 50%; transform: translateY(-50%);
+}
+
+.fff-filter-btn:hover,
+.fff-sort-btn:hover { color: var(--fog); }
+
+.fff-filter-btn.active,
+.fff-sort-btn.active { color: var(--frost); }
+
+.fff-filter-btn.active::after,
+.fff-sort-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 10px; right: 10px;
+    height: 1px;
+    background: var(--gold);
+}
+
+/* ══ CARD GRID ════════════════════════════════════════ */
+.fff-grid { width: 100%; }
+
+.grid-item {
+    padding: 10px;
+    width: 25%;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 263px;
+}
 
 .news-card {
-  height: 243px;
+    height: 243px;
+    border: 1px solid var(--gold-dim);
 }
 
-/* Grid container */
-.grid {
-  margin: -16px auto;
-  max-width: 1080px;
+.news-card::before {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid rgba(201,168,76,0.15); z-index: 3; pointer-events: none;
 }
 
-/* Each card */
-.grid-item {
-  padding: 16px; /* THIS is your gap */
+.news-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-
-    </style>
-</body>
-</html>
+</style>
