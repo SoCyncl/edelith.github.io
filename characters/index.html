@@ -34,763 +34,381 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="/scripts/playlist.js" type="text/javascript" defer></script>
     <script src="/scripts/sidenav.js" defer></script>
-        <script>
+  <script>
     window.addEventListener("load", () => {
-      const blocks = document.querySelectorAll(".fade-block");
-      
-      blocks.forEach((block, i) => {
-        setTimeout(() => {
-          block.classList.add("visible");
-        }, i * 70); // Stagger animation: 150ms between each block
-      });
+      document.querySelectorAll(".fade-block").forEach((el, i) =>
+        setTimeout(() => el.classList.add("visible"), i * 70)
+      );
     });
-    </script>
-        <script>
-        function toggleClass() {
-           let divElement = document.getElementById('sidebar');
-           divElement.classList.toggle("mobile-active");
-
-           const slideOut = document.getElementById("slideOut")
-           if(slideOut.classList.contains("fa-caret-right")){
-                slideOut.classList.remove("fa-caret-right");
-                slideOut.classList.add("fa-caret-left");
-            }
-            else{
-                slideOut.classList.add("fa-caret-right");
-                slideOut.classList.remove("fa-caret-left");
-            }
-        }
-     </script>
-</head> 
+  </script>
+</head>
 <body>
-  <div class="clouds">
-    <div class="clouds-1"></div>
-    
-    <div class="logo">
-  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
-</div>
-    <div class="clouds-2"></div>
-    <div class="clouds-3"></div>
-  </div>
-<transparent-navbar class=fade-block></transparent-navbar>
-	<div class="outer">
-		
-		<div class="all-content fade-block">
-			<div class="main">
-				
-				<!-- Left Sidebar -->
-    <div class="mobile-toggle">
-        <button onclick="toggleClass()"><i class="fa-solid fa-caret-right" id="slideOut"></i> Filters </button>
-    </div>
-        <div class="sidebar-left fade-block">
-          <div class="box box-left fade-block">
-          <div class="toggles">
-              <div class="filter fade-block">
-                  <h1>FILTERS</h1>
-                  <ul>
-                      <li><button data-filter='*' class="filter-btn active">Show all</button></li>
-                      <li><button data-filter='.class' class="filter-btn">Main Party</button></li>
-                      <li><button data-filter='.tarpaulpit' class="filter-btn">Tarpaul Pit</button></li>
-                      <li><button data-filter='.arvegum' class="filter-btn">Arvegum</button></li>
-                      <li><button data-filter='.macabrell' class="filter-btn">Macabrell</button></li>
-                      <li><button data-filter='.windsofthewaste' class="filter-btn">Winds of the Waste</button></li>
-                      <li><button data-filter='.steelsidelegion' class="filter-btn">Steelside Legion</button></li>
-                      <li><button data-filter='.woodsworn' class="filter-btn">Woodsworn</button></li>
-                      <li><button data-filter='.bjornguard' class="filter-btn">Bjornguard</button></li>
-					  <li><button data-filter='.astora' class="filter-btn">Astora Mountains</button></li>
-                  </ul>
-              </div>
-              <div class="sort fade-block">
-                  <h2>SORTING OPTIONS</h2>
-                  <ul>
-                      <li><button data-sort-by="name" data-sort-ascending="true" class="sort-btn active">A-Z</button></li>
-                      <li><button data-sort-by="name" data-sort-ascending="false" class="sort-btn">Z-A</button></li>
-                      <li><button data-sort-by="newest" class="sort-btn">Newest to oldest</button></li>
-                      <li><button data-sort-by="oldest" class="sort-btn">Oldest to newest</button></li>
-                       <div class="other-stuff">
-                          <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>Back to top</button>
-                      </div>
 
-                  </ul>
+<!-- ─── CLOUDS ────────────────────────────────────────── -->
+<div class="clouds">
+  <div class="clouds-1"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
+  <div class="clouds-2"></div>
+  <div class="clouds-3"></div>
+</div>
+
+<transparent-navbar class="fade-block"></transparent-navbar>
+
+<div class="outer">
+  <div class="all-content fade-block">
+    <playlist-block></playlist-block>
+    <div class="char-page">
+
+      <!-- ══ MASTHEAD ════════════════════════════════════ -->
+      <div class="char-masthead lore-box lore-box--gold fade-block">
+        <div class="char-masthead-inner">
+          <div class="char-masthead-label">Solstitheo Archives  ◆  Roster</div>
+          <div class="char-masthead-flex">
+            <div>
+              <h1 class="char-masthead-title">Character Overview</h1>
+              <div class="char-masthead-rule">
+                <div class="char-rule-line"></div>
+                <span>✦</span>
+                <div class="char-rule-line char-rule-line--rev"></div>
               </div>
+              <p class="char-masthead-desc">
+                The players, allies, and figures of the Immortal City of Edelith — catalogued for the discerning archivist.
+              </p>
+            </div>
+            <div class="char-masthead-watermark">Edelith</div>
           </div>
         </div>
-      </div>       
-				<!-- Main Content -->
-				<div class="content fade-block">
-        <div class="grid-holder">
-            <div class="grid fade-block">
-
-            <!-- Character -->
-            <div class="grid-item class woodsworn" data-category="003">
-            <div class="avi-container"> 
-                <a href="herb/index.html"> <img src="herb/img/avi.png"> </a> 
-            </div>
-            <div class="info"> 
-                <a href="herb/index.html"><h3 class="name">Herb Passerine</h3></a>
-            <div class="info-deets">
-                Bard
-            </div>
-            <div class="infodesc">
-                Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia. 
-            </div>
-            </div>
-            </div>
-
-            <!-- Character -->
-            <div class="grid-item class bjornguard" data-category="002">
-            <div class="avi-container"> 
-                <a href="peggle/index.html"> <img src="peggle/img/avi.png"> </a> 
-            </div>
-            <div class="info"> 
-                <a href="peggle/index.html"><h3 class="name">Peggle Krastov</h3></a>
-            <div class="info-deets">
-                Barbarian
-            </div>
-            <div class="infodesc">
-               Ashamed of being called Peggle. Peggle Krastov is a Goliath, Bear Totem with anger issues, and a loving niece.
-            </div>
-            </div>
-            </div>
-
-            <!-- Character -->
-            <div class="grid-item class" data-category="001">
-            <div class="avi-container"> 
-                <a href="blobert/index.html"> <img src="blobert/img/avi.png"> </a>
-            </div>    
-            <div class="info"> 
-               <a href="blobert/index.html"> <h3 class="name">Blobert Goopington</h3> </a>
-            <div class="info-deets">
-                Warlock
-            </div>
-            <div class="infodesc">
-                Colorblind and Retarded  Blobert Goopington is a Plasmoid, Hexblade who is now free of being inside a tower, who wants to see the places and things the books he read talked about.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item class" data-category="004">
-            <div class="avi-container"> 
-                <a href="eight/index.html"> <img src="eight/img/avi.png"> </a>
-            </div>    
-            <div class="info"> 
-               <a href="eight/index.html"> <h3 class="name">Eight Nanako</h3> </a>
-            <div class="info-deets">
-                Sorcerer
-            </div>
-            <div class="infodesc">
-                Eight Nanako is a human, divine soul at a crossroads in life who wants to see what the world offers.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item class" data-category="005">
-            <div class="avi-container"> 
-                <a href="baxter/index.html"> <img src="baxter/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="baxter/index.html"> <h3 class="name">Baxter Kokayin</h3> </a>
-            <div class="info-deets">
-                Wizard
-            </div>    
-            <div class="infodesc">
-                Makes up for his height. Baxter Kokayin is a Wood gnome, School of Conjuration with the desire to explore the world as a free man.
-            </div>
-            </div>
-            </div>
-            
-             <!-- Character -->
-            <div class="grid-item steelsidelegion" data-category="006">
-            <div class="avi-container"> 
-                <a href="charon/index.html"> <img src="charon/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="charon/index.html"> <h3 class="name">Charon</h3> </a>
-            <div class="info-deets">
-                Shroud Smuggler
-            </div>    
-            <div class="infodesc">
-                Charon is a Smuggler who assists others to pass the Shroud Of Aurum; his arm resembles the same technology as the Steelside Legion.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item tarpaulpit windsofthewaste" data-category="007">
-            <div class="avi-container"> 
-                <a href="baylis/index.html"> <img src="baylis/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="baylis/index.html"> <h3 class="name">Baylis</h3> </a>
-            <div class="info-deets">
-               Tarpaul Pit
-            </div>    
-            <div class="infodesc">
-                Baylis is a Dragonborne who is struck with two unfathomable diseases: Refractions and Corrosion. He fled Tarpaul Pit in search of a cure at the cost of a bounty on his head.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item tarpaulpit windsofthewaste" data-category="008">
-            <div class="avi-container"> 
-                <a href="skrapp/index.html"> <img src="skrapp/img/avi.png"></a>
-            </div>
-            <div class="info"> 
-               <a href="skrapp/index.html"> <h3 class="name">Skrapp</h3> </a>
-            <div class="info-deets">
-                Winds of The Waste
-            </div>    
-            <div class="infodesc">
-                A Kobold Scoout for the Winds of The Waste, Skrapp is very handy and cunning and uses all her skill for no good.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item tarpaulpit" data-category="009">
-            <div class="avi-container"> 
-                <a href="svahn/index.html"> <img src="svahn/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="svahn/index.html"> <h3 class="name">Svahn</h3> </a>
-            <div class="info-deets">
-                Tarpaul Pit
-            </div>    
-            <div class="infodesc">
-                A guard for Tarpaul Pit and General Strom, Svahn is a human who lives life with caution and does so casually.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item tarpaulpit" data-category="010">
-            <div class="avi-container"> 
-                <a href="amalie/index.html"> <img src="amalie/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="amalie/index.html"> <h3 class="name">Amalie</h3> </a>
-            <div class="info-deets">
-                Tarpaul Pit
-            </div>    
-            <div class="infodesc">
-                A widow who lost her lover during an expedition where the Party met Baylis, behind that somber and sad face lies a woman with sheer guile.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item tarpaulpit" data-category="011">
-            <div class="avi-container"> 
-                <a href="soko/index.html"> <img src="soko/img/avi.png"></a>
-            </div>
-            <div class="info"> 
-               <a href="soko/index.html"> <h3 class="name">Soko</h3> </a>
-            <div class="info-deets">
-                Drunkard
-            </div>    
-            <div class="infodesc">
-                A mischevious alcohol-thirsty Goblin who lives life to the fullest and without care. She idles her time in the Bone Bottom Inn.
-            </div>
-            </div>
-            </div>
-            
-            <!-- Character -->
-            <div class="grid-item class macabrell" data-category="012">
-            <div class="avi-container"> 
-                <a href="mousse/index.html"> <img src="mousse/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="mousse/index.html"> <h3 class="name">Mousse</h3> </a>
-            <div class="info-deets">
-                Blood Hunter
-            </div>    
-            <div class="infodesc">
-                Big Ass Rat. Mousse was a stowaway during the Macrabell Check point, and joined the party because he had nothing better to do.
-            </div>
-            </div>
-            </div>
-
-
-			<!-- Character -->	
-			 <div class="grid-item class astora" data-category="014">
-            <div class="avi-container"> 
-                <a href="tau/index.html"> <img src="tau/img/avi.png"> </a> 
-            </div>
-            <div class="info"> 
-                <a href="tau/index.html"><h3 class="name">Tau Zervas</h3></a>
-            <div class="info-deets">
-                Rogue
-            </div>
-            <div class="infodesc">
-                A little bit of an airhead. Tau Zervas is a rogue hunter in the Astora Mountains. 
-            </div>
-            </div>
-            </div>
-
-            
-             <!-- Character -->
-            <div class="grid-item New Arvegum bjornguard" data-category="013">
-            <div class="avi-container"> 
-                <a href="vaskal/index.html"> <img src="vaskal/img/avi.png"> </a>
-            </div>
-            <div class="info"> 
-               <a href="vaskal/index.html"> <h3 class="name">Vaskal Krastov</h3> </a>
-            <div class="info-deets">
-                Storm Herald
-            </div>    
-            <div class="infodesc">
-                Leader of the Iron Fang Sect of Bjornguard, Vaskal is a cold hunter out for blood of the heir of the Krastov Clan.
-            </div>
-            </div>
-            </div>
- 
-            
-
+        <div class="char-masthead-vol">
+          <span>Immortal City of Edelith</span>
+          <span class="char-vol-dot">◆</span>
+          <span>Campaign Roster</span>
         </div>
       </div>
+
+      <!-- ══ FILTER BAR ═════════════════════════════════ -->
+      <div class="fff-controls fade-block">
+        <div class="fff-filters-group">
+          <span class="fff-controls-label">Filter by</span>
+          <div class="fff-filters" id="charFilters">
+            <button class="fff-filter-btn active" data-filter="*">Everyone</button>
+            <button class="fff-filter-btn" data-filter=".main">Main Party</button>
+            <button class="fff-filter-btn" data-filter=".tarpaul">Tarpaul Pit</button>
+            <button class="fff-filter-btn" data-filter=".macrabell">Macrabell</button>
+            <button class="fff-filter-btn" data-filter=".arvegum">New Arvegum</button>
+            <button class="fff-filter-btn" data-filter=".torthuil">Torthuil</button>
+            <button class="fff-filter-btn" data-filter=".seversova">Manor Seversova</button>
+            <button class="fff-filter-btn" data-filter=".bjornguard">Bjornguard</button>
+            <button class="fff-filter-btn" data-filter=".fang">Iron Fang Sect</button>            
+            <button class="fff-filter-btn" data-filter=".misc">Misc</button>
+          </div>
+        </div>
+        <div class="fff-sort-group">
+          <span class="fff-controls-label">Sort by</span>
+          <div class="fff-sort" id="charSort">
+            <button class="fff-sort-btn active" data-sort="date" data-order="desc">Newest</button>
+            <button class="fff-sort-btn"        data-sort="date" data-order="asc">Oldest</button>
+            <button class="fff-sort-btn"        data-sort="name" data-order="asc">Name</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SEARCH ══════════════════════════════════════ -->
+      <div class="char-search-wrap fade-block">
+        <div class="char-search-box">
+          <i class="fa-solid fa-magnifying-glass char-search-icon"></i>
+          <input
+            id="charSearch"
+            class="char-search-input"
+            type="text"
+            placeholder="Search by name or race…"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button class="char-search-clear" id="charSearchClear" aria-label="Clear">✕</button>
+        </div>
+      </div>
+
+      <!-- ══ CHARACTER GRID — populated by char-loader.js ═ -->
+      <div class="character-select fade-block" id="charGrid"></div>
+
     </div>
-    
-      	<!-- Right Sidebar -->
-				<div class="side fade-block">
-					<playlist-block></playlist-block>  
-					<br>
-					<div class ="side-box fade-block">
-             <!-- MVP of the Session Box -->
-                    <div class="featured-title fade-block">
-                        <h3>MVP of the Session</h3>
-                    </div>
-                    <div class="box featured">
-                        <img src="/assets/img/placeholderavi.png">
-                        <a href="characters/index.html" style="margin-top: 5px">Eight Nanako</a>
-                        <p>For absolutly desimating the demons with a single spell.</p>
-                    </div>
-                  </div>
-					<br>
-					<div class="side-box fade-block">
-                    <!-- Random Character Box -->
-            <div class="box random fade-block">
-                <h2>Random Character</h2>
-                <div id="randomizer"></div>
-                <button id="dice" onclick="randomCharacter()"><i class="fa-solid fa-dice"></i></button>
-            </div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<footer-block></footer-block>
-	</div>
-<!-- Isotope -->
+  </div>
+</div>
+
+<footer-block class="fade-block"></footer-block>
+
+<!-- ─── INIT ──────────────────────────────────────────── -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Isotope
-    var $grid = $('.grid').isotope({
-        itemSelector: '.grid-item',
-        layoutMode: 'fitRows',
-        getSortData: {
-            name: '.name',
-            category: '[data-category]'
-        },
-        transitionDuration: '0.9s'
+  $(document).ready(function () {
+    CharLoader.initFullPage({
+      gridId:    'charGrid',
+      filtersId: 'charFilters',
+      sortId:    'charSort',
+      searchId:  'charSearch',
+      clearId:   'charSearchClear',
+      dataUrl:   '/data/characters.json'
     });
-    
-    // Filter button handler
-    $('.filter button').on('click', function() {
-        var filterValue = $(this).attr('data-filter');
-        $grid.isotope({ filter: filterValue });
-        
-        // Update active class
-        $('.filter button').removeClass('active');
-        $(this).addClass('active');
-    });
-    
-    // Sort button handler
-    $('.sort button').on('click', function() {
-        var sortByValue = $(this).attr('data-sort-by');
-        var sortDirection;
-        
-        if (sortByValue === 'newest') {
-            sortDirection = false;
-        } else if (sortByValue === 'oldest') {
-            sortDirection = true;
-        } else {
-            sortDirection = $(this).attr('data-sort-ascending') === 'true';
-        }
-        
-        $grid.isotope({ 
-            sortBy: sortByValue,
-            sortAscending: sortDirection
-        });
-        
-        $('.sort button').removeClass('active');
-        $(this).addClass('active');
-    });
-    
-    // Back to top button
-    $('#myBtn').on('click', function() {
-        $('html, body').animate({ scrollTop: 0 }, 'smooth');
-        return false;
-    });
-});
-</script>	
+  });
+</script>
 
-
+<!-- ─── STYLES ────────────────────────────────────────── -->
 <style>
-.content {
-  width: 900px;
-}
-/*---------------------------Random------------------ */
-.random h2 {
-    font-size: 1.1rem;
-    font-weight: 400;
-    background: none;
-    color: var(--emphasized-text);
-    margin-top: 0px;
-    text-align: center;
-    margin-bottom: 6px;
+
+.char-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.random {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 265px;
+/* ══ MASTHEAD ══════════════════════════════════════════ */
+.char-masthead {
+  padding: 32px 40px 22px;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+.char-masthead-inner { position: relative; z-index: 2; }
+
+.char-masthead-label {
+  font-family: var(--f-label);
+  font-size: 0.55rem; letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold); opacity: 0.7;
+  margin-bottom: 10px; text-align: center;
 }
 
-.randomavi {
-    width: 210px;
-    height: 210px;
+.char-masthead-flex {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.random center {
-    margin-top: 3px;
-}  
-/*---------------------------Sticky------------------ */
-.sidebar-left,
-.side {
-  position: sticky;
-  top: 20px;
-  height: max-content;
-
+.char-masthead-title {
+  font-family: var(--f-display);
+  font-size: 2.2rem; letter-spacing: 3px;
+  color: var(--frost);
+  background: none; padding: 0;
+  margin: 0 0 12px; line-height: 1.1;
+  text-align: center;
 }
 
-/*---------------------------Left sidebar------------------ */
-.sidebar-left {
-    width: 250px;
-    height: 700px;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    font-family: 'Nanum Pen Script', cursive;
-    font-size: 16px;
-    color: var(--default-text);
-    margin-left: 35px;
+.char-masthead-watermark {
+  font-family: var(--f-display);
+  font-size: 5.5rem;
+  color: rgba(201,168,76,0.14);
+  letter-spacing: 8px; line-height: 1;
+  white-space: nowrap;
+  pointer-events: none; user-select: none;
+  text-transform: uppercase;
+  position: absolute; right: 50px; top: 82px;
 }
 
-.box-left {
-    border: 3px solid var(--box-br);
-    border-radius: 5px;
+.char-masthead-rule {
+  display: flex; align-items: center;
+  gap: 10px; margin: 10px 0 14px;
 }
-/*--------------------------Grid for the actual character blocks-----------------------*/
-.grid-holder {
-    margin-left: 0px;
-    width: 980px;
-    min-height: 1000px;
-}
-.grid {
-    width: 100%;
-    padding-bottom: 30px;   
-    z-index: 100;
+.char-masthead-rule span { color: var(--gold); font-size: 0.7rem; flex-shrink: 0; }
+.char-rule-line { height: 1px; flex: 1; background: linear-gradient(90deg, var(--gold-dim), transparent); }
+.char-rule-line--rev { background: linear-gradient(270deg, var(--gold-dim), transparent); }
+
+.char-masthead-desc {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 1.2rem; line-height: 1.7;
+  color: var(--fog); margin: 0; text-align: center;
 }
 
-.grid-item {
-    display: block;
-    float: left;
-    margin: 1%;
-    padding: 10px;
-    width: 200px;
+.char-masthead-vol {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 20px; padding-top: 14px;
+  border-top: 1px dashed rgba(201,168,76,0.2);
+  font-family: var(--f-label);
+  font-size: 0.58rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--fog-dim);
+  position: relative; z-index: 2;
+}
+.char-vol-dot { color: var(--gold-dim); font-size: 0.5rem; }
+
+/* ══ SEARCH ════════════════════════════════════════════ */
+.char-search-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px 4px;
 }
 
-/* Image style */
-
-.grid-item img {
-    transition: ease-in 0.3s, ease-out 0.3s;
-    width: 100%;
-    height: auto;
+.char-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  border-bottom: 1px solid rgba(201,168,76,0.25);
+  transition: border-color 0.25s ease;
+}
+.char-search-box:focus-within {
+  border-color: rgba(201,168,76,0.7);
 }
 
-.grid-item:hover a img {
-    margin-top: -7px;
-    margin-bottom: 7px;
+.char-search-icon {
+  color: rgba(201,168,76,0.45);
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  margin-right: 12px;
+  transition: color 0.2s ease;
 }
-/*--------------------------Stuff for the actual character blocks-----------------------*/
-.avi-container {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin: auto;
+.char-search-box:focus-within .char-search-icon {
+  color: rgba(201,168,76,0.85);
 }
 
-/* Content container info */
-
-.info {
-    margin-top: 0px;
-    width: 100%;
-    text-align: center;
+.char-search-input {
+  flex: 1;
+  background: transparent;
+  border: none; outline: none;
+  font-family: var(--f-label, 'Cinzel', serif);
+  font-size: 0.8rem; letter-spacing: 2px;
+  color: var(--fog, #c4b998);
+  padding: 10px 0;
+  caret-color: var(--gold, #c9a84c);
+}
+.char-search-input::placeholder {
+  color: rgba(201,168,76,0.22);
+  letter-spacing: 2px;
 }
 
-/* Info heading */
-
-.info h3:hover {
-    color: var(--box-br);
+.char-search-clear {
+  background: none; border: none;
+  color: rgba(201,168,76,0.4);
+  font-size: 0.65rem; cursor: pointer;
+  padding: 4px 8px; flex-shrink: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s ease, color 0.15s ease;
 }
-/* Character Name */
-.info h3 {
-    font-size: 22px; /* was 20px */
-    font-weight: 600;
-    color: var(--default-text);
-    transition: color 0.3s ease, transform 0.3s ease;
-}
+.char-search-clear.visible { opacity: 1; pointer-events: auto; }
+.char-search-clear:hover   { color: var(--gold, #c9a84c); }
 
-/* Role (like Bard, Wizard, etc.) */
-.info-deets {
-    font-size: 17px; /* was 16px */
-    font-weight: 500;
-}
-
-/* Description */
-.infodesc {
-    font-size: 14px; /* was 12px */
-    line-height: 1.5;
-    font-family: 'Nanum Pen Script', cursive;
-    opacity: 0.85;
+/* ══ CONTROLS ══════════════════════════════════════════ */
+.fff-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--void);
+  border-left: 3px solid var(--gold-dim);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  margin: 20px 0 0;
 }
 
-/*--------------------------Left-side buttons-----------------------*/
-
-.filter-btn.active, .sort-btn.active {
-    background-color: var(--content-bg);
-    color: var(--content-br);
-    font-weight: bold;
-    border-radius: 4px;
-    padding: 2px 6px;
-    box-shadow: 0 0 5px var(--box-bg);
+.fff-controls-label {
+  font-family: var(--f-label);
+  font-size: 0.55rem; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fog-dim);
+  display: block; margin-bottom: 8px;
 }
 
-button {
-    cursor: var(--cursor-hover);
-    background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	outline: inherit;
+.fff-filters-group { flex: 1; min-width: 0; }
+.fff-sort-group    { flex-shrink: 0; }
+
+.fff-filters, .fff-sort {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 0;
 }
 
-.toggles {
-    position: sticky;
-    top: 0;
+.fff-filter-btn, .fff-sort-btn {
+  font-family: var(--f-label);
+  font-size: 0.87rem; letter-spacing: 1px;
+  background: none; border: none;
+  color: var(--fog-dim); cursor: pointer;
+  padding: 4px 10px; position: relative;
+  transition: color 0.2s ease; white-space: nowrap;
+}
+.fff-filters .fff-filter-btn + .fff-filter-btn::before,
+.fff-sort    .fff-sort-btn   + .fff-sort-btn::before {
+  content: "◆";
+  position: absolute; left: -1px;
+  font-size: 0.35rem; color: var(--gold-dim);
+  top: 50%; transform: translateY(-50%);
+}
+.fff-filter-btn:hover, .fff-sort-btn:hover { color: var(--fog); }
+.fff-filter-btn.active, .fff-sort-btn.active { color: var(--frost); }
+.fff-filter-btn.active::after, .fff-sort-btn.active::after {
+  content: "";
+  position: absolute; bottom: 0; left: 10px; right: 10px;
+  height: 1px; background: var(--gold);
 }
 
-.filter li, .sort li {
-    list-style: none;
-    margin-bottom: 4px;
-    transition: ease-in 0.2s, ease-out 0.2s;
+/* ══ GRID ══════════════════════════════════════════════ */
+.character-select {
+  position: relative;
 }
 
-.filter li:hover, .sort li:hover {
-    color: var(--content-br);
+.char { display: inline-block; }
+
+/* ── Card ── */
+.bg {
+  position: absolute;
+  width: 100%; height: 100%; z-index: -1;
+  background-size: cover; background-position: center;
+  background-repeat: no-repeat;
 }
 
-.filter ul, .sort ul {
-    margin-left: -23px;
-    margin-top: 3px;
+.card {
+  display: block;
+  margin: 25px;
+  height: 450px; width: 260px;
+  border-radius: 0;
+  background: transparent;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.24s ease-in-out;
+  text-decoration: none;
+}
+.card:hover {
+  box-shadow: 0 0 2rem rgba(147,115,65,0.25), 0 0 1.8rem rgba(0,0,0,0.75);
+  transform: scale(1.2);
+}
+.card:hover .card-info  { transform: translateY(0); border-color: rgb(147 115 65); }
+.card:hover .see-more   { border-top: 1px solid rgb(147 115 65); }
+
+.card-info {
+  display: flex; flex-direction: column;
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background-color: rgba(17,19,24,0.88);
+  border-top: 1px solid rgb(147 115 65);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  transform: translateY(46px);
+  transition: transform 0.28s ease-in-out, border-color 0.25s ease-in-out;
+  will-change: transform;
 }
 
-.filter i, .other-stuff i {
-    margin-right: 8px;
+.card-info-section { display: flex; height: 100%; width: 100%; }
+
+.card-info__faction {
+  flex: 2; height: 65px;
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column;
+  font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(81,66,46,0.5);
+  font-weight: 700;
 }
+.card-info__name   { color: #937341; font-size: 15px; text-align: center; }
+.card-info__region { color: #c4b998; padding-top: 4px; }
 
-.filter h1, .sort h2 {
-    border-bottom: 2px dashed var(--default-text);
-    padding: 5px;
-    padding-bottom: 7px;
-    margin: 5px 10px;
-    margin-left: -1px;
-    font-size: 19px;
+.see-more {
+  color: #937341;
+  display: flex; justify-content: center; align-items: center;
+  letter-spacing: 3px; text-transform: uppercase;
+  font-size: 9px; height: 46px;
+  border-top: 1px solid transparent;
+  transition: border-top 0.25s ease-in-out;
 }
+.arrow { margin-left: 8px; }
+.arrow svg { width: 12.5px; fill: #937341; }
 
-.active::after {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    background: url(../assets/img/boogleicon.ico);
-    height: 16px;
-    width: 16px;
-    margin-left: 10px;
-    margin-top: -1px;
-}
-
-
-
-#myBtn {
-    background-color: transparent;
-    font-size: 18px;
-    padding: 9px 14px;
-    border-radius: 5px;
-    border: 1px solid var(--box-bg);
-    font-weight: bold;
-    color: var(--default-text);
-    transition: ease-in 0.2s, ease-out 0.2s;
-}
-
-#myBtn:hover {
-    background-color: var(--content-bg);
-    border-color: var(--box-br);
-    color: var(--box-bg);
-}
-/*--------------------------other stuff-----------------------*/
-.other-stuff span {
-    font-family: "MS PGothic", sans-serif;
-}
-
-.other-stuff {
-    margin-top: 30px;
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-}
-.other-stuff {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-/*--------------------------Mobile-----------------------*/
-
-.hide {
-    display: none;
-}
-
-.mobile-toggle {
-    display: none;
-    position: absolute;
-    top: -42px;
-    left: -5px;
-}
-
-.mobile-toggle i {
-    font-size: 20px;
-    margin-top: -9px;
-    margin-right: 5px;
-}
-
-.mobile-toggle button {
-    text-align: center;
-    background-color: var(--box-bg);
-    font-size: 20px;
-    padding: 2px;
-    padding-right: 7px;
-    border-radius: 5px;
-    cursor: var(--cursor-hover);
-    border: 1px solid var(--box-bg);
-    font-weight: bold;
-    color: var(--light);
-    margin-bottom: 10px;
-    height: 32px;
-    text-align: center;
-}
-
-@media(max-width:910px) {
-
-    html, body {
-        overflow-x: hidden;
-      }
-      body {
-        position: relative
-      }
-
-      .mobile-toggle {
-        display: block;
-    }
-
-      .sidebar-left {
-        display: block;
-      } 
-
-      .grid-holder {
-        margin-left: 5px;
-        width: 100%;
-    }
-
-    .grid-item {
-        width: 140px;
-    }
-
-    .avi-container {
-        max-width: 100%;
-        height: 140px;
-        width: 140px;
-        position: relative;
-    }
-
-    .sidebar-left {
-        width: 107%;
-        height: 103%;
-        position: absolute !important;
-        top: -5px;
-        left: -108%;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        transition: left 0.2s;
-        background-color: var(--nav-bg);
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-        align-items: center;
-        z-index: 900;
-        margin-left: -13px;
-    }
-
-    .mobile-active {
-        left: 0 !important;
-    }
-
-    #myBtn {
-        display: none;
-    }
-
-} 
-
-@media(max-width:376px) {
-    .grid-item {
-        width: 140px;
-    }
-
-    .avi-container {
-        max-width: 100%;
-        height: 140px;
-        width: 140px;
-        position: relative;
-    }
-}
-
-@media(min-width:425px) and (max-width:767px){
-
-    .grid-holder {
-        margin-left: 27px;
-        width: 100%;
-    }
-    
-}
-
-@media(min-width:768px) and (max-width:911px) {
-    .sidebar-left {
-        margin-left: -22px;
-    }
-}
 </style>
 
 </body>
