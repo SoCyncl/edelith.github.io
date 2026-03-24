@@ -333,7 +333,7 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_blue.png" class="nav-icon" alt="Recap">
             <span>Recap</span>
           </a>
-          <a href="/fun-fact-friday,html">
+          <a href="/fun-fact-friday.html">
             <img src="/assets/img/homepage/Biblio_red.png" class="nav-icon" alt="Fun Fact Friday">
             <span>Fun Fact Friday</span>
           </a>
