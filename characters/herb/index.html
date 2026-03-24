@@ -1,585 +1,893 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <link rel="icon" type="image/x-icon" href="/assets/img/ico/white.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herb • Solstitheo</title>
-    <meta property="og:url" content="index.html">    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Herb • Solstitheo">
-    <meta property="og:description" content="Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia.">
-    <meta property="og:image" content="img/avi.png">
-    <meta name="theme-color" content="#f2c166">
-    <link rel="stylesheet" href="/css/characterbase.css">
-    <link rel="stylesheet" href="/css/lightbox.css">
-    <script src="https://kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
-    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="/scripts/sidenav.js" defer></script>
-    <script src="/scripts/playlist.js" type="text/javascript" defer></script>
-        <script>
-    window.addEventListener("load", () => {
-      const blocks = document.querySelectorAll(".fade-block");
-      
-      blocks.forEach((block, i) => {
-        setTimeout(() => {
-          block.classList.add("visible");
-        }, i * 70); // Stagger animation: 150ms between each block
-      });
-    });
-    </script>
-    <script>
-        function toggleClass() {
-           let divElement = document.getElementById('sidebar');
-           divElement.classList.toggle("mobile-active");
+  <link rel="icon" type="image/x-icon" href="/assets/img/ico/white.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herb • Solstitheo</title>
+  <meta property="og:url" content="index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Herb • Solstitheo">
+  <meta property="og:description" content="Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia.">
+  <meta property="og:image" content="img/avi.png">
+  <meta name="theme-color" content="#f2c166">
 
-           const slideOut = document.getElementById("slideOut")
-           if(slideOut.classList.contains("fa-caret-right")){
-                slideOut.classList.remove("fa-caret-right");
-                slideOut.classList.add("fa-caret-left");
-            }
-            else{
-                slideOut.classList.add("fa-caret-right");
-                slideOut.classList.remove("fa-caret-left");
-            }
-        }
-     </script>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/character.css">  
+  <link rel="stylesheet" href="/css/lightbox.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <script src="/scripts/home-footer.js" defer></script>
+  <script src="/scripts/sidenav.js" defer></script>
+  <script src="/scripts/playlist.js" type="text/javascript" defer></script>
+  <script src="/scripts/lightbox-plus-jquery.js" defer></script>
+  <meta name="glossary" content="off">
+  <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) =>
+        setTimeout(() => el.classList.add("visible"), i * 70)
+      );
+    });
+  </script>
 </head>
+
+<!-- ══════════════════════════════════════════════════════
+   PER-CHARACTER TOKENS
+════════════════════════════════════════════════════════ -->
+<style>
+:root {
+  --cp:  #5f7d4d;     /* moss canopy */
+  --cs:  #8ea87a;     /* soft fern */
+  --ct:  #6b4e3d;     /* bark */
+  --cd:  #0f1a16;     /* forest night */
+  --cl:  #e8f0e4;     /* pale lichen */
+  
+  --ink:         #141a17;  /* deep forest soil */
+  --ink-mid:     #1c2622;  /* shaded moss */
+  --ink-light:   #24312b;  /* damp stone */
+  
+  --fog:         #c7d1c8;  /* mist */
+  --fog-dim:     #7f9187;  /* dim foliage */
+  --frost:       #eef5ee;  /* pale morning fog */
+  
+  --void:        #0d1411;  /* deep woodland */
+  
+  --gold:        #6fa86b;  /* forest glow (primary accent) */
+  --gold-dim:    #3e6b44;  /* shaded moss accent */
+  --gold-pale:   rgba(111,168,107,0.12);
+  --gold-glow:   rgba(111,168,107,0.25);
+  
+  --rule:        1px solid rgba(111,168,107,0.28);
+
+
+  --char-banner:  url(/characters/herb/img/header.gif)    bottom/cover   no-repeat;
+  --avatar:     url(/characters/herb/img/avi.png)         center/cover   no-repeat;
+  --avao:     url(/characters/herb/img/avao.png)         center/cover   no-repeat;  
+  --char-focal:   url(/characters/herb/img/placeholder.webp) center/contain no-repeat;
+  --char-mood1:   url(/characters/herb/img/moodimage1.webp) center/cover   no-repeat;
+  --char-mood2:   url(/characters/herb/img/moodimage2.webp) center/cover   no-repeat;
+  --char-mood3:   url(/characters/herb/img/moodboard.gif)   center/cover   no-repeat;
+  --char-lorebg:  url(/characters/herb/img/lorebg.webp)     center/cover   no-repeat;
+  --stamp1: url(/characters/herb/img/stamp1.png)     center/cover   no-repeat;
+  --stamp1: url(/characters/herb/img/stamp2.png)     center/cover   no-repeat;
+
+
+  --site-bg-img:  url('/characters/herb/img/lorebg.webp');
+}
+</style>
+
 <body>
-    <div class="clouds">
-    <div class="clouds-1"></div>
-    
-    <div class="logo">
-  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+
+<div class="clouds">
+  <div class="clouds-1"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
+  <div class="clouds-2"></div>
+  <div class="clouds-3"></div>
 </div>
-    <div class="clouds-2"></div>
-    <div class="clouds-3"></div>
-  </div>
+
 <transparent-navbar class="fade-block visible"></transparent-navbar>
-	<div class="outer">
-		<div class="all-content fade-block">
-			<div class="main">
-			  
-			  
-		   <div class="juice">
-            <div class="avitar">
-            </div>
-    <!-- TEMPLATE_Name -->
-            <div class="name">
-                <h2>Herb</h2>
-            </div>
-    <!-- TEMPLATE_Pokemon -->
-            <div class="pokemon-team">
-                <img src="/assets/img/pokemon/rillaboom.png">
-                <img src="/assets/img/pokemon/decidueye.png">
+
+
+
+<!-- ══════════════════════════════════════════════════════
+   MAIN SHELL — everything below the hero
+════════════════════════════════════════════════════════ -->
+<div class="outer">
+  
+
+  
+<div class="all-content">
+
+<!-- ══════════════════════════════════════════════════════
+   FULL-BLEED HERO — lives OUTSIDE .all-content so it can
+   stretch edge-to-edge regardless of the outer max-width
+════════════════════════════════════════════════════════ -->
+<div class="cs-hero fade-block">
+
+  <div class="cs-hero-bg"></div>
+  <div class="cs-hero-veil"></div>
+  <div class="cs-hero-texture"></div>
+
+  <div class="cs-stamp">Archive Record<br><span>Field Dossier — Confidential</span></div>
+
+  <div class="cs-hero-inner outer">
+
+    <!-- Avatar -->
+  <div class="avatar-chibi"></div>
+
+
+    <!-- Name block -->
+    <div class="cs-nameblock">
+      <div class="cs-eyebrow">Solstitheo Archives  ◆  Field Dossier</div>
+      <h1 class="cs-name">Herb</h1>
+      <div class="cs-fullname">Herb Passerine</div>
+      <div class="cs-rule-wrap">
+        <div class="cs-rule-line"></div>
+        <span class="cs-rule-gem">✦</span>
+        <div class="cs-rule-line cs-rule-line--r"></div>
+      </div>
+      <div class="cs-tags">
+        <span class="cs-tag cs-tag--p">Woodsworn</span>
+        <span class="cs-tag cs-tag--s">Bard</span>
+        <span class="cs-tag cs-tag--t">College of Spirits</span>
+        <span class="cs-tag cs-tag--d">Main Party</span>
+      </div>
+      <blockquote class="cs-hero-quote">"Knock on Wood"</blockquote>
+    </div>
+
+    <div class="cs-hero-wm" aria-hidden="true">Herb</div>
+
+  </div><!-- end hero-inner -->
+
+<div class="pokemon-team">
+                <img src="/assets/img/pokemon/venusaur.png">
                 <img src="/assets/img/pokemon/rotom-mow.png">
                 <img src="/assets/img/pokemon/rillaboom.png">
+                <img src="/assets/img/pokemon/butterfree.png">
                 <img src="/assets/img/pokemon/decidueye.png">
-                <img src="/assets/img/pokemon/rotom-mow.png">                
-            </div>
-        </div>
-          
-			<div class="main fade-block">
-			  
-        <div class="sidebar-left fade-block">
-            <img src="img/avi.png" id="mobile-avi">
-                    <div class="stamps">
-                        <img style="width: 110px;" src="img/stamp1.png">
-                        <img style="width: 110px;" src="img/stamp2.png">
-           </div> 
-           
-                    <div class="sidebar-links fade-block">
-                        <a href="/characters/index.html" class="link-three"><i  class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to characters </a>
-             <!-- playlist -->
-                        <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh?si=GhSyRkAvRgeA55gkQRfwnw" class="link-two"><i class="fa-solid fa-music"></i> Playlist </a>
-                        <a href="/index.html" class="link-three"><i class="fa-solid fa-house-chimney"></i> Home </a>
-                   
-                          </div>
-                          
-                    <button class="accordion">Related Characters <i class="fa-solid fa-caret-up"></i></button>
-                <div class="panel">
-                    <ul>
-                        <li>Character:<a href="https://solstitheo.neocities.org/characters/blobert/">Blobert Goopington</a></li>
-                        <li>Character:<a href="https://solstitheo.neocities.org/characters/peggle/">Peggle Krastov</a></li>
-                        <li>Character:<a href="https://solstitheo.neocities.org/characters/eight/">Eight Nanako</a></li>
-                        <li>Character:<a href="https://solstitheo.neocities.org/characters/baxter/">Baxter Kokayin</a></li>
-                        <li>Character:<a href="https://solstitheo.neocities.org/characters/mousse/">Mousse</a></li>
-                    </ul>
-                </div>
+                <img src="/assets/img/pokemon/flapple.png">
             </div>
 
-        <div class="content fade-block">
-          <playlist-block></playlist-block>  
-                <div class="tab-buttons fade-block">
-                          <button class="tablinks overview-button" onclick="openTab(event, 'Overview')" id="defaultOpen"><i class="fa-solid fa-user fa-xs"></i> Overview </button>
-                          <button class="tablinks design-button" onclick="openTab(event, 'Design')"><i class="fa-solid fa-palette fa-xs"></i> Design </button>
-                          <button class="tablinks lore-button" onclick="openTab(event, 'Lore')"><i class="fa-solid fa-book-bookmark fa-xs"></i> Lore </button>
-                          <button class="tablinks relationships-button" onclick="openTab(event, 'Relationships')"><i class="fa-solid fa-users fa-xs"></i> Relationships </button>
-                  </div>		
-                  
-                <div id="Overview" class="tabcontent fade-block">
-                <div class="overview-grid">
-                    <div class="moodboard">
-                        <div class="frame"><div id="mood1" class="box"></div></div>
-                        <div class="frame"><div id="mood2" class="box"></div></div>
-                        <div class="frame"><div id="mood3" class="box"></div></div>
-                    </div>
-    <!-- TEMPLATE_Info -->
-                    <div class="box info fade-block">
-                        <div class="info-item">
-                            <span>Name</span>
-                            <p>Herb Passerine</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Nickname(s)</span>
-                            <p>Herbert</p>
-                            <p>Avao</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Gender</span>
-                            <p>Male (He/Him)</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Age</span>
-                            <p>Unknown</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Race</span>
-                            <p>Woodsworn</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Class</span>
-                            <p>Bard</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Subclass</span>
-                            <p>College Of Spirits</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Occupation</span>
-                            <p>Unemployed</p>
-                        </div>
-                        
-                    </div>
+
+  <!-- Bottom strip -->
+  <div class="cs-hero-strip">
+
+    <div class="outer cs-hero-strip-inner">
+      <a href="/characters/index.html" class="cs-nav-link">
+        <i class="fa-solid fa-arrow-left-long"></i> Character Roster
+      </a>
+      <div class="cs-hero-strip-meta">
+        <span>Immortal City of Edelith</span>
+        <span class="cs-dot">◆</span>
+        <span>Campaign Character</span>
+        <span class="cs-dot">◆</span>
+        <span>Player Character</span>
+      </div>
+      <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh" class="cs-nav-link cs-nav-link--playlist" target="_blank">
+        <i class="fa-solid fa-music"></i> Playlist
+      </a>
+    </div>
+  </div>
+</div>
+<!-- end cs-hero -->
+
+  <!-- PLAYLIST -->
+  <playlist-block></playlist-block>
+<div class="paddington fade-block">
+
+  <!-- ═══ TAB NAVIGATION ════════════════════════════════ -->
+  <div class="cs-tabs fade-block" id="csTabs">
     
-                    <div class="box focal-image">
-                    </div>
-                    <div class="box quote">
-                        <div class="punctuation">
-                            <i class="fa-solid fa-quote-left"></i>
-                            <i class="fa-solid fa-quote-right"></i>
-                        </div>
-    <!-- TEMPLATE_Quote and info -->
-                        <i class="quote-text">Knock on Wood</i>
-                    </div>
-                    <div class="box summary fade-block">
-                        <h2><span class="text-primary">S</span>ummary</h2>
-                        <hr>
-                        <p>
-                            Herb is a Warforged, College of Masks Bard from The Great Forest. Herb was found by a Deaf bard, who listened to her music by feeling the vibrations of her instruments through them and the ground. She fixed a broken and unresponsive Herb who had multiple broken masks alongside him beyond repair. She taught him how to play music even though she was deaf to it, and how to carve masks to replace broken ones. After her death of old age, Herb would forget her as he would forget everything, but he kept mementos of her and everything else he cares about never truly to forget. His goal is to create a song neither he nor the world will ever forget.
-                        </p>
-                    </div>
-                    <div class="box personality fade-block">
-                        <h2><span class="text-secondary">P</span>ersonality</h2>
-                        <hr>
-                        <p>
-                         Herb is a curious, sentimental, spiteful and painfully oblivious, obsessively clinging to fleeting moments and trinkets in a world he can barely hold onto. Though he forgets names, faces, and places, he never forgets how things made him feel—and that longing drives everything he does.
-                        </p>
-                    </div>
-                    <div class="box likes fade-block">
-                        <i class="fa-solid fa-heart"></i>
-                        <h2><span class="text-primary">L</span>ikes</h2>
-                        <hr>
-                        <ul>
-                            <li>Peggle</li>
-                            <li>Blobert</li>
-                            <li>Laura</li>
-                            <li>Blovert</li>
-                        </ul>
-                    </div>
-                        <div class="box likeheart">
-                            <div class="i-box">
-                                <i class="fa-solid fa-heart"></i>
-                            </div>
-                        </div>
-                    <div class="box dislikes">
-                        <i class="fa-solid fa-heart-crack"></i>
-                        <h2><span class="text-secondary">D</span>islikes</h2>
-                        <hr>
-                        <ul>
-                            <li>Intrusion of personal space</li>
-                            <li>Desert</li>
-                            <li>Wood chippers</li>
-                            <li>blueberries</li>
-                        </ul>
-                    </div>
-                        <div class="box dislikeheart">
-                            <div class="i-box">
-                                <i class="fa-solid fa-heart-crack"></i>
-                            </div>
-                        </div>
-                    <div class="box trivia">
-                        <h2><span class="text-tertiary">T</span>rivia</h2>
-                        <hr>
-                        <ul>
-                            <li>Herb's race is eclusive to Arvegum</li>
-                            <li>---</li>
-                            <li>---</li>
-                            <li>---</li>
-                        </ul>
-                    </div>
-                    <div class="chibi">
-                        <img src="/characters/herb/img/chibi.png">
-                    </div>
-                </div>
-                </div>
+        <div class="stamps">
+              <img style="width: 80px;" src="img/stamp1.png">
+           </div>
     
-                <div id="Design" class="tabcontent fade-block">
-                    <div class="design-grid">
-                        <div class="main-ref box">
-                            <a href="img/placeholder_big.webp" data-lightbox="reference-image">
-                                <img src="img/placeholder.webp">
-                            </a>
-                            <p>Click on the image to view the full reference sheet</p>
-                        </div>
-                        <div class="box basics">
-                            <div class="basics-item">
-                                <span>Height</span>
-                                <p>4'7" (183cm)</p>
-                            </div>
-                            <div class="basics-item">
-                                <span>Build</span>
-                                <p>Slim</p>
-                            </div>
-                            <div class="basics-item">
-                                <span>Demeanor</span>
-                                <p>Laid-back</p>
-                            </div>
-                        </div>
-                        <div class="box notes">
-                            <h2><span class="text-primary">D</span>esign notes</h2>
-                        <hr>
-                        <ul>
-                            <li>Herb was made because the PC listened to "Everywhere at the end of time" and thought playing a character that can't remember would be terrifying to portray.</li>
-                            <li>Herb has a real face underneath his mask, but all Woodsworn will never show it.</li>
-                            <li>He loves to collect feathers and has them around his design.</li>
-                        </ul>
-                        </div>
-                        <div class="box palette">
-    <!-- TEMPLATE_Pallete -->                        
-                            <span>Eyes</span>
-                            <div class="swatch" style="background: #2E2E2E;">
-                                <span class="text-dark">#2E2E2E</span>
-                            </div>
+    <button class="cs-tab cs-tab--active" data-tab="Overview">
+      <i class="fa-solid fa-scroll fa-xs"></i><span>Overview</span>
+    </button>
+    <button class="cs-tab" data-tab="Design">
+      <i class="fa-solid fa-palette fa-xs"></i><span>Design</span>
+    </button>
+    <button class="cs-tab" data-tab="Lore">
+      <i class="fa-solid fa-book-bookmark fa-xs"></i><span>Lore</span>
+    </button>
+    <button class="cs-tab" data-tab="Relationships">
+      <i class="fa-solid fa-users fa-xs"></i><span>Relationships</span>
+    </button>
+    <div class="cs-tab-ink" id="tabInk"></div>
     
-                            <span>Body</span>
-                            <div class="swatch" style="background: #bda78c;">
-                                <span class="text-light">#bda78c</span>
-                            </div>
+            <div class="stamps">
+              <img style="width: 80px;" src="img/stamp2.png">
+           </div>
     
-                            <span>Other</span>
-                            <div class="swatch" style="background: #9e996e;">
-                                <span class="text-light">#9e996e</span>
-                            </div>
-                            <div class="swatch" style="background: #665754;">
-                                <span class="text-light">#665754</span>
-                            </div>
-                            <div class="swatch" style="background: #444d40;">
-                                <span class="text-dark">#444d40</span>
-                            </div>
-                            <div class="swatch" style="background: #9f6a4b;">
-                                <span class="text-light">#9f6a4b</span>
-                            </div>
-    
-                        </div>
-    
-                    </div>
-                </div>
-    
-                <div id="Lore" class="tabcontent">
-                    <div class="lore-bg">
-                        <div class="lore-container">
-                            <div class="box">
-                                <div class="wip">
-                                    <img src="/assets/img/textwip.png">
-                                    I'll write it... eventually!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <div id="Relationships" class="tabcontent">
-                    <div class="links-container">
-                        <div class="box relationships" style="justify-content: center;">
-                            <div class="wip">
-                                <img src="/assets/img/textwip.png">
-                                I'll write it... eventually!
-                            </div>
-                        </div>
-    
-                    </div>
-                </div>
+  </div>
 
 
-                <div class="box featured-gallery">
-                    <div class="featured-header">
-                        <h2><span class="text-primary">F</span>eatured gallery</h2>
-                        <!--<a href="https://toyhou.se/5931076.baby/gallery"><button>Full gallery</button></a>-->
-                    </div>
-                    <div class="gallery-posts">
-                        <div class="featured-post">
-                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                            <img src="img/placeholder.webp"></a>
-                        </div>
-                        <div class="featured-post">
-                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                            <img src="img/placeholder.webp"></a>
-                        </div>
-                        <div class="featured-post">
-                            <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-                            <img src="img/placeholder.webp"></a>
-                        </div>
-                    </div>
-                    <p class="lastcharacterupdate">Page last updated: <span id="updateTime"></span></p>
-                    <script>
-                        let text = document.lastModified;
-                        document.getElementById("updateTime").innerHTML = text;
-                    </script>
-                </div>
-    
-            </div>
-      
+  <!-- ═══════════════════════════════════════════════════
+     TAB: OVERVIEW
+  ════════════════════════════════════════════════════ -->
+  <div id="tab-Overview" class="cs-panel cs-panel--active fade-block">
+    <div class="overview-grid">
+
+      <!-- ── LEFT ── -->
+      <div class="ov-left">
+
+        <!-- Moodboard -->
+        <div class="cs-moodboard lore-box lore-box--gold fade-block">
+          <div class="mood-header">
           </div>
-       </div>
-    <br>
-    <footer-block></footer-block>
+          <div class="mood-frames">
+            <div class="mood-f mood-f--1"></div>
+            <div class="mood-f mood-f--2"></div>
+            <div class="mood-f mood-f--3"></div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">S</span>ummary</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <p class="cs-body">
+            Herb is a Warforged, College of Masks Bard from The Great Forest. Herb was found by a Deaf bard, who listened to her music by feeling the vibrations of her instruments through them and the ground. She fixed a broken and unresponsive Herb who had multiple broken masks alongside him beyond repair. She taught him how to play music even though she was deaf to it, and how to carve masks to replace broken ones. After her death of old age, Herb would forget her as he would forget everything, but he kept mementos of her and everything else he cares about never truly to forget. His goal is to create a song neither he nor the world will ever forget.
+          </p>
+        </div>
+
+        <!-- Personality -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">P</span>ersonality</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <p class="cs-body">
+            Herb is a curious, sentimental, spiteful and painfully oblivious, obsessively clinging to fleeting moments and trinkets in a world he can barely hold onto. Though he forgets names, faces, and places, he never forgets how things made him feel — and that longing drives everything he does.
+          </p>
+        </div>
+
+        <!-- Likes / Dislikes -->
+        <div class="ov-affinity-row fade-block">
+          <div class="cs-affinity lore-box lore-box--gold">
+            <div class="cs-affinity-head cs-affinity-head--likes">
+              <i class="fa-solid fa-heart"></i>
+              <h2><span class="cs-drop cs-drop--p">L</span>ikes</h2>
+            </div>
+            <div class="cs-affinity-rule"></div>
+            <ul class="cs-affinity-list">
+              <li>Peggle</li>
+              <li>Blobert</li>
+              <li>Laura</li>
+              <li>Blovert</li>
+            </ul>
+            <div class="cs-affinity-ghost"><i class="fa-solid fa-heart"></i></div>
+          </div>
+          <div class="cs-affinity lore-box lore-box--gold">
+            <div class="cs-affinity-head cs-affinity-head--dislikes">
+              <i class="fa-solid fa-heart-crack"></i>
+              <h2><span class="cs-drop cs-drop--t">D</span>islikes</h2>
+            </div>
+            <div class="cs-affinity-rule"></div>
+            <ul class="cs-affinity-list">
+              <li>Intrusion of personal space</li>
+              <li>Desert</li>
+              <li>Wood chippers</li>
+              <li>Blueberries</li>
+            </ul>
+            <div class="cs-affinity-ghost"><i class="fa-solid fa-heart-crack"></i></div>
+          </div>
+        </div>
+
+        <!-- Trivia -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">T</span>rivia</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <ol class="cs-trivia">
+            <li>Herb's race is exclusive to Arvegum</li>
+            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
+            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
+            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
+          </ol>
+        </div>
+
+
+      </div><!-- end ov-left -->
+
+      <!-- ── RIGHT ── -->
+      <div class="ov-right">
+
+        <!-- Focal image -->
+        <div class="cs-focal lore-box lore-box--gold fade-block">
+          <div class="cs-focal-img"></div>
+        </div>
+
+        <!-- Dossier card -->
+        <div class="cs-dossier lore-box lore-box--gold fade-block">
+          <div class="cs-dossier-header">
+            <span class="cs-dossier-eyebrow">Field Dossier</span>
+            <div class="cs-dossier-rule"></div>
+          </div>
+          <div class="cs-dossier-items">
+            <div class="cs-di">
+              <span class="cs-di-label">Full Name</span>
+              <span class="cs-di-val">Herb Passerine</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Also Known As</span>
+              <span class="cs-di-val">Herbert · Avao</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Gender</span>
+              <span class="cs-di-val">Male (He/Him)</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Age</span>
+              <span class="cs-di-val cs-di-val--unk">Unknown</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Race</span>
+              <span class="cs-di-val">Woodsworn</span>
+            </div>
+            <div class="cs-di-divider"></div>
+            <div class="cs-di">
+              <span class="cs-di-label">Class</span>
+              <span class="cs-di-val">Bard</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Subclass</span>
+              <span class="cs-di-val">College of Spirits</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Occupation</span>
+              <span class="cs-di-val cs-di-val--unk">Unemployed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="cs-quote lore-box lore-box--gold fade-block">
+          <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="cs-quote-text">Knock on Wood</p>
+          <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+        </div>
+
+        <!-- Chibi -->
+        <div class="cs-chibi fade-block">
+          <img src="/characters/herb/img/chibi.png" alt="Herb chibi">
+        </div>
+
+
+      </div><!-- end ov-right -->
+
+    </div><!-- end overview-grid -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+     TAB: DESIGN
+  ════════════════════════════════════════════════════ -->
+  <div id="tab-Design" class="cs-panel fade-block">
+    <div class="design-grid">
+
+      <div class="cs-block cs-block--refsheet lore-box lore-box--gold fade-block">
+        <div class="cs-block-head">
+          <span class="cs-glyph">◈</span>
+          <h2 class="cs-block-title">Reference Sheet</h2>
+          <div class="cs-block-line"></div>
+        </div>
+        <div class="cs-ref-img-wrap">
+          <a href="img/placeholder_big.webp" data-lightbox="reference-image">
+            <img src="img/placeholder.webp" alt="Herb reference sheet" class="cs-ref-img">
+            <div class="cs-ref-overlay">
+              <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+              <span>View Full Sheet</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="design-right">
+
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title">Physical Build</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <div class="cs-basics">
+            <div class="cs-basic-item">
+              <span class="cs-basic-label">Height</span>
+              <span class="cs-basic-val">4'7" / 183cm</span>
+            </div>
+            <div class="cs-basic-item">
+              <span class="cs-basic-label">Build</span>
+              <span class="cs-basic-val">Slim</span>
+            </div>
+            <div class="cs-basic-item">
+              <span class="cs-basic-label">Demeanor</span>
+              <span class="cs-basic-val">Laid-back</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title">Colour Palette</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <div class="cs-palette">
+            <div class="cs-pal-row">
+              <span class="cs-pal-label">Eyes</span>
+              <div class="cs-swatches">
+                <div class="cs-swatch" style="--sw:#2E2E2E;">
+                  <div class="cs-swatch-chip"></div>
+                  <span class="cs-swatch-hex">#2E2E2E</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-pal-row">
+              <span class="cs-pal-label">Body</span>
+              <div class="cs-swatches">
+                <div class="cs-swatch" style="--sw:#bda78c;">
+                  <div class="cs-swatch-chip"></div>
+                  <span class="cs-swatch-hex">#bda78c</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-pal-row">
+              <span class="cs-pal-label">Other</span>
+              <div class="cs-swatches">
+                <div class="cs-swatch" style="--sw:#9e996e;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#9e996e</span></div>
+                <div class="cs-swatch" style="--sw:#665754;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#665754</span></div>
+                <div class="cs-swatch" style="--sw:#444d40;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#444d40</span></div>
+                <div class="cs-swatch" style="--sw:#9f6a4b;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#9f6a4b</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">D</span>esign Notes</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <ul class="cs-notes">
+            <li>Herb was made because the PC listened to "Everywhere at the end of time" and thought playing a character that can't remember would be terrifying to portray.</li>
+            <li>Herb has a real face underneath his mask, but all Woodsworn will never show it.</li>
+            <li>He loves to collect feathers and has them around his design.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+     TAB: LORE
+  ════════════════════════════════════════════════════ -->
+  <div id="tab-Lore" class="cs-panel fade-block">
+    <div class="lore-grid">
+
+      <!-- ── LEFT COLUMN ── -->
+      <div class="lore-main">
+
+        <!-- Biography -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">B</span>iography</h2>
+            <div class="cs-block-line"></div>
+            <span class="cs-block-meta">Archival Record</span>
+          </div>
+          <div class="cs-lore-body">
+            <p class="cs-body">
+              Herb is a Woodsworn — a living construct of bark, root, and carved wood — whose origins stretch back further than even he can recall. Found unresponsive in the depths of The Great Forest, he was discovered by a travelling bard who was Deaf from birth. She heard nothing of the world but felt everything in it: the resonance of a struck drum through the soil, the hum of a plucked string through timber and fingertip.
+            </p>
+            <p class="cs-body">
+              She repaired him over many seasons, replacing his shattered masks with new ones she carved herself, teaching him the shapes of music through vibration and touch. Though she never heard a single note he played, she gave him more than craft — she gave him purpose. They travelled together for what Herb now suspects were decades, though the exact shape of those years has long since blurred into feeling.
+            </p>
+            <p class="cs-body">
+              When she died of old age, Herb forgot her. He forgot her name, her face, the sound of her laughter. But he remembered the weight of her hands guiding his, the warmth of sitting beside a fire while she hummed songs she'd never hear. He kept everything she gave him — every carved token, every tool, every feather pressed between old pages — not knowing why he treasured them so fiercely.
+            </p>
+            <p class="cs-body">
+              This is how Herb moves through the world now: accumulating mementos of people and places he cannot keep, haunted by the echo of feelings that have outlasted their origins. His singular ambition is to compose a song so enduring that neither he nor the world will ever be able to forget it. A monument to everything he has lost and loved.
+            </p>
+          </div>
+        </div>
+
+        <!-- Session Log -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">S</span>ession Log</h2>
+            <div class="cs-block-line"></div>
+            <span class="cs-block-meta">Field Record</span>
+          </div>
+          <div class="cs-session-list">
+
+            <!-- Introduction session -->
+            <div class="cs-session cs-session--intro">
+              <div class="cs-session-marker">
+                <div class="cs-session-dot cs-session-dot--intro"></div>
+                <div class="cs-session-line"></div>
+              </div>
+              <div class="cs-session-content">
+                <div class="cs-session-header">
+                  <span class="cs-session-label cs-session-label--intro">
+                    <i class="fa-solid fa-star-of-life fa-xs"></i> Introduction
+                  </span>
+                  <span class="cs-session-ep">Session 01</span>
+                  <div class="cs-session-rule"></div>
+                  <span class="cs-session-date">—</span>
+                </div>
+                <h4 class="cs-session-title">First Appearance</h4>
+                <p class="cs-session-body">
+                  Herb made his debut in Session 01 of the Immortal City of Edelith campaign. Placeholder: add the specifics of how and where he entered the story here.
+                </p>
+              </div>
+            </div>
+
+            <!-- Regular session example entries — duplicate this block for each session -->
+            <div class="cs-session">
+              <div class="cs-session-marker">
+                <div class="cs-session-dot"></div>
+                <div class="cs-session-line"></div>
+              </div>
+              <div class="cs-session-content">
+                <div class="cs-session-header">
+                  <span class="cs-session-ep">Session 02</span>
+                  <div class="cs-session-rule"></div>
+                  <span class="cs-session-date">—</span>
+                </div>
+                <h4 class="cs-session-title">Placeholder Session Title</h4>
+                <p class="cs-session-body">
+                  Summary of what occurred this session goes here. What did Herb do, learn, or lose? What moments stood out?
+                </p>
+              </div>
+            </div>
+
+            <div class="cs-session cs-session--last">
+              <div class="cs-session-marker">
+                <div class="cs-session-dot"></div>
+              </div>
+              <div class="cs-session-content">
+                <div class="cs-session-header">
+                  <span class="cs-session-ep">Session 03</span>
+                  <div class="cs-session-rule"></div>
+                  <span class="cs-session-date">—</span>
+                </div>
+                <h4 class="cs-session-title">Placeholder Session Title</h4>
+                <p class="cs-session-body">
+                  Summary of what occurred this session goes here.
+                </p>
+              </div>
+            </div>
+
+          </div><!-- end cs-session-list -->
+        </div>
+
+        <!-- Related Stories -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">R</span>elated Stories</h2>
+            <div class="cs-block-line"></div>
+            <span class="cs-block-meta">External Archive</span>
+          </div>
+          <!-- Stories grid — add more .grid-item divs freely; the flex-wrap handles layout -->
+          <div class="cs-stories-grid">
+
+            <div class="grid-item edelith" data-date="2025-6-14">
+              <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html" class="news-card-link">
+                <div class="news-card">
+                  <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp" alt="The Woodsworn" loading="lazy" width="400" height="243">
+                  <div class="news-content">
+                    <h5 class="news-author">Travels of a post-wake Edelith</h5>
+                    <h3 class="news-title">The Woodsworn</h3>
+                    <div class="news-meta">
+                      <span class="news-tag">"Damien Zerxes"</span>
+                      <span class="news-date">June 14, 2025</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Add more grid-item divs here freely -->
+
+          </div>
+        </div>
+
+      </div><!-- end lore-main -->
+
+      <!-- ── RIGHT SIDEBAR ── -->
+      <div class="lore-aside">
+
+        <!-- Origin & Location -->
+        <div class="cs-block lore-box lore-box--gold fade-block">
+          <div class="cs-block-head">
+            <span class="cs-glyph">◈</span>
+            <h2 class="cs-block-title">Origin</h2>
+            <div class="cs-block-line"></div>
+          </div>
+          <div class="cs-dossier-items">
+            <div class="cs-di">
+              <span class="cs-di-label">Birthplace</span>
+              <span class="cs-di-val">The Great Forest</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Region</span>
+              <span class="cs-di-val">Arvegum</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Current Location</span>
+              <span class="cs-di-val">Immortal City of Edelith</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Affiliation</span>
+              <span class="cs-di-val cs-di-val--unk">Unknown</span>
+            </div>
+            <div class="cs-di-divider"></div>
+            <div class="cs-di">
+              <span class="cs-di-label">First Seen</span>
+              <span class="cs-di-val">Session 01</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Campaign</span>
+              <span class="cs-di-val">Immortal City of Edelith</span>
+            </div>
+            <div class="cs-di">
+              <span class="cs-di-label">Status</span>
+              <span class="cs-di-val" style="color:var(--cp);">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote sidebar -->
+        <div class="cs-quote lore-box lore-box--gold fade-block">
+          <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="cs-quote-text">He never forgets how things made him feel — and that longing drives everything he does.</p>
+          <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+        </div>
+
+      </div><!-- end lore-aside -->
+
+    </div><!-- end lore-grid -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+     TAB: RELATIONSHIPS
+  ════════════════════════════════════════════════════ -->
+  <div id="tab-Relationships" class="cs-panel fade-block">
+
+    <div class="cs-block lore-box lore-box--gold fade-block" style="margin-bottom: 20px;">
+      <div class="cs-block-head">
+        <span class="cs-glyph">◈</span>
+        <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">C</span>onnections</h2>
+        <div class="cs-block-line"></div>
+        <span class="cs-block-meta">Cross-Referenced</span>
+      </div>
+      <!-- Relationship cards grid — add more .rel-card divs freely -->
+      <div class="cs-rel-grid">
+
+<!-- Peggle Krastov -->
+<div class="char">
+      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
+        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
+        <div class="card-info">
+          <div class="card-info-section">
+            <div class="rel-card-meter-wrap">
+              <div class="rel-card-meter-label">Closeness</div>
+              <div class="rel-card-meter">
+                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
+              </div>
+              <div class="rel-card-meter-dots">
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--half"></span>
+                <span class="rmd"></span>
+                <span class="rmd"></span>
+              </div>
+            </div>
+              <div class="card-info__faction">
+               <div class="card-info__name">Tau Zervas</div>
+              <div class="card-info__region">Changeling</div>
+            </div>
+          </div>
+          <div class="see-more">
+            Profile
+            <div class="arrow">
+    <svg viewBox="0 0 162 70.28">
+      <circle cx="31.57" cy="35.21" r="11.57"></circle>
+      <g>
+        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
+        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
+      </g>
+    </svg></div>
+          </div>
+        </div>
+      </div></div>
+
+<!-- Peggle Krastov -->
+<div class="char">
+      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
+        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
+        <div class="card-info">
+          <div class="card-info-section">
+            <div class="rel-card-meter-wrap">
+              <div class="rel-card-meter-label">Closeness</div>
+              <div class="rel-card-meter">
+                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
+              </div>
+              <div class="rel-card-meter-dots">
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--half"></span>
+                <span class="rmd"></span>
+                <span class="rmd"></span>
+              </div>
+            </div>
+              <div class="card-info__faction">
+               <div class="card-info__name">Tau Zervas</div>
+              <div class="card-info__region">Changeling</div>
+            </div>
+          </div>
+          <div class="see-more">
+            Profile
+            <div class="arrow">
+    <svg viewBox="0 0 162 70.28">
+      <circle cx="31.57" cy="35.21" r="11.57"></circle>
+      <g>
+        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
+        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
+      </g>
+    </svg></div>
+          </div>
+        </div>
+      </div></div>
+
+<!-- Peggle Krastov -->
+<div class="char">
+      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
+        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
+        <div class="card-info">
+          <div class="card-info-section">
+            <div class="rel-card-meter-wrap">
+              <div class="rel-card-meter-label">Closeness</div>
+              <div class="rel-card-meter">
+                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
+              </div>
+              <div class="rel-card-meter-dots">
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--on"></span>
+                <span class="rmd rmd--half"></span>
+                <span class="rmd"></span>
+                <span class="rmd"></span>
+              </div>
+            </div>
+              <div class="card-info__faction">
+               <div class="card-info__name">Tau Zervas</div>
+              <div class="card-info__region">Changeling</div>
+            </div>
+          </div>
+          <div class="see-more">
+            Profile
+            <div class="arrow">
+    <svg viewBox="0 0 162 70.28">
+      <circle cx="31.57" cy="35.21" r="11.57"></circle>
+      <g>
+        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
+        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
+      </g>
+    </svg></div>
+          </div>
+        </div>
+      </div></div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+     GALLERY  — persistent, outside tabs
+  ════════════════════════════════════════════════════ -->
+  <div class="cs-gallery lore-box lore-box--gold fade-block">
+    <div class="cs-block-head">
+      <span class="cs-glyph">◈</span>
+      <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">F</span>eatured Gallery</h2>
+      <div class="cs-block-line"></div>
+      <span class="cs-block-meta">Visual Archive</span>
+    </div>
+    <div class="cs-gallery-grid">
+      <div class="cs-gal-item">
+        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+          <img src="img/placeholder.webp" alt="Gallery">
+          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
+        </a>
+      </div>
+      <div class="cs-gal-item">
+        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+          <img src="img/placeholder.webp" alt="Gallery">
+          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
+        </a>
+      </div>
+      <div class="cs-gal-item">
+        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
+          <img src="img/placeholder.webp" alt="Gallery">
+          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
+        </a>
+      </div>
+    </div>
+    <p class="cs-gallery-updated">
+      <i class="fa-regular fa-clock"></i>
+      Page last updated: <span id="csUpdateTime"></span>
+    </p>
+  </div>
 </div>
-</div>
+</div><!-- end all-content -->
+</div><!-- end outer -->
 
+<footer-block class="fade-block"></footer-block>
 
-
-<!-- Tabs -->
+<!-- ═══════════════════════════════════════════════════
+   SCRIPTS
+════════════════════════════════════════════════════ -->
 <script>
-    function openTab(evt, tabName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-</script>
+  document.getElementById("csUpdateTime").textContent = document.lastModified;
 
-<!-- Lightbox -->
-<script src="/scripts/lightbox-plus-jquery.js"></script>
+  const tabs   = document.querySelectorAll('.cs-tab');
+  const panels = document.querySelectorAll('.cs-panel');
+  const ink    = document.getElementById('tabInk');
 
-<!-- Accordion -->
-<script>
-// Update your existing toggleClass function to this:
-function toggleClass() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle("mobile-active");
-    
-    const slideOut = document.getElementById("slideOut");
-    if(slideOut.classList.contains("fa-caret-right")) {
-        slideOut.classList.remove("fa-caret-right");
-        slideOut.classList.add("fa-caret-left");
-    } else {
-        slideOut.classList.add("fa-caret-right");
-        slideOut.classList.remove("fa-caret-left");
-    }
-}
+  function moveInk(btn) {
+    ink.style.left  = btn.offsetLeft + 'px';
+    ink.style.width = btn.offsetWidth + 'px';
+  }
 
-// Update your accordion script to this:
-document.querySelectorAll('.accordion').forEach(button => {
-    button.addEventListener('click', () => {
-        button.classList.toggle('active');
-        const panel = button.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-        } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b  => b.classList.remove('cs-tab--active'));
+      panels.forEach(p => { p.classList.remove('cs-panel--active'); p.style.display = 'none'; });
+
+      btn.classList.add('cs-tab--active');
+      const panel = document.getElementById('tab-' + btn.dataset.tab);
+      panel.style.display = 'block';
+      requestAnimationFrame(() => {
+        panel.classList.add('cs-panel--active');
+        panel.classList.add('visible');
+      });
+      moveInk(btn);
     });
-});
+  });
+
+  window.addEventListener('load', () => {
+    const active = document.querySelector('.cs-tab--active');
+    if (active) {
+      moveInk(active);
+      const first = document.getElementById('tab-' + active.dataset.tab);
+      if (first) { first.style.display = 'block'; first.classList.add('visible'); }
+    }
+  });
+  window.addEventListener('resize', () => {
+    const a = document.querySelector('.cs-tab--active');
+    if (a) moveInk(a);
+  });
 </script>
 
-</body>
-
-</html>
-
+<!-- ═══════════════════════════════════════════════════
+   CHARACTER SHEET STYLES
+════════════════════════════════════════════════════ -->
 <style>
-.ira {
-  top: -262px;
-}
-
-.musicbox {
-  top: -93px;
-}
-:root {
-    --primary: #9e996e;
-    --secondary: #c1ab90;
-    --tertiary: #9f6a4b;
-    --dark: #142328;
-    --light: #fdf1d5;
-    --header-img: url(/characters/herb/img/header.webp) bottom/cover no-repeat;
-    --bg-repeat: repeat;
-    --bg-position: top;
-    --bg-size: 600px;
-    --avitar: url(/characters/herb/img/avi.png) center/cover no-repeat;
-    --main-img: url(/characters/herb/img/placeholder.webp) center/contain no-repeat;
-    --mood-top: url(/characters/herb/img/moodimage1.webp) center/cover no-repeat;
-    --mood-center: url(/characters/herb/img/moodimage2.webp) center/cover no-repeat;
-    --mood-bottom: url(/characters/herb/img/moodboard.gif) center/cover no-repeat;
-    --lorebg: url(/characters/herb/img/lorebg.webp) center/cover no-repeat;
-    --site-bg-img: url('/characters/herb/img/header.webp');
-    
- /* Colors */
- 
-    --default-text: #c4d3c2;        /* soft misty leaf */
-    --default-text2: #6b7a6c;       /* weathered bark */
-    --emphasized-text: #e0f0dc;     /* pale fern highlight */
-
-    --nav-bg: #0d1a12;              /* deep evergreen - near-black green */
-    --content-bg: #13241a;          /* shadowed pine - slightly lighter for contrast */
-  
-    /* Box Styling */
-    --box-bg: #1b2f22;              /* forest canopy shade */
-    --box-br: #556b5f;              /* muted moss trim */
-  
-    /* Footer */
-    --footer-bg: #08100b;           /* dark bark */
-  
-    /* Links */
-    --link-color: #7fa68d;          /* mossy green */
-    --link-hover-color: #b8d5c3;    /* pale fern glow */
-
-}
-.all-content {
-  border-radius: 12px;
-}
-
-.name {
-    color: var(--dark);
-    background: linear-gradient(60deg,  
-    var(--light) 80%, 
-    var(--secondary) calc(80% + 1px) 85%, 
-    var(--primary) calc(85% + 1px) 90%, 
-    var(--tertiary) calc(90% + 1px) 95%, 
-    rgba(243,98,115,0) calc(95% + 1px) 100%);
-}
-
-@media(max-width:910px) {
-.name {
-    color: var(--dark);
-    background: var(--light)
-}
-.tags-box {
-        left: 2px!important;
-}
-}
-
-.quote {
-    color: var(--dark);
-    background-color: var(--primary);
-    background-image: url(/assets/img/quoteoverlaystrong.png);
-} 
-
-.punctuation {
-    color: var(--light);
-}
-
-.quote-text {
-    font-size: 17px;
-}
-
-.tag1 {
-    color: var(--dark);
-    background-color: var(--primary);
-}
-
-.tag2 {
-    color: var(--dark);
-    background-color: var(--secondary);
-}
-
-.tag3 {
-    color: var(--dark);
-    background-color: var(--tertiary);
-}
-
-#mood1 {
-    box-shadow: -8px 8px 0px #666137;
-    border: var(--primary) solid 6px;
-}
-
-#mood2 {
-    box-shadow: -8px 8px 0px #7d6351;
-    border: var(--secondary) solid 6px;
-}
-
-#mood3 {
-    box-shadow: -8px 8px 0px #873e29;
-    border: var(--tertiary) solid 6px;
-}
-
-.chibi img {
-    bottom: 70px;
-    right: 6px;
-    width: 230px;
-}
-
-.likes i {
-    text-shadow: -5px 2px 0px var(--tertiary);
-}
-
-.likeheart {
-    color: var(--dark);
-    background-color: var(--primary);
-}
-
-.dislikes i {
-    text-shadow: 5px 2px 0px var(--tertiary);
-}
-
-.dislikeheart {
-    color: var(--light);
-    background-color: var(--secondary);
-}
-
-.link-one:hover {
-    color: var(--primary);
-}
-
-.link-two:hover {
-    color: var(--secondary);
-}
-
-.link-three:hover {
-    color: var(--tertiary);
-}
-
-.featured-gallery button:hover {
-    background-color: var(--primary);
-    border: 1px solid var(--primary);
-    color: var(--light)
-}
-
-.tags-box {
-    left: 190px;
-}
 
 
 </style>
+
+</body>
+</html>
