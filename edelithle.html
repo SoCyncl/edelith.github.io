@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="/assets/img/ico/purple.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edelith Wordle · Solstitheo Archives</title>
+  <meta name="description" content="Guess the daily character from the Immortal City of Edelith campaign. A daily character-guessing puzzle.">
+  <meta name="author" content="Solstitheo Archives">
+  <meta name="theme-color" content="#2a211b">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://edelith.org/wordle.html">
+  <meta property="og:title"       content="Edelithle · Solstitheo Archives">
+  <meta property="og:description" content="Guess the daily character from the Immortal City of Edelith campaign.">
+  <meta property="og:image"       content="/assets/img/favicon.png">
+  <meta property="og:site_name"   content="Solstitheo Archives">
+  <meta name="glossary" content="off">
+
+  <!-- Base site styles -->
+  <link rel="stylesheet" href="/css/home.css">
+  <!-- Wordle-specific styles -->
+  <link rel="stylesheet" href="/css/wordle.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <script src="/scripts/home-footer.js" defer></script>
+  <script src="/scripts/sidenav.js"     defer></script>
+  <script src="/scripts/playlist.js"    defer></script>
+  <script src="/scripts/quilliam.js" defer></script>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) =>
+        setTimeout(() => el.classList.add("visible"), i * 70)
+      );
+    });
+  </script>
+</head>
+<body>
+
+<!-- ─── CLOUDS ─────────────────────────────────────────────── -->
+<div class="clouds">
+  <div class="clouds-1"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
+  <div class="clouds-2"></div>
+  <div class="clouds-3"></div>
+</div>
+
+<transparent-navbar class="fade-block"></transparent-navbar>
+
+<div class="outer">
+  <div class="all-content fade-block">
+    <playlist-block></playlist-block>
+
+    <div class="wordle-page">
+
+      <!-- ══ MASTHEAD ════════════════════════════════════════ -->
+      <div class="lore-box lore-box--gold wordle-masthead fade-block">
+        <span class="wordle-masthead-label">Solstitheo Archives  ◆  Wordle</span>
+        <h1 class="wordle-masthead-title">Edelithle</h1>
+
+        <div class="wordle-masthead-rule">
+          <div class="wordle-masthead-rule-line"></div>
+          <span>✦</span>
+          <div class="wordle-masthead-rule-line"></div>
+        </div>
+
+        <p class="wordle-masthead-desc">
+          A new character from the Immortal City of Edelith is chosen every day.
+          Guess by typing a name — each attempt reveals how their attributes compare to the answer.
+        </p>
+
+        <div class="wordle-masthead-vol">
+          <span>New character daily</span>
+          <span class="wordle-vol-dot">◆</span>
+          <span>Progress saves automatically</span>
+          <span class="wordle-vol-dot">◆</span>
+          <span>The Immortal City of Edelith</span>
+        </div>
+
+        <div class="wordle-masthead-watermark">Alan James</div>
+      </div>
+      <!-- end masthead -->
+
+      <!-- ══ LEGEND ══════════════════════════════════════════ -->
+      <div class="wordle-legend fade-block">
+        <span class="wordle-legend-label">Key</span>
+        <span class="legend-item green">
+          <span class="legend-pip"></span> Exact Match
+        </span>
+        <span class="legend-item yellow">
+          <span class="legend-pip"></span> Partial Match
+        </span>
+        <span class="legend-item red">
+          <span class="legend-pip"></span> No Match
+        </span>
+      </div>
+
+      <!-- ══ HUD ═════════════════════════════════════════════ -->
+      <div class="wordle-hud fade-block">
+        <div class="hud-stat">
+          <i class="fa-solid fa-scroll" style="color:var(--gold-dim);font-size:0.7rem;"></i>
+          Guesses <strong id="guessCount">0</strong>
+        </div>
+        <span id="timerDisplay">00:00</span>
+        <div class="hud-stat">
+          <i class="fa-solid fa-calendar-day" style="color:var(--gold-dim);font-size:0.7rem;"></i>
+          Daily
+        </div>
+      </div>
+
+      <!-- ══ INPUT ════════════════════════════════════════════ -->
+      <div class="wordle-input-section fade-block">
+        <div class="wordle-input-wrap">
+          <input
+            id="wordleInput"
+            type="text"
+            placeholder="Type a character name…"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="guessBtn" disabled>
+            <i class="fa-solid fa-feather-pointed"></i> Guess
+          </button>
+          <ul id="autocompleteList"></ul>
+        </div>
+        <div id="gameToast" class="game-toast"></div>
+        <div id="wordleError">
+          Could not load character data. Check that <code>/data/wordle-characters.json</code> is present.
+        </div>
+      </div>
+
+      <!-- ══ COLUMN HEADERS ══════════════════════════════════ -->
+      <div class="guess-header fade-block">
+        <div class="guess-header-cell">Character</div>
+        <div class="guess-header-cell">Gender</div>
+        <div class="guess-header-cell">Race</div>
+        <div class="guess-header-cell">Region</div>
+        <div class="guess-header-cell">Affiliation</div>
+        <div class="guess-header-cell">Arc</div>
+      </div>
+
+      <!-- ══ GUESS GRID ═══════════════════════════════════════ -->
+      <div class="guess-grid" id="guessGrid">
+        <div class="guess-empty-state" id="emptyState">
+          Your guesses will appear here — begin typing above.
+        </div>
+      </div>
+
+    </div>
+    <!-- end wordle-page -->
+<p id="nextPuzzleCountdown" style="text-align:center; opacity:0.6; font-size:0.85rem; margin-top:8px;"></p>
+  </div>
+</div>
+
+<!-- ══ END OVERLAY ════════════════════════════════════════════ -->
+<div class="end-overlay" id="endOverlay">
+  <div class="end-card lore-box lore-box--gold">
+
+    <h2 class="end-title" id="endTitle">✦ Identified ✦</h2>
+    <p id="endSubtext"></p>
+
+    <div class="end-portrait-wrap">
+      <img id="endPortrait" src="" alt="">
+    </div>
+    <div id="endAnswerName"></div>
+    <span id="endAnswergender"></span>
+
+    <div class="end-divider"></div>
+
+    <div class="end-stats">
+      <div class="end-stat">
+        <span id="endGuessCount">0</span>
+        <label>Guesses</label>
+      </div>
+      <div class="end-stat">
+        <span id="endTime">00:00</span>
+        <label>Time</label>
+      </div>
+    </div>
+
+    <button id="endCloseBtn">Close</button>
+
+  </div>
+</div>
+
+<footer-block class="fade-block"></footer-block>
+
+<!-- ── Remove empty state when a guess is submitted ── -->
+<script>
+  (function () {
+    const observer = new MutationObserver(() => {
+      const grid  = document.getElementById('guessGrid');
+      const empty = document.getElementById('emptyState');
+      if (empty && grid && grid.children.length > 1) {
+        empty.remove();
+      }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('guessGrid');
+      if (grid) observer.observe(grid, { childList: true });
+    });
+  })();
+</script>
+
+<!-- ── Game logic ── -->
+<script src="/scripts/wordle.js"></script>
+
+</body>
+</html>
