@@ -540,7 +540,7 @@
     "gender": "Male",
     "race": "N/A",
     "region": ["Arvegum Plains"],
-    "affiliation": ["Ember Ring"],
+    "affiliation": ["Ember Ring", "Beast"],
     "arc": ["New Arvegum"],
     "hint1": "Definitely is",
     "hint2": "Peggle ripped off his EYE."
@@ -670,7 +670,7 @@
     "gender": "Male",
     "race": "Woodsworn",
     "region": ["Coronal Valley"],
-    "affiliation": ["Woodsworn"],
+    "affiliation": ["Woodsworn", "Beast"],
     "arc": ["Famine Arc", "Seversova"],
     "hint1": "30 Pieces of silver.",
     "hint2": "He's a mask now!"
@@ -930,7 +930,7 @@
     "gender": "Female",
     "race": "Demon",
     "region": ["Coronal Valley"],
-    "affiliation": ["N/A"],
+    "affiliation": ["Circlet", "Beast"],
     "arc": ["Famine Arc"],
     "hint1": "Complicated Mother’s Day for this character.", 
     "hint2": "This character needed a hand from Aurelia."
@@ -943,7 +943,7 @@
     "gender": "Male",
     "race": "Demon",
     "region": ["Coronal Valley"],
-    "affiliation": ["N/A"],
+    "affiliation": ["N/A", "Beast"],
     "arc": ["Famine Arc"],
     "hint1": "Probably has 472M subscribers.", 
     "hint2": "Killed korG."
@@ -956,7 +956,7 @@
     "gender": "Female",
     "race": "Demon",
     "region": ["Coronal Valley"],
-    "affiliation": ["N/A"],
+    "affiliation": ["N/A", "Beast"],
     "arc": ["Famine Arc"],
     "hint1": "You had to make a choice between this character and another.", 
     "hint2": "Sadly does not have a stopwatch to rewind damage."
@@ -969,7 +969,7 @@
     "gender": "Female",
     "race": "Horse",
     "region": ["Coronal Valley"],
-    "affiliation": ["Horsemen"],
+    "affiliation": ["Horsemen", "Beast"],
     "arc": ["Famine Arc"],
     "hint1": "How hungry?", 
     "hint2": "Petah, the horse is here."
