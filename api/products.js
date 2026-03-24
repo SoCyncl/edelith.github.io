@@ -1,8 +1,13 @@
 export default async function handler(req, res) {
-  const token = process.env.STOREFRONT_TOKEN; // store token as env var, not in code
-  const col   = req.query.collection || 'all';
-  const url   = `https://storefront-api.fourthwall.com/v1/collections/${col}/products?storefront_token=${token}`;
-  const data  = await fetch(url).then(r => r.json());
+  const token = process.env.STOREFRONT_TOKEN;
+  const collection = req.query.collection || 'all';
+
+  const response = await fetch(
+    `https://storefront-api.fourthwall.com/v1/collections/${collection}/products?storefront_token=${token}`
+  );
+
+  const data = await response.json();
+
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.json(data);
+  res.status(200).json(data);
 }
