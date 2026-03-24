@@ -20,31 +20,20 @@
     <meta property="og:site_name" content="Solstitheo Archives">
     <meta property="og:locale" content="en_US">
 
-    <!-- ─── PERFORMANCE: Preconnect to external origins ───────── -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <link rel="preconnect" href="https://status.cafe" crossorigin>
-    <link rel="preconnect" href="https://file.garden" crossorigin>
-    <link rel="dns-prefetch" href="//rss.bloople.net">
-
+<link rel="preload" href="/data/fff-entries.json" as="fetch" crossorigin>
+<link rel="preload" href="/data/characters.json" as="fetch" crossorigin>
     <meta name="glossary" content="off">
     <link rel="stylesheet" href="/css/home.css">
-
-    <!-- ─── ICONS: single non-blocking source ─────────────────── -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"></noscript>
-
-    <!-- ─── ALL scripts deferred ──────────────────────────────── -->
+    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/scripts/playlist.js" type="text/javascript" defer></script>
+    <script src="/scripts/home-footer.js" type="text/javascript" defer></script>
+    <script src="/scripts/randomizer.js" type="text/javascript" defer></script>
+    <script src="/scripts/fff-loader.js" type="text/javascript"></script>    
+    <script src="/scripts/char-loader.js" type="text/javascript" defer></script>       
     <link rel="preload" href="/scripts/header.js" as="script">
-    <script src="/scripts/playlist.js"    defer></script>
-    <script src="/scripts/home-footer.js" defer></script>
-    <script src="/scripts/randomizer.js"  defer></script>
-    <script src="/scripts/fff-loader.js"  defer></script>
-    <script src="/scripts/char-loader.js" defer></script>
-    <script src="/scripts/sidenav.js"     defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="/scripts/sidenav.js" defer></script>
 
     <script>
     window.addEventListener("load", () => {
@@ -59,7 +48,7 @@
 <!-- ─── CLOUDS ─────────────────────────────────────────── -->
 <div class="clouds">
   <div class="clouds-1"></div>
-  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives" loading="lazy"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
   <div class="clouds-2"></div>
   <div class="clouds-3"></div>
 </div>
@@ -72,6 +61,12 @@
   <div class="all-content fade-block">
     <playlist-block></playlist-block>
 
+    <!-- ═══════════════════════════════════════════════════
+         TOP SECTION — original 3-column layout
+         Left: EdelPost + Quilliam + Status
+         Center: About masthead + HomeNav
+         Right: MVP + Random + Almanac
+    ═══════════════════════════════════════════════════ -->
     <div class="main">
 
       <!-- ─── LEFT SIDEBAR ──────────────────────────── -->
@@ -80,18 +75,18 @@
         <div class="log-title">
           <h2>EdelPost</h2>
           <a href="/feed.xml" class="rss-link">
-            <img src="assets/img/homepage/tomestoneofsyndication.png" alt="RSS" loading="lazy">
+            <img src="assets/img/homepage/tomestoneofsyndication.png" alt="RSS">
           </a>
-          <img src="assets/img/homepage/mogmail.gif" class="edelpost" alt="" loading="lazy">
+          <img src="assets/img/homepage/mogmail.gif" class="edelpost" alt="">
         </div>
 
-        <div class="lore-box lore-box--sm updates" style="padding: 6px 10px;" id="rss-container">
-          <p style="font-family:var(--f-label);font-size:0.6rem;color:var(--fog-dim);letter-spacing:2px;">Loading posts…</p>
+        <div class="lore-box lore-box--sm updates" style="padding: 6px 10px;">
+          <script src="//rss.bloople.net/?url=https%3A%2F%2Fedelith.org%2Ffeed.xml&showtitle=false&type=js"></script>
         </div>
 
         <div class="talksprite">
           <div class="biblio"></div>
-          <img src="assets/img/homepage/booglenose.png" class="quilliam" alt="Quilliam" onclick="squeak();" loading="lazy">
+          <img src="assets/img/homepage/booglenose.png" class="quilliam" alt="Quilliam" onclick="squeak();">
           <script>
             const korokSounds = [
               "https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-yahaha.mp3",
@@ -101,8 +96,7 @@
               "https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/korok-question2.mp3",
             ];
             function squeak() {
-              const url = korokSounds[Math.floor(Math.random() * korokSounds.length)];
-              const a = new Audio(url);
+              const a = new Audio(korokSounds[Math.floor(Math.random() * korokSounds.length)]);
               a.volume = 0.45; a.play();
             }
           </script>
@@ -113,13 +107,7 @@
             <div id="statuscafe-username"></div>
             <div id="statuscafe-content"></div>
           </div>
-          <script>
-            window.addEventListener('load', function() {
-              const s = document.createElement('script');
-              s.src = 'https://status.cafe/current-status.js?name=cyncl';
-              document.body.appendChild(s);
-            });
-          </script>
+          <script src="https://status.cafe/current-status.js?name=cyncl" defer></script>
         </div>
 
       </div>
@@ -128,28 +116,27 @@
       <!-- ─── MAIN CONTENT ──────────────────────────── -->
       <div class="content fade-block">
 
+        <!-- ABOUT BOX -->
         <div class="lore-box lore-box--gold about fade-block">
           <div class="about-masthead">Est. The Immortal City of Edelith  ◆  Fan Archive</div>
           <h1>The Solstitheo Archives</h1>
           <div class="about-rule"><span>✦</span></div>
 
-          <img id="hawktuah" src="assets/img/homepage/hawk_tuah.png" alt="" loading="lazy">
+          <img id="hawktuah" src="assets/img/homepage/hawk_tuah.png" alt="">
+          <audio id="tuah"       src="https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/finding-korok.mp3"></audio>
+          <audio id="tuah-rare1" src="https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/awww.mp3"></audio>
+          <audio id="tuah-rare2" src="https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/yay.mp3"></audio>
           <script>
             (function(){
               const img = document.getElementById("hawktuah");
-              if (!img) return;
               let cd = false;
-              let audioMain, audioRare1, audioRare2;
               img.addEventListener("click", function(){
                 if(cd) return; cd = true; setTimeout(()=>cd=false,800);
                 img.style.animation="none"; void img.offsetWidth; img.style.animation="bounce 0.6s";
-                if (!audioMain) {
-                  audioMain  = new Audio("https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/finding-korok.mp3");
-                  audioRare1 = new Audio("https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/awww.mp3");
-                  audioRare2 = new Audio("https://file.garden/aE4BmvQeoiKwc59V/sound%20effects/yay.mp3");
-                }
                 const r = Math.random();
-                const a = r<0.05 ? audioRare1 : r<0.10 ? audioRare2 : audioMain;
+                const a = r<0.05 ? document.getElementById("tuah-rare1")
+                        : r<0.10 ? document.getElementById("tuah-rare2")
+                        : document.getElementById("tuah");
                 a.volume=0.25; a.currentTime=0; a.play();
               });
             })();
@@ -159,7 +146,10 @@
           <p>Please enjoy your stay.</p>
         </div>
 
-        <!-- NEWCOMER BANNER -->
+
+        <!-- ═══════════════════════════════════════════════════
+             NEWCOMER BANNER — full-bleed
+        ═══════════════════════════════════════════════════ -->
         <section class="lp-newcomer fade-block">
           <div class="lp-newcomer__badge">NEW HERE?</div>
           <div class="lp-newcomer__body">
@@ -195,26 +185,28 @@
       <!-- ─── RIGHT SIDEBAR ─────────────────────────── -->
       <div class="side fade-block">
 
+        <!-- MVP of the Session -->
         <div class="lore-box lore-box--sm side-panel">
           <h3 class="side-panel-title">MVP of the Session</h3>
           <div class="mvp-card">
-            <img src="assets/img/placeholderavi.png" alt="Eight Nanako" loading="lazy">
+            <img src="assets/img/placeholderavi.png" alt="Eight Nanako">
             <a href="characters/index.html" class="mvp-name">Eight Nanako</a>
             <p class="mvp-reason">For absolutely decimating the demons with a single spell.</p>
           </div>
         </div>
 
-        <div class="almanac fade-block visible">
-          <div class="box">
-            <a href="https://a.co/d/1AJUVRl" target="_blank">
-              <div class="solsitheian-almanac">
-                <div class="journal"></div>
-                <div class="quilliam-bookmark"></div>
-              </div>
-              <span class="journal-link">Solstitheian almanac out now!</span>
-            </a>
-          </div>
-        </div>
+      <div class="almanac fade-block visible">
+                    <div class="box"> 
+                        <a href="https://a.co/d/1AJUVRl" target="_blank"> 
+                            <div class="solsitheian-almanac">
+                                <div class="journal"></div>
+                                <div class="quilliam-bookmark"></div>
+                            </div>
+                            <span class="journal-link">Solstitheian almanac out now!</span>
+                        </a>
+                    </div>
+                </div>
+
 
       </div>
       <!-- end .side -->
@@ -223,13 +215,20 @@
     <!-- end .main -->
 
 
-    <!-- BENTO NAVIGATION GRID -->
+
+
+    <!-- ═══════════════════════════════════════════════════
+         BENTO NAVIGATION GRID — full-bleed
+    ═══════════════════════════════════════════════════ -->
     <section class="lp-bento fade-block">
       <div class="lp-bento__label">
         <span>Browse the Archive</span>
         <div class="lp-bento__label-line"></div>
       </div>
+
       <div class="lp-bento__grid">
+
+        <!-- 1: Session Recap — tall left -->
         <a href="/recap.html" class="lp-tile lp-tile--blue">
           <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/recap.png);background-size:90px;background-position:bottom right 16px;background-repeat:no-repeat;"></div>
           <span class="lp-tile__tag">Story</span>
@@ -237,6 +236,8 @@
           <p class="lp-tile__desc">Every session documented — key events, loose threads, and moments we'll never forget.</p>
           <div class="lp-tile__arrow">→</div>
         </a>
+
+        <!-- 2: Characters — medium top -->
         <a href="/characters/index.html" class="lp-tile lp-tile--warm">
           <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/characters.png);background-size:68px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>
           <span class="lp-tile__tag">Roster</span>
@@ -244,12 +245,16 @@
           <p class="lp-tile__desc">Players, allies, and figures of Edelith.</p>
           <div class="lp-tile__arrow">→</div>
         </a>
+
+        <!-- 3: Quill & Terms — small bottom -->
         <a href="/quill-and-terms.html" class="lp-tile lp-tile--brown">
-          <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/quill-and-termss.png);background-size:68px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>
+          <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/quill-and-termss.png);background-size:68px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>          
           <span class="lp-tile__tag">Reference</span>
           <h3 class="lp-tile__name">Quill &amp; Terms</h3>
           <div class="lp-tile__arrow">→</div>
         </a>
+
+        <!-- 4: Beastiary — medium top -->
         <a href="/beastiary/index.html" class="lp-tile lp-tile--purple">
           <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/beastiary.png);background-size:65px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>
           <span class="lp-tile__tag">Creatures</span>
@@ -257,13 +262,17 @@
           <p class="lp-tile__desc">Monsters, constructs &amp; corrosion horrors.</p>
           <div class="lp-tile__arrow">→</div>
         </a>
+
+        <!-- 5: Edelithle — small bottom, GAME -->
         <a href="/edelithle.html" class="lp-tile lp-tile--game">
-          <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/mapbutton.png);background-size:68px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>
+           <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/mapbutton.png);background-size:68px;background-position:bottom right 12px;background-repeat:no-repeat;"></div>         
           <span class="lp-tile__tag lp-tile__tag--game">Game</span>
           <h3 class="lp-tile__name">Edelithle</h3>
           <p class="lp-tile__desc lp-tile__desc--sm">The Edelith Wordle. Test your lore.</p>
           <div class="lp-tile__arrow">→</div>
         </a>
+
+        <!-- 6: Fun Fact Friday — tall right -->
         <a href="/fun-fact-friday.html" class="lp-tile lp-tile--red">
           <div class="lp-tile__bg" style="background-image:url(assets/img/homepage/edelith-fun-fact-friday.png);background-size:54px;background-position:bottom 18px right 14px;background-repeat:no-repeat;"></div>
           <span class="lp-tile__tag">Lore</span>
@@ -271,11 +280,14 @@
           <p class="lp-tile__desc">Weekly in-universe publications. Multiple authors, multiple perspectives.</p>
           <div class="lp-tile__arrow">→</div>
         </a>
+
       </div>
     </section>
 
 
-    <!-- LORE TICKER -->
+    <!-- ═══════════════════════════════════════════════════
+         LORE TICKER — full-bleed
+    ═══════════════════════════════════════════════════ -->
     <div class="lp-ticker fade-block" aria-hidden="true">
       <div class="lp-ticker__track">
         <span>Wake of Steel</span><span class="lp-tick-dot">◆</span>
@@ -290,6 +302,7 @@
         <span>General Strom</span><span class="lp-tick-dot">◆</span>
         <span>The Steelside Legion</span><span class="lp-tick-dot">◆</span>
         <span>Play Edelithle</span><span class="lp-tick-dot">◆</span>
+        <!-- duplicate for seamless loop -->
         <span>Wake of Steel</span><span class="lp-tick-dot">◆</span>
         <span>Woodsworn Betrayal</span><span class="lp-tick-dot">◆</span>
         <span>Shroud of Aurum</span><span class="lp-tick-dot">◆</span>
@@ -306,81 +319,90 @@
     </div>
 
 
-    <!-- LOWER CONTENT -->
+    <!-- ═══════════════════════════════════════════════════
+         LOWER CONTENT — recap, fff, glossary (full width)
+    ═══════════════════════════════════════════════════ -->
     <div class="lp-lower">
-      <div class="griddy">
-        <section>
-          <div class="lp-recap lore-box lore-box--gold fade-block">
-            <div class="lp-recap__header">
-              <div class="lp-recap__eyebrow">
-                <span class="lp-recap__arc-tag">Seversova Arc</span>
-                <span class="lp-recap__divider">◆</span>
-                <span class="lp-recap__session">Session 20</span>
+<div class="griddy">
+<section>  <!-- SESSION RECAP + ARC STRIP -->
+      <div class="lp-recap lore-box lore-box--gold fade-block">
+        <div class="lp-recap__header">
+          <div class="lp-recap__eyebrow">
+            <span class="lp-recap__arc-tag">Seversova Arc</span>
+            <span class="lp-recap__divider">◆</span>
+            <span class="lp-recap__session">Session 20</span>
+          </div>
+          <div class="lp-recap__title-row">
+            <h2 class="lp-recap__title">Latest Session</h2>
+            <a href="recap.html" class="lp-recap__all-link">Full Archive →</a>
+          </div>
+        </div>
+
+        <div class="lp-recap__body">
+          <img src="/assets/img/recap/birthdaybiblio.png" class="lp-recap__img" alt="">
+          <div class="lp-recap__text">
+            <p class="lp-recap__lede">Gambling. Gambling. Gambling. The group used Peggle's drinking contest winnings to triple their coin. Peggle met a tall Goliath he wanted to impress, while Herb discovered the tragic truth of his kind — the Woodsworn, betrayed by Rotcio, who sold every last one of his kin for the promise of immortality. Ringo, a surviving Woodsworn, laid it all bare. Eventually, the group made for the mountains and sheltered in a cave.</p>
+            <div class="lp-recap__two-col">
+              <div>
+                <div class="lp-mini-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul class="lp-recap__bullets">
+                  <li>Gambling — repeatedly and with enthusiasm.</li>
+                  <li>Peggle meets a tall Goliath rival at the tables.</li>
+                  <li>Herb learns the tragedy of the Woodsworn people.</li>
+                  <li>Rotcio revealed as the traitor who sold his kin.</li>
+                  <li>The party takes shelter in a mountain cave.</li>
+                </ul>
               </div>
-              <div class="lp-recap__title-row">
-                <h2 class="lp-recap__title">Latest Session</h2>
-                <a href="recap.html" class="lp-recap__all-link">Full Archive →</a>
-              </div>
-            </div>
-            <div class="lp-recap__body">
-              <img src="/assets/img/recap/birthdaybiblio.png" class="lp-recap__img" alt="" loading="lazy">
-              <div class="lp-recap__text">
-                <p class="lp-recap__lede">Gambling. Gambling. Gambling. The group used Peggle's drinking contest winnings to triple their coin. Peggle met a tall Goliath he wanted to impress, while Herb discovered the tragic truth of his kind — the Woodsworn, betrayed by Rotcio, who sold every last one of his kin for the promise of immortality. Ringo, a surviving Woodsworn, laid it all bare. Eventually, the group made for the mountains and sheltered in a cave.</p>
-                <div class="lp-recap__two-col">
-                  <div>
-                    <div class="lp-mini-label"><i class="fa-solid fa-check"></i> Key Events</div>
-                    <ul class="lp-recap__bullets">
-                      <li>Gambling — repeatedly and with enthusiasm.</li>
-                      <li>Peggle meets a tall Goliath rival at the tables.</li>
-                      <li>Herb learns the tragedy of the Woodsworn people.</li>
-                      <li>Rotcio revealed as the traitor who sold his kin.</li>
-                      <li>The party takes shelter in a mountain cave.</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <div class="lp-mini-label"><i class="fa-solid fa-pencil"></i> Open Threads</div>
-                    <ul class="lp-recap__bullets lp-recap__bullets--thread">
-                      <li>What drove Rotcio to betray his people?</li>
-                      <li>What lies further up the mountain?</li>
-                      <li>Will Peggle impress the mystery Goliath?</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="lp-arc-strip">
-              <div class="lp-arc-strip__label">Campaign Progress</div>
-              <div class="lp-arc-strip__arcs">
-                <div class="lp-arc lp-arc--done">
-                  <span class="lp-arc__name">Shroud Crossers</span>
-                  <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
-                </div>
-                <div class="lp-arc-arrow">→</div>
-                <div class="lp-arc lp-arc--done">
-                  <span class="lp-arc__name">Tarpaul Pit</span>
-                  <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
-                </div>
-                <div class="lp-arc-arrow">→</div>
-                <div class="lp-arc lp-arc--done">
-                  <span class="lp-arc__name">Famine Arc</span>
-                  <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
-                </div>
-                <div class="lp-arc-arrow">→</div>
-                <div class="lp-arc lp-arc--active">
-                  <span class="lp-arc__name">Seversova ◆</span>
-                  <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:35%"></div></div>
-                </div>
+              <div>
+                <div class="lp-mini-label"><i class="fa-solid fa-pencil"></i> Open Threads</div>
+                <ul class="lp-recap__bullets lp-recap__bullets--thread">
+                  <li>What drove Rotcio to betray his people?</li>
+                  <li>What lies further up the mountain?</li>
+                  <li>Will Peggle impress the mystery Goliath?</li>
+                </ul>
               </div>
             </div>
           </div>
-        </section>
-        <section>
+        </div>
+
+        <!-- Arc progress strip -->
+        <div class="lp-arc-strip">
+          <div class="lp-arc-strip__label">Campaign Progress</div>
+          <div class="lp-arc-strip__arcs">
+            <div class="lp-arc lp-arc--done">
+              <span class="lp-arc__name">Shroud Crossers</span>
+              <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
+            </div>
+            <div class="lp-arc-arrow">→</div>
+            <div class="lp-arc lp-arc--done">
+              <span class="lp-arc__name">Tarpaul Pit</span>
+              <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
+            </div>
+            <div class="lp-arc-arrow">→</div>
+            <div class="lp-arc lp-arc--done">
+              <span class="lp-arc__name">Famine Arc</span>
+              <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:100%"></div></div>
+            </div>
+            <div class="lp-arc-arrow">→</div>
+            <div class="lp-arc lp-arc--active">
+              <span class="lp-arc__name">Seversova ◆</span>
+              <div class="lp-arc__bar"><div class="lp-arc__fill" style="width:35%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+<section>        <!-- Random Character -->
+
+        <!-- MVP of the Session -->
           <div class="lore-box lore-box--sm side-panel">
             <h3 class="side-panel-title">Randomized Character</h3>
-            <div id="randomCharContainer" class="character-select"></div>
-          </div>
-        </section>
+              <div id="randomCharContainer" class="character-select"></div>
+              </div>
+  
+            </section>    
       </div>
+      
 
 
       <!-- FUN FACT FRIDAY SECTION -->
@@ -392,45 +414,48 @@
           </div>
           <a href="/fun-fact-friday.html" class="lp-fff__viewall">Browse Library →</a>
         </div>
+
+        <!-- Rotating pull-quote -->
         <div class="lp-fff__quote">
           <blockquote>
             <p id="fff-random-text">Loading lore…</p>
             <cite id="fff-random-source"></cite>
           </blockquote>
         </div>
-        <div class="lp-fff__cards" id="lp-fff-random-cards"></div>
 
-        <!-- GLOSSARY TEASER -->
-        <section class="lp-gloss-teaser fade-block">
-          <div class="lp-section-head">
-            <h2 class="lp-section-head__title">Glossary Spotlight</h2>
-            <div class="lp-section-head__line"></div>
-            <a href="/quill-and-terms.html" class="lp-section-head__link">Full Glossary →</a>
-          </div>
-          <div class="lp-gloss-grid">
-            <div class="lp-gloss-entry">
-              <div class="lp-gloss-entry__term">Wake of Steel</div>
-              <div class="lp-gloss-entry__def">An event in Solstitheian history where swarms of metallic demons emerged from fissures in the earth, seeking to consume everything with their Corrosion.</div>
-              <a href="/quill-and-terms.html#w" class="lp-gloss-entry__more">Read more →</a>
-            </div>
-            <div class="lp-gloss-entry lp-gloss-entry--offset">
-              <div class="lp-gloss-entry__term">Woodsworn</div>
-              <div class="lp-gloss-entry__def">A race of wooden constructs created by and adhering to the god Hiebrief — identifiable by their humanoid appearance, wooden plating, and mask-like faces.</div>
-              <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html" class="lp-gloss-entry__more">Read more →</a>
-            </div>
-            <div class="lp-gloss-entry">
-              <div class="lp-gloss-entry__term">Shroud of Aurum</div>
-              <div class="lp-gloss-entry__def">The conic barrier of light cast by the Circlet of the Sun encompassing all of Edelith, granting immortality to select creatures within its boundary.</div>
-              <a href="/quill-and-terms.html#s" class="lp-gloss-entry__more">Read more →</a>
-            </div>
-            <div class="lp-gloss-entry lp-gloss-entry--offset">
-              <div class="lp-gloss-entry__term">Steelside Legion</div>
-              <div class="lp-gloss-entry__def">A battalion of metal-wielding soldiers in Post-Wake Edelith promoting repulsion of demons and regional stability. Known for their Thunderstroke weaponry.</div>
-              <a href="/fun-fact-friday/whispers-of-an-angel/steelside-legion.html" class="lp-gloss-entry__more">Read more →</a>
-            </div>
-          </div>
-        </section>
+        <!-- Featured card grid -->
+      <div class="lp-fff__cards" id="lp-fff-random-cards">
       </div>
+      <!-- GLOSSARY TEASER -->
+      <section class="lp-gloss-teaser fade-block">
+        <div class="lp-section-head">
+          <h2 class="lp-section-head__title">Glossary Spotlight</h2>
+          <div class="lp-section-head__line"></div>
+          <a href="/quill-and-terms.html" class="lp-section-head__link">Full Glossary →</a>
+        </div>
+        <div class="lp-gloss-grid">
+          <div class="lp-gloss-entry">
+            <div class="lp-gloss-entry__term">Wake of Steel</div>
+            <div class="lp-gloss-entry__def">An event in Solstitheian history where swarms of metallic demons emerged from fissures in the earth, seeking to consume everything with their Corrosion.</div>
+            <a href="/quill-and-terms.html#w" class="lp-gloss-entry__more">Read more →</a>
+          </div>
+          <div class="lp-gloss-entry lp-gloss-entry--offset">
+            <div class="lp-gloss-entry__term">Woodsworn</div>
+            <div class="lp-gloss-entry__def">A race of wooden constructs created by and adhering to the god Hiebrief — identifiable by their humanoid appearance, wooden plating, and mask-like faces.</div>
+            <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html" class="lp-gloss-entry__more">Read more →</a>
+          </div>
+          <div class="lp-gloss-entry">
+            <div class="lp-gloss-entry__term">Shroud of Aurum</div>
+            <div class="lp-gloss-entry__def">The conic barrier of light cast by the Circlet of the Sun encompassing all of Edelith, granting immortality to select creatures within its boundary.</div>
+            <a href="/quill-and-terms.html#s" class="lp-gloss-entry__more">Read more →</a>
+          </div>
+          <div class="lp-gloss-entry lp-gloss-entry--offset">
+            <div class="lp-gloss-entry__term">Steelside Legion</div>
+            <div class="lp-gloss-entry__def">A battalion of metal-wielding soldiers in Post-Wake Edelith promoting repulsion of demons and regional stability. Known for their Thunderstroke weaponry.</div>
+            <a href="/fun-fact-friday/whispers-of-an-angel/steelside-legion.html" class="lp-gloss-entry__more">Read more →</a>
+          </div>
+        </div>
+      </section>
     </div>
     <!-- end .lp-lower -->
 
@@ -438,14 +463,13 @@
   <!-- end .all-content -->
 </div>
 <!-- end .outer -->
+</div>
 <footer-block class="fade-block"></footer-block>
 
 <!-- ─── SEARCH ─────────────────────────────────────────── -->
 <script>
   let searchData = [];
-  const loadSearch = () => fetch('/search-data.json').then(r=>r.json()).then(d=>{searchData=d;});
-  if ('requestIdleCallback' in window) { requestIdleCallback(loadSearch); }
-  else { window.addEventListener('load', loadSearch); }
+  fetch('/search-data.json').then(r=>r.json()).then(d=>{searchData=d;});
   const input = document.getElementById('search-input');
   const res   = document.getElementById('search-results');
   if(input){
@@ -467,43 +491,6 @@
   }
 </script>
 
-<!-- ─── RSS: loaded after page is interactive ─────────── -->
-<script>
-window.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('rss-container');
-  if (!container) return;
-
-  try {
-    const res = await fetch('/feed.xml');
-    const text = await res.text();
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, "text/xml");
-
-    const items = [...xml.querySelectorAll("item")].slice(0, 5);
-
-    if (!items.length) {
-      container.innerHTML = '<p>No posts found.</p>';
-      return;
-    }
-
-    container.innerHTML = items.map(item => {
-      const title = item.querySelector("title")?.textContent ?? "Untitled";
-      const link  = item.querySelector("link")?.textContent ?? "#";
-
-      return `
-        <a href="${link}" style="display:block; margin-bottom:6px;">
-          ${title}
-        </a>
-      `;
-    }).join("");
-
-  } catch (err) {
-    console.error(err);
-    container.innerHTML = '<p style="font-size:0.6rem;color:var(--fog-dim);">Could not load feed.</p>';
-  }
-});
-</script>
 
 <!-- ─── FFF RANDOM LORE ────────────────────────────────── -->
 <script>
@@ -512,7 +499,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     { text: "In the current, stagnant movement of Edelith and grander Solstitheo, the New Lights have seemingly won out in the end. Most New Light, including those whom arrived during or after the Wake of Steel, now entirely comprise the Western Fringe or have begun ventures in the emerging city-states of New Arvegum, The Sootstrick Borough, or the Ardeat Citadel...", source: "— THE OLD LIGHTS AND THE NEW LIGHTS" },
     { text: "Subject recovered by Frs. ███████ approximately ten (10) leagues west of the Grand Canal, Western Fringe. Upon discovery, subject exhibited advanced malnutrition and visible Corrosion degradation. Estimated biological age: ~20 years. Right arm displayed pre-existing prosthetic graft of unknown make...", source: "— ALLOY RUSTY" },
     { text: "The Steelside Legion aims to restore order to the disorganized city of Edelith. They are first responders; handling most demonic threats that linger near the sparse settlements. While officially, they claim no ties to the governance of a new nation or any politics whatsoever, most communities keep them around for policing without too much of a worry. Though, heretics still be heretics...", source: "— THE STEELSIDE LEGION" },
-    { text: "According to local legend, following the ravaging of Old Arvegum, the refugees fled at the horrific sight of these hellspawn into the outer town. Trailing them down was a creature only known as \"The Beast,\" a bloodthirsty paragon of demonkind. As it encroached upon the broken streets and burning buildings, a sudden spark of fire burst within the air, and in one cut, the Beast was beheaded...", source: "— DEMONOLOGY OF EDELITH" },
+    { text: "According to local legend, following the ravaging of Old Arvegum, the refugees fled at the horrific sight of these hellspawn into the outer town. Trailing them down was a creature only known as “The Beast,” a bloodthirsty paragon of demonkind. As it encroached upon the broken streets and burning buildings, a sudden spark of fire burst within the air, and in one cut, the Beast was beheaded...", source: "— DEMONOLOGY OF EDELITH" },
     { text: "A puppet crafted from the Shrouded Goddess of Deceit, Hiebrief, the jester wished more from life than his mundane serfdom. So, within the darkness of night, the Grand Beast approached Rotcio. Rotcio's silver tongue worked as he condemned his entire race to be the first fauna vessels of Corrosion, servants to the Beast.", source: "— THE SAINTS OF THE CORROSION" },
   ];
   window.addEventListener('DOMContentLoaded', function(){
@@ -530,6 +517,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 (async function () {
   const container = document.getElementById('lp-fff-random-cards');
   if (!container) return;
+
+  // Skeletons
   for (let i = 0; i < 4; i++) {
     const skel = document.createElement('div');
     skel.className = 'lp-fff__card lp-fff__card--skel' + (i === 0 ? ' lp-fff__card--feature' : '');
@@ -542,25 +531,35 @@ window.addEventListener('DOMContentLoaded', async () => {
       </div>`;
     container.appendChild(skel);
   }
+
   let entries;
   try {
     const CACHE_KEY = 'fff_entries_v1';
     const cached = sessionStorage.getItem(CACHE_KEY);
-    if (cached) { entries = JSON.parse(cached); }
-    else {
+    if (cached) {
+      entries = JSON.parse(cached);
+    } else {
       const res = await fetch('/data/fff-entries.json');
       entries = await res.json();
       sessionStorage.setItem(CACHE_KEY, JSON.stringify(entries));
     }
-  } catch (e) { console.error('[FFF Random] Could not load entries:', e); container.innerHTML = ''; return; }
+  } catch (e) {
+    console.error('[FFF Random] Could not load entries:', e);
+    container.innerHTML = '';
+    return;
+  }
+
   for (let i = entries.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [entries[i], entries[j]] = [entries[j], entries[i]];
   }
   const picks = entries.slice(0, 4);
+
   container.innerHTML = '';
   picks.forEach((entry, i) => {
+    // Build the tags HTML from the entry's tags array
     const tagsHTML = entry.tags.map(t => `<span class="news-tag">${t}</span>`).join('');
+
     const a = document.createElement('a');
     a.href = entry.link;
     a.className = 'lp-fff__card' + (i === 0 ? ' lp-fff__card--feature' : '');
@@ -571,7 +570,10 @@ window.addEventListener('DOMContentLoaded', async () => {
           <div class="news-content">
             <h5 class="news-author">${entry.author}</h5>
             <h3 class="news-title">${entry.title}</h3>
-            <div class="news-meta">${tagsHTML}<span class="news-date">${entry.displayDate}</span></div>
+            <div class="news-meta">
+              ${tagsHTML}
+              <span class="news-date">${entry.displayDate}</span>
+            </div>
           </div>
         </div>
       </a>`;
@@ -580,126 +582,208 @@ window.addEventListener('DOMContentLoaded', async () => {
 })();
 </script>
 
-<!-- ─── RANDOM CHARACTER ──────────────────────────────── -->
+<!-- ───  RANDOM CHARACTER ────────────────────────────────── -->
+<!-- ─── RANDOM CHARACTER ────────────────────────────────── -->
 <script>
   window.addEventListener('DOMContentLoaded', function () {
     CharLoader.embed({
       containerId: 'randomCharContainer',
-      filter: '*', limit: 1,
+      filter: '*',
+      limit: 1,
       dataUrl: '/data/characters.json',
       shuffle: true
     });
   });
 </script>
-
+<!-- ═══════════════════════════════════════════════════
+     NEW SECTION STYLES
+     (home.css handles all original styles;
+      only new lp- classes defined here)
+═══════════════════════════════════════════════════ -->
 <style>
-/* ══════════════════════════════════════════════════
-   LP- COMPONENT STYLES
-══════════════════════════════════════════════════ */
-
 .random-char-card {
   display: block; position: relative;
   width: 100%; height: 140px; overflow: hidden;
-  border: 1px solid var(--gold-dim); text-decoration: none;
+  border: 1px solid var(--gold-dim);
+  text-decoration: none;
   transition: border-color 0.3s ease;
 }
 .random-char-card:hover { border-color: var(--gold); }
+
 .random-char-bg {
-  position: absolute; inset: 0; background-size: cover; background-position: top center;
-  filter: saturate(0.7); transition: filter 0.3s ease, transform 0.3s ease;
+  position: absolute; inset: 0;
+  background-size: cover; background-position: top center;
+  filter: saturate(0.7);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 .random-char-card:hover .random-char-bg { filter: saturate(1); transform: scale(1.04); }
+
 .random-char-info {
-  position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px;
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 8px 10px;
   background: linear-gradient(transparent, rgba(0,0,0,0.82));
 }
-.random-char-name { font-family: var(--f-head); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--frost); }
-.random-char-race { font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
-
-/* ── Full-bleed at desktop only — reset at ≤900px ── */
+.random-char-name {
+  font-family: var(--f-head); font-size: 0.75rem;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--frost);
+}
+.random-char-race {
+  font-family: var(--f-label); font-size: 0.5rem;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8;
+}
+/* ── Full-bleed helper: break out of all-content's 28px padding ── */
 .lp-newcomer,
 .lp-bento,
 .lp-ticker {
   margin-left: -28px;
   margin-right: -28px;
 }
+
+/* ── Space between the .main top section and what follows ── */
 .main { margin-bottom: 0; }
 
 /* ══════════════════════════════════════════════════
    NEWCOMER BANNER
 ══════════════════════════════════════════════════ */
 .lp-newcomer {
-  background: linear-gradient(105deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 60%, transparent 100%);
-  border-top: 1px solid rgba(201,168,76,0.2);
-  border-bottom: 1px solid rgba(201,168,76,0.15);
-  border-left: 4px solid var(--gold);
-  padding: 7px 22px 9px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 24px;
-  align-items: center;
-  margin-top: 22px;
-  /* removed fixed height — use min-height so content can wrap */
-  min-height: 80px;
+    background: linear-gradient(105deg, rgba(201, 168, 76, 0.08) 0%, rgba(201, 168, 76, 0.02) 60%, transparent 100%);
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    border-left: 4px solid var(--gold);
+    padding: 7px 22px 9px;
+    display: grid;
+    right: -29px;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    margin-top: 22px;
+    position: relative;
+    width: 100%;
+    height: 189px;
 }
+
 .lp-newcomer__badge {
-  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 5px;
-  text-transform: uppercase; color: var(--ink); background: var(--gold);
-  padding: 6px 10px; writing-mode: vertical-rl; transform: rotate(180deg);
-  white-space: nowrap; align-self: stretch;
+  font-family: var(--f-label);
+  font-size: 0.5rem; letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 6px 10px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  align-self: stretch;
   display: flex; align-items: center; justify-content: center;
 }
-.lp-newcomer__body p { font-family: var(--f-body); font-size: 0.95rem; line-height: 1.75; color: var(--fog); margin: 0; }
+
+.lp-newcomer__body p {
+  font-family: var(--f-body);
+  font-size: 0.95rem; line-height: 1.75;
+  color: var(--fog); margin: 0;
+}
 .lp-newcomer__body strong { color: var(--gold); }
-.lp-newcomer__pillars { display: flex; gap: 10px; }
+
+.lp-newcomer__pillars {
+  display: flex; gap: 10px;
+}
 
 .lp-pillar {
   display: flex; flex-direction: column; align-items: center; gap: 5px;
-  padding: 12px 14px; border: 1px solid rgba(201,168,76,0.2);
-  background: rgba(0,0,0,0.25); text-decoration: none;
-  transition: all 0.3s ease; min-width: 88px; text-align: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(0,0,0,0.25);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  min-width: 88px; text-align: center;
   cursor: var(--cursor-hover);
 }
-.lp-pillar:hover { border-color: var(--gold); background: var(--gold-pale); transform: translateY(-4px); color: inherit; }
+.lp-pillar:hover {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  transform: translateY(-4px);
+  color: inherit;
+}
 .lp-pillar i { color: var(--gold); font-size: 1.05rem; margin-bottom: 2px; }
 .lp-pillar strong { font-family: var(--f-head); font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: var(--frost); display: block; }
 .lp-pillar span { font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 1px; text-transform: uppercase; color: var(--fog-dim); }
+
 .lp-pillar--game { border-color: rgba(120,180,140,0.25); }
 .lp-pillar--game i { color: #7eb89a; }
 .lp-pillar--game:hover { border-color: #7eb89a; background: rgba(120,180,140,0.08); }
 
-/* ══════════════════════════════════════════════════
-   BENTO GRID
-══════════════════════════════════════════════════ */
-.lp-bento { padding: 26px 28px 24px; border-bottom: 1px solid rgba(201,168,76,0.12); margin-top: 0; }
-.lp-bento__label { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
-.lp-bento__label span { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); opacity: 0.65; white-space: nowrap; flex-shrink: 0; }
-.lp-bento__label-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-dim), transparent); }
 
+/* ══════════════════════════════════════════════════
+   BENTO NAVIGATION GRID
+══════════════════════════════════════════════════ */
+.lp-bento {
+  padding: 26px 28px 24px;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  margin-top: 0;
+}
+
+.lp-bento__label {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 18px;
+}
+.lp-bento__label span {
+  font-family: var(--f-label);
+  font-size: 0.56rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.65;
+  white-space: nowrap; flex-shrink: 0;
+}
+.lp-bento__label-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+
+/* 4-column asymmetric grid
+   Col1(2fr): Recap tall     — rows 1-2
+   Col2(1.1fr): Chars row1, Quill row2
+   Col3(1fr): Beastiary row1, Edelithle row2
+   Col4(1.4fr): FFF tall    — rows 1-2
+*/
 .lp-bento__grid {
   display: grid;
   grid-template-columns: 2fr 1.1fr 1fr 1.4fr;
   grid-template-rows: 200px 145px;
   gap: 10px;
 }
-.lp-tile:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
-.lp-tile:nth-child(2) { grid-column: 2; grid-row: 1; }
-.lp-tile:nth-child(3) { grid-column: 2; grid-row: 2; }
-.lp-tile:nth-child(4) { grid-column: 3; grid-row: 1; }
-.lp-tile:nth-child(5) { grid-column: 3; grid-row: 2; }
-.lp-tile:nth-child(6) { grid-column: 4; grid-row: 1 / 3; }
 
+/* nth-child tile positioning */
+.lp-tile:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }   /* Recap — tall */
+.lp-tile:nth-child(2) { grid-column: 2; grid-row: 1; }        /* Characters */
+.lp-tile:nth-child(3) { grid-column: 2; grid-row: 2; }        /* Quill */
+.lp-tile:nth-child(4) { grid-column: 3; grid-row: 1; }        /* Beastiary */
+.lp-tile:nth-child(5) { grid-column: 3; grid-row: 2; }        /* Edelithle */
+.lp-tile:nth-child(6) { grid-column: 4; grid-row: 1 / 3; }   /* FFF — tall */
+
+/* Base tile */
 .lp-tile {
   position: relative; overflow: hidden;
-  border: 1px solid rgba(201,168,76,0.2); padding: 16px 14px 13px;
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 16px 14px 13px;
   display: flex; flex-direction: column; justify-content: flex-end;
-  text-decoration: none; transition: all 0.32s ease;
-  cursor: var(--cursor-hover); background: var(--ink-light);
+  text-decoration: none;
+  transition: all 0.32s ease;
+  cursor: var(--cursor-hover);
+  background: var(--ink-light);
 }
-.lp-tile:hover { border-color: var(--gold); transform: scale(1.018); z-index: 3; box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 18px rgba(201,168,76,0.14); color: inherit; }
+.lp-tile:hover {
+  border-color: var(--gold);
+  transform: scale(1.018);
+  z-index: 3;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 18px rgba(201,168,76,0.14);
+  color: inherit;
+}
 .lp-tile:hover .lp-tile__bg { opacity: 0.35; transform: scale(1.06); }
 .lp-tile:hover .lp-tile__arrow { transform: translateX(4px); color: var(--gold); }
-.lp-tile__bg { position: absolute; inset: 0; opacity: 0.16; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 0; }
+
+.lp-tile__bg {
+  position: absolute; inset: 0;
+  opacity: 0.16; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 0;
+}
+
+/* Color variants */
 .lp-tile--blue   { background: linear-gradient(145deg, var(--ink-light), #181e2c); border-color: rgba(80,110,180,0.22); }
 .lp-tile--blue:hover { border-color: rgba(100,140,220,0.55); }
 .lp-tile--warm   { background: linear-gradient(145deg, var(--ink-light), #261b0e); }
@@ -709,147 +793,519 @@ window.addEventListener('DOMContentLoaded', async () => {
 .lp-tile--game:hover { border-color: rgba(120,190,145,0.55); }
 .lp-tile--red    { background: linear-gradient(145deg, var(--ink-light), #251212); border-color: rgba(160,55,55,0.22); }
 .lp-tile--red:hover { border-color: rgba(200,70,70,0.5); }
-.lp-tile__tag { position: absolute; top: 11px; left: 12px; font-family: var(--f-label); font-size: 0.46rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.65; border: 1px solid rgba(201,168,76,0.28); padding: 2px 6px; z-index: 2; }
-.lp-tile__tag--game { color: #7eb89a; opacity: 0.8; border-color: rgba(120,180,140,0.3); }
-.lp-tile__name { font-family: var(--f-head); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--frost); margin: 0 0 3px; position: relative; z-index: 2; }
-.lp-tile:nth-child(1) .lp-tile__name, .lp-tile:nth-child(6) .lp-tile__name { font-size: 1.1rem; }
-.lp-tile__desc { font-family: var(--f-body); font-size: 0.8rem; line-height: 1.55; color: var(--fog-dim); margin: 0 0 4px; position: relative; z-index: 2; }
+
+.lp-tile__tag {
+  position: absolute; top: 11px; left: 12px;
+  font-family: var(--f-label); font-size: 0.46rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.65;
+  border: 1px solid rgba(201,168,76,0.28); padding: 2px 6px; z-index: 2;
+}
+.lp-tile__tag--game {
+  color: #7eb89a; opacity: 0.8;
+  border-color: rgba(120,180,140,0.3);
+}
+
+.lp-tile__name {
+  font-family: var(--f-head); font-size: 0.9rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--frost); margin: 0 0 3px;
+  position: relative; z-index: 2;
+}
+.lp-tile:nth-child(1) .lp-tile__name,
+.lp-tile:nth-child(6) .lp-tile__name { font-size: 1.1rem; }
+
+.lp-tile__desc {
+  font-family: var(--f-body); font-size: 0.8rem; line-height: 1.55;
+  color: var(--fog-dim); margin: 0 0 4px;
+  position: relative; z-index: 2;
+}
 .lp-tile__desc--sm { font-size: 0.74rem; }
-.lp-tile__arrow { font-size: 0.85rem; color: var(--gold-dim); position: absolute; bottom: 13px; right: 14px; transition: transform 0.25s ease, color 0.25s ease; z-index: 2; }
+
+.lp-tile__arrow {
+  font-size: 0.85rem; color: var(--gold-dim);
+  position: absolute; bottom: 13px; right: 14px;
+  transition: transform 0.25s ease, color 0.25s ease; z-index: 2;
+}
+
 
 /* ══════════════════════════════════════════════════
    LORE TICKER
 ══════════════════════════════════════════════════ */
-.lp-ticker { overflow: hidden; background: var(--void); border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 9px 0; position: relative; }
-.lp-ticker::before, .lp-ticker::after { content: ""; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
+.lp-ticker {
+  overflow: hidden;
+  background: var(--void);
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 9px 0;
+  position: relative;
+}
+.lp-ticker::before, .lp-ticker::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+}
 .lp-ticker::before { left: 0; background: linear-gradient(90deg, var(--void), transparent); }
 .lp-ticker::after  { right: 0; background: linear-gradient(270deg, var(--void), transparent); }
-.lp-ticker__track { display: inline-flex; align-items: center; gap: 22px; white-space: nowrap; animation: lp-tick 44s linear infinite; }
-.lp-ticker__track span { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 3px; text-transform: uppercase; color: var(--fog-dim); }
+
+.lp-ticker__track {
+  display: inline-flex; align-items: center; gap: 22px;
+  white-space: nowrap;
+  animation: lp-tick 44s linear infinite;
+}
+.lp-ticker__track span {
+  font-family: var(--f-label);
+  font-size: 0.56rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--fog-dim);
+}
 .lp-tick-dot { color: var(--gold-dim) !important; font-size: 0.32rem !important; }
 @keyframes lp-tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
 /* ══════════════════════════════════════════════════
-   LOWER WRAPPER
+   LOWER CONTENT WRAPPER
 ══════════════════════════════════════════════════ */
 .lp-lower {
   display: flex; flex-direction: column; gap: 28px;
-  /* Use clamp so padding scales down automatically */
-  padding: 28px clamp(12px, 3vw, 41px) 42px;
+  padding-top: 28px;
+  padding: 8px 41px 42px;
 }
-.griddy { display: grid; grid-template-columns: 74% 23%; gap: 20px; }
+
+.griddy {
+    display: grid;
+    grid-template-columns: 74% 23%;
+    gap: 20px;
+}
 
 /* ══════════════════════════════════════════════════
-   ALMANAC
+   Almanac book
 ══════════════════════════════════════════════════ */
-.almanac { grid-area: almanac; min-height: 250px; margin-top: 10px; }
-.almanac .box { padding: 1rem; background-color: transparent; width: 100%; }
-.almanac .box a { display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative; }
-.solsitheian-almanac { width: 100%; max-width: 400px; aspect-ratio: 5 / 3; }
-.journal { background-image: url(/assets/img/homepage/guestbookbook.png); background-repeat: no-repeat; background-size: contain; width: 100%; aspect-ratio: 300 / 213; position: relative; z-index: 3; transition: transform 0.3s ease; }
-.quilliam-bookmark { background-image: url(/assets/img/homepage/booglepeek.png); background-repeat: no-repeat; background-size: contain; width: 90px; aspect-ratio: 9 / 10; position: absolute; top: 10%; left: 8%; z-index: 2; transform: translateY(0) translateX(0); transition: transform 0.3s ease; }
-.almanac a:hover .quilliam-bookmark { transform: translateY(-40px) translateX(-30px); }
-.almanac a:hover .journal-link { transform: rotate(-10deg); }
-.almanac a:hover .journal { transform: scale(1.03); }
-.journal-link { font-family: var(--f-italic); font-style: italic; font-size: clamp(0.9rem, 2.5vw, 1.1rem); color: var(--frost); transition: transform 0.3s ease; display: block; z-index: 10; text-align: center; margin-top: 0.5rem; }
+.almanac {
+    grid-area: almanac;
+    min-height: 250px;
+    margin-top: 10px;
+}
+
+/* Box stays flexible */
+.almanac .box {
+    padding: 1rem;
+    background-color: transparent;
+    width: 100%;
+}
+
+/* Center content cleanly */
+.almanac .box a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Responsive scaling */
+.solsitheian-almanac {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 5 / 3;
+}
+
+/* Journal (main visual) */
+.journal {
+    background-image: url(/assets/img/homepage/guestbookbook.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    aspect-ratio: 300 / 213;
+    position: relative;
+    z-index: 3;
+    transition: transform 0.3s ease;
+}
+
+/* Bookmark */
+.quilliam-bookmark {
+    background-image: url(/assets/img/homepage/booglepeek.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90px;
+    aspect-ratio: 9 / 10;
+    position: absolute;
+    top: 10%;
+    left: 8%;
+    z-index: 2;
+
+    transform: translateY(0) translateX(0);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effects (desktop only feel) */
+.almanac a:hover .quilliam-bookmark {
+    transform: translateY(-40px) translateX(-30px);
+}
+
+.almanac a:hover .journal-link {
+    transform: rotate(-10deg);
+}
+
+.almanac a:hover .journal {
+    transform: scale(1.03);
+}
+
+/* Text */
+.journal-link {
+    font-family: var(--f-italic);
+    font-style: italic;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--frost);
+    transition: transform 0.3s ease;
+    display: block;
+    z-index: 10;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.bg {
+  position: absolute;
+  width: 100%; height: 100%; z-index: -1;
+  background-size: cover; background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card {
+  display: block;
+  margin: 25px;
+  height: 450px; width: 260px;
+  border-radius: 0;
+  background: transparent;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.24s ease-in-out;
+  text-decoration: none;
+}
+.card:hover {
+  box-shadow: 0 0 2rem rgba(147,115,65,0.25), 0 0 1.8rem rgba(0,0,0,0.75);
+  transform: scale(1.2);
+}
+.card:hover .card-info  { transform: translateY(0); border-color: rgb(147 115 65); }
+.card:hover .see-more   { border-top: 1px solid rgb(147 115 65); }
+
+.card-info {
+  display: flex; flex-direction: column;
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background-color: rgba(17,19,24,0.88);
+  border-top: 1px solid rgb(147 115 65);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  transform: translateY(46px);
+  transition: transform 0.28s ease-in-out, border-color 0.25s ease-in-out;
+  will-change: transform;
+}
+
+.card-info-section { display: flex; height: 100%; width: 100%; }
+
+.card-info__faction {
+  flex: 2; height: 65px;
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column;
+  font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(81,66,46,0.5);
+  font-weight: 700;
+}
+.card-info__name   { color: #937341; font-size: 15px; text-align: center; }
+.card-info__region { color: #c4b998; padding-top: 4px; }
+
+.see-more {
+  color: #937341;
+  display: flex; justify-content: center; align-items: center;
+  letter-spacing: 3px; text-transform: uppercase;
+  font-size: 9px; height: 46px;
+  border-top: 1px solid transparent;
+  transition: border-top 0.25s ease-in-out;
+}
+.arrow { margin-left: 8px; }
+.arrow svg { width: 12.5px; fill: #937341; }
 
 /* ══════════════════════════════════════════════════
    SESSION RECAP
 ══════════════════════════════════════════════════ */
 .lp-recap { overflow: hidden; height: 100%; }
-.lp-recap__header { padding: 18px 24px 14px; border-bottom: 1px dashed rgba(201,168,76,0.2); }
-.lp-recap__eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.lp-recap__arc-tag { font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.7; border: 1px solid rgba(201,168,76,0.3); padding: 2px 7px; }
+
+.lp-recap__header {
+  padding: 18px 24px 14px;
+  border-bottom: 1px dashed rgba(201,168,76,0.2);
+}
+.lp-recap__eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.lp-recap__arc-tag {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  border: 1px solid rgba(201,168,76,0.3); padding: 2px 7px;
+}
 .lp-recap__divider { color: var(--gold-dim); font-size: 0.44rem; }
-.lp-recap__session { font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px; text-transform: uppercase; color: var(--fog-dim); }
-.lp-recap__title-row { display: flex; align-items: baseline; justify-content: space-between; }
-.lp-recap__title { font-family: var(--f-display); font-size: 1.25rem; letter-spacing: 2px; color: var(--frost); margin: 0; background: none; padding: 0; border: none; }
-.lp-recap__all-link { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px; text-transform: uppercase; color: var(--fog-dim); transition: color 0.2s; }
+.lp-recap__session {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--fog-dim);
+}
+.lp-recap__title-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.lp-recap__title {
+  font-family: var(--f-display); font-size: 1.25rem; letter-spacing: 2px;
+  color: var(--frost); margin: 0; background: none; padding: 0; border: none;
+}
+.lp-recap__all-link {
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--fog-dim); transition: color 0.2s;
+}
 .lp-recap__all-link:hover { color: var(--gold); }
-.lp-recap__body { padding: 18px 24px; display: flex; gap: 22px; }
-.lp-recap__img { width: 169px; flex-shrink: 0; filter: saturate(0.75); align-self: flex-start; }
-.lp-recap__text { flex: 1; min-width: 0; } /* min-width:0 prevents text overflow in flex */
-.lp-recap__lede { font-family: var(--f-body); font-size: 0.97rem; line-height: 1.8; color: var(--fog); margin-bottom: 16px; }
-.lp-recap__lede::first-letter { font-family: var(--f-display); font-size: 3em; float: left; line-height: 0.82; margin-right: 8px; margin-top: 6px; color: var(--gold); }
-.lp-recap__two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; border-top: 1px dashed rgba(201,168,76,0.15); padding-top: 14px; }
-.lp-mini-label { font-family: var(--f-label); font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.lp-recap__body {
+  padding: 18px 24px; display: flex; gap: 22px;
+}
+.lp-recap__img {
+    width: 169px;
+    flex-shrink: 0;
+    filter: saturate(0.75);
+    align-self: flex-start;
+}
+.lp-recap__text { flex: 1; }
+
+.lp-recap__lede {
+  font-family: var(--f-body); font-size: 0.97rem; line-height: 1.8;
+  color: var(--fog); margin-bottom: 16px;
+}
+.lp-recap__lede::first-letter {
+  font-family: var(--f-display); font-size: 3em;
+  float: left; line-height: 0.82; margin-right: 8px; margin-top: 6px; color: var(--gold);
+}
+
+.lp-recap__two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  border-top: 1px dashed rgba(201,168,76,0.15); padding-top: 14px;
+}
+
+.lp-mini-label {
+  font-family: var(--f-label); font-size: 0.58rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
 .lp-mini-label i { font-size: 0.52rem; }
-.lp-recap__bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.lp-recap__bullets li { font-family: var(--f-body); font-size: 0.87rem; line-height: 1.55; color: var(--fog); padding-left: 14px; position: relative; }
-.lp-recap__bullets li::before { content: "◆"; position: absolute; left: 0; font-size: 0.43rem; color: var(--gold-dim); top: 6px; }
+
+.lp-recap__bullets {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.lp-recap__bullets li {
+  font-family: var(--f-body); font-size: 0.87rem; line-height: 1.55;
+  color: var(--fog); padding-left: 14px; position: relative;
+}
+.lp-recap__bullets li::before {
+  content: "◆"; position: absolute; left: 0;
+  font-size: 0.43rem; color: var(--gold-dim); top: 6px;
+}
 .lp-recap__bullets--thread li { font-family: var(--f-italic); font-style: italic; color: var(--fog-dim); }
 .lp-recap__bullets--thread li::before { content: "—"; font-style: normal; }
-.lp-arc-strip { padding: 13px 24px; border-top: 1px dashed rgba(201,168,76,0.2); background: rgba(0,0,0,0.22); }
-.lp-arc-strip__label { font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 10px; }
+
+/* Arc progress strip */
+.lp-arc-strip {
+  padding: 13px 24px;
+  border-top: 1px dashed rgba(201,168,76,0.2);
+  background: rgba(0,0,0,0.22);
+}
+.lp-arc-strip__label {
+  font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 10px;
+}
 .lp-arc-strip__arcs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .lp-arc { display: flex; flex-direction: column; gap: 4px; }
-.lp-arc__name { font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--fog-dim); }
+.lp-arc__name {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--fog-dim);
+}
 .lp-arc--active .lp-arc__name { color: var(--gold); }
 .lp-arc__bar { width: 100px; height: 3px; background: rgba(201,168,76,0.1); border-radius: 2px; }
 .lp-arc__fill { height: 100%; background: var(--gold-dim); border-radius: 2px; }
 .lp-arc--active .lp-arc__fill { background: var(--gold); }
 .lp-arc-arrow { color: var(--gold-dim); font-size: 0.65rem; opacity: 0.45; }
 
-/* ══════════════════════════════════════════════════
-   FUN FACT FRIDAY
-══════════════════════════════════════════════════ */
-.lp-fff__card--skel { pointer-events: none; }
-.lp-fff__skel-img { width: 100%; height: 116px; background: linear-gradient(90deg, var(--ink-light) 25%, rgba(201,168,76,0.06) 50%, var(--ink-light) 75%); background-size: 200% 100%; animation: lp-shimmer 1.4s infinite; }
-.lp-fff__card--feature .lp-fff__skel-img { height: 175px; }
-.lp-fff__skel-line { height: 12px; border-radius: 2px; margin-bottom: 8px; background: linear-gradient(90deg, var(--ink-light) 25%, rgba(201,168,76,0.06) 50%, var(--ink-light) 75%); background-size: 200% 100%; animation: lp-shimmer 1.4s infinite; }
-.lp-fff__skel-line--sm { width: 55%; height: 9px; }
-@keyframes lp-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
-.lp-fff__header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; padding-bottom: 11px; border-bottom: 2px solid var(--gold-dim); }
-.lp-fff__eyebrow { font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 4px; }
-.lp-fff__title { font-family: var(--f-display); font-size: 1.05rem; letter-spacing: 2px; color: var(--frost); margin: 0; background: none; padding: 0; border: none; }
-.lp-fff__viewall { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px; text-transform: uppercase; color: var(--fog-dim); }
+/* ══════════════════════════════════════════════════
+   FUN FACT FRIDAY SECTION
+══════════════════════════════════════════════════ */
+.lp-fff { }
+
+
+/* ── FFF Skeleton shimmer ── */
+.lp-fff__card--skel { pointer-events: none; }
+.lp-fff__skel-img {
+  width: 100%; height: 116px;
+  background: linear-gradient(90deg, var(--ink-light) 25%, rgba(201,168,76,0.06) 50%, var(--ink-light) 75%);
+  background-size: 200% 100%;
+  animation: lp-shimmer 1.4s infinite;
+}
+.lp-fff__card--feature .lp-fff__skel-img { height: 175px; }
+.lp-fff__skel-line {
+  height: 12px; border-radius: 2px; margin-bottom: 8px;
+  background: linear-gradient(90deg, var(--ink-light) 25%, rgba(201,168,76,0.06) 50%, var(--ink-light) 75%);
+  background-size: 200% 100%;
+  animation: lp-shimmer 1.4s infinite;
+}
+.lp-fff__skel-line--sm { width: 55%; height: 9px; }
+@keyframes lp-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+
+
+.lp-fff__header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 16px; padding-bottom: 11px;
+  border-bottom: 2px solid var(--gold-dim);
+}
+.lp-fff__eyebrow {
+  font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 4px;
+}
+.lp-fff__title {
+  font-family: var(--f-display); font-size: 1.05rem; letter-spacing: 2px;
+  color: var(--frost); margin: 0; background: none; padding: 0; border: none;
+}
+.lp-fff__viewall {
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--fog-dim);
+}
 .lp-fff__viewall:hover { color: var(--gold); }
-.lp-fff__quote { padding: 15px 18px 13px 30px; background: linear-gradient(105deg, var(--ink-light), rgba(201,168,76,0.03)); border-left: 3px solid var(--gold); margin-bottom: 18px; }
+
+.lp-fff__quote {
+  padding: 15px 18px 13px 30px;
+  background: linear-gradient(105deg, var(--ink-light), rgba(201,168,76,0.03));
+  border-left: 3px solid var(--gold);
+  margin-bottom: 18px; position: relative;
+}
+
 .lp-fff__quote blockquote { margin: 0; padding: 0; }
-.lp-fff__quote p { font-family: var(--f-italic); font-style: italic; font-size: 1rem; line-height: 1.65; color: var(--frost); margin: 0 0 6px; }
-.lp-fff__quote cite { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px; color: var(--fog-dim); font-style: normal; display: block; text-align: right; }
-.lp-fff__cards { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 32px; }
-.lp-fff__card { display: flex; flex-direction: column; border: 1px solid var(--gold-dim); background: var(--ink); text-decoration: none; overflow: hidden; transition: all 0.3s ease; cursor: var(--cursor-hover); }
-.lp-fff__card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.7), 0 0 14px rgba(201,168,76,0.1); color: inherit; }
+.lp-fff__quote p {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 1rem; line-height: 1.65; color: var(--frost); margin: 0 0 6px;
+}
+.lp-fff__quote cite {
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px;
+  color: var(--fog-dim); font-style: normal; display: block; text-align: right;
+}
+
+/* FFF card grid: feature card tall-left, 3 regular right */
+.lp-fff__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+.lp-fff__card {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--gold-dim); background: var(--ink);
+  text-decoration: none; overflow: hidden;
+  transition: all 0.3s ease; cursor: var(--cursor-hover);
+}
+.lp-fff__card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.7), 0 0 14px rgba(201,168,76,0.1);
+  color: inherit;
+}
+
 .lp-fff__card img { width: 100%; object-fit: cover; filter: saturate(0.7); transition: filter 0.3s; }
+.lp-fff__card--feature img { height: 100%; }
 .lp-fff__card:hover img { filter: saturate(1); }
 .lp-fff__card-body { padding: 9px 11px 10px; flex: 1; }
-.lp-fff__card-pub { font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 3px; }
-.lp-fff__card-title { font-family: var(--f-head); font-size: 0.76rem; letter-spacing: 1px; text-transform: uppercase; color: var(--frost); line-height: 1.35; margin-bottom: 8px; }
+.lp-fff__card-pub {
+  font-family: var(--f-label); font-size: 0.49rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 3px;
+}
+.lp-fff__card-title {
+  font-family: var(--f-head); font-size: 0.76rem; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--frost); line-height: 1.35; margin-bottom: 8px;
+}
 .lp-fff__card-meta { display: flex; justify-content: space-between; align-items: center; }
-.lp-fff__tag { font-family: var(--f-label); font-size: 0.47rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-dim); padding: 1px 5px; }
-.lp-fff__date { font-family: var(--f-label); font-size: 0.47rem; letter-spacing: 1px; color: rgba(255,255,255,0.28); }
+.lp-fff__tag {
+  font-family: var(--f-label); font-size: 0.47rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--gold-dim); padding: 1px 5px;
+}
+.lp-fff__date {
+  font-family: var(--f-label); font-size: 0.47rem; letter-spacing: 1px;
+  color: rgba(255,255,255,0.28);
+}
+
 
 /* ══════════════════════════════════════════════════
    GLOSSARY TEASER
 ══════════════════════════════════════════════════ */
-.lp-section-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
-.lp-section-head__line { height: 1px; flex: 1; background: linear-gradient(90deg, var(--gold-dim), transparent); }
-.lp-section-head__title { font-family: var(--f-head); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); flex-shrink: 0; margin: 0; }
-.lp-section-head__link { font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px; text-transform: uppercase; color: var(--fog-dim); flex-shrink: 0; }
+.lp-gloss-teaser { }
+
+.lp-section-head {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
+}
+.lp-section-head__line {
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.lp-section-head__title {
+  font-family: var(--f-head); font-size: 0.7rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); flex-shrink: 0; margin: 0;
+}
+.lp-section-head__link {
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--fog-dim); flex-shrink: 0;
+}
 .lp-section-head__link:hover { color: var(--gold); }
-.lp-gloss-grid { display: grid; grid-template-columns: 1.1fr 0.95fr 1fr 1.05fr; gap: 12px; align-items: start; }
-.lp-gloss-entry { padding: 16px 16px 13px; background: var(--ink-light); border: 1px solid rgba(201,168,76,0.16); border-top: 2px solid var(--gold-dim); transition: border-top-color 0.25s ease, transform 0.3s ease; }
+
+.lp-gloss-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.95fr 1fr 1.05fr;
+  gap: 12px; align-items: start;
+}
+
+.lp-gloss-entry {
+  padding: 16px 16px 13px;
+  background: var(--ink-light);
+  border: 1px solid rgba(201,168,76,0.16);
+  border-top: 2px solid var(--gold-dim);
+  transition: border-top-color 0.25s ease, transform 0.3s ease;
+}
 .lp-gloss-entry:hover { border-top-color: var(--gold); transform: translateY(-4px); }
 .lp-gloss-entry--offset { margin-top: 18px; }
-.lp-gloss-entry__term { font-family: var(--f-head); font-size: 0.83rem; font-weight: 600; letter-spacing: 1px; color: var(--gold); margin-bottom: 7px; }
-.lp-gloss-entry__def { font-family: var(--f-body); font-size: 0.86rem; line-height: 1.65; color: var(--fog); margin-bottom: 10px; }
-.lp-gloss-entry__more { font-family: var(--f-label); font-size: 0.53rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+
+.lp-gloss-entry__term {
+  font-family: var(--f-head); font-size: 0.83rem; font-weight: 600;
+  letter-spacing: 1px; color: var(--gold); margin-bottom: 7px;
+}
+.lp-gloss-entry__def {
+  font-family: var(--f-body); font-size: 0.86rem; line-height: 1.65;
+  color: var(--fog); margin-bottom: 10px;
+}
+.lp-gloss-entry__more {
+  font-family: var(--f-label); font-size: 0.53rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold-dim);
+  border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
 .lp-gloss-entry__more:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* ══════════════════════════════════════════════════
-   RESPONSIVE — ≤ 1200px
+   RESPONSIVE
 ══════════════════════════════════════════════════ */
 @media (max-width: 1200px) {
-  .lp-bento__grid { grid-template-columns: 1.8fr 1.1fr 1fr; grid-template-rows: 200px 150px 140px; }
+  .lp-bento__grid {
+    grid-template-columns: 1.8fr 1.1fr 1fr;
+    grid-template-rows: 200px 150px 140px;
+  }
   .lp-tile:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
   .lp-tile:nth-child(2) { grid-column: 2; grid-row: 1; }
   .lp-tile:nth-child(3) { grid-column: 2; grid-row: 2; }
   .lp-tile:nth-child(4) { grid-column: 3; grid-row: 1; }
   .lp-tile:nth-child(5) { grid-column: 3; grid-row: 2; }
-  .lp-tile:nth-child(6) { grid-column: 1 / 4; grid-row: 3; }
+  .lp-tile:nth-child(6) { grid-column: 1 / 4; grid-row: 3; } /* FFF goes full-width bottom */
   .lp-fff__cards { grid-template-columns: 1.4fr 1fr 1fr; }
   .lp-fff__card--feature { grid-row: 1 / 3; }
   .lp-fff__cards .lp-fff__card:last-child { display: none; }
@@ -857,144 +1313,53 @@ window.addEventListener('DOMContentLoaded', async () => {
   .lp-gloss-entry--offset { margin-top: 0; }
 }
 
-/* ══════════════════════════════════════════════════
-   RESPONSIVE — ≤ 900px  (TABLET / LARGE MOBILE)
-   Critical: reset overflow-causing negative margins
-══════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .lp-newcomer { grid-template-columns: auto 1fr; }
+  .lp-newcomer__pillars { grid-column: 1 / 3; display: grid; grid-template-columns: repeat(4, 1fr); }
+}
+
 @media (max-width: 900px) {
-
-  /* ── Kill the negative margins; sections no longer need to bleed ── */
-  .lp-newcomer,
-  .lp-bento,
-  .lp-ticker {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  /* ── Newcomer: vertical stack ── */
+  /* Original .main collapses (home.css handles this via its own responsive) */
   .lp-newcomer {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    margin-left: 0; margin-right: 0;
     border-left-width: 3px;
-    min-height: auto;
-    padding: 16px 18px;
-    gap: 14px;
-    margin-top: 16px;
   }
-  .lp-newcomer__badge {
-    writing-mode: horizontal-tb;
-    transform: none;
-    align-self: auto;
-    padding: 5px 12px;
-    width: fit-content;
+  .lp-newcomer__badge { writing-mode: horizontal-tb; transform: none; align-self: auto; padding: 5px 12px; width: fit-content; }
+  .lp-newcomer__pillars { display: grid; grid-template-columns: 1fr 1fr; }
+  .lp-bento { margin-left: 0; margin-right: 0; }
+  .lp-ticker { margin-left: 0; margin-right: 0; }
+  .lp-bento__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 180px 140px 140px;
   }
-  .lp-newcomer__pillars {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  /* ── Bento: 2-col ── */
-  .lp-bento { padding: 20px 20px 18px; }
-  .lp-bento__grid { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 140px 140px; }
   .lp-tile:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
   .lp-tile:nth-child(2) { grid-column: 1; grid-row: 2; }
   .lp-tile:nth-child(3) { grid-column: 1; grid-row: 3; }
   .lp-tile:nth-child(4) { grid-column: 2; grid-row: 2; }
   .lp-tile:nth-child(5) { grid-column: 2; grid-row: 3; }
-  .lp-tile:nth-child(6) { grid-column: 1 / 3; grid-row: auto; }
-
-  /* ── Lower section ── */
-  .lp-lower { padding: 20px 16px 32px; }
-  .griddy { grid-template-columns: 1fr; gap: 16px; }
-
-  /* ── FFF: 2-up ── */
+  .lp-tile:nth-child(6) { grid-column: 1 / 3; grid-row: 4; grid-row: auto; }
   .lp-fff__cards { grid-template-columns: 1fr 1fr; }
   .lp-fff__card--feature { grid-column: 1 / 3; }
   .lp-fff__cards .lp-fff__card:last-child { display: flex; }
-
-  /* ── Glossary: 2-col ── */
   .lp-gloss-grid { grid-template-columns: 1fr 1fr; }
-  .lp-gloss-entry--offset { margin-top: 0; }
-
-  /* ── Recap ── */
   .lp-recap__body { flex-direction: column; }
-  .lp-recap__img { width: 100%; max-width: 180px; }
-  .lp-arc__bar { width: 80px; }
+  .lp-recap__img { width: 100%; max-width: 200px; }
 }
 
-/* ══════════════════════════════════════════════════
-   RESPONSIVE — ≤ 600px  (MOBILE)
-══════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-
-  /* ── Bento: still 2-col but shorter rows ── */
-  .lp-bento { padding: 14px 14px 12px; }
-  .lp-bento__grid { grid-template-rows: 140px 110px 110px; gap: 7px; }
-  /* hide descriptions on small tiles so names fit */
-  .lp-tile__desc { display: none; }
-  .lp-tile__name { font-size: 0.78rem; }
-  .lp-tile:nth-child(1) .lp-tile__name,
-  .lp-tile:nth-child(6) .lp-tile__name { font-size: 0.9rem; }
-
-  /* ── Newcomer pillars: 2×2 ── */
   .lp-newcomer__pillars { grid-template-columns: 1fr 1fr; }
-  .lp-pillar { min-width: 0; padding: 10px 8px; }
-
-  /* ── Lower: tighter padding ── */
-  .lp-lower { padding: 16px 10px 28px; }
-
-  /* ── FFF: 1-col ── */
+  .lp-bento__grid { grid-template-columns: 1fr; }
+  .lp-tile:nth-child(1), .lp-tile:nth-child(6) { grid-column: 1; grid-row: auto; }
   .lp-fff__cards { grid-template-columns: 1fr; }
   .lp-fff__card--feature { grid-column: 1; }
-  .lp-fff__cards .lp-fff__card:last-child { display: flex; }
-  .lp-fff__header { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .lp-fff__title { font-size: 0.9rem; }
-  .lp-fff__quote { padding: 12px 14px 10px 18px; }
-  .lp-fff__quote p { font-size: 0.9rem; }
-
-  /* ── Glossary: 1-col ── */
   .lp-gloss-grid { grid-template-columns: 1fr; }
   .lp-gloss-entry--offset { margin-top: 0; }
-  .lp-section-head { flex-wrap: wrap; }
-  .lp-section-head__line { display: none; }
-
-  /* ── Recap ── */
-  .lp-recap__header { padding: 12px 14px 10px; }
-  .lp-recap__body { padding: 12px 14px; }
-  .lp-recap__title { font-size: 0.95rem; }
-  .lp-recap__lede { font-size: 0.88rem; }
-  .lp-recap__lede::first-letter { font-size: 2.2em; }
-  .lp-recap__two-col { grid-template-columns: 1fr; gap: 12px; }
-  .lp-arc-strip { padding: 10px 14px; }
-  .lp-arc-strip__arcs { gap: 4px; }
-  .lp-arc__bar { width: 55px; }
-  .lp-arc__name { font-size: 0.43rem; }
+  .lp-recap__two-col { grid-template-columns: 1fr; }
+  .lp-arc-strip__arcs { gap: 5px; }
+  .lp-arc__bar { width: 60px; }
 }
 
-/* ══════════════════════════════════════════════════
-   RESPONSIVE — ≤ 400px  (VERY SMALL)
-══════════════════════════════════════════════════ */
-@media (max-width: 400px) {
-  /* Bento collapses to full single column */
-  .lp-bento__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .lp-tile:nth-child(1),
-  .lp-tile:nth-child(2),
-  .lp-tile:nth-child(3),
-  .lp-tile:nth-child(4),
-  .lp-tile:nth-child(5),
-  .lp-tile:nth-child(6) { grid-column: 1; grid-row: auto; min-height: 80px; }
-
-  .lp-newcomer__pillars { grid-template-columns: 1fr 1fr; }
-  .lp-lower { padding: 12px 8px 24px; }
-  .lp-fff__cards { grid-template-columns: 1fr; }
-  .lp-gloss-grid { grid-template-columns: 1fr; }
-
-  /* Arc strip: vertical flow on tiny screens */
-  .lp-arc-strip__arcs { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .lp-arc-arrow { transform: rotate(90deg); }
-  .lp-arc__bar { width: 100px; }
-}
 </style>
 
 </body>
