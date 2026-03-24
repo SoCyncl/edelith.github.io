@@ -1,0 +1,123 @@
+
+/* ── Highlighted term ─────────────────────────────────────────────────────── */
+.gloss-term {
+  color: #c9a84c;                          /* gold */
+  border-bottom: 1px dashed rgba(201, 168, 76, 0.5);
+  cursor: help;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.gloss-term:hover,
+.gloss-term:focus {
+  color: #e8c76a;
+  border-bottom-color: rgba(232, 199, 106, 0.8);
+  outline: none;
+}
+
+/* Terms that have a "see more" link get a subtle extra indicator */
+.gloss-term--linked::after {
+  content: '⁺';
+  font-size: 0.6em;
+  vertical-align: super;
+  margin-left: 1px;
+  opacity: 0.7;
+}
+
+
+/* ── Tooltip container ────────────────────────────────────────────────────── */
+.gloss-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  width: 280px;
+  pointer-events: auto;
+
+  /* Invisible by default; faded in by JS */
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.gloss-tooltip--visible {
+  opacity: 1 !important;
+}
+
+/* Inner box */
+.gloss-tooltip-inner {
+  background: #0e1218;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(201, 168, 76, 0.08) inset;
+  position: relative;
+
+  /* Subtle corner decoration */
+  background-image:
+    radial-gradient(circle at top right, rgba(201,168,76,0.04), transparent 60%);
+}
+
+/* Tiny notch/arrow pointing up */
+.gloss-tooltip-inner::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: #0e1218;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border-top: none;
+}
+
+/* Term label at top */
+.gloss-term-label {
+  font-family: var(--f-label, 'Cinzel', serif);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+/* Definition text */
+.gloss-definition {
+  font-family: var(--f-body, 'Georgia', serif);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #c8cdd4;
+  margin: 0 0 10px;
+}
+
+/* "See more" link */
+.gloss-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--f-label, 'Cinzel', serif);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.gloss-more:hover {
+  color: #e8c76a;
+  border-bottom-color: rgba(232, 199, 106, 0.7);
+}
+
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .gloss-tooltip {
+    width: calc(100vw - 24px);
+    max-width: 320px;
+  }
+}
