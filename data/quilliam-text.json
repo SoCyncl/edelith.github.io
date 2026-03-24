@@ -1,0 +1,105 @@
+{
+  "popIn": [
+    "Hmm. You seem to be struggling.",
+    "...I wasn't going to say anything... but.",
+    "Oi.",
+    "You have exhausted my patience.",
+    "Five. You've used five.",
+    "Free Palestine."
+  ],
+
+  "hint1Prefix": [
+    "Dayum okay, One clue:",
+    "Just this once. Pay attention",
+    "FAHHHHH",
+    "You get just one, maybe TWO hints..."
+  ],
+
+  "hint2Prefix": [
+    "Last one. And I mean it.",
+    "This is the final clue. Use it wisely.",
+    "One more.",
+    "FAHHH X2"
+  ],
+
+  "noHintWarning": [
+    "Okay. Now you won't get a hint!",
+    "Fuck you too.",
+    "No hint.",
+    "Right then. No hint.",
+    "You've made your bed."
+  ],
+
+  "hint2Interrupted": [
+    "You know what? Fine.",
+    "Alright. Be that way.",
+    "KYS",
+    "I give up."
+  ],
+
+  "insults": [
+    "Still going?",
+    "I've seen rocks guess better.",
+    "At this point I'm just entertained.",
+    "Have you considered giving up?",
+    "Spectacular. Truly.",
+    "So close that time.",
+    "Every guess I lose a little more faith.",
+    "Have you tried guessing someone you've actually met?",
+    "Don't you... y'know... PAY ATTENTION",
+    "Are you doing this on purpose?",
+    "At least you're consistent.",
+    "This is like watching someone argue with a door.",
+    "You're in the archive. The answers are LITERALLY in the archive.",
+    "I've started taking notes. Maybe you should have too."
+  ],
+
+  "shakeResponses": [
+    "PUT ME DOWN THIS INSTANT.",
+    "I am NOT a rattle!",
+    "Stop that! I have a SPINE, you know.",
+    "You absolute menace.",
+    "My pages are all out of order now!",
+    "EVERY single time—",
+    "This is completely undignified.",
+    "PUT. ME. DOWN."
+  ],
+
+  "clickIdle": [
+    "Stop poking me.",
+    "Don't do that.",
+    "You bum.",
+    "Oi!",
+    "EXCUSE me.",
+    "I'm busy.",
+    "Cut it out.",
+    "Must you?",
+    "Do you mind?",
+    "I am a book. A very important book.",
+    "Knock it off.",
+    "Was that necessary?",
+    "I am RIGHT here.",
+    "Please.",
+    "I Am Andrew Phillips."    
+  ],
+
+  "win": [
+    "You got it!",
+    "Finally! ",
+    "Well done.",
+    "You did it! Quilliam is... pleased.",
+    "YAAYYYYYYY.",
+    "Correct!",
+    "There it is. At last."
+  ],
+
+  "clickAfterWin": [
+    "Okay, you won. Go away.",
+    "You got it! Leave me alone now.",
+    "Shoo. You've had your fun.",
+    "The game is over. I'm off duty.",
+    "Go celebrate somewhere else.",
+    "Good DAY.",
+    "Please stop touching me."
+  ]
+}
