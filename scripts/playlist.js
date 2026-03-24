@@ -7,291 +7,369 @@ class playlist extends HTMLElement {
     connectedCallback() {
       this.innerHTML = `
             <style>
-      .ira {
-        	position: absolute;
-        	width: 359px;
-        	right: 25px;
-        	top: -177px;
-        	z-index: 100;
-        	max-width: 114%;
-        	cursor: pointer;
-        	transition: transform 0.3s ease;
-        	filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+          .ira {
+            position: absolute;
+            width: 340px;
+            right: 25px;
+            top: -160px;
+            z-index: 100;
+            max-width: 114%;
+            cursor: var(--cursor-hover);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+          }
+          .ira:hover {
+            transform: scale(1.04) rotate(1deg);
           }
           
-      .ira:hover {
-        	transform: scale(1.05);
+
+          .musicbox {
+            position: absolute;
+            right: 25px;
+            top: -0px;
+            width: 290px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+            transform: translateY(-6px);
+          
+
+            background: var(--ink-light);
+            border: 1px solid var(--gold-dim);
+            border-top: 2px solid var(--gold);
+            padding: 10px;                /* inner padding handled by .music-player */
+            z-index: 99;
+            position: absolute;        /* keep absolute for the toggle behaviour */
           }
           
-      .musicbox {
-        	position: absolute;
-        	right: 25px;
-        	top: -36px;
-        	width: 300px;
-        	opacity: 0;
-        	visibility: hidden;
-        	transition: opacity 0.3s ease, visibility 0.3s ease;
-        	background: var(--box-bg);
-        	border: 3px solid var(--box-br);
-        	border-radius: 8px;
-        	padding: 15px;
-        	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        	z-index: 99;
+
+          .musicbox::after {
+            content: ""; position: absolute; inset: 0;
+            pointer-events: none; z-index: 1;
+            background: var(--ink-mid);
+          
           }
           
-      .musicbox.visible {
-        	opacity: 1;
-        	visibility: visible;
+          .musicbox::before {
+          content: "NOW PLAYING";
+          font-family: var(--f-label);
+          font-size: 0.5rem;
+          letter-spacing: 4px;
+          color: var(--gold);
+          opacity: 0.6;
+          display: block;
+          margin-bottom: 6px;
+          text-align: center;
+         }
+
+          
+          .musicbox.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
           }
           
-      .music-player {
-        	color: var(--emphasized-text);
-        	font-family: inherit;
+          /* ── Inner player container ── */
+          .music-player {
+            position: relative;
+            z-index: 2;           /* above the ::after mask */
+            padding: 14px 16px 12px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
           }
           
-      .music-title {
-        	display: block;
-        	margin: 10px 0;
-        	padding: 8px 0;
-        	color: var(--emphasized-text);
-        	font-size: 0.95rem;
-        	border-bottom: 1px solid var(--box-br);
-        	white-space: nowrap;
-        	overflow: hidden;
-        	text-overflow: ellipsis;
-          }
-
-      /* Playlist accordion */
-      .playlist-accordion {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          margin: 10px 0;
-          max-height: 180px;
-          overflow-y: auto;
-          padding-right: 2px;
-      }
-
-      .playlist-accordion::-webkit-scrollbar {
-          width: 4px;
-      }
-      .playlist-accordion::-webkit-scrollbar-track {
-          background: var(--content-bg);
-          border-radius: 2px;
-      }
-      .playlist-accordion::-webkit-scrollbar-thumb {
-          background: var(--box-br);
-          border-radius: 2px;
-      }
-
-      .pl-category {
-          width: 100%;
-      }
-
-      .pl-category-btn {
-          width: 100%;
-          text-align: left;
-          padding: 7px 10px;
-          background: var(--nav-bg);
-          border: 2px solid var(--box-br);
-          border-radius: 4px;
-          color: var(--emphasized-text);
-          font-size: 0.85rem;
-          font-weight: bold;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: background 0.2s ease;
-          font-family: inherit;
-      }
-
-      .pl-category-btn:hover {
-          background: var(--content-bg);
-      }
-
-      .pl-category-btn .pl-arrow {
-          font-size: 0.7rem;
-          transition: transform 0.2s ease;
-          opacity: 0.7;
-      }
-
-      .pl-category-btn.open .pl-arrow {
-          transform: rotate(90deg);
-      }
-
-      .pl-songs {
-          display: none;
-          flex-direction: column;
-          gap: 2px;
-          margin-top: 2px;
-          padding-left: 8px;
-      }
-
-      .pl-songs.open {
-          display: flex;
-      }
-
-      .pl-song-btn {
-          width: 100%;
-          text-align: left;
-          padding: 5px 8px;
-          background: transparent;
-          border: 1px solid transparent;
-          border-radius: 3px;
-          color: var(--default-text);
-          font-size: 0.8rem;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          font-family: inherit;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-      }
-
-      .pl-song-btn:hover {
-          background: var(--content-bg);
-          border-color: var(--box-br);
-          color: var(--emphasized-text);
-      }
-
-      .pl-song-btn.playing {
-          color: var(--emphasized-text);
-          font-weight: bold;
-          border-color: var(--box-br);
-          background: var(--content-bg);
-      }
-
-      /* Transport controls row */
-      .music-controls {
-        	display: flex;
-        	flex-wrap: wrap;
-        	gap: 8px;
-        	margin: 10px 0 0 0;
-        	align-items: center;
+          /* "NOW PLAYING" label */
+          .music-player > h2 {
+            font-family: var(--f-label);
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+            margin: 0 0 6px;
+            background: none;
+            border: none;
+            padding: 7px    text-align: center;;
           }
           
-      .music-controls button {
-        	flex: 1;
-        	padding: 8px 0;
-        	background: var(--nav-bg);
-        	border: 2px solid var(--box-br);
-        	border-radius: 4px;
-        	color: var(--emphasized-text);
-        	cursor: pointer;
-        	transition: all 0.2s ease;
-          font-family: inherit;
+          /* ── Track title — marquee strip ── */
+          .music-title-wrap {
+            overflow: hidden;
+            border-bottom: 1px dashed rgba(201,168,76,0.25);
+            border-top: 1px dashed rgba(201,168,76,0.25);
+            padding: 6px 0;
+            margin-bottom: 10px;
           }
           
-      .music-controls button:hover {
-        	background: var(--content-bg);
-        	color: white;
+          .music-title {
+            display: inline-block;
+            white-space: nowrap;
+            animation: music-marquee 18s linear infinite;
+            font-family: var(--f-head);          /* Cinzel */
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--frost);
+            padding-right: 30px;
           }
           
-      .volume-control {
-        	display: flex;
-        	align-items: center;
-        	gap: 8px;
-        	margin-top: 10px;
+          @keyframes music-marquee {
+            0%   { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
           }
           
-      .volume-control i {
-        	color: var(--emphasized-text);
-        	font-size: 0.9rem;
+          /* ── Accordion playlist ── */
+          .playlist-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-bottom: 10px;
+            max-height: 170px;
+            overflow-y: auto;
+            padding-right: 2px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-dim) transparent;
+          }
+          .playlist-accordion::-webkit-scrollbar { width: 3px; }
+          .playlist-accordion::-webkit-scrollbar-track { background: transparent; }
+          .playlist-accordion::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+          
+          .pl-category { width: 100%; }
+          
+          /* Category header button */
+          .pl-category-btn {
+            width: 100%;
+            text-align: left;
+            padding: 6px 10px;
+            background: var(--void);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-left: 2px solid var(--gold-dim);
+            color: var(--fog);
+            font-family: var(--f-label);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: var(--cursor-hover);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s ease, color 0.2s ease;
+          }
+          .pl-category-btn:hover {
+            border-left-color: var(--gold);
+            color: var(--frost);
+          }
+          .pl-category-btn.open {
+            border-left-color: var(--gold);
+            color: var(--gold);
           }
           
-      .volume-control input[type="range"] {
-        	flex: 1;
-        	height: 4px;
-        	background: var(--content-bg);
-        	border-radius: 2px;
-        	-webkit-appearance: none;
+          .pl-arrow {
+            font-size: 0.5rem;
+            color: var(--gold-dim);
+            transition: transform 0.2s ease;
+          }
+          .pl-category-btn.open .pl-arrow {
+            transform: rotate(90deg);
+            color: var(--gold);
           }
           
-      .volume-control input[type="range"]::-webkit-slider-thumb {
-        	-webkit-appearance: none;
-        	width: 14px;
-        	height: 14px;
-        	border-radius: 50%;
-        	background: var(--emphasized-text);
-        	cursor: pointer;
+          /* Song list */
+          .pl-songs {
+            display: none;
+            flex-direction: column;
+            gap: 1px;
+            padding: 2px 0 2px 10px;
+            border-left: 1px dashed rgba(201,168,76,0.2);
+            margin-left: 2px;
+          }
+          .pl-songs.open { display: flex; }
+          
+          .pl-song-btn {
+            width: 100%;
+            text-align: left;
+            padding: 4px 8px;
+            background: transparent;
+            border: none;
+            color: var(--fog-dim);
+            font-family: var(--f-body);
+            font-size: 0.8rem;
+            cursor: var(--cursor-hover);
+            transition: color 0.15s ease, padding-left 0.15s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .pl-song-btn:hover {
+            color: var(--fog);
+            padding-left: 12px;
+          }
+          .pl-song-btn.playing {
+            color: var(--gold);
+            font-style: italic;
+          }
+          .pl-song-btn.playing::before {
+            content: "◆ ";
+            font-size: 0.45rem;
+            vertical-align: middle;
+            color: var(--gold);
           }
           
+          /* ── Transport controls ── */
+          .music-controls {
+            display: flex;
+            gap: 6px;
+            margin: 10px 0 8px;
+            align-items: center;
+          }
+          
+          .music-controls button {
+            flex: 1;
+            padding: 7px 0;
+            background: none;
+            border: 1px solid var(--gold-dim);
+            color: var(--gold-dim);
+            font-size: 0.75rem;
+            cursor: var(--cursor-hover);
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+            font-family: var(--f-label);
+          }
+          .music-controls button:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-pale);
+          }
+          
+          /* ── Volume ── */
+          .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          .volume-control i {
+            color: var(--gold-dim);
+            font-size: 0.75rem;
+            flex-shrink: 0;
+          }
+          .volume-control input[type="range"] {
+            flex: 1;
+            height: 3px;
+            background: rgba(201,168,76,0.2);
+            border-radius: 2px;
+            -webkit-appearance: none;
+            outline: none;
+          }
+          .volume-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: var(--cursor-hover);
+            border: 1px solid var(--gold-dim);
+            transition: background 0.2s ease;
+          }
+          .volume-control input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--frost);
+          }
+          .volume-control input[type="range"]::-moz-range-thumb {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: var(--cursor-hover);
+            border: 1px solid var(--gold-dim);
+          }
       </style>
-      <img class="fade-block ira" src="/assets/img/homepage/ira.webp" id="iraImage">
-        <div class="musicbox" id="musicBox">
-          <div class="music-player fade-block">
-            <h2>Now Playing</h2>
+      <img class="fade-block ira" src="/assets/img/homepage/ira.webp" id="iraImage" alt="Music">
+      
+      <div class="musicbox" id="musicBox">
+        <div class="music-player fade-block">
+      
+          <h2>Now Playing</h2>
+      
+          <!-- Track title marquee strip -->
+          <div class="music-title-wrap">
             <span id="music-title" class="music-title">Nothing Playing</span>
-
-            <!-- Accordion playlist -->
-            <div class="playlist-accordion" id="playlistAccordion">
-
-              <div class="pl-category">
-                <button class="pl-category-btn" onclick="toggleCategory(this)">
-                  Elden Ring Nightreign <span class="pl-arrow">&#9654;</span>
-                </button>
-                <div class="pl-songs">
-                  <button class="pl-song-btn" onclick="playSongByIndex(3, this)">Adel, Baron Of Night</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(4, this)">Gladius, Beast Of Night</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(5, this)">Heolstor the Nightlord</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(6, this)">Caligo, Miasma Of Night</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(7, this)">Libra, Creature Of Night</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(8, this)">Fulghor, Champion Of Nightglow</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(9, this)">Maris, Fathom Of Night</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(10, this)">Gnoster, Wisdom Of Night</button>
-                </div>
-              </div>
-
-              <div class="pl-category">
-                <button class="pl-category-btn" onclick="toggleCategory(this)">
-                  Final Fantasy <span class="pl-arrow">&#9654;</span>
-                </button>
-                <div class="pl-songs">
-                  <button class="pl-song-btn" onclick="playSongByIndex(11, this)">Beyond the Darkness — FFX</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(12, this)">Full Fathom Five — FFXIV</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(18, this)">Starless Skyline — FFXIV</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(13, this)">Galdin Quay — FFXV</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(14, this)">Hammerhead — FFXV</button>
-                </div>
-              </div>
-
-              <div class="pl-category">
-                <button class="pl-category-btn" onclick="toggleCategory(this)">
-                  RPG Maker <span class="pl-arrow">&#9654;</span>
-                </button>
-                <div class="pl-songs">
-                  <button class="pl-song-btn" onclick="playSongByIndex(15, this)">Lost Haven/Shillings — Fear &amp; Hunger 2</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(16, this)">Every Schoolday — Fear &amp; Hunger</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(17, this)">A Stab of Happiness — OFF</button>
-                </div>
-              </div>
-
-              <div class="pl-category">
-                <button class="pl-category-btn" onclick="toggleCategory(this)">
-                  Kirby <span class="pl-arrow">&#9654;</span>
-                </button>
-                <div class="pl-songs">
-                  <button class="pl-song-btn" onclick="playSongByIndex(0, this)">Ripple Field 2 — Dreamland 3</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(1, this)">Grassland 4 — Dreamland 3</button>
-                  <button class="pl-song-btn" onclick="playSongByIndex(2, this)">Friends 3 — Dreamland 3</button>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="music-controls">
-              <button onclick="rewindMusic()"><i class="fa-solid fa-backward-step"></i></button>
-              <button onclick="playPauseMusic()"><i class="fa-solid fa-play" id="playButton"></i></button>
-              <button onclick="ChangesongPlay()"><i class="fa-solid fa-forward-step"></i></button>
-            </div>
-            <div class="volume-control">
-              <i class="fa-solid fa-volume-high"></i>
-              <input type="range" min="0" max="1" step="0.01" value="0.25" class="volume-slider" id="volumeSlider" oninput="changeVolume()">
-            </div>
-            <audio id="music-tag" src=""></audio>
           </div>
+      
+          <!-- Accordion playlist -->
+          <div class="playlist-accordion" id="playlistAccordion">
+      
+            <div class="pl-category">
+              <button class="pl-category-btn" onclick="toggleCategory(this)">
+                Elden Ring Nightreign <span class="pl-arrow">&#9654;</span>
+              </button>
+              <div class="pl-songs">
+                <button class="pl-song-btn" onclick="playSongByIndex(3, this)">Adel, Baron Of Night</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(4, this)">Gladius, Beast Of Night</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(5, this)">Heolstor the Nightlord</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(6, this)">Caligo, Miasma Of Night</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(7, this)">Libra, Creature Of Night</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(8, this)">Fulghor, Champion Of Nightglow</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(9, this)">Maris, Fathom Of Night</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(10, this)">Gnoster, Wisdom Of Night</button>
+              </div>
+            </div>
+      
+            <div class="pl-category">
+              <button class="pl-category-btn" onclick="toggleCategory(this)">
+                Final Fantasy <span class="pl-arrow">&#9654;</span>
+              </button>
+              <div class="pl-songs">
+                <button class="pl-song-btn" onclick="playSongByIndex(11, this)">Beyond the Darkness — FFX</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(12, this)">Full Fathom Five — FFXIV</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(18, this)">Starless Skyline — FFXIV</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(13, this)">Galdin Quay — FFXV</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(14, this)">Hammerhead — FFXV</button>
+              </div>
+            </div>
+      
+            <div class="pl-category">
+              <button class="pl-category-btn" onclick="toggleCategory(this)">
+                RPG Maker <span class="pl-arrow">&#9654;</span>
+              </button>
+              <div class="pl-songs">
+                <button class="pl-song-btn" onclick="playSongByIndex(15, this)">Lost Haven / Shillings — Fear &amp; Hunger 2</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(16, this)">Every Schoolday — Fear &amp; Hunger</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(17, this)">A Stab of Happiness — OFF</button>
+              </div>
+            </div>
+      
+            <div class="pl-category">
+              <button class="pl-category-btn" onclick="toggleCategory(this)">
+                Kirby <span class="pl-arrow">&#9654;</span>
+              </button>
+              <div class="pl-songs">
+                <button class="pl-song-btn" onclick="playSongByIndex(0, this)">Ripple Field 2 — Dreamland 3</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(1, this)">Grassland 4 — Dreamland 3</button>
+                <button class="pl-song-btn" onclick="playSongByIndex(2, this)">Friends 3 — Dreamland 3</button>
+              </div>
+            </div>
+      
+          </div>
+          <!-- end accordion -->
+      
+          <!-- Transport -->
+          <div class="music-controls">
+            <button onclick="rewindMusic()"    title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+            <button onclick="playPauseMusic()" title="Play / Pause"><i class="fa-solid fa-play" id="playButton"></i></button>
+            <button onclick="ChangesongPlay()" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+          </div>
+      
+          <!-- Volume -->
+          <div class="volume-control">
+            <i class="fa-solid fa-volume-low"></i>
+            <input type="range" min="0" max="1" step="0.01" value="0.25"
+                   class="volume-slider" id="volumeSlider" oninput="changeVolume()">
+            <i class="fa-solid fa-volume-high"></i>
+          </div>
+      
+          <audio id="music-tag" src=""></audio>
+      
         </div>
+      </div>
       `;
       
       const iraImage = this.querySelector('#iraImage');
