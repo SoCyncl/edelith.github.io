@@ -1,0 +1,443 @@
+[
+  {
+    "id": "herb-passerine",
+    "name": "Herb Passerine",
+    "race": "Woodsworn",
+    "date": 1,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": "/characters/herb/index.html"
+  },
+  {
+    "id": "avao",
+    "name": "Avao",
+    "race": "Woodsworn",
+    "date": 1,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "peggle-krastov",
+    "name": "Peggle Krastov",
+    "race": "Goliath",
+    "date": 1,
+    "categories": ["main", "bjornguard"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "blobert-goopington",
+    "name": "Blobert Goopington",
+    "race": "Plasmoid",
+    "date": 1,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "eight-nanako",
+    "name": "Eight Nanako",
+    "race": "Dude",
+    "date": 1,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "baxter-kokayin",
+    "name": "Baxter Kokayin",
+    "race": "Wood Gnome",
+    "date": 2,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "mousse-b-bonic",
+    "name": "Mousse B. Bonic",
+    "race": "Rat",
+    "date": 13,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "tau-zervas",
+    "name": "Tau Zervas",
+    "race": "Changeling",
+    "date": 222,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "mathew",
+    "name": "Mathew",
+    "race": "Unknown",
+    "date": 26,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "pizzaz",
+    "name": "Pizzaz",
+    "race": "Feline",
+    "date": 22,
+    "categories": ["main"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "baylis",
+    "name": "Baylis",
+    "race": "Dragonborn",
+    "date": 3,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "skrapp",
+    "name": "Skrapp",
+    "race": "Kobold",
+    "date": 3,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "general-strom",
+    "name": "General Strom",
+    "race": "Human",
+    "date": 4,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "soko",
+    "name": "Soko",
+    "race": "Goblin",
+    "date": 4,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "thalor-vitric",
+    "name": "Thalor Vitric",
+    "race": "Crystallian",
+    "date": 5,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "khan-duster",
+    "name": "Khan Duster",
+    "race": "Human",
+    "date": 6,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "gambol",
+    "name": "Gambol",
+    "race": "Aarakocra",
+    "date": 6,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "budd-vitric",
+    "name": "Budd Vitric",
+    "race": "Human",
+    "date": 6,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "amelie",
+    "name": "Amelie",
+    "race": "Human",
+    "date": 4,
+    "categories": ["tarpaul"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "graylung",
+    "name": "Graylung",
+    "race": "Human",
+    "date": 13,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "gimic",
+    "name": "Gimic",
+    "race": "Mimic",
+    "date": 13,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "rusty",
+    "name": "Rusty",
+    "race": "Human",
+    "date": 13,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "pandora",
+    "name": "Pandora",
+    "race": "Unknown",
+    "date": 13,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "thoract",
+    "name": "Thoract",
+    "race": "Firbolg",
+    "date": 13,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "tinka",
+    "name": "Tinka",
+    "race": "Construct",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "pastel",
+    "name": "Pastel",
+    "race": "Satyr",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "high-priestess-phina",
+    "name": "High Priestess Phina",
+    "race": "Dragonborn",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "biblesha",
+    "name": "Biblesha",
+    "race": "Halfling",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "elion",
+    "name": "Elion",
+    "race": "Half Elf",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "maximillien",
+    "name": "Maximillien",
+    "race": "Half Goliath",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "damien-zerxes",
+    "name": "Damien Zerxes",
+    "race": "Tiefling",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "poubou",
+    "name": "Poubou",
+    "race": "Just a Thing",
+    "date": 14,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "madame-haema",
+    "name": "Madame Haema",
+    "race": "Elf",
+    "date": 15,
+    "categories": ["macrabell"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "ponman",
+    "name": "Ponman",
+    "race": "Kobold",
+    "date": 16,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "father-quies",
+    "name": "Father Quies",
+    "race": "Tortle",
+    "date": 16,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "sir-ataw",
+    "name": "Sir Ataw",
+    "race": "Human",
+    "date": 16,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "ze-beast",
+    "name": "Ze Beast",
+    "race": "Ze Beast",
+    "date": 16,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "rika",
+    "name": "Rika",
+    "race": "Half Elf",
+    "date": 16,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "lubia",
+    "name": "Lubia",
+    "race": "Centaur",
+    "date": 17,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "mr-yuang",
+    "name": "Mr. Yuang",
+    "race": "Githyanki",
+    "date": 17,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "l",
+    "name": "\"L\"",
+    "race": "Angel",
+    "date": 17,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "ringo",
+    "name": "Ringo",
+    "race": "Woodsworn",
+    "date": 18,
+    "categories": ["arvegum"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "vaskal-krastov",
+    "name": "Vaskal Krastov",
+    "race": "Goliath",
+    "date": 19,
+    "categories": ["fang", "bjornguard"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "anubis",
+    "name": "Anubis",
+    "race": "Serpentborn",
+    "date": 19,
+    "categories": ["fang", "torthuil"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "gorta-tuoni",
+    "name": "Gorta Tuoni",
+    "race": "Horseman",
+    "date": 20,
+    "categories": ["torthuil"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "swoops",
+    "name": "Swoops",
+    "race": "Horseman",
+    "date": 21,
+    "categories": ["torthuil"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "rotcio",
+    "name": "Rotcio",
+    "race": "Woodsworn",
+    "date": 22,
+    "categories": ["torthuil"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "korg",
+    "name": "korG",
+    "race": "Construct",
+    "date": 22,
+    "categories": ["torthuil"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  },
+  {
+    "id": "dr-nikolas",
+    "name": "Dr. Nikolas Frytz Klatlberg",
+    "race": "The One and Only",
+    "date": 22,
+    "categories": ["misc"],
+    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "link": ""
+  }
+]
