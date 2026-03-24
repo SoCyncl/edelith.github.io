@@ -21,1119 +21,1139 @@
     <script src="/scripts/fade.js" type="text/javascript" defer></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="/scripts/sidenav.js" defer></script>
-    <script>
+
+  <script>
     window.addEventListener("load", () => {
-      const blocks = document.querySelectorAll(".fade-block");
-      
-      blocks.forEach((block, i) => {
-        setTimeout(() => {
-          block.classList.add("visible");
-        }, i * 70); // Stagger animation: 150ms between each block
-      });
+      document.querySelectorAll(".fade-block").forEach((el, i) =>
+        setTimeout(() => el.classList.add("visible"), i * 70)
+      );
     });
-    </script>
-    <script>
-    /*
-          <>=======() 
-          (/\___   /|\\          ()==========<>_
-                \_/ | \\        //|\   ______/ \)
-                  \_|  \\      // | \_/
-                    \|\/|\_   //  /\/
-                     (oo)\ \_//  /
-                    //_/\_\/ /  |
-                   @@/  |=\  \  |
-                        \_=\_ \ |
-                          \==\ \|\_ snd
-                       __(\===\(  )\
-                      (((~) __(_/   |
-                           (((~) \  /
-                           ______/ /
-                           '------'
-    */
-    </script>
-    
-    
+  </script>
+  <script>
+  window.addEventListener("scroll", () => {
+    document.getElementById("glossHeader")
+      .classList.toggle("squished", window.scrollY > 260);
+  }, { passive: true });
+</script>
 </head>
 <body>
-  <div class="clouds">
-    <div class="clouds-1"></div>
-    
-    <div class="logo">
-  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+
+<div class="clouds">
+  <div class="clouds-1"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
+  <div class="clouds-2"></div>
+  <div class="clouds-3"></div>
 </div>
-    <div class="clouds-2"></div>
-    <div class="clouds-3"></div>
-  </div>
 
+<transparent-navbar class="fade-block"></transparent-navbar>
 
-<transparent-navbar class=fade-block></transparent-navbar>
-  <div id="top"></div>
-<div class="outer">
+<div class="outer" id="top">
+  <div class="all-content fade-block">
+        <playlist-block></playlist-block> 
+    <div class="recap-page">
 
+      <!-- ══ STICKY HEADER ══════════════════════════════ -->
+      <div class="gloss-header lore-box lore-box--gold fade-block" id="glossHeader">
 
-    <!-- Main Content Container -->
-    <div class="all-content fade-block">
-        <div class="main">
-            <!-- Left Sidebar - Sticky Timeline -->
-            <div class="sidebar-left fade-block">
-                <playlist-block></playlist-block>  
-                <div class="box timeline fade-block">
-                    <h1>Famine Arc</h1>
-                    <ul>
-                    <a href="#session19">Session 19</a>
-                    <a href="#session18">Session 18</a>
-                    <a href="#session17">Session 17</a>
-                    <a href="#session16">Session 16</a>
-                    <a href="#session15">Session 15</a>
-                    <a href="#session14">Session 14</a>
-                    <a href="#session13">Session 13</a>
-                    
-                    <br>
-                    <h1>Tarpaul Pit Arc</h1>
-                    </ul>                  
-                    <a href="#session12">Session 12</a>
-                    <a href="#session11">Session 11</a>
-                    <a href="#session10">Session 10</a>
-                    <a href="#session9">Session 9</a>
-                    <a href="#session8">Session 8</a>
-                    <a href="#session7">Session 7</a>
-                    <a href="#session6">Session 6</a>
-                    <a href="#session5">Session 5</a>
-                    <br>
-                    <h1>Shroud Crossers Arc</h1>
-                    <ul>              
-                    <a href="#session4">Session 4</a>
-                    <a href="#session3">Session 3</a>
-                    <a href="#session2">Session 2</a>
-                    <a href="#session1">Session 1</a>
-                    <a href="#session0">Session 0</a>
-                    <br>
-                    </ul> 
-                    <a class="return-home fade-block" href="#top" onclick="smoothScroll('top'); return false;">
-                        <i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Return to top
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Main Content Area -->
-            <div class="content fade-block">
-                <div id="Famine fade-block" class="big-section">
-                    <h1>Famine</h1>
-                    <div class="separator fade-block">
-                        <div class="line"></div> 
-                        <div class="chunk bg-primary" style="margin-left: 10px;"></div>
-                        <img src="/assets/img/homepage/Biblio_blue.png">
-                        <div class="chunk bg-secondary" style="margin-right: 10px;" id="tag3"></div>
-                        <div class="line"></div> 
-                    </div>
-                </div>
-
-                <!-- Session Entry Example -->
-                <div id="session19" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 20</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                        <div class="line-dot"></div>
-                        <img src="../assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session19" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 19</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-    
-                <div id="session18" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 18</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-    
-                <div id="session17" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 17</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-    
-                <div id="session16" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 16</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session15" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 15</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-    
-                <div id="session14" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 14</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session13" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 13</h2> <h3>Famine</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> and <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, arrive at [[Macabrell]]. when they arrive security check where they meet <a href="https://solstitheo.neocities.org/characters/graylung/">Ferrous Graylung</a>. During the security check Graylung pulls out a giant rat called <a href="https://solstitheo.neocities.org/characters/mousse/">Mousse</a>. Suddenly they get attacked by Winged [[Imps]] and [[Combatant of Conquest]]. They manage to fend them off for a while but the casualties are growing. From the crenellation a hot blond man named <a href="https://solstitheo.neocities.org/characters/rusty/">Rusty</a> appears and sliced all the demon with his arm. They talk for a bit and enter [[Macabrell]]. They take in the sights before designing to head to the sewers where they see a firbolg named <a href="https://solstitheo.neocities.org/characters/thoract/">Thoract</a> playing his flute. [[Herb]] recognizes the song, being one that <a href="https://solstitheo.neocities.org/characters/laura/">Laura</a> taught him. He talks to the firbolg for a bit and he taskes him with talking to his wife <a href="https://solstitheo.neocities.org/characters/pandora/">Pandora</a>. They go deeper into the sewers come across a silly little shop run by a thing called <a href="https://solstitheo.neocities.org/characters/gimic/">Gimic</a></p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-     
-                <div id="tarpaulp" class="big-section">
-                    <h1>Tarpaul Pit</h1>
-                        <div class="separator">
-                        <div class="line"></div> 
-                        <div class="chunk bg-primary" style="margin-left: 10px;"></div>
-                        <img src="/assets/img/homepage/Biblio_blue.png">
-                        <div class="chunk bg-secondary" style="margin-right: 10px;" id="tag3"></div>
-                        <div class="line"></div> 
-                     </div>
-                </div>
-                
-                <div id="session12" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 12</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, and <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a> fight <a href="https://solstitheo.neocities.org/characters/vitrik/">Mr. V</a>. They end up weakening him after killing the [[Crystalline Husk]] he summoned and he tries to blow them all up by charging the [[Edelith Pods]]. Blobert sees his chance to eat the edeltih pod and get Peggle to throw him to it. He catches it and explodes saving the party but killing him in the process</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Blobert Fucking Dies</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session11" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 11</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a> and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> find themselves stuck in a dark maze. From above, they can hear <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>’s voice guiding them through the puzzle, all while being chased by a giant[[ corrosion droplets]]. After many hours—and with Blobert almost dying—they manage to solve the maze and teleport to a separate room, where the magical mist clears. Exhausted, they decide to sleep in the cavern.</p>
-                        <p>While Peggle is keeping watch, he encounters <a href="https://solstitheo.neocities.org/characters/baylis/">Baylis</a>, who asks if they’ve collected the [[Edelith Pods]] and then leaves. In the morning, the party notices their[[ Edelith Pods]] are gone and finds a note from Baylis telling them to "meet him at his lady's temple."</p>
-                        <p>They continue exploring until they find a separate Dodecahedron guarded by [[Crystalline Husk]] and their [[Crystalline Horse Husk]] and place it on a pedestal, which unlocks a door. Inside, they find <a href="https://solstitheo.neocities.org/characters/vitrik/">Mr. V</a>, who reveals that he took the [[Edelith Pods]] and plans to raid Edelith the next day. He explains that he wants to kill <a href="https://solstitheo.neocities.org/characters/strom/">General Strom</a> to take his place and make Tarpaul Pit free of corrosion through any means necessary—even if it means killing those who oppose him. The party refuses to help him.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session10" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 10</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a>, <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a>, and <a href="https://solstitheo.neocities.org/characters/eight/">Eight</a> arrive at the [[Obsidian Crystallis]]. Inside, they find [[Crystalline Husk]] protected by [[Runes]] . They solve a puzzle and discover the second [[Edelith Pods]]. After solving the puzzle, a path of light directs them to a nearby cave. They enter the cave and find more Crystalline Husks. As they venture deeper, they are forced to fight a group of [[Crystals Salamanders]]. One of the salamanders is carrying a purple dodecahedron, and it manages to run away.</p>
-                        <p>After dealing with the group, the party follows the salamander. Before they can catch it, two [[Gem Stalker]] drop from the ceiling. They defeat the Stalkers and continue pursuing the salamander. They finally kill it and find a pedestal where the dodecahedron can be placed. The dodecahedron powers a nearby door, unlocking it. Inside the room, they find statues of [[Annuatera]], [[Hiebrief]], [[Partirnax]], [[Solidaritus]], [[Totarash]], and [[Aurelia]] .</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces the Pantheon</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session9" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 9</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> and <a href="https://solstitheo.neocities.org/characters/eight/">Eight</a> fight the [[Imps]] while the [[Edelith Pods]] withers away. After defeating the [[Imps]], they decide to continue their journey and wander into an old village. They explore for a bit until they find a strange swirl of sand. Upon investigating, they discover that the residents of the village have been turned into [[Dust Dregs]] and seem to have lost their memories. They investigate further to see if they can figure out what happened but ultimately come up empty-handed. Afterward, they decide to rest for the night.</p>
-                        <p>While taking shifts on watch, Herb notices a tree and runs toward it, only to find <a href="https://solstitheo.neocities.org/characters/budd/">Budd</a> , the son of <a href="https://solstitheo.neocities.org/characters/vitrik/">Mr. V</a>. He tells them that he's on his way to meet up with his dad, who decided to go alone to find the [[Edelith Pods]] he needs. The party convinces Bud to go home, and they sleep through the rest of the night. The next morning, they head to the next Edelith Pod location.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Dust Dregs</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session8" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 8</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>When <a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a>, and <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a> wake up, they finds themselves surrounded by [[Corrosion Droplets]]—living blobs of [[corrosion]]—they fight their way to the bottom. With the help of <a href="https://solstitheo.neocities.org/characters/skrapp/">Skrapp</a> and <a href="https://solstitheo.neocities.org/characters/svahn/">Svahn</a>, they manage to kill all of them. They go to investigate what happened and discover the town overrun with corrosion. They rush to talk to <a href="https://solstitheo.neocities.org/characters/strom/">General Strom</a> , who tells them not to worry about it. He instructs them one more time to go retrieve the [[Edelith Pods]], and the party reluctantly agrees.</p>
-                        <p>On their way to the first Edelith Pod, they find the skeleton of a long-dead [[Cherubrim]]. On top of the [[Cherubrim]]'s head, there's an Edelith Pod. After a lot of struggling, they manage to free it, releasing a mechanism that held a train carrying [[corrosion]]. The train crashes onto the [[Carriage Kin]], who die on impact. The falling train also releases [[imps]] that were hiding in nearby caves.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Corrosion Droplets</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>Are corrosion Droplets related to Blobert</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session7" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 7</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> fight <a href="https://solstitheo.neocities.org/characters/gambol/">Gambol</a> the leader of [[Piroulette]] and manages to beat him. Right before they kill him, he tells them that he only wants to leave [[Tarpaul pit]] and needs them to help by starting trade between [[Tarpaul pit]] and Edelith. The party realizes they're in the wrong and goes to confront <a href="https://solstitheo.neocities.org/characters/vitrik/">Mr. V</a>, who tells them that he will no longer be supporting them in their journey outside the city. They then proceed to leave. Before going to bed, they talk to <a href="https://solstitheo.neocities.org/characters/blobert/">Amalie</a> about the location of the [[Edelith Pods]].</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Causes a rift between Mr. V and the Main Party</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session6" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 6</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a> and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> meet up with the blacksmith to claim their weapons when he tells them that one of the gangs—The [[Carriage Kin]]—was stationed right alongside the ravine. The party heads down and continues walking until they see them. During the discussion, Blobert notices a conveniently placed wine barrel in the center of everyone. The discussion drags on for too long, so Blobert jumps the gun and fires a Firebolt at the wine barrel, igniting it and causing a small explosion. This surprises the [[Carriage Kin]], giving Blobert enough time to read the Scroll of Firebolt and aim it directly at the center of the group, taking out most of them. They fight a bit more until only <a href="https://solstitheo.neocities.org/characters/duster/">Khan Duster</a> (their leader) remains. He explains that they only stole things to rebuild their homes because [[corrosion]] was seeping into their houses. They apologize and leave.</p>
-                        <p>The party then goes to an informant who ends up being <a href="https://solstitheo.neocities.org/characters/soko/">Soko</a>. She tells them where the next gang is located. They head to the same shopping district where they found the scrolls. They sneak in to the [[Piroulette]]'s base and find a man tied up, whom they free. He tells them his name is <a href="https://solstitheo.neocities.org/characters/bud/">Budd</a>. Peggle tells to man to escape through a backdoor and he does so. They then proceed to make everyone in the gang flee by creating the illusion of fire. They rummage around for a while when suddenly, a red Aarakocra named <a href="https://solstitheo.neocities.org/characters/gambol/">Gambol</a> walks in, holding Budd</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Piroulette</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Peggle burn the Carriage Kin</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Budd</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>What does Piroulette want?</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session5" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 5</h2> <h3>Tarpaul Pit</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a> begin to fight the gang, during the fight Baxter accidentally fell in a ravine. The party now had to fight both the gang and the falling gnome. eventually after a LONG time, the finally got up.  They took out the rest of the gang . Once they were done the blacksmith thanked them and offered to enchant their weapons. the process took a long time so while he did that they went to the local shopping district. </p>
-                        <p>Inside the shopping district they found a magical staff and a scroll of fireball. There weapon weren't done yet so they decide to met up with a contact that <a href="https://solstitheo.neocities.org/characters/baylis/">Baylis</a> had given them, a humble greenhouse caretaker called <a href="https://solstitheo.neocities.org/characters/vitrik/">Mr. V</a>. He offered the party safer travels to Edelith in exchange for one Edelith pod and to take out the rivals gangs that <a href="https://solstitheo.neocities.org/characters/strom/">General Strom</a> was going to place in power. the party accepted.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Mr. V</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced the Carriage Kin</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Main party sought after the Edelith Pods</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>Why does Mr. V want the Edelith Pods?</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>-----</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="shroudcrossing" class="big-section">
-                    <h1>Shroud Crossers</h1>
-                    <div class="separator">
-                        <div class="line"></div> 
-                        <div class="chunk bg-primary" style="margin-left: 10px;"></div>
-                        <img src="/assets/img/homepage/Biblio_blue.png">
-                        <div class="chunk bg-secondary" style="margin-right: 10px;" id="tag3"></div>
-                        <div class="line"></div> 
-                     </div>
-                </div> 
-                
-                <div id="session4" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 4</h2> <h3>Shroud Crossers</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, <a href="https://solstitheo.neocities.org/characters/herb/">herb</a> finally enter [[Tarpaul pit]].  <a href="https://solstitheo.neocities.org/characters/baylis/">Baylis</a> take them to meet <a href="https://solstitheo.neocities.org/characters/Strom/">General Strom</a>, the leader of [[Tarpaul pit]]. when there they meet up again with <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a> and <a href="https://solstitheo.neocities.org/characters/eight/">Eight</a> who were apprehended by general Strom's watchmen.</p>
-                        <p>General Strom tasked the party with collecting an item called [[Edelith Pods]]. The pods would bring back life and nature to any place its placed.  If they collect it, he would grant them safe travels to Edelith.  They accept go to a inn where they meet a goblin named <a href="https://solstitheo.neocities.org/characters/soko/">Soko</a> who threw a bottle at Eight. They sleep there for a night. When they woke up, they decided to go to the local blacksmith where they found a gang harassing the blacksmith</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces General Strom</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Soko</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Edelith Pods</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Svahn</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>What does an Edelith Pod do?</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session3" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 3</h2> <h3>Shroud Crossers</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a> and <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a> wake up a day later. They exit the church and continue forward. After a while of walking they come across a dragonborn named <a href="https://solstitheo.neocities.org/characters/baylis/">Baylis</a>.  He and his party—The [[Winds of the Waste]]—had been casualties of the fight bettwen the two colossals. They talk to him about going to edeltih and he told them to go to tarpaul pit first. on their way there they picked up a small kobold named <a href="https://solstitheo.neocities.org/characters/blobert/">Skrapp</a>. They continued walking forward until they were attacked by [[Dust Dregs]]. they managed to defeat them and continued</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced Baylis</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced The Winds Of The Waste</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced Skrapp</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced Dust Dregs</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>What are the Dust Dregs?</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session2" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 2</h2> <h3>Shroud Crossers</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p><a href="https://solstitheo.neocities.org/characters/blobert/">Blobert</a>, <a href="https://solstitheo.neocities.org/characters/peggle/">Peggle</a>, <a href="https://solstitheo.neocities.org/characters/herb/">Herb</a>, and <a href="https://solstitheo.neocities.org/characters/baxter/">Baxter</a>—a small gnome that followed them through the Shroud—rushed towards a church protected by [[Runes]], all whilst the [[Cherubrim]] and [[Construct of Conquest]] are fighting besides them. After a lot of running they reached the church and entered it. The church belonged to [[Totarash]].</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced the Construct of Conquest</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced Baxter Kokayin</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduced the Cherubrim</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>Who is Totarash?</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>Where did the Cherubrim and Construct come from?</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session1" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 1</h2> <h3>Shroud Crossers</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Blobert, Herb, Peggle, and Eight wait in the ruins of a sandy shelter for their guide, Charon. When Charon arrives, he shows the party his metallic hand, which he says is the key to breaking through the Shroud. Just then, Charon's hand begins to glow and sear with pain. He falls to the ground, clutching his hand, and tells the party that their way of entering the Shroud is near—they must leave now. As they cross the desert through a sandstorm, Charon suddenly senses something approaching. The ground beneath them starts to rumble, and a giant arrow whistles past the party, clearing the sandstorm and piercing the Shroud. Just then, a massive mechanical demon with a humanoid form tumbles down the dunes, rushes toward the arrow, and starts clawing at the Shroud, tearing a hole in it.</p>
-                        <p>Charon shouts at the party, telling them that this is their only chance to get through the Shroud. The party runs toward the hole in the Shroud. Suddenly, the sand begins to swirl like whirlpools beneath their feet. Multiple scavengers—raiders who prey on travelers—appear from beneath the swirling sand. As a fight breaks out, Herb gives his mask to Peggle. Peggle rages, while Blobert slices off a piece of his slime to make a turret, and Eight fires out Chaos Bolts. The party manages to take down two scavengers; however, two more gang up on Peggle. Their attacks bounce off of him, so they target his mask, and they manage to crack it. Through the crack, the scavenger manages to catch a glimpse of Peggle's bloodshot eyes staring back at him. Before the scavenger can react, Peggle slices one in half. The other tries to flee, but Peggle catches up and decapitates him.</p>
-                        <p>Before the last scavanger dies, he screams something in their language. Moments later, more scavengers appear, led by their leader, emerging near the tear in the Shroud. Charon yells at the party to hurry before the tear closes. They all sprint toward the opening, but Blobert comes face to face with the scavenger leader, who slices into him three times, cutting away at his slime. Blobert manages to retreat, allowing Peggle and Charon to fight the leader. During the fight, Charon slips and falls, leaving Peggle and Eight to fight off the leader and the remaining scavengers. Meanwhile, Herb heals Blobert while the fight continues.</p>
-                        <p>In the distance, Blobert's turret, which had been slowly making its way up, fires a projectile. The projectile flies through the sand, the sheer heat and speed of the projectile causing the grains of sand around it to melt into tiny shards of glass. It whizzes past Peggle and strikes the scavenger leader straight in the chest, knocking him back and engulfing him in a cloud of smoke and sand, killing him on impact. The last scavenger attempts to run away. Herb calmly walks up to him, staring him down without saying a word. As the scavenger freezes because of Herb's gaze, Blobert's turret fires one last shot, whizzing past Herb's head and striking the scavenger.</p>
-                        <p>After they defeat the scavengers, they thank Charon for his help before entering the Shroud. Blinded by the brightness of the Shroud, their eyes take a moment to adjust. When they do, they find themselves in a peaceful chapel. Just as they begin to take in their surroundings, they hear a snarling sound coming from behind them. The mechanical demon from earlier has breached the Shroud and is now demanding a challenge.</p>
-                        <p>Suddenly, a glowing spark brighter than the stars, brighter than even the sun itself, flies down from above, accompanied by a single, synthetic note sung by an angelic choir. Descending from the light is a celestial, a being so powerful it makes the earth shudder when it lands. The celestial locks eyes with the demon, and the two forces prepare to attack. The party is now locked in a battle between a demonic archer and an angelic guardian.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces the Main Party</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces Charon</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>Introduces the Shroud of Aurum</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>How is Charon's hand doing that</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>What is the Shroud of Aurum</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                
-                <div id="session0" class="session-entry">
-                    <div class="session-date"><h2 class="session">Session 0</h2> <h3>Shroud Crossers</h3></div>
-                    <div class="box">
-                    <div class="line-dot"></div>
-                    <img src="/assets/img/homepage/biblio.png" style="width: 200px; float: right; margin-top: 5px;"> 
-                        <p>Template.</p>
-                        <p>Template.</p>
-                        <div class="session-details">
-                            <div class="recap">
-                                <h3>Key Events</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-check"></i></span>------</li>
-                                </ul>
-                            </div>
-                            <div class="threads">
-                                <h3>Loose Threads</h3>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                    <li><span class="fa-li"><i class="fa-solid fa-pencil"></i></span>------</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="line-dot" style="margin-top: 7px; margin-bottom: 3px;"></div>
-                    </div>
-                </div>
-                <!-- Additional session content would go here -->
-            </div>
+        <!-- Full masthead — visible when not scrolled -->
+        <div class="gloss-masthead" id="glossMasthead">
+          <div class="gloss-masthead-label">Solstitheo Archives  ◆  Recap</div>
+          <h1 class="gloss-title">Session Recaps</h1>
+          <div class="about-rule"><span>✦</span></div>
+          <p class="gloss-desc">A comprehensive short recap of every session — from the first crossing of the Shroud to the present day.</p>
         </div>
+        <div class="recap-masthead-watermark">Rec.</div>
+        
+        <!-- Alphabet nav — always visible -->
+        <div class="gloss-alpha" id="glossAlpha">
+          <span class="gloss-alpha-label">Jump to arc</span>
+          <div class="gloss-alpha-links">
+          <div class="recap-arcnav-links">
+            <a href="#arc-seversova">Seversova Arc</a>
+            <a href="#arc-famine">Famine Arc</a>
+            <a href="#arc-tarpaul">Tarpaul Pit Arc</a>
+            <a href="#arc-shroud">Shroud Crossers Arc</a>
+            <a href="#top" class="recap-arcnav-top">↑ Top</a>
+          </div>
+        </div>
+
+      </div>
+      </div>
+      <!-- end gloss-header -->
+
+
+      <!-- ══ TIMELINE ════════════════════════════════════ -->
+      <div class="tl-wrap">
+        <!-- the spine -->
+        <div class="tl-spine"></div>
+
+        <!-- ─── ARC: SEVERSOVA ───────────────────────── -->
+        <div class="tl-arc-break" id="arc-seversova">
+          <div class="tl-arc-inner lore-box">
+            <div class="tl-arc-eyebrow">Current Arc</div>
+            <h2 class="tl-arc-title">Seversova Arc</h2>
+            <div class="tl-arc-rule"><div></div><span>◆</span><div></div></div>
+          </div>
+        </div>
+
+        <!-- Session 20 -->
+        <div class="tl-entry tl-entry--left fade-block">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>20</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Seversova Arc</span>
+              <h3 class="tl-card-title">Session 20</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Template.</p>
+              <p>Template.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>——</li>
+                  <li>——</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul>
+                  <li>——</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── ARC: FAMINE ──────────────────────────── -->
+        <div class="tl-arc-break" id="arc-famine">
+          <div class="tl-arc-inner lore-box">
+            <div class="tl-arc-eyebrow">Arc II</div>
+            <h2 class="tl-arc-title">Famine Arc</h2>
+            <div class="tl-arc-rule"><div></div><span>◆</span><div></div></div>
+          </div>
+        </div>
+
+        <!-- Session 19 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session19">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>19</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 19</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 18 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session18">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>18</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 18</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 17 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session17">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>17</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 17</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 16 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session16">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>16</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 16</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 15 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session15">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>15</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 15</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 14 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session14">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>14</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 14</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 13 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session13">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>13</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Famine Arc</span>
+              <h3 class="tl-card-title">Session 13</h3>
+            </div>
+            <div class="tl-card-body">
+              <p><a href="/characters/herb/">Herb</a> and <a href="/characters/peggle/">Peggle</a> arrive at Macabrell, where a security check introduces them to <a href="/characters/graylung/">Ferrous Graylung</a> and his giant rat, <a href="/characters/mousse/">Mousse</a>. Imps and a Combatant of Conquest attack. A hot blond man named <a href="/characters/rusty/">Rusty</a> descends from the crenellation and slices all the demons with his arm. Inside Macabrell they explore, then descend into the sewers where a firbolg named <a href="/characters/thoract/">Thoract</a> plays a song Herb recognizes — one <a href="/characters/laura/">Laura</a> taught him. Thoract tasks Herb with speaking to his wife <a href="/characters/pandora/">Pandora</a>. Deeper in the sewers they find a peculiar shop run by a creature called <a href="/characters/gimic/">Gimic</a>.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Rusty and Ferrous Graylung</li>
+                  <li>Introduced Macabrell</li>
+                  <li>Introduced Gimic</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul>
+                  <li>Who is Pandora to Thoract?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── ARC: TARPAUL PIT ─────────────────────── -->
+        <div class="tl-arc-break" id="arc-tarpaul">
+          <div class="tl-arc-inner lore-box">
+            <div class="tl-arc-eyebrow">Arc I</div>
+            <h2 class="tl-arc-title">Tarpaul Pit Arc</h2>
+            <div class="tl-arc-rule"><div></div><span>◆</span><div></div></div>
+          </div>
+        </div>
+
+        <!-- Session 12 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session12">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>12</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 12</h3>
+            </div>
+            <div class="tl-card-body">
+              <p><a href="/characters/blobert/">Blobert</a>, <a href="/characters/herb/">Herb</a>, <a href="/characters/peggle/">Peggle</a>, and <a href="/characters/baxter/">Baxter</a> fight <a href="/characters/vitrik/">Mr. V</a>. After killing the Crystalline Husk he summons, Mr. V attempts to blow them all up by charging the Edelith Pods. Blobert sees his chance — he has Peggle throw him toward the pod. He catches it and detonates, saving the party at the cost of his own life.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li><strong>Blobert sacrifices himself</strong></li>
+                  <li>Mr. V is defeated</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 11 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session11">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>11</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 11</h3>
+            </div>
+            <div class="tl-card-body">
+              <p><a href="/characters/blobert/">Blobert</a> and <a href="/characters/herb/">Herb</a> navigate a dark maze while <a href="/characters/peggle/">Peggle</a> guides them from above as a giant corrosion droplet gives chase. They solve the maze near death and sleep in the cavern. During watch, <a href="/characters/baylis/">Baylis</a> visits, asks about the Edelith Pods, then leaves. By morning the pods are gone — Baylis leaves a note telling them to meet him at "his lady's temple."</p>
+              <p>The party discovers a second Dodecahedron guarded by Crystalline Husks. Placing it on a pedestal unlocks a door. Inside: <a href="/characters/vitrik/">Mr. V</a>, who reveals he stole the pods and plans to raid Edelith to kill <a href="/characters/strom/">General Strom</a>. The party refuses to cooperate.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Baylis steals the Edelith Pods</li>
+                  <li>Mr. V's true motives revealed</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul>
+                  <li>Who is Baylis's "lady"?</li>
+                  <li>What does Mr. V really want?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 10 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session10">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>10</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 10</h3>
+            </div>
+            <div class="tl-card-body">
+              <p><a href="/characters/blobert/">Blobert</a>, <a href="/characters/peggle/">Peggle</a>, <a href="/characters/herb/">Herb</a>, <a href="/characters/baxter/">Baxter</a>, and <a href="/characters/eight/">Eight</a> arrive at the Obsidian Crystallis. They solve a rune puzzle and discover the second Edelith Pod, then follow a path of light into a cave full of Crystalline Husks. A Crystal Salamander carrying a purple dodecahedron flees. They defeat two Gem Stalkers that drop from the ceiling, chase down the salamander, and place the dodecahedron on a pedestal — unlocking a room containing statues of the six gods: Annuatera, Hiebrief, Partirnax, Solidaritus, Totarash, and Aurelia.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced the full Pantheon</li>
+                  <li>Second Edelith Pod discovered</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 9 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session9">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>9</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 9</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>The party defeats Imps while an Edelith Pod withers. Wandering into an old village, they find a strange swirl of sand — the residents have become Dust Dregs with no memories. On watch, Herb spots <a href="/characters/budd/">Budd</a>, son of Mr. V, on his way to meet his father. The party convinces him to return home. The next morning, they set out toward the next Pod location.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Dust Dregs</li>
+                  <li>Introduced Budd, son of Mr. V</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>What caused the village residents to become Dust Dregs?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 8 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session8">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>8</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 8</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>The party wakes surrounded by Corrosion Droplets. With help from <a href="/characters/skrapp/">Skrapp</a> and <a href="/characters/svahn/">Svahn</a> they fight their way through, then find the town overrun with corrosion. General Strom brushes off their concern and sends them to retrieve Edelith Pods. En route, they find a dead Cherubrim with a Pod on its head. Freeing it releases a corrosion-laden train that crashes into the Carriage Kin, killing them — and unleashing Imps from nearby caves.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Corrosion Droplets</li>
+                  <li>Carriage Kin wiped out by the train</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>Are Corrosion Droplets related to Blobert?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 7 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session7">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>7</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 7</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>The party fights <a href="/characters/gambol/">Gambol</a>, leader of Piroulette, and beats him. Before the killing blow, he reveals he only wanted to leave Tarpaul Pit and asks them to broker trade between the settlement and Edelith. The party, realising they were in the wrong, confronts <a href="/characters/vitrik/">Mr. V</a>, who withdraws his support. They leave. Before sleeping, they speak to Amalie about the Edelith Pods' locations.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Gambol's motives revealed — sympathetic villain</li>
+                  <li>Rift opened between Mr. V and the party</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 6 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session6">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>6</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 6</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert and Herb collect their enchanted weapons. The blacksmith warns them about the Carriage Kin along the ravine. Blobert ignites a wine barrel mid-negotiation and clears most of the gang with a Firebolt scroll. Khan Duster, the leader, explains they only stole to rebuild corrosion-eaten homes — the party apologizes and lets him go.</p>
+              <p>An informant — revealed to be <a href="/characters/soko/">Soko</a> — points them to Piroulette's base. They free a tied-up man who turns out to be <a href="/characters/bud/">Budd</a>. An illusion of fire scatters the gang, but when Budd slips out a back door he is immediately recaptured — brought back in by a red Aarakocra named <a href="/characters/gambol/">Gambol</a>.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Piroulette and Gambol</li>
+                  <li>Peggle burns the Carriage Kin</li>
+                  <li>Introduced Budd</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>What does Piroulette actually want?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 5 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session5">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>5</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Tarpaul Pit Arc</span>
+              <h3 class="tl-card-title">Session 5</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert, Peggle, and Baxter fight the Carriage Kin while Baxter accidentally falls into a ravine — a prolonged effort finally gets him back up. After clearing the gang, the blacksmith offers to enchant their weapons. While waiting, they visit the shopping district and find a magical staff and a Scroll of Fireball.</p>
+              <p>They meet <a href="/characters/baylis/">Baylis</a>'s contact: a greenhouse caretaker called <a href="/characters/vitrik/">Mr. V</a>. He offers safe passage to Edelith in exchange for one Edelith Pod and the elimination of the rival gangs Strom intends to empower. The party accepts.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Mr. V</li>
+                  <li>Introduced the Carriage Kin</li>
+                  <li>Party seeks the Edelith Pods</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>Why does Mr. V want an Edelith Pod?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── ARC: SHROUD CROSSERS ──────────────────── -->
+        <div class="tl-arc-break" id="arc-shroud">
+          <div class="tl-arc-inner lore-box">
+            <div class="tl-arc-eyebrow">Arc 0  ◆  The Beginning</div>
+            <h2 class="tl-arc-title">Shroud Crossers Arc</h2>
+            <div class="tl-arc-rule"><div></div><span>◆</span><div></div></div>
+          </div>
+        </div>
+
+        <!-- Session 4 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session4">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>4</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Shroud Crossers Arc</span>
+              <h3 class="tl-card-title">Session 4</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert, Peggle, and Herb finally enter Tarpaul Pit. <a href="/characters/baylis/">Baylis</a> escorts them to meet <a href="/characters/strom/">General Strom</a>, where they are reunited with Baxter and Eight — who had been apprehended by Strom's watchmen. Strom tasks the party with collecting Edelith Pods in exchange for safe passage to Edelith. At an inn they meet a goblin named <a href="/characters/soko/">Soko</a>, who throws a bottle at Eight. In the morning, they head to the local blacksmith and find a gang harassing him.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced General Strom</li>
+                  <li>Introduced Soko</li>
+                  <li>Introduced Edelith Pods as the MacGuffin</li>
+                  <li>Introduced Svahn</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>What exactly does an Edelith Pod do?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 3 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session3">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>3</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Shroud Crossers Arc</span>
+              <h3 class="tl-card-title">Session 3</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert, Peggle, and Herb exit the church and venture forward. They encounter a dragonborn named <a href="/characters/baylis/">Baylis</a> — a survivor of the colossal battle, leading the remnants of the Winds of the Waste. He advises them to make for Tarpaul Pit before Edelith. Along the way they pick up a small kobold named Skrapp. Pressing on, the group is attacked by Dust Dregs and defeats them.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced Baylis</li>
+                  <li>Introduced the Winds of the Waste</li>
+                  <li>Introduced Skrapp and Dust Dregs</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>What are the Dust Dregs?</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 2 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session2">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>2</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Shroud Crossers Arc</span>
+              <h3 class="tl-card-title">Session 2</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert, Peggle, Herb, and Baxter — a small gnome who followed them through the Shroud — sprint toward a church protected by Runes as a Cherubrim and a Construct of Conquest battle beside them. They make it inside. The church belongs to Totarash.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced the Construct of Conquest</li>
+                  <li>Introduced Baxter Kokayin</li>
+                  <li>Introduced the Cherubrim</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul>
+                  <li>Who is Totarash?</li>
+                  <li>Where did the Cherubrim and Construct come from?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 1 -->
+        <div class="tl-entry tl-entry--right fade-block" id="session1">
+          <div class="tl-connector"></div>
+          <div class="tl-node"><span>1</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Shroud Crossers Arc</span>
+              <h3 class="tl-card-title">Session 1</h3>
+            </div>
+            <div class="tl-card-body">
+              <p>Blobert, Herb, Peggle, and Eight wait for their guide, Charon. His metallic hand glows with searing pain — the way through the Shroud is near. During a sandstorm crossing, a massive mechanical demon tears a hole in the Shroud with a giant arrow. Charon orders the party through now.</p>
+              <p>Scavengers swarm from the sand. A brutal fight breaks out. Peggle rages, Blobert deploys a turret, Eight fires Chaos Bolts. The scavenger leader wounds Blobert badly. Charon slips. Peggle and Eight hold the line while Herb heals. Blobert's turret fires — the projectile melts sand to glass as it passes Herb's head and buries itself in the leader's chest. The last scavenger tries to flee. Herb's gaze freezes him. One final turret shot ends it.</p>
+              <p>Through the Shroud, blinded by its light, the party finds themselves in a chapel. A snarling fills the air. The mechanical demon has followed them in — and from above, a blinding celestial descends to meet it. The party is trapped between a demonic archer and an angelic guardian.</p>
+            </div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul>
+                  <li>Introduced the Main Party</li>
+                  <li>Introduced Charon and his metallic hand</li>
+                  <li>First crossing of the Shroud of Aurum</li>
+                </ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul>
+                  <li>What is Charon's hand doing?</li>
+                  <li>What is the Shroud of Aurum?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session 0 -->
+        <div class="tl-entry tl-entry--left fade-block" id="session0">
+          <div class="tl-connector"></div>
+          <div class="tl-node tl-node--zero"><span>0</span></div>
+          <div class="tl-card lore-box lore-box--sm">
+            <div class="tl-card-head">
+              <span class="tl-card-arc">Shroud Crossers Arc</span>
+              <h3 class="tl-card-title">Session 0  ◆  The Beginning</h3>
+            </div>
+            <div class="tl-card-body"><p>Template.</p></div>
+            <div class="tl-card-foot">
+              <div class="tl-events">
+                <div class="tl-foot-label"><i class="fa-solid fa-check"></i> Key Events</div>
+                <ul><li>——</li></ul>
+              </div>
+              <div class="tl-threads">
+                <div class="tl-foot-label"><i class="fa-solid fa-pencil"></i> Loose Threads</div>
+                <ul><li>——</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End cap -->
+        <div class="tl-end">
+          <div class="tl-end-node">✦</div>
+          <a href="#top" class="tl-end-btn">Return to top</a>
+        </div>
+
+      </div>
+      <!-- end tl-wrap -->
+
     </div>
-        <!-- Decorative Image -->
-   
-    <br>
-    <footer-block class="fade-block" ></footer-block>
+  </div>
 </div>
-<script>
-    // Smooth Scroll Functionality
-    function currentYPosition() {
-        // Firefox, Chrome, Opera, Safari
-        if (self.pageYOffset) return self.pageYOffset;
-        // Internet Explorer 6 - standards mode
-        if (document.documentElement && document.documentElement.scrollTop)
-            return document.documentElement.scrollTop;
-        // Internet Explorer 6, 7 and 8
-        if (document.body.scrollTop) return document.body.scrollTop;
-        return 0;
-    }
 
-    function elmYPosition(eID) {
-        var elm = document.getElementById(eID);
-        if (!elm) return 0;
-        var y = elm.offsetTop;
-        var node = elm;
-        while (node.offsetParent && node.offsetParent != document.body) {
-            node = node.offsetParent;
-            y += node.offsetTop;
-        } 
-        return y;
-    }
+<footer-block class="fade-block"></footer-block>
 
-    function smoothScroll(eID) {
-        var startY = currentYPosition();
-        var stopY = elmYPosition(eID);
-        var distance = stopY > startY ? stopY - startY : startY - stopY;
-        if (distance < 100) {
-            scrollTo(0, stopY); return;
-        }
-        var speed = Math.round(distance / 100);
-        if (speed >= 20) speed = 20;
-        var step = Math.round(distance / 25);
-        var leapY = stopY > startY ? startY + step : startY - step;
-        var timer = 0;
-        if (stopY > startY) {
-            for (var i = startY; i < stopY; i += step) {
-                setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
-                leapY += step; if (leapY > stopY) leapY = stopY; timer++;
-            } 
-            return;
-        }
-        for (var i = startY; i > stopY; i -= step) {
-            setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
-            leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
-        }
-        return false;
-    }
-
-    // Apply smooth scroll to all anchor links
-    document.addEventListener('DOMContentLoaded', function() {
-        // Find all anchor links that link to an ID on the same page
-        var anchorLinks = document.querySelectorAll('a[href^="#"]');
-        
-        for (var i = 0; i < anchorLinks.length; i++) {
-            anchorLinks[i].addEventListener('click', function(e) {
-                var href = this.getAttribute('href');
-                if (href === '#') return;
-                
-                var targetId = href.substring(1);
-                if (targetId) {
-                    e.preventDefault();
-                    smoothScroll(targetId);
-                    
-                    // Update URL without jumping
-                    if (history.pushState) {
-                        history.pushState(null, null, href);
-                    } else {
-                        window.location.hash = href;
-                    }
-                }
-            });
-        }
-    });
-    </script>
-
+<!-- ─── STYLES ────────────────────────────────────────── -->
 <style>
-    .ira {
-      position: absolute;
-      width: 360px;
-      right: -1px;
-      top: -107px;
-      z-index: 100;
-      max-width: 114%;
-    }
-
-    /* Base Styles */
-    * {
-        box-sizing: border-box;
-        padding: 0;
-    }
-
-    a {
-           cursor: var(--cursor-hover);
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    outline: inherit;
-}
-        transition: color 0.3s ease-in-out;
-    }
-
-    a:hover, a:focus {
-        color: var(--link-hover-color);
-    }
-
-    /* Header Styles */
-    .site-title {
-        color: var(--emphasized-text);
-        margin-top: 40px;
-        margin-left: 70px;
-    }
-
-    .site-title a {
-        color: var(--emphasized-text);
-        text-decoration: none;
-        font-family: 'Nanum Pen Script', cursive;
-        font-size: 65px;
-    }
-
-    .subtitle {
-        font-family: 'Nanum Pen Script', cursive;
-        font-size: 24px;
-        margin-top: -15px;
-        margin-left: 10px;
-    }
-
-    /* Marquee Updates */
-    .updates1 {
-        font-size: 15px;
-        color: var(--emphasized-text);
-        margin: 12px 0 3px;
-    }
-
-    .update1 {
-        display: inline;
-        margin-right: 24px;
-    }
-
-    /* Main Content Layout */
-    .all-content {
-        background: var(--content-bg);
-        border: 3px solid var(--box-br);
-        padding: 24px;
-        min-height: calc(100vh - 280px);
-        position: relative;
-        display: flex;
-    }
-
-    .main {
-        display: flex;
-        width: 100%;
-        gap: 20px;
-    }
-
-    /* Sidebar Styles */
-    .sidebar-left {
-        width: 250px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 20px;
-        align-self: flex-start;
-        height: fit-content;
-        z-index: 5;
-    }
-
-    .timeline {
-        padding: 10px;
-        border-radius: 5px;
-        background-color: var(--box-bg);
-        border: 3px solid var(--box-br);
-    }
-
-    .timeline h3 {
-        padding: 5px;
-        margin: 8px 0 -3px;
-        font-size: 23px;
-    }
-
-    .timeline h1 {
-    border-bottom: 2px dashed var(--default-text);
-    padding: 5px;
-    padding-bottom: 7px;
-    margin: 34px 10px;
-    margin-left: -1px;
-    font-size: 19px;
-    }
-    
-    .timeline a {
-        display: block;
-        margin: 5px 0;
-        font-size: 18px;
-        padding: 3px 5px;
-    }
-
-    .timeline a:hover {
-            background-color: var(--content-bg);
-            color: var(--content-br);
-            font-weight: bold;
-            border-radius: 4px;
-            padding: 2px 6px;
-            box-shadow: 0 0 5px var(--box-bg);
-    }
-
-    .line-dot {
-        height: 1px;
-        background-color: var(--box-br);
-        margin: 10px 0;
-    }
-
-    .return-home {
-    background-color: transparent;
-    font-size: 18px;
-    padding: 9px 14px;
-    border-radius: 5px;
-    border: 1px solid var(--box-bg);
-    font-weight: bold;
-    color: var(--default-text);
-    transition: ease-in 0.2s, ease-out 0.2s;
+/* ── Sticky Masthead ── */
+/* Watermark fades when header squishes */
+.recap-masthead-watermark {
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-    .return-home:hover {
-    background-color: var(--content-bg);
-    border-color: var(--box-br);
-    color: var(--box-bg);
-    }
+.gloss-header.squished .recap-masthead-watermark {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
 
-    /* Content Area */
-    .content {
-        flex: 1;
-        min-width: 0;
-        background: var(--footer-bg);
-        border-radius: 5px;
-        padding: 16px;
-    }
+.recap-masthead-watermark {
+    font-family: var(--f-display);
+    font-size: 5.5rem;
+    color: rgba(201, 168, 76, 0.14);
+    letter-spacing: 8px;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    align-self: center;
+    text-transform: uppercase;
+    right: 96px;
+    top: 131px;
+    text-align: center;
+    position: absolute;
+}
 
-    /* Section Headers */
-    .big-section {
-        display: relative;
-        align-items: center;
-        justify-content: space-between;
-        margin: 20px 0;
-    }
+.gloss-header {
+  position: sticky;
+  top: 76px;
+  z-index: 7;
+  padding: 28px 32px 18px;
+  transition: padding 0.4s ease;
+  /* The lore-box::after mask handles corners */
+}
 
-    .big-section h1 {
-        font-variant-caps: small-caps;
-        font-size: 2.4em;
-        font-family: "Open Sans", "Droid Sans", "Calibri", sans-serif;
-        white-space: nowrap;
-    }
+.gloss-header.squished {
+  padding: 10px 22px;
+}
 
-    .separator {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        margin: 0 15px;
-    }
+/* Masthead — collapses on scroll */
+.gloss-masthead {
+  transition: opacity 0.35s ease, max-height 0.4s ease, margin 0.35s ease;
+  max-height: 200px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.gloss-header.squished .gloss-masthead {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
 
-    .line {
-        flex: 1;
-        height: 3px;
-        background-color: var(--box-br);
-    }
+.gloss-masthead-label {
+  font-family: var(--f-label);
+  font-size: 0.55rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  margin-bottom: 8px;
+  text-align: center;
+}
 
-    .chunk {
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        width: 20px;
-        height: 20px;
-        background-color: var(--box-br);
-        margin: 0 5px;
-    }
+.gloss-title {
+  font-family: var(--f-display);
+  font-size: 2rem; letter-spacing: 2px;
+  color: var(--frost);
+  background: none; padding: 0; margin: 0 0 10px;
+  line-height: 1.15;
+  text-align: center;
+}
 
- 
+.gloss-rule {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.gloss-rule span {
+  color: var(--gold); 
+  font-size: 0.7rem; 
+  flex-shrink: 0; 
+}
 
-    /* Footer */
-    footer {
-        background: var(--footer-bg);
-        border: 1px solid var(--content-bg);
-        text-align: center;
-        padding: 20px;
-        font-size: 11px;
-        margin-top: 24px;
-        margin-bottom: 10px;
-        line-height: 1.6;
-    }
+.gloss-rule-line {
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.gloss-rule .gloss-rule-line + .gloss-rule-line {
+  background: linear-gradient(270deg, var(--gold-dim), transparent);
+}
+
+.gloss-desc {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 1.2rem; line-height: 4.65;
+  color: var(--fog); margin: 0;
+}
+
+/* Alphabet nav */
+.gloss-alpha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  border-top: 1px dashed rgba(201,168,76,0.2);
+  padding-top: 12px;
+}
+
+.gloss-alpha-label {
+  font-family: var(--f-label);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 14px;
+  margin-top: 3px;
+}
+
+.gloss-alpha-links {
+  display: flex; flex-wrap: wrap;     gap: 16px;
+}
+
+.gloss-alpha-links a {
+  font-family: var(--f-label);
+  font-size: 0.95rem; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fog-dim);
+  padding: 4px 7px;
+  border: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  line-height: 1;
+
+}
+
+.gloss-alpha-links a:hover {
+  color: var(--gold);
+  border-color: rgba(201,168,76,0.3);
+  background: var(--gold-pale);
+}
+
+.gloss-alpha-top {
+  margin-left: 6px;
+  color: var(--gold-dim) !important;
+  border-color: rgba(201,168,76,0.2) !important;
+}
+.gloss-alpha-top:hover { color: var(--gold) !important; }
+
+/* ══ TIMELINE SPINE LAYOUT ══════════════════════════════ */
+.tl-wrap {
+  position: relative;
+  padding: 40px 0 20px;
+}
+
+/* The central vertical gold line */
+.tl-spine {
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(201,168,76,0.5) 60px,
+    rgba(201,168,76,0.3) calc(100% - 60px),
+    transparent);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
 
 
+/* ─── ARC BREAK ─────────────────────────────────────── */
+.tl-arc-break {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 32px;
+}
 
-    /* Responsive Adjustments */
-    @media (max-width: 1200px) {
-        .sidebar-left {
-            width: 200px;
-        }
-    }
+.tl-arc-inner {
+  padding: 16px 40px 14px;
+  text-align: center;
+  background: var(--ink-mid) !important;
+  min-width: 340px;
+  position: relative;
+}
 
-    @media (max-width: 992px) {
-        .main {
-            flex-direction: column;
-        }
-        
-        .sidebar-left {
-            width: 100%;
-            position: static;
-            margin-bottom: 20px;
-        }
-        
-        .session-details {
-            flex-direction: column;
-        }
-        
-        .ira {
-            position: static;
-            width: 100%;
-            max-width: 360px;
-            margin: 0 auto 20px;
-            display: block;
-            top: -50px;
-        }
-    }
+.tl-arc-eyebrow {
+  font-family: var(--f-label); font-size: 0.55rem;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); opacity: 0.7; margin-bottom: 6px;
+}
 
-    @media (max-width: 768px) {
-        .header {
-            height: 180px;
-        }
-        
-        .site-title a {
-            font-size: 50px;
-        }
-        
-        .subtitle {
-            font-size: 20px;
-        }
-        
-        .navbar {
-            flex-direction: column;
-            padding: 5px;
-        }
-        
-        .navigation {
-            padding-left: 0;
-            justify-content: center;
-        }
-        
-        .navlink {
-            padding: 8px 20px 8px 30px;
-            font-size: 0.9em;
-        }
-        
-        .all-content {
-            padding: 15px;
-        }
-    }
+.tl-arc-title {
+  font-family: var(--f-display); font-size: 1.3rem;
+  letter-spacing: 2px; color: var(--frost);
+  margin: 0; padding: 0; background: none; border: none;
+}
 
-    @media (max-width: 576px) {
-        .header {
-            height: 150px;
-        }
-        
-        .site-title a {
-            font-size: 40px;
-        }
-        
-        .subtitle {
-            font-size: 16px;
-        }
-        
-        .navlink {
-            padding: 6px 15px 6px 25px;
-            font-size: 0.8em;
-        }
-        
-        .big-section h1 {
-            font-size: 1.8em;
-        }
-        
-        .box img {
-            float: none;
-            display: block;
-            margin: 0 auto 15px;
-        }
-    }
+.tl-arc-rule {
+  display: flex; align-items: center; gap: 10px; margin-top: 8px;
+}
+.tl-arc-rule div { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim)); }
+.tl-arc-rule div:last-child { background: linear-gradient(270deg, transparent, var(--gold-dim)); }
+.tl-arc-rule span { color: var(--gold-dim); font-size: 0.45rem; flex-shrink: 0; }
+
+
+/* ─── SESSION ENTRIES ────────────────────────────────── */
+.tl-entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  gap: 0;
+}
+
+/* LEFT entries: card on left, connector right of card, node at center */
+.tl-entry--left {
+  flex-direction: row;
+  padding-right: calc(50% + 20px);
+}
+
+/* RIGHT entries: node at center, connector, card on right */
+.tl-entry--right {
+  flex-direction: row-reverse;
+  padding-left: calc(50% + 20px);
+}
+
+/* The horizontal connector line between node and card */
+.tl-connector {
+  position: absolute;
+  top: 26px;
+  height: 1px;
+  width: 22px;
+  background: linear-gradient(90deg, var(--gold-dim), rgba(201,168,76,0.3));
+  flex-shrink: 0;
+}
+
+.tl-entry--left  .tl-connector { right: calc(50% - 22px); }
+.tl-entry--right .tl-connector { left:  calc(50% - 22px); background: linear-gradient(270deg, var(--gold-dim), rgba(201,168,76,0.3)); }
+
+/* The numbered circle on the spine */
+.tl-node {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold-dim);
+  background: var(--ink-mid);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 4;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.tl-entry:hover .tl-node {
+  border-color: var(--gold);
+  background: var(--ink-light);
+}
+
+.tl-node span {
+  font-family: var(--f-head); font-size: 0.7rem;
+  letter-spacing: 1px; color: var(--gold);
+}
+
+.tl-node--zero {
+  border-color: rgba(201,168,76,0.4);
+}
+.tl-node--zero span { opacity: 0.6; }
+
+/* The card */
+.tl-card {
+  width: 100%;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.tl-entry:hover .tl-card {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.15);
+}
+
+/* Card head */
+.tl-card-head {
+  padding: 14px 18px 10px;
+  border-bottom: 1px dashed rgba(201,168,76,0.15);
+  position: relative; z-index: 2;
+}
+
+.tl-card-arc {
+  font-family: var(--f-label); font-size: 0.52rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); opacity: 0.65; display: block; margin-bottom: 4px;
+}
+
+.tl-card-title {
+  font-family: var(--f-head); font-size: 0.95rem;
+  letter-spacing: 2px; color: var(--frost);
+  margin: 0; text-transform: uppercase;
+}
+
+/* Card body */
+.tl-card-body {
+  padding: 12px 18px 10px;
+  position: relative; z-index: 2;
+}
+
+.tl-card-body p {
+  font-family: var(--f-body); font-size: 1rem;
+  line-height: 1.72; color: var(--fog); margin: 0 0 8px;
+}
+.tl-card-body p:last-child { margin: 0; }
+
+.tl-card-body a {
+  color: rgba(201,168,76,0.75);
+  border-bottom: 1px dashed rgba(201,168,76,0.3);
+  transition: color 0.2s, border-color 0.2s;
+}
+.tl-card-body a:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Card footer — events + threads */
+.tl-card-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px dashed rgba(201,168,76,0.15);
+  position: relative; z-index: 2;
+}
+
+.tl-events, .tl-threads {
+  padding: 10px 18px 12px;
+}
+
+.tl-events {
+  border-right: 1px dashed rgba(201,168,76,0.12);
+}
+
+.tl-foot-label {
+  font-family: var(--f-label); font-size: 0.72rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); opacity: 0.6; margin-bottom: 7px;
+  display: flex; align-items: center; gap: 5px;
+}
+.tl-foot-label i { font-size: 0.6rem; }
+
+.tl-events ul,
+.tl-threads ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 3px;
+}
+
+.tl-events li {
+  font-family: var(--f-body); font-size: 0.95rem;
+  color: var(--fog); line-height: 1.5;
+  padding-left: 12px; position: relative;
+}
+.tl-events li::before {
+  content: "◆"; position: absolute; left: 0;
+  font-size: 0.58rem; color: var(--gold-dim);
+  top: 6px;
+}
+
+.tl-threads li {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 0.9rem; color: var(--fog); line-height: 1.5;
+  padding-left: 12px; position: relative;
+}
+.tl-threads li::before {
+  content: "—"; position: absolute; left: 0;
+  color: var(--gold-dim); font-style: normal;
+}
+
+
+/* ─── TIMELINE END CAP ───────────────────────────────── */
+.tl-end {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 14px;
+  padding: 20px 0 10px;
+  position: relative; z-index: 2;
+}
+
+.tl-end-node {
+  font-size: 1rem; color: var(--gold-dim);
+  width: 40px; height: 40px;
+  border: 1px solid var(--gold-dim);
+  background: var(--ink-mid);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.tl-end-btn {
+  font-family: var(--f-label); font-size: 0.6rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--fog-dim); border: 1px solid var(--gold-dim);
+  padding: 7px 20px;
+  transition: all 0.3s ease;
+}
+.tl-end-btn:hover {
+  background: var(--gold-dim); color: var(--frost);
+  border-color: var(--gold); letter-spacing: 4px;
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  /* Collapse to left-aligned single column */
+  .tl-spine { left: 24px; }
+
+  .tl-entry--left,
+  .tl-entry--right {
+    flex-direction: row;
+    padding-right: 0;
+    padding-left: 70px;
+  }
+
+  .tl-entry--left  .tl-connector,
+  .tl-entry--right .tl-connector {
+    left: 44px; right: auto;
+    background: linear-gradient(90deg, var(--gold-dim), rgba(201,168,76,0.2));
+  }
+
+  .tl-node {
+    left: 24px; transform: translateX(-50%);
+  }
+
+  .tl-arc-break { justify-content: flex-start; padding-left: 60px; }
+  .tl-arc-inner { min-width: 0; text-align: left; }
+
+  .tl-card-foot { grid-template-columns: 1fr; }
+  .tl-events { border-right: none; border-bottom: 1px dashed rgba(201,168,76,0.12); }
+
+  .recap-masthead-flex { flex-direction: column; gap: 0; }
+  .recap-masthead-watermark { display: none; }
+}
+
 </style>
+
 </body>
 </html>
