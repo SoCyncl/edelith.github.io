@@ -1,253 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link rel="icon" type="image/x-icon" href="/assets/img/ico/orange.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regions • Solstitheo</title>
-    <meta property="og:url" content="/index.html">    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Regions • Soltitheo" /> 
-    <meta property="og:description" content="All your favorite regions from the Solstitheo Campaign!" /> 
-    <meta property="og:image" content="/assets/img/faviconpng.png">
-    <link rel="stylesheet" id="themeStylesheetLink" href="../css/themes/default.css">
-    <link rel="stylesheet" href="/css/home.css">
-    <script src="../kit.fontawesome.com/59604fa9da.js" crossorigin="anonymous"></script>
-    <script src="/scripts/playlist.js" type="text/javascript" defer></script>
-    <script src="/scripts/footer.js" type="text/javascript" defer></script>
-    <script src="/scripts/sidenav.js" type="text/javascript" defer></script>
-    <script>
-        function toggleClass() {
-           let divElement = document.getElementById('sidebar');
-           divElement.classList.toggle("mobile-active");
+  <link rel="icon" type="image/x-icon" href="/assets/img/ico/orange.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regions • Solstitheo</title>
+  <meta property="og:url" content="/regions/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Regions • Solstitheo" />
+  <meta property="og:description" content="A cartographic survey of every known region across Edelith and its surrounding territories." />
+  <meta property="og:image" content="/assets/img/favicon.png">
 
-           const slideOut = document.getElementById("slideOut")
-           if(slideOut.classList.contains("fa-caret-right")){
-                slideOut.classList.remove("fa-caret-right");
-                slideOut.classList.add("fa-caret-left");
-            }
-            else{
-                slideOut.classList.add("fa-caret-right");
-                slideOut.classList.remove("fa-caret-left");
-            }
-        }
-     </script>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <script src="/scripts/home-footer.js" defer></script>
+  <script src="/scripts/header.js" defer></script>
+  <script src="/scripts/sidenav.js" defer></script>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) =>
+        setTimeout(() => el.classList.add("visible"), i * 80)
+      );
+    });
+  </script>
 </head>
-<script>
-/*
-      <>=======() 
-      (/\___   /|\\          ()==========<>_
-            \_/ | \\        //|\   ______/ \)
-              \_|  \\      // | \_/
-                \|\/|\_   //  /\/
-                 (oo)\ \_//  /
-                //_/\_\/ /  |
-               @@/  |=\  \  |
-                    \_=\_ \ |
-                      \==\ \|\_ snd
-                   __(\===\(  )\
-                  (((~) __(_/   |
-                       (((~) \  /
-                       ______/ /
-                       '------'
-*/
-</script>
 <body>
-  <div class="clouds">
-    <div class="clouds-1"></div>
-    
-    <div class="logo">
-  <img src="/assets/img/themes/default/logo.png" alt="Centered Top Image" />
+
+<div class="clouds">
+  <div class="clouds-1"></div>
+  <div class="logo"><img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives"></div>
+  <div class="clouds-2"></div>
+  <div class="clouds-3"></div>
 </div>
-    <div class="clouds-2"></div>
-    <div class="clouds-3"></div>
+
+<transparent-navbar class="fade-block"></transparent-navbar>
+
+<div class="outer">
+  <div class="all-content fade-block">
+    <div class="regions-page">
+
+      <!-- ══ MASTHEAD ════════════════════════════════════ -->
+      <div class="char-masthead lore-box lore-box--gold fade-block">
+        <div class="char-masthead-inner">
+          <div class="char-masthead-label">Solstitheo Archives  ◆  Regions</div>
+          <div class="char-masthead-flex">
+            <div>
+              <h1 class="char-masthead-title">Regions of Edelith</h1>
+              <div class="char-masthead-rule">
+                <div class="char-rule-line"></div>
+                <span>✦</span>
+                <div class="char-rule-line char-rule-line--rev"></div>
+              </div>
+              <p class="char-masthead-desc">
+               A survey of every known major landmark across the Immortal City of Edelith and its surrounding lands.
+              </p>
+            </div>
+            <!-- decorative large eyebrow -->
+            <div class="char-masthead-watermark">Edelith</div>
+          </div>
+        </div>
+        <div class="char-masthead-vol">
+          <span>Immortal City of Edelith</span>
+          <span class="char-vol-dot">◆</span>
+          <span>Regions</span>
+        </div>
+      </div>
+      <!-- end masthead -->
+      <!-- ══ CARDS ════════════════════════════════════ -->
+      <div class="reg-cards-section fade-block">
+        <div class="reg-cards-rule">
+          <div class="reg-rule-line"></div>
+          <span class="reg-cards-heading">Regional Entries</span>
+          <div class="reg-rule-line"></div>
+        </div>
+
+        <div class="reg-cards-grid">
+
+          <!-- Edelith Proper -->
+          <a href="/regions/edelith/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/edelith/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/edelith/img/logo.png" alt="Edelith Proper"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">Edelith Proper</div>
+                </div>
+                <div class="reg-info-crest"><img src="/edelith/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+          <!-- Tarpaul Pit -->
+          <a href="/regions/tarpaul-pit/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/tarpaul-pit/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/tarpaul-pit/img/logo.png" alt="Tarpaul Pit"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">Tarpaul Pit</div>
+                </div>
+                <div class="reg-info-crest"><img src="/tarpaul-pit/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+          <!-- New Arvegum -->
+          <a href="/regions/new-arvegum/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/new-arvegum/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/new-arvegum/img/logo.png" alt="New Arvegum"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">New Arvegum</div>
+                </div>
+                <div class="reg-info-crest"><img src="/new-arvegum/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+          <!-- Macabrell -->
+          <a href="/regions/macabrell/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/macabrell/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/macabrell/img/logo.png" alt="Macabrell"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">Macabrell</div>
+                </div>
+                <div class="reg-info-crest"><img src="/macabrell/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+          <!-- Adamo's Cross -->
+          <a href="/regions/adamo/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/adamo/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/adamo/img/logo.png" alt="Adamo's Cross"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">Adamo's Cross</div>
+                </div>
+                <div class="reg-info-crest"><img src="/adamo/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+          <!-- Obsidian Crystallis -->
+          <a href="/regions/obsidian/" class="reg-card fade-block">
+            <div class="reg-bg" style="background-image: url('/obsidian/img/backdrop.png');"></div>
+            <div class="reg-front"><img src="/obsidian/img/logo.png" alt="Obsidian Crystallis"></div>
+            <div class="reg-info">
+              <div class="reg-info-row">
+                <div class="reg-info-faction">
+                  <div class="reg-info-type">Region</div>
+                  <div class="reg-info-name">Obsidian Crystallis</div>
+                </div>
+                <div class="reg-info-crest"><img src="/obsidian/img/logo.png" alt=""></div>
+              </div>
+              <div class="reg-see-more">View Region <div class="reg-arrow"><svg viewBox="0 0 162 70.28"><circle cx="31.57" cy="35.21" r="11.57"></circle><g><polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon><rect x="84.61" y="29.76" width="65" height="11.06"></rect></g></svg></div></div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- ══ WORLD MAP ═══════════════════════════════════ -->
+      <div class="reg-map-section fade-block">
+        <div class="reg-map-header">
+          <div class="reg-map-label">◆ &nbsp; Known World  &nbsp; ◆</div>
+          <div class="reg-map-subtitle">Survey of Edelith &amp; Surrounding Territories</div>
+        </div>
+        <div class="reg-map-frame lore-box">
+          <img src="/regions/map.webp" alt="Map of Edelith and surrounding regions" class="reg-map-img">
+          <div class="reg-map-vignette"></div>
+          <div class="reg-map-corner reg-map-corner--tl"></div>
+          <div class="reg-map-corner reg-map-corner--tr"></div>
+          <div class="reg-map-corner reg-map-corner--bl"></div>
+          <div class="reg-map-corner reg-map-corner--br"></div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-
-<transparent-navbar class=fade-block></transparent-navbar>
-<div class="wrapper">
-    <div class="header">
-    </div>
-    <juice-block></juice-block>
-    <div class="wrapper-2">
-        <div class="main">
-            <div class="main">
-              <h2 class="section-title">Regions of Edelith</h2> <!-- Moved here -->
-               <div class="regions">
-
-                              
-                      <a href="https://solstitheo.neocities.org/regions/edelith/" class="region-link">
-                          <div class="region-box" style="background-image: url('/edelith/img/backdrop.png');">
-                              <img class="region-logo" src="/edelith/img/logo.png" alt="Edelith Proper">
-                              <div class="region-name">Edelith Proper</div>
-                          </div>
-                      </a>
-                  
-                      <a href="https://solstitheo.neocities.org/regions/tarpaul-pit/" class="region-link">
-                          <div class="region-box" style="background-image: url('/tarpaul-pit/img/backdrop.png');">
-                              <img class="region-logo" src="/tarpaul-pit/img/logo.png" alt="Tarpaul Pit">
-                              <div class="region-name">Tarpaul Pit</div>
-                          </div>
-                      </a>
-                      
-                  
-                      <a href="https://solstitheo.neocities.org/regions/new-arvegum/" class="region-link">
-                          <div class="region-box" style="background-image: url('/new-arvegum/img/backdrop.png');">
-                              <img class="region-logo" src="/new-arvegum/img/logo.png" alt="New Arvegum">
-                              <div class="region-name">New Arvegum</div>
-                          </div>
-                      </a>
-                  
-                      <a href="https://solstitheo.neocities.org/regions/macabrell/" class="region-link">
-                          <div class="region-box" style="background-image: url('/macabrell/img/backdrop.png');">
-                              <img class="region-logo" src="/macabrell/img/logo.png" alt="Macabrell">
-                              <div class="region-name">Macabrell</div>
-                          </div>
-                      </a>
-                  
-                      <a href="https://solstitheo.neocities.org/regions/adamo/" class="region-link">
-                          <div class="region-box" style="background-image: url('/adamo/img/backdrop.png');">
-                              <img class="region-logo" src="/adamo/img/logo.png" alt="Adamo's Cross">
-                              <div class="region-name">Adamo's Cross</div>
-                          </div>
-                      </a>
-                      
-                      <a href="https://solstitheo.neocities.org/regions/obsidian/" class="region-link">
-                          <div class="region-box" style="background-image: url('/obsidian/img/backdrop.png');">
-                              <img class="region-logo" src="/obsidian/img/logo.png" alt="Obsidian Crystalis">
-                              <div class="region-name">Obsidian Crystalis</div>
-                          </div>
-                      </a>
-                  
-                      <!-- Room for more regions -->
-                      <!--
-                      <div class="region-box" style="background-image: url('images/yourimage.png');">
-                          <img class="region-logo" src="logos/yourlogo.png" alt="New Region">
-                          <div class="region-name">New Region</div>
-                      </div>
-                      -->
-                  
-                  </div>
-
-
-            <!-- <img src="worlds/dreamscapes/img/raceimg/nautplaceholder.png" style="width: 350px;"> -->
-
-        </div>
-            
-
-        </div>
-
-
-    </div>
-    <br>
-    <footer-block></footer-block>
 </div>
 
-</body>
-
-</html>
+<footer-block class="fade-block"></footer-block>
 
 <style>
 
-.main {
-    width: 100%;
-    margin-top: 15px;
-    margin-left: 0px;
+.regions-page {
+  max-width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.regions {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: auto;
-    width: 100%;
-    gap: 20px; 
-    padding-top: 20px;
+/* ══ MASTHEAD ══════════════════════════════════════════ */
+.char-masthead {
+  padding: 32px 40px 22px;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.section-title {
+.char-masthead-inner { position: relative; z-index: 2; }
+
+.char-masthead-label {
+  font-family: var(--f-label);
+  font-size: 0.55rem; letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold); opacity: 0.7;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.char-masthead-flex {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.char-masthead-title {
+  font-family: var(--f-display);
+  font-size: 2.2rem; letter-spacing: 3px;
+  color: var(--frost);
+  background: none; padding: 0;
+  margin: 0 0 12px; line-height: 1.1;
+  text-align: center;
+}
+
+/* watermark title */
+.char-masthead-watermark {
+    font-family: var(--f-display);
+    font-size: 5.5rem;
+    color: rgba(201, 168, 76, 0.14);
+    letter-spacing: 8px;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    align-self: center;
+    text-transform: uppercase;
+    right: 50px;
+    top: 82px;
     text-align: center;
-    font-size: 2em;
-    color: #f0e6d2;
-    margin-bottom: 20px;
-    font-family: 'Georgia', serif;
-    
-}
-.region-link {
-    text-decoration: none;
-    color: inherit;
-    display: inline-block;
+    position: absolute;
 }
 
-
-.region-grid {
+.char-masthead-rule {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 14px;
 }
 
-.region-box {
-    position: relative;
-    width: 280px;
-    height: 160px;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid #111;
-    border-radius: 6px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+.char-masthead-rule span { 
+  color: var(--gold);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+  
+.char-rule-line {
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.char-rule-line--rev {
+  background: linear-gradient(270deg, var(--gold-dim), transparent);
 }
 
-.region-box:hover {
-    transform: scale(1.03);
-}
-
-.region-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 64px;
-    height: 64px;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.4s ease;
-}
-
-.region-box:hover .region-logo {
-    opacity: 0;
-}
-
-.region-name {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(15, 15, 15, 0.6);
-    color: #f0e6d2;
-    font-size: 1.1em;
+.char-masthead-desc {
+    font-family: var(--f-italic);
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--fog);
+    margin: 0;
+    max-width: 100%;
     text-align: center;
-    padding: 8px;
-    font-family: 'Georgia', serif;
 }
 
-.fotm .box {
-    width: 350px;
+.char-masthead-vol {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(201,168,76,0.2);
+  font-family: var(--f-label);
+  font-size: 0.58rem; letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--fog-dim);
+  position: relative; z-index: 2;
+}
+.char-vol-dot { color: var(--gold-dim); font-size: 0.5rem; }
+
+
+/* ══ MAP ══════════════════════════════════════════════ */
+.reg-map-section { padding: 40px 0 16px; }
+
+.reg-map-header { text-align: center; margin-bottom: 16px; }
+
+.reg-map-label {
+  font-family: var(--f-label); font-size: 0.6rem;
+  letter-spacing: 6px; text-transform: uppercase;
+  color: var(--gold); opacity: 0.7; margin-bottom: 6px;
 }
 
-@media (max-width: 910px) { 
-
-.main > .box {
-    margin-top: -15px;
+.reg-map-subtitle {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 0.9rem; color: var(--fog-dim);
 }
 
-.main {
-    padding: 0px;
-    width: auto;
+.reg-map-frame {
+  position: relative; padding: 0; overflow: hidden; line-height: 0;
+}
+
+.reg-map-img {
+  width: 100%; display: block;
+  filter: brightness(0.85) saturate(0.85);
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+.reg-map-frame:hover .reg-map-img {
+  transform: scale(1.015);
+  filter: brightness(0.95) saturate(1);
+}
+
+.reg-map-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10,12,16,0.4) 100%),
+    linear-gradient(to bottom, rgba(10,12,16,0.3), transparent 15%, transparent 85%, rgba(10,12,16,0.3));
+  pointer-events: none; z-index: 2;
+}
+
+.reg-map-corner {
+  position: absolute; width: 28px; height: 28px; z-index: 3;
+  pointer-events: none;
+  transition: width 0.3s, height 0.3s;
+}
+.reg-map-corner--tl { top: 12px; left: 12px; border-top: 1px solid rgba(201,168,76,0.6); border-left: 1px solid rgba(201,168,76,0.6); }
+.reg-map-corner--tr { top: 12px; right: 12px; border-top: 1px solid rgba(201,168,76,0.6); border-right: 1px solid rgba(201,168,76,0.6); }
+.reg-map-corner--bl { bottom: 12px; left: 12px; border-bottom: 1px solid rgba(201,168,76,0.6); border-left: 1px solid rgba(201,168,76,0.6); }
+.reg-map-corner--br { bottom: 12px; right: 12px; border-bottom: 1px solid rgba(201,168,76,0.6); border-right: 1px solid rgba(201,168,76,0.6); }
+.reg-map-frame:hover .reg-map-corner { width: 40px; height: 40px; }
+
+
+/* ══ CARDS SECTION ════════════════════════════════════ */
+.reg-cards-section { padding: 24px 0 48px; }
+
+.reg-cards-rule {
+  display: flex; align-items: center; gap: 18px; margin-bottom: 32px;
+}
+.reg-cards-heading {
+  font-family: var(--f-label); font-size: 0.6rem;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); white-space: nowrap; opacity: 0.8;
+}
+.reg-rule-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+}
+
+.reg-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
 }
 
 
+/* ══ CARD ════════════════════════════════════════════ */
+.reg-card {
+  position: relative;
+  width: 260px; height: 340px;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: box-shadow 0.24s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.reg-card:hover {
+  box-shadow:
+    0 0 2rem   rgba(201, 168, 76, 0.2),
+    0 0 1.8rem rgba(0, 0, 0, 0.75);
+  transform: scale(1.1);
+}
+
+/* Background — full colour, just slightly darkened at rest */
+.reg-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center top;
+  will-change: filter;
+  filter: brightness(0.7);
+  transition: filter 0.35s ease;
+}
+.reg-card:hover .reg-bg { filter: brightness(0.45); }
+
+/* Crest */
+.reg-front {
+  position: relative; z-index: 2;
+  display: flex; justify-content: center; align-items: center;
+  height: calc(100% - 65px);
+  transition: transform 0.25s ease-in-out;
+}
+.reg-card:hover .reg-front { transform: translateY(-20px); }
+
+.reg-front img {
+  width: 120px; height: 120px; object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.9));
+  transition: filter 0.3s ease;
+}
+.reg-card:hover .reg-front img {
+  filter: drop-shadow(0 0 22px rgba(201,168,76,0.4));
+}
+
+/* Info panel */
+.reg-info {
+  position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3;
+  background: rgba(17, 19, 24, 0.95);
+  border-top:    1px solid rgba(201, 168, 76, 0.5);
+  border-right:  1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left:   1px solid transparent;
+  transform: translateY(46px);
+  transition: transform 0.28s ease-in-out, border-color 0.25s ease-in-out;
+  will-change: transform;
+}
+.reg-card:hover .reg-info { transform: translateY(0); border-color: rgba(201, 168, 76, 0.4); }
+
+.reg-info-row { display: flex; width: 100%; }
+
+.reg-info-faction {
+  flex: 2; height: 65px;
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  border-right: 1px solid rgba(81, 66, 46, 0.5);
+}
+
+.reg-info-type {
+  font-family: var(--f-label); font-size: 0.48rem;
+  letter-spacing: 3px; color: rgba(201,168,76,0.55);
+}
+
+.reg-info-name {
+  font-family: var(--f-head); font-size: 0.72rem;
+  letter-spacing: 0.5px; color: var(--frost);
+  margin-top: 4px; text-align: center; padding: 0 8px; line-height: 1.3;
+}
+
+.reg-info-crest {
+  flex: 1; display: flex; justify-content: center; align-items: center; padding: 8px;
+}
+.reg-info-crest img {
+  max-height: 36px; max-width: 36px; object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8)); opacity: 0.8;
+}
+
+.reg-see-more {
+  display: flex; justify-content: center; align-items: center;
+  height: 46px;
+  font-family: var(--f-label); font-size: 0.52rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  border-top: 1px solid transparent;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.reg-card:hover .reg-see-more {
+  border-top-color: rgba(201,168,76,0.35);
+  background: rgba(201,168,76,0.05);
+}
+
+.reg-arrow { margin-left: 8px; }
+.reg-arrow svg { width: 14px; fill: var(--gold); }
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .reg-mast-inner { flex-direction: column; gap: 20px; }
+  .reg-mast-stats { flex-direction: row; width: 100%; justify-content: center; padding: 12px 20px; }
+  .reg-stat-divider { width: 1px; height: 40px; margin: 0 20px; }
+}
+
+@media (max-width: 600px) {
+  .reg-masthead { padding: 20px; }
+  .reg-card { width: 220px; height: 290px; }
+  .reg-front img { width: 90px; height: 90px; }
 }
 
 </style>
+
+</body>
+</html>
