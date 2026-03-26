@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="/assets/img/ico/yellow.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Forge — Solstitheo Archives</title>
+  <meta name="description" content="A multiplayer character creation game set in the world of Edelith.">
+  <meta name="theme-color" content="#2a211b">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Firebase v10 modular SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import {
+      getFirestore, doc, collection, setDoc, getDoc, updateDoc, onSnapshot,
+      arrayUnion, serverTimestamp, deleteField, increment
+    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import {
+      getStorage, ref as storageRef, uploadBytes, getDownloadURL
+    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+
+    // ═══════════════════════════════════════════════════
+    // FIREBASE CONFIG — replace with your own values
+    // ═══════════════════════════════════════════════════
+    const firebaseConfig = {
+      apiKey:            "REPLACE_WITH_YOUR_API_KEY",
+      authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
+      projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
+      storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
+      messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
+      appId:             "REPLACE_WITH_YOUR_APP_ID"
+    };
+
+    const app     = initializeApp(firebaseConfig);
+    const db      = getFirestore(app);
+    const storage = getStorage(app);
+
+    // ═══════════════════════════════════════════════════
+    // GLOBAL STATE
+    // ═══════════════════════════════════════════════════
+    let myId        = null;   // localStorage-persisted player ID
+    let myName      = null;
+    let roomCode    = null;
+    let roomUnsub   = null;   // Firestore listener unsubscribe
+    let roomData    = null;   // latest room snapshot
+    let playersData = {};     // { [playerId]: playerDoc }
+    let slotMachineTimer = null;
+    let wheelSpinning    = false;
+    let backstoryTimer   = null;
+    let backstoryEndTime = null;
+    let voteTimerInterval = null;
+
+    // ═══════════════════════════════════════════════════
+    // AVATAR LIST  (drop your /assets/img/game/avatars/*.png files here)
+    // ═══════════════════════════════════════════════════
+    const AVATARS = [
+      { id: 'a1',  src: '/assets/img/game/avatars/avatar1.png',  label: 'The Wanderer'   },
+      { id: 'a2',  src: '/assets/img/game/avatars/avatar2.png',  label: 'Iron Fang'      },
+      { id: 'a3',  src: '/assets/img/game/avatars/avatar3.png',  label: 'Shroud Mage'    },
+      { id: 'a4',  src: '/assets/img/game/avatars/avatar4.png',  label: 'Steelside'      },
+      { id: 'a5',  src: '/assets/img/game/avatars/avatar5.png',  label: 'Corrosion Born' },
+      { id: 'a6',  src: '/assets/img/game/avatars/avatar6.png',  label: 'Cherubrim'      },
+      { id: 'a7',  src: '/assets/img/game/avatars/avatar7.png',  label: 'Woodsworn'      },
+      { id: 'a8',  src: '/assets/img/game/avatars/avatar8.png',  label: 'The Heretic'    },
+      { id: 'a9',  src: '/assets/img/game/avatars/avatar9.png',  label: 'New Light'      },
+      { id: 'a10', src: '/assets/img/game/avatars/avatar10.png', label: 'Dust Dreg'      },
+      { id: 'a11', src: '/assets/img/game/avatars/avatar11.png', label: 'Aurum Guard'    },
+      { id: 'a12', src: '/assets/img/game/avatars/avatar12.png', label: 'The Unknown'    },
+    ];
+
+    // ═══════════════════════════════════════════════════
+    // UTILITY
+    // ═══════════════════════════════════════════════════
+    function genId()   { return Math.random().toString(36).slice(2, 11); }
+    function genCode() { return String(Math.floor(10000 + Math.random() * 90000)); }
+    function esc(s)    { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function getAvatar(id) { return AVATARS.find(a => a.id === id) || AVATARS[0]; }
+
+    function initMyId() {
+      let id = localStorage.getItem('edelith_pid');
+      if (!id) { id = genId(); localStorage.setItem('edelith_pid', id); }
+      myId = id;
+    }
+
+    function amHost() { return roomData?.hostId === myId; }
+
+    function currentPresenter() {
+      const order = roomData?.presenterOrder || [];
+      const idx   = roomData?.presenterIndex ?? 0;
+      return order[idx] || null;
+    }
+
+    function amPresenting() { return currentPresenter() === myId; }
+
+    // ═══════════════════════════════════════════════════
+    // SCREEN ROUTER
+    // ═══════════════════════════════════════════════════
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('active'); }
+    }
+
+    function routeByPhase(data) {
+      if (!data) return showScreen('screen-home');
+      switch (data.phase) {
+        case 'lobby':     return showScreen('screen-lobby');
+        case 'phase1':    return showScreen('screen-phase1');
+        case 'wheel-order': return showScreen('screen-wheel-order');
+        case 'phase2':    return showScreen('screen-phase2');
+        case 'backstory': return showScreen('screen-backstory');
+        case 'phase3':    return showScreen('screen-phase3');
+        case 'leaderboard': return showScreen('screen-leaderboard');
+        default:          return showScreen('screen-home');
+      }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // FIRESTORE ROOM LISTENER
+    // ═══════════════════════════════════════════════════
+    async function subscribeRoom(code) {
+      if (roomUnsub) roomUnsub();
+      roomCode = code;
+
+      const roomRef    = doc(db, 'rooms', code);
+      const playersRef = collection(db, 'rooms', code, 'players');
+
+      // Listen to room doc
+      roomUnsub = onSnapshot(roomRef, snap => {
+        if (!snap.exists()) return;
+        const prev = roomData?.phase;
+        roomData = snap.data();
+        if (prev !== roomData.phase) onPhaseChange(roomData.phase);
+        else onRoomUpdate(roomData);
+      });
+
+      // Listen to players subcollection
+      onSnapshot(playersRef, snap => {
+        snap.docChanges().forEach(change => {
+          if (change.type === 'removed') delete playersData[change.doc.id];
+          else playersData[change.doc.id] = { id: change.doc.id, ...change.doc.data() };
+        });
+        onPlayersUpdate();
+      });
+    }
+
+    function onPhaseChange(phase) {
+      routeByPhase(roomData);
+      switch (phase) {
+        case 'lobby':         renderLobby(); break;
+        case 'phase1':        renderPhase1(); break;
+        case 'wheel-order':   renderWheelOrder(); break;
+        case 'phase2':        renderPhase2(); break;
+        case 'backstory':     renderBackstory(); break;
+        case 'phase3':        renderPhase3(); break;
+        case 'leaderboard':   renderLeaderboard(); break;
+      }
+    }
+
+    function onRoomUpdate(data) {
+      switch (data.phase) {
+        case 'lobby':       renderLobby(); break;
+        case 'wheel-order': updateWheelOrder(); break;
+        case 'phase2':      updatePhase2(); break;
+        case 'backstory':   updateBackstory(); break;
+        case 'phase3':      updatePhase3(); break;
+        case 'leaderboard': renderLeaderboard(); break;
+      }
+    }
+
+    function onPlayersUpdate() {
+      switch (roomData?.phase) {
+        case 'lobby':   renderLobby(); break;
+        case 'phase3':  updatePhase3(); break;
+      }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // HOME SCREEN — CREATE / JOIN
+    // ═══════════════════════════════════════════════════
+    window.createRoom = async function() {
+      const nameEl = document.getElementById('home-name');
+      const name   = nameEl.value.trim();
+      if (!name) { shake(nameEl); return; }
+      myName = name;
+
+      const code      = genCode();
+      const roomRef   = doc(db, 'rooms', code);
+      const playerRef = doc(db, 'rooms', code, 'players', myId);
+
+      await setDoc(roomRef, {
+        hostId: myId, phase: 'lobby',
+        createdAt: serverTimestamp(),
+        presenterOrder: [], presenterIndex: 0,
+        wheelOrder: [], wheelIndex: 0,
+        extraTimeVotes: {}, extraTimeRequested: false,
+        ratings: {}
+      });
+
+      await setDoc(playerRef, {
+        name, avatarId: 'a1', isReady: false, isHost: true,
+        joinedAt: serverTimestamp()
+      });
+
+      document.getElementById('room-code-display').textContent = code;
+      await subscribeRoom(code);
+      showScreen('screen-lobby');
+    };
+
+    window.joinRoom = async function() {
+      const nameEl = document.getElementById('home-name');
+      const codeEl = document.getElementById('home-code');
+      const name   = nameEl.value.trim();
+      const code   = codeEl.value.trim();
+      if (!name) { shake(nameEl); return; }
+      if (!code) { shake(codeEl); return; }
+      myName = name;
+
+      const roomRef = doc(db, 'rooms', code);
+      const snap    = await getDoc(roomRef);
+      if (!snap.exists()) { showError('Room not found. Check the code.'); return; }
+      const data = snap.data();
+      if (data.phase !== 'lobby') { showError('Game already in progress.'); return; }
+
+      const playerRef = doc(db, 'rooms', code, 'players', myId);
+      const pSnap     = await getDoc(playerRef);
+
+      // Rejoin support: if same playerId exists, update name
+      await setDoc(playerRef, {
+        name, avatarId: pSnap.exists() ? (pSnap.data().avatarId || 'a1') : 'a1',
+        isReady: false, isHost: false,
+        joinedAt: serverTimestamp()
+      }, { merge: true });
+
+      document.getElementById('room-code-display').textContent = code;
+      await subscribeRoom(code);
+      showScreen('screen-lobby');
+    };
+
+    // ═══════════════════════════════════════════════════
+    // LOBBY
+    // ═══════════════════════════════════════════════════
+    function renderLobby() {
+      const players  = Object.values(playersData);
+      const code     = roomCode;
+      const isHost   = amHost();
+
+      document.getElementById('lobby-code').textContent    = code;
+      document.getElementById('lobby-players-count').textContent =
+        players.length + ' player' + (players.length !== 1 ? 's' : '');
+
+      // Player list
+      const list = document.getElementById('lobby-player-list');
+      list.innerHTML = players.map(p => {
+        const av = getAvatar(p.avatarId);
+        return `<div class="lobby-player ${p.id === myId ? 'is-me' : ''}">
+          <div class="lobby-av-wrap">
+            <img src="${esc(av.src)}" alt="${esc(av.label)}" onerror="this.src='/assets/img/game/avatars/fallback.png'">
+            ${p.isHost ? '<span class="host-crown">♛</span>' : ''}
+          </div>
+          <div class="lobby-player-info">
+            <span class="lobby-player-name">${esc(p.name)}${p.id === myId ? ' (you)' : ''}</span>
+            <span class="lobby-player-status ${p.isReady ? 'ready' : 'waiting'}">
+              ${p.isReady ? '◆ Ready' : '○ Waiting'}
+            </span>
+          </div>
+        </div>`;
+      }).join('');
+
+      // Avatar picker (only for self)
+      const myData = playersData[myId];
+      renderAvatarPicker(myData?.avatarId || 'a1');
+
+      // Ready button
+      const readyBtn = document.getElementById('lobby-ready-btn');
+      const isReady  = myData?.isReady;
+      readyBtn.textContent  = isReady ? 'Unready' : 'Ready';
+      readyBtn.className    = 'btn-gold' + (isReady ? ' btn-active' : '');
+
+      // Start button (host only, all ready)
+      const startBtn  = document.getElementById('lobby-start-btn');
+      const allReady  = players.length >= 2 && players.every(p => p.isReady);
+      startBtn.style.display = isHost ? '' : 'none';
+      startBtn.disabled      = !allReady;
+      startBtn.title         = !allReady ? 'All players must be ready' : '';
+    }
+
+    function renderAvatarPicker(currentId) {
+      const picker = document.getElementById('avatar-picker');
+      picker.innerHTML = AVATARS.map(av =>
+        `<div class="av-option ${av.id === currentId ? 'selected' : ''}"
+              onclick="selectAvatar('${av.id}')" title="${esc(av.label)}">
+          <img src="${esc(av.src)}" alt="${esc(av.label)}"
+               onerror="this.src='/assets/img/game/avatars/fallback.png'">
+          <span>${esc(av.label)}</span>
+        </div>`
+      ).join('');
+    }
+
+    window.selectAvatar = async function(avatarId) {
+      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
+      await updateDoc(playerRef, { avatarId });
+    };
+
+    window.toggleReady = async function() {
+      const myData    = playersData[myId];
+      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
+      await updateDoc(playerRef, { isReady: !myData?.isReady });
+    };
+
+    window.startGame = async function() {
+      if (!amHost()) return;
+      const roomRef = doc(db, 'rooms', roomCode);
+      await updateDoc(roomRef, { phase: 'phase1' });
+    };
+
+    // ═══════════════════════════════════════════════════
+    // PHASE 1 — CHARACTER SUBMISSION
+    // ═══════════════════════════════════════════════════
+    function renderPhase1() {
+      const myData = playersData[myId];
+      if (myData?.submitted) {
+        showPhase1Waiting();
+      } else {
+        showPhase1Form();
+      }
+    }
+
+    function showPhase1Form() {
+      document.getElementById('phase1-form').style.display    = '';
+      document.getElementById('phase1-waiting').style.display = 'none';
+    }
+
+    function showPhase1Waiting() {
+      document.getElementById('phase1-form').style.display    = 'none';
+      document.getElementById('phase1-waiting').style.display = '';
+      const players = Object.values(playersData);
+      const done    = players.filter(p => p.submitted).length;
+      document.getElementById('phase1-wait-count').textContent =
+        `${done} / ${players.length} submitted`;
+    }
+
+    window.submitPhase1 = async function() {
+      const race      = document.getElementById('p1-race').value.trim();
+      const subrace   = document.getElementById('p1-subrace').value.trim();
+      const cls       = document.getElementById('p1-class').value.trim();
+      const subcls    = document.getElementById('p1-subclass').value.trim();
+      const flair     = document.getElementById('p1-flair').value.trim();
+      const charName  = document.getElementById('p1-charname').value.trim();
+
+      if (!race || !cls || !flair || !charName) {
+        showError('Fill in Race, Class, Flair, and Character Name at minimum.');
+        return;
+      }
+
+      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
+      await updateDoc(playerRef, {
+        submission: { race, subrace, cls, subcls, flair, charName },
+        submitted: true
+      });
+
+      showPhase1Waiting();
+
+      // Host checks if all submitted → randomise and advance
+      if (amHost()) checkAllSubmitted();
+    };
+
+    async function checkAllSubmitted() {
+      const players = Object.values(playersData);
+      if (!players.every(p => p.submitted)) return;
+      await randomizeAssignments();
+    }
+
+    async function randomizeAssignments() {
+      // Fisher-Yates shuffle — each player gets someone else's submission
+      const players  = Object.values(playersData);
+      const ids      = players.map(p => p.id);
+      let shuffled;
+      do {
+        shuffled = [...ids].sort(() => Math.random() - 0.5);
+      } while (shuffled.some((v, i) => v === ids[i])); // no self-assignment
+
+      const batch = [];
+      ids.forEach((id, i) => {
+        const donorId  = shuffled[i];
+        const donor    = playersData[donorId];
+        const sub      = donor.submission;
+        batch.push(
+          updateDoc(doc(db, 'rooms', roomCode, 'players', id), {
+            assignment: { ...sub, donorId }
+          })
+        );
+      });
+
+      await Promise.all(batch);
+
+      // Build presenter order (same as player ids, randomised)
+      const presenterOrder = [...ids].sort(() => Math.random() - 0.5);
+      await updateDoc(doc(db, 'rooms', roomCode), {
+        phase: 'wheel-order',
+        presenterOrder,
+        presenterIndex: 0,
+        wheelOrder: [],
+        wheelIndex: 0
+      });
+    }
+
+    // ═══════════════════════════════════════════════════
+    // WHEEL ORDER — SLOT MACHINE TO DETERMINE SPIN ORDER
+    // ═══════════════════════════════════════════════════
+    function renderWheelOrder() {
+      const players = Object.values(playersData);
+      const order   = roomData?.presenterOrder || [];
+      const alreadyDone = roomData?.wheelOrder?.length || 0;
+
+      document.getElementById('wo-title').textContent =
+        alreadyDone === 0 ? 'Determining spin order…' : `Turn ${alreadyDone + 1} of ${order.length}`;
+
+      if (alreadyDone < order.length) {
+        runSlotMachine(order[alreadyDone], alreadyDone);
+      } else {
+        // All done — advance to phase2 (host does it)
+        if (amHost()) {
+          setTimeout(() => {
+            updateDoc(doc(db, 'rooms', roomCode), { phase: 'phase2', wheelIndex: 0 });
+          }, 2000);
+        }
+      }
+    }
+
+    function updateWheelOrder() { renderWheelOrder(); }
+
+    function runSlotMachine(winnerId, slotIndex) {
+      const players    = Object.values(playersData);
+      const slotEl     = document.getElementById('slot-machine-name');
+      const subtitleEl = document.getElementById('slot-subtitle');
+      if (!slotEl) return;
+
+      subtitleEl.textContent = slotIndex === 0 ? 'Who spins first?' : `Slot ${slotIndex + 1}…`;
+
+      const names = players.map(p => p.name);
+      let   i     = 0;
+      let   speed = 60;
+      let   total = 0;
+      const maxCycles = 40 + slotIndex * 5;
+
+      clearInterval(slotMachineTimer);
+      slotEl.classList.remove('slot-lock');
+
+      slotMachineTimer = setInterval(() => {
+        slotEl.textContent = names[i % names.length];
+        slotEl.style.opacity = '0.7';
+        setTimeout(() => { slotEl.style.opacity = '1'; }, speed / 2);
+        i++; total++;
+
+        if (total >= maxCycles) {
+          // Land on winner
+          clearInterval(slotMachineTimer);
+          const winner = playersData[winnerId];
+          slotEl.textContent = winner?.name || '???';
+          slotEl.classList.add('slot-lock');
+
+          // Dramatic flash
+          setTimeout(() => {
+            document.getElementById('slot-spotlight').classList.add('active');
+            setTimeout(() => {
+              document.getElementById('slot-spotlight').classList.remove('active');
+              // Host writes result and advances
+              if (amHost()) {
+                const newOrder = [...(roomData.wheelOrder || []), winnerId];
+                updateDoc(doc(db, 'rooms', roomCode), { wheelOrder: newOrder });
+                // Small delay before next slot
+                setTimeout(() => renderWheelOrder(), 1800);
+              }
+            }, 1400);
+          }, 200);
+        }
+
+        // Gradually slow down
+        if (total > maxCycles * 0.6) speed = Math.min(speed * 1.08, 400);
+      }, speed);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // PHASE 2 — SPINNING WHEEL REVEAL
+    // ═══════════════════════════════════════════════════
+    let wheelCanvas, wheelCtx, wheelAngle = 0, wheelTargetAngle = 0, wheelAnimId = null;
+    const WHEEL_CATEGORIES = ['Race', 'Subrace', 'Class', 'Subclass', 'Flair', 'Name'];
+
+    function renderPhase2() {
+      const order   = roomData?.wheelOrder || roomData?.presenterOrder || [];
+      const wIdx    = roomData?.wheelIndex ?? 0;
+      const spinnerIdForThisRound = order[wIdx % order.length];
+      const isMyTurn = spinnerIdForThisRound === myId;
+      const catIdx   = roomData?.categoryIndex ?? 0;
+      const category = WHEEL_CATEGORIES[catIdx] || 'Race';
+
+      updatePhase2();
+
+      // Build wheel
+      const players = Object.values(playersData);
+      buildWheel(players, spinnerIdForThisRound);
+
+      document.getElementById('p2-spin-btn').style.display = isMyTurn && !roomData?.wheelSpun ? '' : 'none';
+      document.getElementById('p2-spin-btn').disabled = roomData?.wheelSpun;
+      document.getElementById('p2-category-label').textContent = `Category: ${category}`;
+      document.getElementById('p2-your-turn').style.display = isMyTurn ? '' : 'none';
+      document.getElementById('p2-wait-msg').style.display  = !isMyTurn ? '' : 'none';
+
+      const spinner = playersData[spinnerIdForThisRound];
+      if (spinner) {
+        document.getElementById('p2-spinner-name').textContent = spinner.name + "'s spin";
+      }
+    }
+
+    function updatePhase2() {
+      const wIdx   = roomData?.wheelIndex ?? 0;
+      const catIdx = roomData?.categoryIndex ?? 0;
+      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
+      const spinnerId = order[wIdx % order.length];
+      const isMyTurn  = spinnerId === myId;
+
+      // Reveal section — only shown if this round is done and it's my assignment being revealed
+      const revealEl = document.getElementById('p2-reveal');
+      if (roomData?.lastRevealedFor === myId && roomData?.lastRevealedCategory) {
+        const cat = roomData.lastRevealedCategory;
+        const val = getMyAssignmentField(cat);
+        revealEl.style.display = '';
+        revealEl.querySelector('.reveal-cat').textContent  = cat;
+        revealEl.querySelector('.reveal-val').textContent  = val || '(none)';
+        revealEl.classList.add('reveal-flash');
+        setTimeout(() => revealEl.classList.remove('reveal-flash'), 900);
+      } else {
+        revealEl.style.display = 'none';
+      }
+
+      // Advance button (host, after wheel spun)
+      const advBtn = document.getElementById('p2-advance-btn');
+      if (advBtn) {
+        advBtn.style.display = (amHost() && roomData?.wheelSpun) ? '' : 'none';
+      }
+    }
+
+    function getMyAssignmentField(cat) {
+      const a = playersData[myId]?.assignment;
+      if (!a) return '';
+      const map = { Race:'race', Subrace:'subrace', Class:'cls', Subclass:'subcls', Flair:'flair', Name:'charName' };
+      return a[map[cat]] || '';
+    }
+
+    function buildWheel(players, highlightId) {
+      const canvas = document.getElementById('wheel-canvas');
+      if (!canvas) return;
+      wheelCanvas = canvas;
+      wheelCtx    = canvas.getContext('2d');
+      const n     = players.length;
+      const cx    = canvas.width  / 2;
+      const cy    = canvas.height / 2;
+      const r     = Math.min(cx, cy) - 20;
+
+      // Color palette for slices
+      const colors = [
+        '#2a2214','#1e2a18','#22241a','#1a2226','#261e18','#201e26',
+        '#2a1e1e','#1a261e','#26221a','#1e1e26','#242018','#1e2418'
+      ];
+
+      function drawWheel(angle) {
+        wheelCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Outer glow ring
+        const grd = wheelCtx.createRadialGradient(cx, cy, r - 10, cx, cy, r + 14);
+        grd.addColorStop(0, 'rgba(201,168,76,0.4)');
+        grd.addColorStop(1, 'rgba(201,168,76,0)');
+        wheelCtx.beginPath();
+        wheelCtx.arc(cx, cy, r + 14, 0, Math.PI * 2);
+        wheelCtx.fillStyle = grd;
+        wheelCtx.fill();
+
+        for (let i = 0; i < n; i++) {
+          const start = angle + (i / n) * Math.PI * 2;
+          const end   = angle + ((i + 1) / n) * Math.PI * 2;
+          const p     = players[i];
+          const isHl  = p.id === highlightId;
+
+          // Slice
+          wheelCtx.beginPath();
+          wheelCtx.moveTo(cx, cy);
+          wheelCtx.arc(cx, cy, r, start, end);
+          wheelCtx.closePath();
+          wheelCtx.fillStyle = isHl ? '#3a2e10' : colors[i % colors.length];
+          wheelCtx.fill();
+          wheelCtx.strokeStyle = isHl ? '#c9a84c' : 'rgba(201,168,76,0.25)';
+          wheelCtx.lineWidth   = isHl ? 2.5 : 1;
+          wheelCtx.stroke();
+
+          // Text
+          wheelCtx.save();
+          wheelCtx.translate(cx, cy);
+          wheelCtx.rotate(start + (1 / n) * Math.PI);
+          wheelCtx.textAlign    = 'right';
+          wheelCtx.fillStyle    = isHl ? '#c9a84c' : '#c5c8ca';
+          wheelCtx.font         = isHl ? 'bold 13px Cinzel, serif' : '12px Cinzel, serif';
+          wheelCtx.fillText(p.name, r - 10, 4);
+          wheelCtx.restore();
+        }
+
+        // Center hub
+        wheelCtx.beginPath();
+        wheelCtx.arc(cx, cy, 28, 0, Math.PI * 2);
+        wheelCtx.fillStyle = '#16191d';
+        wheelCtx.fill();
+        wheelCtx.strokeStyle = '#c9a84c';
+        wheelCtx.lineWidth   = 2;
+        wheelCtx.stroke();
+        wheelCtx.fillStyle    = '#c9a84c';
+        wheelCtx.font         = '10px Josefin Sans, sans-serif';
+        wheelCtx.textAlign    = 'center';
+        wheelCtx.fillText('◆', cx, cy + 4);
+
+        // Pointer
+        wheelCtx.beginPath();
+        wheelCtx.moveTo(cx + r - 4, cy);
+        wheelCtx.lineTo(cx + r + 22, cy - 10);
+        wheelCtx.lineTo(cx + r + 22, cy + 10);
+        wheelCtx.closePath();
+        wheelCtx.fillStyle   = '#c9a84c';
+        wheelCtx.strokeStyle = '#7a6030';
+        wheelCtx.lineWidth   = 1.5;
+        wheelCtx.fill();
+        wheelCtx.stroke();
+      }
+
+      drawWheel(wheelAngle);
+
+      // Store drawWheel for animation
+      window._drawWheel = drawWheel;
+    }
+
+    window.spinWheel = async function() {
+      if (wheelSpinning || !amTurnToSpin()) return;
+      wheelSpinning = true;
+      document.getElementById('p2-spin-btn').disabled = true;
+
+      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
+      const wIdx   = roomData?.wheelIndex ?? 0;
+      // The "target" is the player whose assignment field we're revealing
+      // This is the presenterOrder[wIdx] — the person being revealed TO
+      const targetId = order[wIdx % order.length];
+
+      // Random full spins (5–8) + land on target player
+      const players  = Object.values(playersData);
+      const targetIdx = players.findIndex(p => p.id === targetId);
+      const sliceAng  = (Math.PI * 2) / players.length;
+      const extraSpins = (5 + Math.floor(Math.random() * 4)) * Math.PI * 2;
+      const targetAng  = extraSpins + (Math.PI * 2 - targetIdx * sliceAng - sliceAng / 2);
+
+      const startAngle = wheelAngle;
+      const totalAngle = targetAng;
+      const duration   = 4000;
+      const startTime  = performance.now();
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+
+      function animate(now) {
+        const elapsed  = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        wheelAngle = startAngle + totalAngle * easeOut(progress);
+        window._drawWheel?.(wheelAngle);
+
+        if (progress < 1) {
+          wheelAnimId = requestAnimationFrame(animate);
+        } else {
+          wheelSpinning = false;
+          // Spotlight reveal
+          triggerSpotlight(targetId, () => {
+            // Write to Firestore that wheel was spun
+            const catIdx  = roomData?.categoryIndex ?? 0;
+            const cat     = WHEEL_CATEGORIES[catIdx];
+            updateDoc(doc(db, 'rooms', roomCode), {
+              wheelSpun: true,
+              lastRevealedFor: targetId,
+              lastRevealedCategory: cat
+            });
+          });
+        }
+      }
+
+      wheelAnimId = requestAnimationFrame(animate);
+    };
+
+    function amTurnToSpin() {
+      const order = roomData?.wheelOrder || roomData?.presenterOrder || [];
+      const wIdx  = roomData?.wheelIndex ?? 0;
+      return order[wIdx % order.length] === myId;
+    }
+
+    function triggerSpotlight(targetId, cb) {
+      const player  = playersData[targetId];
+      const overlay = document.getElementById('spotlight-overlay');
+      const nameEl  = document.getElementById('spotlight-name');
+      const av      = getAvatar(player?.avatarId || 'a1');
+
+      document.getElementById('spotlight-av').src = av.src;
+      nameEl.textContent = player?.name || '???';
+      overlay.classList.add('active');
+
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        cb?.();
+      }, 2200);
+    }
+
+    window.advancePhase2 = async function() {
+      if (!amHost()) return;
+      const catIdx = roomData?.categoryIndex ?? 0;
+      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
+      const wIdx   = roomData?.wheelIndex ?? 0;
+      const newCatIdx = catIdx + 1;
+
+      if (newCatIdx >= WHEEL_CATEGORIES.length) {
+        // All 6 categories done for this player — advance to next presenter
+        const newWIdx = wIdx + 1;
+        if (newWIdx >= order.length) {
+          // All players done — go to backstory phase
+          await updateDoc(doc(db, 'rooms', roomCode), {
+            phase: 'backstory', wheelIndex: 0, categoryIndex: 0,
+            wheelSpun: false, lastRevealedFor: null, lastRevealedCategory: null,
+            backstoryStartTime: Date.now(), backstoryEndTime: Date.now() + 15 * 60 * 1000,
+            extraTimeVotes: {}, extraTimeRequested: false
+          });
+        } else {
+          await updateDoc(doc(db, 'rooms', roomCode), {
+            wheelIndex: newWIdx, categoryIndex: 0,
+            wheelSpun: false, lastRevealedFor: null, lastRevealedCategory: null
+          });
+        }
+      } else {
+        await updateDoc(doc(db, 'rooms', roomCode), {
+          categoryIndex: newCatIdx, wheelSpun: false,
+          lastRevealedFor: null, lastRevealedCategory: null
+        });
+      }
+    };
+
+    // ═══════════════════════════════════════════════════
+    // BACKSTORY PHASE
+    // ═══════════════════════════════════════════════════
+    function renderBackstory() {
+      const myAssign = playersData[myId]?.assignment;
+      if (!myAssign) return;
+
+      // Show character sheet
+      document.getElementById('bs-race').textContent     = myAssign.race || '—';
+      document.getElementById('bs-subrace').textContent  = myAssign.subrace || '(none)';
+      document.getElementById('bs-class').textContent    = myAssign.cls || '—';
+      document.getElementById('bs-subclass').textContent = myAssign.subcls || '(none)';
+      document.getElementById('bs-flair').textContent    = myAssign.flair || '—';
+      document.getElementById('bs-name').textContent     = myAssign.charName || '—';
+
+      startBackstoryTimer();
+    }
+
+    function updateBackstory() {
+      // Extra time votes
+      const votes   = roomData?.extraTimeVotes || {};
+      const players = Object.values(playersData);
+      const voteEl  = document.getElementById('bs-vote-status');
+      if (roomData?.extraTimeRequested) {
+        const yes = Object.values(votes).filter(v => v === 'yes').length;
+        const no  = Object.values(votes).filter(v => v === 'no').length;
+        voteEl.textContent = `Extra time vote: ${yes} yes / ${no} no`;
+        voteEl.style.display = '';
+
+        // All agreed
+        if (yes === players.length) {
+          const newEnd = roomData.backstoryEndTime + 5 * 60 * 1000;
+          updateDoc(doc(db, 'rooms', roomCode), {
+            backstoryEndTime: newEnd,
+            extraTimeVotes: {}, extraTimeRequested: false
+          });
+        }
+        // Someone said no
+        if (no > 0) {
+          updateDoc(doc(db, 'rooms', roomCode), {
+            extraTimeVotes: {}, extraTimeRequested: false
+          });
+        }
+      } else {
+        voteEl.style.display = 'none';
+      }
+
+      // Timer
+      startBackstoryTimer();
+    }
+
+    function startBackstoryTimer() {
+      clearInterval(backstoryTimer);
+      const endTime = roomData?.backstoryEndTime;
+      if (!endTime) return;
+
+      backstoryTimer = setInterval(() => {
+        const remaining = Math.max(0, endTime - Date.now());
+        const mins = Math.floor(remaining / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        const el = document.getElementById('bs-timer');
+        if (el) {
+          el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+          el.classList.toggle('timer-urgent', remaining < 60000);
+        }
+        if (remaining <= 0) {
+          clearInterval(backstoryTimer);
+          if (amHost()) {
+            updateDoc(doc(db, 'rooms', roomCode), { phase: 'phase3', presenterIndex: 0 });
+          }
+        }
+      }, 500);
+    }
+
+    window.submitBackstory = async function() {
+      const text = document.getElementById('bs-text').value.trim();
+      if (!text) { showError('Write at least a sentence for your backstory!'); return; }
+
+      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
+      const fileInput = document.getElementById('bs-img-upload');
+      let imageUrl    = '';
+
+      if (fileInput.files[0]) {
+        try {
+          const file    = fileInput.files[0];
+          const sRef    = storageRef(storage, `games/${roomCode}/${myId}/character.${file.name.split('.').pop()}`);
+          const snap    = await uploadBytes(sRef, file);
+          imageUrl      = await getDownloadURL(snap.ref);
+        } catch (e) { console.warn('Image upload failed:', e); }
+      }
+
+      await updateDoc(playerRef, {
+        backstory: { text, imageUrl },
+        backstorySubmitted: true
+      });
+
+      document.getElementById('bs-form').style.display    = 'none';
+      document.getElementById('bs-submitted').style.display = '';
+    };
+
+    window.requestExtraTime = async function() {
+      await updateDoc(doc(db, 'rooms', roomCode), {
+        extraTimeRequested: true,
+        [`extraTimeVotes.${myId}`]: 'yes'
+      });
+    };
+
+    window.voteExtraTime = async function(vote) {
+      await updateDoc(doc(db, 'rooms', roomCode), {
+        [`extraTimeVotes.${myId}`]: vote
+      });
+    };
+
+    // ═══════════════════════════════════════════════════
+    // PHASE 3 — PRESENTATIONS
+    // ═══════════════════════════════════════════════════
+    let p3RevealState = {
+      race: false, subrace: false, cls: false,
+      subcls: false, flair: false, name: false,
+      backstory: [], backstoryIdx: 0
+    };
+
+    function renderPhase3() {
+      const pidx     = roomData?.presenterIndex ?? 0;
+      const order    = roomData?.presenterOrder || [];
+      const pid      = order[pidx];
+      const presenter = playersData[pid];
+      const isMe      = pid === myId;
+      const assign    = presenter?.assignment || {};
+      const backstory = presenter?.backstory || {};
+      const av        = getAvatar(presenter?.avatarId || 'a1');
+
+      // Presenter info
+      document.getElementById('p3-presenter-name').textContent = presenter?.name || '???';
+      document.getElementById('p3-presenter-av').src           = av.src;
+      document.getElementById('p3-turn-count').textContent     =
+        `Presenter ${pidx + 1} of ${order.length}`;
+
+      // Show/hide presenter controls
+      document.getElementById('p3-presenter-controls').style.display = isMe ? '' : 'none';
+      document.getElementById('p3-audience-controls').style.display  = !isMe ? '' : 'none';
+
+      // Rating (audience only)
+      if (!isMe) {
+        const myRating = roomData?.ratings?.[pid]?.[myId] || 0;
+        renderStars(myRating);
+      }
+
+      // Reset reveal state
+      p3RevealState = {
+        race: false, subrace: false, cls: false,
+        subcls: false, flair: false, name: false,
+        backstory: backstory.text ? backstory.text.split('\n\n').filter(Boolean) : [],
+        backstoryIdx: 0
+      };
+
+      updateP3Reveals(assign, backstory, isMe);
+    }
+
+    function updatePhase3() {
+      const pidx     = roomData?.presenterIndex ?? 0;
+      const order    = roomData?.presenterOrder || [];
+      const pid      = order[pidx];
+      if (!pid) return;
+
+      const presenter = playersData[pid];
+      const assign    = presenter?.assignment || {};
+      const backstory = presenter?.backstory || {};
+      const isMe      = pid === myId;
+
+      // Update reveal state from room
+      const reveals = roomData?.reveals || {};
+      Object.assign(p3RevealState, reveals);
+
+      updateP3Reveals(assign, backstory, isMe);
+
+      // Update rating
+      if (!isMe) {
+        const myRating = roomData?.ratings?.[pid]?.[myId] || 0;
+        renderStars(myRating);
+      }
+    }
+
+    function updateP3Reveals(assign, backstory, isPresenter) {
+      const fields = [
+        { key: 'name',    label: 'Name',     val: assign.charName },
+        { key: 'race',    label: 'Race',     val: assign.race     },
+        { key: 'subrace', label: 'Subrace',  val: assign.subrace  },
+        { key: 'cls',     label: 'Class',    val: assign.cls      },
+        { key: 'subcls',  label: 'Subclass', val: assign.subcls   },
+        { key: 'flair',   label: 'Flair',    val: assign.flair    },
+      ];
+
+      const sheet = document.getElementById('p3-char-sheet');
+      sheet.innerHTML = fields.map(f => {
+        const revealed = p3RevealState[f.key];
+        return `<div class="p3-field ${revealed ? 'revealed' : 'hidden'}">
+          <span class="p3-field-label">${f.label}</span>
+          <span class="p3-field-val">${revealed ? esc(f.val || '—') : '???'}</span>
+          ${isPresenter && !revealed
+            ? `<button class="p3-reveal-btn" onclick="revealField('${f.key}')">Reveal</button>`
+            : ''}
+        </div>`;
+      }).join('');
+
+      // Backstory
+      const bsEl      = document.getElementById('p3-backstory');
+      const bsText    = backstory.text || '';
+      const paragraphs = bsText.split('\n\n').filter(Boolean);
+      const revealedUpTo = p3RevealState.backstoryIdx || 0;
+
+      bsEl.innerHTML = paragraphs.slice(0, revealedUpTo).map((p, i) =>
+        `<p class="p3-bs-para ${i === revealedUpTo - 1 ? 'para-new' : ''}">${esc(p)}</p>`
+      ).join('') + (revealedUpTo < paragraphs.length
+        ? `<div class="p3-bs-hidden">▓▓▓▓ (${paragraphs.length - revealedUpTo} more paragraph${paragraphs.length - revealedUpTo !== 1 ? 's' : ''})</div>`
+        : '');
+
+      if (backstory.imageUrl && revealedUpTo === paragraphs.length && revealedUpTo > 0) {
+        bsEl.insertAdjacentHTML('afterbegin',
+          `<img src="${esc(backstory.imageUrl)}" class="p3-char-img" alt="Character art">`);
+      }
+
+      // Backstory controls
+      const bsBtns = document.getElementById('p3-backstory-btns');
+      if (bsBtns && isPresenter) {
+        const canProceed = revealedUpTo < paragraphs.length;
+        const canUndo    = revealedUpTo > 0;
+        bsBtns.innerHTML = `
+          ${canProceed ? `<button class="btn-gold" onclick="backstoryProceed()">Proceed ▶</button>` : ''}
+          ${canUndo    ? `<button class="btn-outline" onclick="backstoryUndo()">◀ Undo</button>` : ''}
+        `;
+      }
+
+      // Finished button
+      const finBtn = document.getElementById('p3-finish-btn');
+      if (finBtn) finBtn.style.display = isPresenter ? '' : 'none';
+    }
+
+    window.revealField = async function(key) {
+      const roomRef = doc(db, 'rooms', roomCode);
+      await updateDoc(roomRef, { [`reveals.${key}`]: true });
+      p3RevealState[key] = true;
+      updateP3RevealsFromState();
+    };
+
+    window.backstoryProceed = async function() {
+      const newIdx = (p3RevealState.backstoryIdx || 0) + 1;
+      p3RevealState.backstoryIdx = newIdx;
+      await updateDoc(doc(db, 'rooms', roomCode), { 'reveals.backstoryIdx': newIdx });
+      updateP3RevealsFromState();
+    };
+
+    window.backstoryUndo = async function() {
+      const newIdx = Math.max(0, (p3RevealState.backstoryIdx || 0) - 1);
+      p3RevealState.backstoryIdx = newIdx;
+      await updateDoc(doc(db, 'rooms', roomCode), { 'reveals.backstoryIdx': newIdx });
+      updateP3RevealsFromState();
+    };
+
+    function updateP3RevealsFromState() {
+      const pidx     = roomData?.presenterIndex ?? 0;
+      const order    = roomData?.presenterOrder || [];
+      const pid      = order[pidx];
+      const presenter = playersData[pid];
+      const assign    = presenter?.assignment || {};
+      const backstory = presenter?.backstory  || {};
+      const isMe      = pid === myId;
+      updateP3Reveals(assign, backstory, isMe);
+    }
+
+    window.finishPresentation = async function() {
+      const pidx    = roomData?.presenterIndex ?? 0;
+      const order   = roomData?.presenterOrder || [];
+      const newIdx  = pidx + 1;
+
+      if (newIdx >= order.length) {
+        // All done — go to leaderboard
+        await buildLeaderboard();
+        await updateDoc(doc(db, 'rooms', roomCode), { phase: 'leaderboard' });
+      } else {
+        await updateDoc(doc(db, 'rooms', roomCode), {
+          presenterIndex: newIdx,
+          reveals: {}
+        });
+      }
+      p3RevealState = { race:false, subrace:false, cls:false, subcls:false, flair:false, name:false, backstory:[], backstoryIdx:0 };
+    };
+
+    // Ratings
+    window.ratePresenter = async function(stars) {
+      const pidx  = roomData?.presenterIndex ?? 0;
+      const order = roomData?.presenterOrder || [];
+      const pid   = order[pidx];
+      if (pid === myId) return; // can't rate yourself
+      await updateDoc(doc(db, 'rooms', roomCode), {
+        [`ratings.${pid}.${myId}`]: stars
+      });
+      renderStars(stars);
+    };
+
+    function renderStars(current) {
+      const el = document.getElementById('p3-stars');
+      if (!el) return;
+      el.innerHTML = [1,2,3,4,5].map(n =>
+        `<span class="star ${n <= current ? 'lit' : ''}" onclick="ratePresenter(${n})">★</span>`
+      ).join('');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // LEADERBOARD
+    // ═══════════════════════════════════════════════════
+    async function buildLeaderboard() {
+      const ratings = roomData?.ratings || {};
+      const players = Object.values(playersData);
+      const scores  = players.map(p => {
+        const r    = ratings[p.id] || {};
+        const total = Object.values(r).reduce((s, v) => s + v, 0);
+        return { ...p, totalScore: total };
+      }).sort((a, b) => b.totalScore - a.totalScore);
+
+      // Write scores back
+      const updates = {};
+      scores.forEach(p => { updates[`scores.${p.id}`] = p.totalScore; });
+      await updateDoc(doc(db, 'rooms', roomCode), updates);
+    }
+
+    function renderLeaderboard() {
+      const scores  = roomData?.scores || {};
+      const players = Object.values(playersData)
+        .map(p => ({ ...p, totalScore: scores[p.id] || 0 }))
+        .sort((a, b) => b.totalScore - a.totalScore);
+
+      const lb = document.getElementById('leaderboard-list');
+      lb.innerHTML = '';
+
+      // Reveal top 3 one by one
+      const medals = ['🥉', '🥈', '🥇'];
+      const toShow  = players.slice(0, Math.min(3, players.length));
+      const rest    = players.slice(3);
+
+      // Rest (4th+) show immediately
+      if (rest.length) {
+        lb.insertAdjacentHTML('beforeend',
+          `<div class="lb-rest">${rest.map((p,i) =>
+            `<div class="lb-row lb-row--rest">
+              <span class="lb-rank">${i + 4}</span>
+              <img src="${esc(getAvatar(p.avatarId).src)}" class="lb-av" alt="">
+              <span class="lb-name">${esc(p.name)}</span>
+              <span class="lb-score">${p.totalScore} pts</span>
+            </div>`).join('')}</div>`
+        );
+      }
+
+      // Animate top 3 reveal: 3rd, 2nd, 1st with delays
+      toShow.reverse().forEach((p, i) => {
+        const rank  = toShow.length - i;
+        const medal = medals[rank - 1] || rank;
+        setTimeout(() => {
+          const row = document.createElement('div');
+          row.className = `lb-row lb-row--top lb-rank-${rank} lb-reveal`;
+          row.innerHTML = `
+            <span class="lb-medal">${medal}</span>
+            <img src="${esc(getAvatar(p.avatarId).src)}" class="lb-av lb-av--big" alt=""
+                 onerror="this.src='/assets/img/game/avatars/fallback.png'">
+            <div class="lb-info">
+              <span class="lb-name lb-name--big">${esc(p.name)}</span>
+              <span class="lb-char-name">${esc(p.assignment?.charName || '')}</span>
+            </div>
+            <span class="lb-score lb-score--big">${p.totalScore} pts</span>`;
+          lb.insertBefore(row, lb.firstChild);
+          setTimeout(() => row.classList.add('visible'), 50);
+        }, (i + 1) * 1800);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════
+    // UI HELPERS
+    // ═══════════════════════════════════════════════════
+    function showError(msg) {
+      const el = document.getElementById('global-error');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3500);
+    }
+
+    function shake(el) {
+      el.classList.add('shake');
+      setTimeout(() => el.classList.remove('shake'), 600);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════
+    initMyId();
+    showScreen('screen-home');
+
+    // Rejoin: if localStorage has a room and player
+    const savedRoom = localStorage.getItem('edelith_room');
+    const savedName = localStorage.getItem('edelith_name');
+    if (savedRoom && savedName) {
+      myName = savedName;
+      subscribeRoom(savedRoom).then(() => {
+        if (roomData) routeByPhase(roomData);
+      });
+    }
+
+    // Save room/name on join
+    const _origCreate = window.createRoom;
+    window.createRoom = async function() {
+      await _origCreate();
+      localStorage.setItem('edelith_room', roomCode);
+      localStorage.setItem('edelith_name', myName);
+    };
+    const _origJoin = window.joinRoom;
+    window.joinRoom = async function() {
+      await _origJoin();
+      localStorage.setItem('edelith_room', roomCode);
+      localStorage.setItem('edelith_name', myName);
+    };
+
+    window.leaveGame = function() {
+      localStorage.removeItem('edelith_room');
+      localStorage.removeItem('edelith_name');
+      if (roomUnsub) roomUnsub();
+      roomData = null; playersData = {}; roomCode = null;
+      showScreen('screen-home');
+    };
+
+  </script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   ROOT & BASE
+═══════════════════════════════════════════════════ */
+:root {
+  --ink:       #1a1d21;
+  --ink-mid:   #262b30;
+  --ink-light: #2f353b;
+  --fog:       #c5c8ca;
+  --fog-dim:   #70757a;
+  --frost:     #e3e6e8;
+  --void:      #16191d;
+  --gold:      #c9a84c;
+  --gold-dim:  #7a6030;
+  --gold-pale: rgba(201,168,76,0.12);
+  --gold-glow: rgba(201,168,76,0.25);
+  --f-display: 'Cinzel Decorative', serif;
+  --f-head:    'Cinzel', serif;
+  --f-body:    'Crimson Pro', Georgia, serif;
+  --f-italic:  'Cormorant Garamond', Georgia, serif;
+  --f-label:   'Josefin Sans', sans-serif;
+  --ease-back: cubic-bezier(0.34,1.56,0.64,1);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+body {
+  font-family: var(--f-body);
+  background: #000; color: var(--fog);
+  min-height: 100vh; overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2;
+  background: url('/assets/img/homepage/background1.jpg') center/cover fixed;
+  filter: blur(10px); opacity: 0.85;
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background: rgba(10,11,14,0.7);
+}
+a { color: rgba(201,168,76,0.8); text-decoration: none; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--ink-light); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════════════════ */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 0 0 60px;
+  animation: screenIn 0.45s ease forwards;
+}
+.screen.active { display: block; }
+@keyframes screenIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+/* ═══════════════════════════════════════════════════
+   SHARED GAME CHROME
+═══════════════════════════════════════════════════ */
+.game-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--void);
+  border-bottom: 2px solid var(--gold-dim);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.game-bar::after {
+  content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,transparent,var(--gold),transparent); opacity: 0.4;
+}
+.game-bar-title {
+  font-family: var(--f-display); font-size: 0.7rem; letter-spacing: 3px; color: var(--gold);
+}
+.game-bar-code {
+  font-family: var(--f-label); font-size: 0.52rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--fog-dim);
+}
+.game-bar-code span {
+  color: var(--gold); font-size: 0.8rem; letter-spacing: 6px; margin-left: 6px;
+}
+.leave-btn {
+  background: none; border: 1px solid rgba(201,168,76,0.18);
+  color: var(--fog-dim); padding: 5px 14px;
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.leave-btn:hover { border-color: var(--gold-dim); color: var(--fog); }
+
+/* ═══════════════════════════════════════════════════
+   CONTENT WRAPPER
+═══════════════════════════════════════════════════ */
+.game-content {
+  max-width: 960px; margin: 0 auto; padding: 32px 20px;
+}
+.game-content--wide { max-width: 1200px; }
+.game-content--narrow { max-width: 600px; }
+
+/* ═══════════════════════════════════════════════════
+   HEADINGS
+═══════════════════════════════════════════════════ */
+.screen-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.2rem,3vw,1.8rem);
+  letter-spacing: 4px; color: var(--frost);
+  text-align: center; margin-bottom: 6px;
+}
+.screen-sub {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 1rem; color: var(--fog-dim); text-align: center; margin-bottom: 28px;
+}
+.ornament {
+  display: flex; align-items: center; gap: 12px; margin: 16px 0;
+}
+.ornament::before,.ornament::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg,transparent,var(--gold-dim));
+}
+.ornament::after { background: linear-gradient(270deg,transparent,var(--gold-dim)); }
+.ornament span { color: var(--gold); font-family: var(--f-label); font-size: 0.55rem; letter-spacing: 5px; }
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════ */
+.btn-gold {
+  background: none; border: 1px solid var(--gold-dim); color: var(--gold);
+  padding: 11px 28px;
+  font-family: var(--f-label); font-size: 0.6rem; letter-spacing: 4px;
+  text-transform: uppercase; cursor: pointer;
+  position: relative; overflow: hidden; transition: border-color 0.25s;
+}
+.btn-gold::before {
+  content: ""; position: absolute; inset: 0; background: var(--gold-dim);
+  transform: translateX(-101%); transition: transform 0.3s; z-index: 0;
+}
+.btn-gold span,.btn-gold { position: relative; z-index: 1; }
+.btn-gold:hover { border-color: var(--gold); color: var(--frost); }
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-gold:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-gold:disabled::before { display: none; }
+.btn-gold.btn-active { background: var(--gold-dim); color: var(--frost); }
+
+.btn-outline {
+  background: none; border: 1px solid rgba(201,168,76,0.2); color: var(--fog-dim);
+  padding: 9px 22px;
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 3px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--gold-dim); color: var(--fog); }
+
+.btn-danger {
+  background: none; border: 1px solid rgba(180,60,60,0.4); color: #b44444;
+  padding: 9px 22px;
+  font-family: var(--f-label); font-size: 0.56rem; letter-spacing: 3px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.btn-danger:hover { background: rgba(180,60,60,0.12); border-color: #c05050; }
+
+/* ═══════════════════════════════════════════════════
+   INPUTS
+═══════════════════════════════════════════════════ */
+.game-input {
+  width: 100%;
+  background: var(--ink); color: var(--frost);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 12px 16px;
+  font-family: var(--f-body); font-size: 1rem;
+  outline: none; transition: border-color 0.2s;
+}
+.game-input:focus { border-color: var(--gold-dim); box-shadow: 0 0 0 2px var(--gold-pale); }
+.game-input::placeholder { color: rgba(197,200,202,0.3); font-style: italic; }
+.game-input-label {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.65; display: block; margin-bottom: 6px;
+}
+
+/* ═══════════════════════════════════════════════════
+   LORE BOX
+═══════════════════════════════════════════════════ */
+.lore-box {
+  background: var(--ink-light); border: 1px solid rgba(201,168,76,0.2);
+  position: relative; padding: 22px 24px;
+}
+.lore-box--gold {
+  border-color: var(--gold-dim);
+  background: linear-gradient(145deg,var(--ink-light),rgba(201,168,76,0.04));
+}
+
+/* ═══════════════════════════════════════════════════
+   HOME SCREEN
+═══════════════════════════════════════════════════ */
+#screen-home {
+  display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+}
+#screen-home.active { display: flex; }
+.home-card {
+  width: 100%; max-width: 480px;
+  background: var(--ink-mid);
+  border: 1px solid var(--gold-dim);
+  padding: 40px;
+  position: relative; overflow: hidden;
+}
+.home-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.home-logo {
+  display: block; margin: 0 auto 20px;
+  width: 140px; height: auto; opacity: 0.85;
+  filter: drop-shadow(0 0 20px rgba(201,168,76,0.2));
+}
+.home-title {
+  font-family: var(--f-display); font-size: 1.3rem; letter-spacing: 4px;
+  color: var(--gold); text-align: center; margin-bottom: 4px;
+}
+.home-subtitle {
+  font-family: var(--f-italic); font-style: italic;
+  font-size: 0.95rem; color: var(--fog-dim); text-align: center; margin-bottom: 28px;
+}
+.home-divider {
+  display: flex; align-items: center; gap: 10px; margin: 20px 0;
+}
+.home-divider::before,.home-divider::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(201,168,76,0.25));
+}
+.home-divider::after { background: linear-gradient(270deg,transparent,rgba(201,168,76,0.25)); }
+.home-divider span { font-family: var(--f-label); font-size: 0.48rem; letter-spacing: 4px; color: var(--gold); opacity: 0.5; }
+.home-row { display: flex; gap: 10px; margin-top: 10px; }
+.home-row .btn-gold { flex: 1; }
+
+/* ═══════════════════════════════════════════════════
+   LOBBY
+═══════════════════════════════════════════════════ */
+.lobby-layout {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 24px; align-items: start;
+}
+.lobby-player-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.lobby-player {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  background: var(--ink); border: 1px solid rgba(201,168,76,0.1);
+  transition: border-color 0.25s;
+  animation: slideUp 0.3s ease;
+}
+.lobby-player.is-me { border-color: rgba(201,168,76,0.35); }
+.lobby-player:hover { border-color: rgba(201,168,76,0.25); }
+@keyframes slideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.lobby-av-wrap {
+  position: relative; width: 52px; height: 52px; flex-shrink: 0;
+}
+.lobby-av-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  border: 1px solid rgba(201,168,76,0.25);
+}
+.host-crown {
+  position: absolute; top: -8px; right: -4px;
+  font-size: 0.85rem; color: var(--gold);
+  filter: drop-shadow(0 0 4px rgba(201,168,76,0.5));
+}
+.lobby-player-info { flex: 1; min-width: 0; }
+.lobby-player-name {
+  font-family: var(--f-head); font-size: 0.82rem; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--frost);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lobby-player-status {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 2px;
+  text-transform: uppercase; display: block; margin-top: 4px;
+}
+.lobby-player-status.ready  { color: #5a8c6a; }
+.lobby-player-status.waiting { color: var(--fog-dim); }
+
+.avatar-picker-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px;
+}
+.av-option {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 6px; cursor: pointer;
+  border: 2px solid rgba(201,168,76,0.12);
+  background: var(--ink); transition: all 0.2s;
+}
+.av-option:hover { border-color: rgba(201,168,76,0.4); background: var(--ink-light); }
+.av-option.selected { border-color: var(--gold); background: var(--gold-pale); }
+.av-option img { width: 48px; height: 48px; object-fit: cover; }
+.av-option span {
+  font-family: var(--f-label); font-size: 0.38rem; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--fog-dim); text-align: center;
+  white-space: nowrap; overflow: hidden; width: 100%; text-overflow: ellipsis;
+}
+.av-option.selected span { color: var(--gold); }
+
+.lobby-controls { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.room-code-display {
+  font-family: var(--f-display); font-size: 2.2rem; letter-spacing: 10px;
+  color: var(--gold); text-align: center; margin-bottom: 6px;
+}
+.code-hint {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--fog-dim); text-align: center; margin-bottom: 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   PHASE 1
+═══════════════════════════════════════════════════ */
+.p1-form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.p1-field { display: flex; flex-direction: column; gap: 6px; }
+.p1-field--full { grid-column: 1/-1; }
+.p1-optional-tag {
+  font-family: var(--f-label); font-size: 0.44rem; letter-spacing: 2px;
+  color: var(--fog-dim); opacity: 0.6; margin-left: 6px;
+}
+.p1-waiting-ring {
+  width: 80px; height: 80px; border: 2px solid var(--gold-dim);
+  border-top-color: var(--gold); border-radius: 50%;
+  margin: 20px auto; animation: spin 1.2s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════
+   WHEEL ORDER (SLOT MACHINE)
+═══════════════════════════════════════════════════ */
+#screen-wheel-order .game-content {
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+  padding-top: 60px;
+}
+.slot-machine-wrap {
+  text-align: center; position: relative;
+}
+.slot-machine-border {
+  display: inline-block; padding: 28px 48px;
+  border: 2px solid var(--gold-dim);
+  background: var(--void);
+  position: relative;
+}
+.slot-machine-border::before,.slot-machine-border::after {
+  content: "◆"; position: absolute;
+  color: var(--gold); font-size: 0.7rem;
+}
+.slot-machine-border::before { top: -10px; left: 50%; transform: translateX(-50%); }
+.slot-machine-border::after  { bottom: -10px; left: 50%; transform: translateX(-50%); }
+#slot-machine-name {
+  font-family: var(--f-display); font-size: clamp(1.8rem,5vw,3rem);
+  letter-spacing: 4px; color: var(--frost); min-width: 280px; display: block;
+  transition: opacity 0.05s;
+}
+#slot-machine-name.slot-lock {
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,168,76,0.6), 0 0 40px rgba(201,168,76,0.3);
+  animation: lockPulse 0.4s ease;
+}
+@keyframes lockPulse { 0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)} }
+#slot-subtitle {
+  font-family: var(--f-label); font-size: 0.58rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--fog-dim); margin-top: 12px;
+}
+.slot-order-list {
+  display: flex; flex-direction: column; gap: 6px; min-width: 260px; margin-top: 10px;
+}
+.slot-order-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px; background: var(--ink-light);
+  border: 1px solid rgba(201,168,76,0.15);
+  font-family: var(--f-head); font-size: 0.72rem; letter-spacing: 1px; color: var(--fog);
+  animation: slideUp 0.4s ease;
+}
+.slot-order-num {
+  font-family: var(--f-display); font-size: 0.7rem; color: var(--gold); min-width: 20px;
+}
+
+/* Spotlight overlay */
+#slot-spotlight {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.92);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+#slot-spotlight.active { opacity: 1; pointer-events: all; }
+.spotlight-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 60px rgba(201,168,76,0.4), 0 0 120px rgba(201,168,76,0.15);
+  overflow: hidden;
+}
+.spotlight-ring img { width: 100%; height: 100%; object-fit: cover; }
+#spotlight-name {
+  font-family: var(--f-display); font-size: 2rem; letter-spacing: 6px;
+  color: var(--frost); text-align: center;
+  animation: spotlightName 0.5s var(--ease-back);
+}
+@keyframes spotlightName { from { transform:translateY(20px) scale(0.8); opacity:0; } to { transform:translateY(0) scale(1); opacity:1; } }
+
+/* ═══════════════════════════════════════════════════
+   PHASE 2 — WHEEL
+═══════════════════════════════════════════════════ */
+.phase2-layout {
+  display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start;
+}
+.wheel-wrap {
+  position: relative; flex-shrink: 0;
+}
+#wheel-canvas {
+  display: block;
+  filter: drop-shadow(0 0 20px rgba(201,168,76,0.2));
+}
+.wheel-label {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); text-align: center; margin-top: 8px;
+}
+.p2-info { display: flex; flex-direction: column; gap: 16px; }
+.p2-spinner-badge {
+  font-family: var(--f-display); font-size: 1.1rem; letter-spacing: 2px;
+  color: var(--gold); padding: 12px 0; border-bottom: 1px dashed rgba(201,168,76,0.2);
+}
+.p2-category-pill {
+  display: inline-block;
+  font-family: var(--f-label); font-size: 0.58rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--frost);
+  background: var(--gold-dim); padding: 6px 18px;
+}
+.p2-your-turn-msg {
+  font-family: var(--f-italic); font-style: italic; font-size: 1.1rem;
+  color: var(--gold); animation: glow 2s ease-in-out infinite;
+}
+@keyframes glow { 0%,100%{text-shadow:none} 50%{text-shadow:0 0 12px rgba(201,168,76,0.5)} }
+.p2-wait-msg {
+  font-family: var(--f-italic); font-style: italic; font-size: 1rem; color: var(--fog-dim);
+}
+.p2-reveal-box {
+  padding: 18px 22px;
+  background: var(--gold-pale); border: 1px solid var(--gold);
+  animation: none;
+}
+.p2-reveal-box.reveal-flash { animation: revealFlash 0.5s ease; }
+@keyframes revealFlash { 0%{background:rgba(201,168,76,0.3)} 100%{background:var(--gold-pale)} }
+.reveal-cat {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px;
+}
+.reveal-val {
+  font-family: var(--f-display); font-size: 1.4rem; letter-spacing: 3px; color: var(--frost);
+}
+
+/* Spotlight for wheel */
+#spotlight-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.95) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+#spotlight-overlay.active { opacity: 1; }
+#spotlight-overlay .spotlight-ring { width: 150px; height: 150px; }
+#spotlight-overlay #spotlight-name {
+  font-family: var(--f-display); font-size: 2.2rem; letter-spacing: 6px;
+  color: var(--frost); text-shadow: 0 0 30px rgba(201,168,76,0.6);
+}
+
+/* ═══════════════════════════════════════════════════
+   BACKSTORY
+═══════════════════════════════════════════════════ */
+.bs-char-sheet {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;
+}
+.bs-field {
+  padding: 12px 16px; background: var(--ink);
+  border: 1px solid rgba(201,168,76,0.15); border-top: 2px solid var(--gold-dim);
+}
+.bs-field-label {
+  font-family: var(--f-label); font-size: 0.48rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.6; display: block; margin-bottom: 5px;
+}
+.bs-field-val {
+  font-family: var(--f-head); font-size: 0.85rem; letter-spacing: 1px; color: var(--frost);
+}
+.bs-timer-wrap { text-align: center; margin-bottom: 20px; }
+#bs-timer {
+  font-family: var(--f-display); font-size: 2.8rem; letter-spacing: 8px;
+  color: var(--gold); transition: color 0.3s;
+}
+#bs-timer.timer-urgent { color: #c05050; animation: timerPulse 1s ease-in-out infinite; }
+@keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.bs-timer-label {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--fog-dim); display: block; margin-top: 4px;
+}
+textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-body); }
+.bs-vote-btns { display: flex; gap: 10px; margin-top: 10px; }
+#bs-vote-status {
+  font-family: var(--f-label); font-size: 0.52rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold); display: none;
+  padding: 8px 14px; border: 1px solid rgba(201,168,76,0.2); margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════════════
+   PHASE 3
+═══════════════════════════════════════════════════ */
+.phase3-layout {
+  display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-items: start;
+}
+.p3-presenter-card {
+  text-align: center; padding: 24px 16px;
+  background: var(--ink); border: 1px solid rgba(201,168,76,0.2);
+  border-top: 2px solid var(--gold-dim);
+  position: sticky; top: 70px;
+}
+#p3-presenter-av {
+  width: 100px; height: 100px; object-fit: cover;
+  border: 2px solid var(--gold-dim); margin: 0 auto 12px; display: block;
+  filter: saturate(0.8); transition: filter 0.3s;
+}
+.p3-presenter-card:hover #p3-presenter-av { filter: saturate(1); }
+#p3-presenter-name {
+  font-family: var(--f-display); font-size: 0.9rem; letter-spacing: 2px; color: var(--frost);
+}
+#p3-turn-count {
+  font-family: var(--f-label); font-size: 0.48rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--fog-dim); margin-top: 6px; display: block;
+}
+.p3-stars {
+  display: flex; justify-content: center; gap: 4px; margin-top: 16px;
+}
+.star {
+  font-size: 1.6rem; color: rgba(201,168,76,0.2); cursor: pointer;
+  transition: color 0.15s, transform 0.15s;
+}
+.star.lit { color: var(--gold); }
+.star:hover { color: var(--gold); transform: scale(1.2); }
+
+.p3-char-sheet { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.p3-field {
+  display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+  background: var(--ink); border: 1px solid rgba(201,168,76,0.1);
+  transition: all 0.3s ease;
+}
+.p3-field.revealed { border-color: rgba(201,168,76,0.35); background: var(--ink-light); }
+.p3-field-label {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.6; min-width: 70px;
+}
+.p3-field-val {
+  font-family: var(--f-head); font-size: 0.82rem; letter-spacing: 1px;
+  color: var(--frost); flex: 1;
+}
+.p3-field.hidden .p3-field-val { color: var(--fog-dim); font-style: italic; }
+.p3-reveal-btn {
+  background: none; border: 1px solid var(--gold-dim); color: var(--gold);
+  padding: 4px 12px; font-family: var(--f-label); font-size: 0.48rem; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.p3-reveal-btn:hover { background: var(--gold-dim); color: var(--frost); }
+
+.p3-backstory {
+  padding: 20px; background: var(--ink); border: 1px solid rgba(201,168,76,0.15);
+  min-height: 80px;
+}
+.p3-bs-para {
+  font-family: var(--f-body); font-size: 1rem; line-height: 1.78; color: var(--fog);
+  margin-bottom: 12px;
+}
+.p3-bs-para.para-new { animation: paraReveal 0.5s ease; }
+@keyframes paraReveal { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.p3-bs-hidden {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--fog-dim); opacity: 0.5; padding: 10px 0;
+}
+.p3-char-img {
+  width: 100%; max-height: 300px; object-fit: contain;
+  margin-bottom: 16px; filter: saturate(0.8);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+#p3-backstory-btns { display: flex; gap: 10px; margin-top: 12px; }
+
+/* ═══════════════════════════════════════════════════
+   LEADERBOARD
+═══════════════════════════════════════════════════ */
+#screen-leaderboard .game-content { text-align: center; }
+.leaderboard-list {
+  max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;
+}
+.lb-row {
+  display: flex; align-items: center; gap: 16px; padding: 14px 20px;
+  background: var(--ink); border: 1px solid rgba(201,168,76,0.12);
+}
+.lb-row--rest { opacity: 0.7; }
+.lb-rank { font-family: var(--f-head); font-size: 0.75rem; color: var(--fog-dim); min-width: 24px; }
+.lb-av { width: 44px; height: 44px; object-fit: cover; border: 1px solid rgba(201,168,76,0.2); }
+.lb-name { font-family: var(--f-head); font-size: 0.8rem; letter-spacing: 1px; color: var(--frost); }
+.lb-score { margin-left: auto; font-family: var(--f-label); font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); }
+
+.lb-row--top {
+  opacity: 0; transform: translateY(20px) scale(0.96);
+  transition: opacity 0.6s ease, transform 0.6s var(--ease-back);
+  border-color: rgba(201,168,76,0.3);
+}
+.lb-row--top.visible { opacity: 1; transform: translateY(0) scale(1); }
+.lb-rank-1 { background: linear-gradient(135deg, var(--ink-light), rgba(201,168,76,0.08)); border-color: var(--gold-dim); }
+.lb-rank-2 { background: linear-gradient(135deg, var(--ink-light), rgba(180,180,200,0.06)); }
+.lb-rank-3 { background: var(--ink-light); }
+.lb-reveal { padding: 18px 24px; }
+.lb-medal { font-size: 2rem; }
+.lb-av--big { width: 64px; height: 64px; }
+.lb-info { flex: 1; text-align: left; }
+.lb-name--big { font-family: var(--f-display); font-size: 1.05rem; letter-spacing: 2px; color: var(--frost); display: block; }
+.lb-char-name { font-family: var(--f-italic); font-style: italic; font-size: 0.85rem; color: var(--fog-dim); }
+.lb-score--big { font-family: var(--f-display); font-size: 1.1rem; color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════
+   GLOBAL ERROR TOAST
+═══════════════════════════════════════════════════ */
+#global-error {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink-light); border: 1px solid #b44444;
+  color: var(--frost); padding: 11px 22px;
+  font-family: var(--f-label); font-size: 0.57rem; letter-spacing: 3px; text-transform: uppercase;
+  opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 9999; white-space: nowrap;
+}
+#global-error::before { content: "✕ "; color: #c05050; }
+#global-error.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ═══════════════════════════════════════════════════
+   SHAKE ANIMATION
+═══════════════════════════════════════════════════ */
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.shake { animation: shake 0.4s ease; }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:768px) {
+  .lobby-layout { grid-template-columns: 1fr; }
+  .phase2-layout { grid-template-columns: 1fr; }
+  #wheel-canvas { width: 300px !important; height: 300px !important; }
+  .phase3-layout { grid-template-columns: 1fr; }
+  .p3-presenter-card { position: static; }
+  .bs-char-sheet { grid-template-columns: 1fr 1fr; }
+  .p1-form-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:480px) {
+  .home-card { padding: 28px 20px; }
+  .bs-char-sheet { grid-template-columns: 1fr; }
+  .game-bar-title { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: HOME
+═══════════════════════════════════════════════ -->
+<div id="screen-home" class="screen">
+  <div class="home-card">
+    <img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives" class="home-logo"
+         onerror="this.style.display='none'">
+    <h1 class="home-title">Character Forge</h1>
+    <p class="home-subtitle">A multiplayer character creation game set in Edelith.</p>
+    <div class="ornament"><span>✦</span></div>
+
+    <label class="game-input-label" for="home-name">Your Name</label>
+    <input class="game-input" id="home-name" type="text"
+           placeholder="e.g. Peggle Bottomsworth" maxlength="24"
+           onkeydown="if(event.key==='Enter')joinRoom()">
+
+    <div class="home-divider"><span>or join a room</span></div>
+
+    <label class="game-input-label" for="home-code">Room Code</label>
+    <input class="game-input" id="home-code" type="text"
+           placeholder="e.g. 87221" maxlength="5"
+           onkeydown="if(event.key==='Enter')joinRoom()">
+
+    <div class="home-row" style="margin-top:18px;">
+      <button class="btn-gold" onclick="createRoom()">Create Room</button>
+      <button class="btn-gold" onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <p style="font-family:var(--f-label);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--fog-dim);opacity:.5;text-align:center;margin-top:16px;">
+      Leave the code blank to create. Enter a code to join.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: LOBBY
+═══════════════════════════════════════════════ -->
+<div id="screen-lobby" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Character Forge</span>
+    <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content">
+    <h2 class="screen-title">The Lobby</h2>
+    <p class="screen-sub">Choose your avatar and ready up. The host starts when everyone is ready.</p>
+
+    <div class="room-code-display" id="room-code-display">—</div>
+    <p class="code-hint">Share this code with your party</p>
+
+    <div class="lobby-layout">
+      <div>
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
+          ◆ Players — <span id="lobby-players-count">0 players</span>
+        </div>
+        <div id="lobby-player-list" class="lobby-player-list"></div>
+        <div class="lobby-controls">
+          <button class="btn-gold" id="lobby-ready-btn" onclick="toggleReady()">Ready</button>
+          <button class="btn-gold" id="lobby-start-btn" onclick="startGame()" disabled>
+            Start Game →
+          </button>
+        </div>
+      </div>
+      <div class="lore-box lore-box--gold">
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
+          ◆ Choose Avatar
+        </div>
+        <div id="avatar-picker" class="avatar-picker-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: PHASE 1
+═══════════════════════════════════════════════ -->
+<div id="screen-phase1" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Phase I — The Forge</span>
+    <div class="game-bar-code">Room <span id="p1-room-code-display"></span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content game-content--narrow">
+
+    <div id="phase1-form">
+      <h2 class="screen-title">Build Your Character</h2>
+      <p class="screen-sub">These inputs will be <em>given to another player</em>. Fill in what you want someone else to play as.</p>
+      <div class="ornament"><span>✦</span></div>
+
+      <div class="p1-form-grid">
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-race">Race <span class="p1-optional-tag">required</span></label>
+          <input class="game-input" id="p1-race" type="text" placeholder="e.g. Woodsworn">
+        </div>
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-subrace">Subrace <span class="p1-optional-tag">optional</span></label>
+          <input class="game-input" id="p1-subrace" type="text" placeholder="e.g. Corrosion-touched">
+        </div>
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-class">Class <span class="p1-optional-tag">required</span></label>
+          <input class="game-input" id="p1-class" type="text" placeholder="e.g. Shroud Mage">
+        </div>
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-subclass">Subclass <span class="p1-optional-tag">optional</span></label>
+          <input class="game-input" id="p1-subclass" type="text" placeholder="e.g. Aurum Devotee">
+        </div>
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-flair">Flair / Weapon <span class="p1-optional-tag">required</span></label>
+          <input class="game-input" id="p1-flair" type="text" placeholder="e.g. Carries a rusted bell">
+        </div>
+        <div class="p1-field">
+          <label class="game-input-label" for="p1-charname">Character Name <span class="p1-optional-tag">required</span></label>
+          <input class="game-input" id="p1-charname" type="text" placeholder="e.g. Vitriole Crux">
+        </div>
+      </div>
+
+      <button class="btn-gold" style="width:100%;margin-top:20px;" onclick="submitPhase1()">
+        Submit Character →
+      </button>
+    </div>
+
+    <div id="phase1-waiting" style="display:none;text-align:center;padding:40px 0;">
+      <div class="p1-waiting-ring"></div>
+      <h2 class="screen-title" style="margin-bottom:10px;">Waiting for others…</h2>
+      <p id="phase1-wait-count" class="screen-sub"></p>
+      <p style="font-family:var(--f-italic);font-style:italic;font-size:.95rem;color:var(--fog-dim);margin-top:12px;">
+        Once everyone submits, the assignments will be randomised.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: WHEEL ORDER (SLOT MACHINE)
+═══════════════════════════════════════════════ -->
+<div id="screen-wheel-order" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Determining Spin Order</span>
+    <div class="game-bar-code">Room <span></span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content" style="text-align:center;padding-top:50px;">
+    <h2 class="screen-title" id="wo-title">Determining spin order…</h2>
+    <p class="screen-sub">The order of play is decided by fate.</p>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="slot-machine-wrap">
+      <div class="slot-machine-border">
+        <span id="slot-machine-name">?</span>
+        <p id="slot-subtitle">Who goes first?</p>
+      </div>
+    </div>
+
+    <div id="slot-order-list" class="slot-order-list" style="margin:24px auto;max-width:280px;"></div>
+  </div>
+
+  <!-- Spotlight overlay for slot machine -->
+  <div id="slot-spotlight">
+    <div class="spotlight-ring"><img id="slot-spotlight-av" src="" alt=""></div>
+    <div id="slot-spotlight-name" style="font-family:var(--f-display);font-size:2rem;letter-spacing:6px;color:var(--frost);"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: PHASE 2 — SPINNING WHEEL
+═══════════════════════════════════════════════ -->
+<div id="screen-phase2" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Phase II — The Reveal</span>
+    <div class="game-bar-code">Room <span></span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content game-content--wide">
+    <h2 class="screen-title" id="p2-spinner-name">Spinning…</h2>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="phase2-layout">
+      <div class="wheel-wrap">
+        <canvas id="wheel-canvas" width="420" height="420"></canvas>
+        <div class="wheel-label">◆ Spin the Wheel ◆</div>
+      </div>
+
+      <div class="p2-info lore-box lore-box--gold">
+        <div class="p2-spinner-badge" id="p2-spinner-name-badge">—</div>
+        <div>
+          <span style="font-family:var(--f-label);font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--fog-dim);">Current Category</span>
+          <div class="p2-category-pill" id="p2-category-label" style="margin-top:8px;">Race</div>
+        </div>
+
+        <div id="p2-your-turn" style="display:none;">
+          <p class="p2-your-turn-msg">✦ It's your turn to spin!</p>
+          <button class="btn-gold" id="p2-spin-btn" style="margin-top:12px;" onclick="spinWheel()">
+            Spin the Wheel ◆
+          </button>
+        </div>
+
+        <div id="p2-wait-msg" style="display:none;">
+          <p class="p2-wait-msg">Watch the wheel spin…</p>
+        </div>
+
+        <div id="p2-reveal" class="p2-reveal-box" style="display:none;">
+          <span class="reveal-cat">Your</span>
+          <span class="reveal-val">—</span>
+          <span style="font-family:var(--f-label);font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:var(--fog-dim);display:block;margin-top:8px;">is revealed to you alone</span>
+        </div>
+
+        <div id="p2-advance-btn-wrap">
+          <button class="btn-outline" id="p2-advance-btn" style="display:none;" onclick="advancePhase2()">
+            Next Category →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spotlight overlay for wheel -->
+  <div id="spotlight-overlay">
+    <div class="spotlight-ring">
+      <img id="spotlight-av" src="" alt="" onerror="this.src='/assets/img/game/avatars/fallback.png'">
+    </div>
+    <div id="spotlight-name"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: BACKSTORY
+═══════════════════════════════════════════════ -->
+<div id="screen-backstory" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Phase II — Your Character Sheet</span>
+    <div class="game-bar-code">Room <span></span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content">
+    <h2 class="screen-title">Your Assigned Character</h2>
+    <p class="screen-sub">This is who you're playing. Write their backstory.</p>
+    <div class="ornament"><span>✦</span></div>
+
+    <!-- Timer -->
+    <div class="bs-timer-wrap">
+      <span id="bs-timer">15:00</span>
+      <span class="bs-timer-label">remaining to write your backstory</span>
+    </div>
+
+    <!-- Extra time vote status -->
+    <div id="bs-vote-status"></div>
+
+    <!-- Character sheet -->
+    <div class="bs-char-sheet">
+      <div class="bs-field">
+        <span class="bs-field-label">Name</span>
+        <span class="bs-field-val" id="bs-name">—</span>
+      </div>
+      <div class="bs-field">
+        <span class="bs-field-label">Race</span>
+        <span class="bs-field-val" id="bs-race">—</span>
+      </div>
+      <div class="bs-field">
+        <span class="bs-field-label">Subrace</span>
+        <span class="bs-field-val" id="bs-subrace">—</span>
+      </div>
+      <div class="bs-field">
+        <span class="bs-field-label">Class</span>
+        <span class="bs-field-val" id="bs-class">—</span>
+      </div>
+      <div class="bs-field">
+        <span class="bs-field-label">Subclass</span>
+        <span class="bs-field-val" id="bs-subclass">—</span>
+      </div>
+      <div class="bs-field">
+        <span class="bs-field-label">Flair</span>
+        <span class="bs-field-val" id="bs-flair">—</span>
+      </div>
+    </div>
+
+    <!-- Backstory form -->
+    <div id="bs-form" class="lore-box lore-box--gold" style="margin-top:8px;">
+      <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
+        ◆ Write Their Backstory
+      </div>
+      <label class="game-input-label" for="bs-text">Backstory</label>
+      <textarea class="game-input" id="bs-text"
+        placeholder="Who are they? Where did they come from? What drives them?&#10;&#10;Separate paragraphs with a blank line — each will be revealed one at a time during presentation."></textarea>
+
+      <div style="margin-top:16px;">
+        <label class="game-input-label" for="bs-img-upload">
+          Character Image <span class="p1-optional-tag">optional</span>
+        </label>
+        <input type="file" id="bs-img-upload" accept="image/*"
+               style="color:var(--fog);font-family:var(--f-label);font-size:.52rem;width:100%;">
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
+        <button class="btn-gold" onclick="submitBackstory()">Submit Backstory →</button>
+        <button class="btn-outline" onclick="requestExtraTime()">Request +5 min</button>
+      </div>
+
+      <div id="bs-vote-btns" class="bs-vote-btns" style="display:none;">
+        <button class="btn-gold" onclick="voteExtraTime('yes')">✓ Agree (+5 min)</button>
+        <button class="btn-danger" onclick="voteExtraTime('no')">✕ Disagree</button>
+      </div>
+    </div>
+
+    <div id="bs-submitted" style="display:none;text-align:center;padding:40px 0;">
+      <div style="font-size:2rem;color:var(--gold);margin-bottom:12px;">◆</div>
+      <h3 style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:3px;color:var(--frost);margin-bottom:8px;">Backstory Submitted</h3>
+      <p style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
+        Waiting for others to finish writing…
+      </p>
+      <div id="bs-timer-submitted" style="margin-top:16px;">
+        <span id="bs-timer" style="font-family:var(--f-display);font-size:1.5rem;letter-spacing:4px;color:var(--gold);">15:00</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: PHASE 3 — PRESENTATIONS
+═══════════════════════════════════════════════ -->
+<div id="screen-phase3" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Phase III — Presentations</span>
+    <div class="game-bar-code">Room <span></span></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content game-content--wide">
+
+    <div class="phase3-layout">
+
+      <!-- Presenter sidebar -->
+      <div class="p3-presenter-card lore-box">
+        <img id="p3-presenter-av" src="" alt=""
+             onerror="this.src='/assets/img/game/avatars/fallback.png'">
+        <h3 id="p3-presenter-name" style="font-family:var(--f-display);font-size:.9rem;letter-spacing:2px;color:var(--frost);">—</h3>
+        <span id="p3-turn-count"></span>
+
+        <!-- Audience: star rating -->
+        <div id="p3-audience-controls" style="display:none;">
+          <div style="font-family:var(--f-label);font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-top:16px;margin-bottom:8px;">
+            Rate this character
+          </div>
+          <div id="p3-stars" class="p3-stars"></div>
+          <p style="font-family:var(--f-label);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--fog-dim);opacity:.5;margin-top:8px;">
+            Ratings revealed at end
+          </p>
+        </div>
+
+        <!-- Presenter: finish button -->
+        <div id="p3-presenter-controls" style="display:none;margin-top:16px;">
+          <button class="btn-danger" id="p3-finish-btn" onclick="finishPresentation()"
+                  style="width:100%;margin-top:8px;">
+            Finished →
+          </button>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div>
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
+          ◆ Character Sheet
+        </div>
+        <div id="p3-char-sheet" class="p3-char-sheet"></div>
+
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:18px 0 10px;">
+          ◆ Backstory
+        </div>
+        <div id="p3-backstory" class="p3-backstory"></div>
+        <div id="p3-backstory-btns"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN: LEADERBOARD
+═══════════════════════════════════════════════ -->
+<div id="screen-leaderboard" class="screen">
+  <div class="game-bar">
+    <span class="game-bar-title">◆ Character Forge — Results</span>
+    <div class="game-bar-code"></div>
+    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+  </div>
+  <div class="game-content">
+    <h2 class="screen-title" style="margin-bottom:6px;">The Results</h2>
+    <p class="screen-sub">The votes are in. The best character stands revealed.</p>
+    <div class="ornament"><span>✦</span></div>
+
+    <div id="leaderboard-list" class="leaderboard-list"></div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <button class="btn-gold" onclick="leaveGame()">Return to Archives</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     GLOBAL TOAST
+═══════════════════════════════════════════════ -->
+<div id="global-error"></div>
+
+</body>
+</html>
