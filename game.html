@@ -4,21 +4,18 @@
   <link rel="icon" type="image/x-icon" href="/assets/img/ico/yellow.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Character Forge — Solstitheo Archives</title>
-  <meta name="description" content="A multiplayer character creation game set in the world of Edelith.">
+  <title>Autistic Canon — Solstitheo Archives</title>
+  <meta name="description" content="A multiplayer character creation game where you straigh up make sum BULLSHIDD.">
   <meta name="theme-color" content="#2a211b">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    // PATCH: expose G namespace before module loads so onclick handlers don't fail
-    // during the brief window between DOM ready and module execution.
     window.G = {};
     ['createRoom','joinRoom','selectAvatar','toggleReady','startGame','submitPhase1',
      'spinWheel','advancePhase2','submitBackstory','requestExtraTime','voteExtraTime',
      'revealField','bsProceed','bsUndo','finishPresentation','rate','leaveGame'
     ].forEach(fn => {
       window.G[fn] = (...args) => {
-        // If the real function is loaded, call it; otherwise queue it
         if (window.G._real && window.G._real[fn]) return window.G._real[fn](...args);
         console.warn('G.' + fn + ' called before module loaded');
       };
@@ -63,6 +60,8 @@
 
     let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
     let slotTimer=null, wheelSpinning=false, bsTimer=null, wheelAngle=0, wheelAnimId=null;
+    // FIX: track the startTime of the last spin we've already animated, to avoid re-triggering
+    let lastAnimatedSpinTime=0;
     let p3State = {race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
 
     const $   = id => document.getElementById(id);
@@ -134,7 +133,8 @@
         await setDoc(doc(db,'rooms',code),{
           hostId:myId,phase:'lobby',createdAt:serverTimestamp(),
           presenterOrder:[],presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0,
-          extraTimeVotes:{},extraTimeRequested:false,ratings:{},reveals:{}
+          extraTimeVotes:{},extraTimeRequested:false,ratings:{},reveals:{},
+          spinData:null,wheelSpun:false
         });
         await setDoc(doc(db,'rooms',code,'players',myId),{
           name,avatarId:'a1',isReady:false,isHost:true,joinedAt:serverTimestamp()
@@ -257,7 +257,10 @@
         }).join('');
       }
       if(done<order.length) runSlotMachine(order[done],done);
-      else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{phase:'phase2',wheelIndex:0,categoryIndex:0}),2000);
+      else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{
+        phase:'phase2',wheelIndex:0,categoryIndex:0,
+        spinData:null,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null
+      }),2000);
     }
     function runSlotMachine(winnerId,slotIdx) {
       const players=Object.values(playersData),slotEl=$('slot-machine-name'),subEl=$('slot-subtitle');
@@ -295,7 +298,14 @@
     }
 
     // ── PHASE 2 WHEEL ────────────────────────────────────────
+
     function renderPhase2() {
+      // FIX: Reset all wheel state when entering phase2 fresh
+      wheelAngle = 0;
+      wheelSpinning = false;
+      lastAnimatedSpinTime = 0;
+      if(wheelAnimId){cancelAnimationFrame(wheelAnimId);wheelAnimId=null;}
+
       const players=Object.values(playersData);
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
@@ -309,12 +319,30 @@
       $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun)?'':'none';
       $('p2-spin-btn').disabled=!!roomData?.wheelSpun;
       buildWheel(players,spinnerId);
+
+      // FIX: If there's already spinData from a previous spin (e.g. on rejoin), jump to end
+      const sd=roomData?.spinData;
+      if(sd && roomData?.wheelSpun) {
+        // spin already finished, just show end position
+        wheelAngle = sd.startAngle + sd.totalRotation;
+        window._drawWheel?.(wheelAngle);
+      }
+
       updatePhase2();
     }
+
     function updatePhase2() {
       if(!roomData) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
+
+      // FIX: Detect new spinData and kick off a synced animation on all clients
+      const sd=roomData?.spinData;
+      if(sd && sd.startTime && sd.startTime!==lastAnimatedSpinTime && !roomData?.wheelSpun) {
+        lastAnimatedSpinTime = sd.startTime;
+        startSyncedSpin(sd);
+      }
+
       const revealEl=$('p2-reveal');
       if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
         const a=playersData[myId]?.assignment||{};
@@ -325,10 +353,64 @@
         revealEl.querySelector('.reveal-val').textContent=val;
         revealEl.classList.remove('reveal-flash');void revealEl.offsetWidth;revealEl.classList.add('reveal-flash');
       } else {revealEl.style.display='none';}
+
       const advBtn=$('p2-advance-btn');
       if(advBtn) advBtn.style.display=(amHost()&&roomData?.wheelSpun)?'':'none';
+
+      // Update spinner badge and spin button visibility
+      const isMyTurn=spinnerId===myId;
+      $('p2-your-turn').style.display=isMyTurn?'':'none';
+      $('p2-wait-msg').style.display=isMyTurn?'none':'';
+      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!roomData?.spinData)?'':'none';
+      $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||roomData?.spinData);
+
       buildWheel(Object.values(playersData),spinnerId);
     }
+
+    // FIX: New function — all clients animate from the same Firestore-stored params
+    function startSyncedSpin(sd) {
+      if(wheelSpinning) return;
+      const {startAngle, totalRotation, startTime, duration, spinnerId} = sd;
+      const elapsed = Date.now() - startTime;
+
+      // If the spin is already over (e.g. late joiner), just snap to end position
+      if(elapsed >= duration) {
+        wheelAngle = startAngle + totalRotation;
+        window._drawWheel?.(wheelAngle);
+        return;
+      }
+
+      wheelSpinning = true;
+      if(wheelAnimId){cancelAnimationFrame(wheelAnimId);wheelAnimId=null;}
+      const easeOut = t => 1 - Math.pow(1-t, 4);
+
+      function animate() {
+        const prog = Math.min((Date.now()-startTime)/duration, 1);
+        wheelAngle = startAngle + totalRotation * easeOut(prog);
+        window._drawWheel?.(wheelAngle);
+        if(prog < 1) {
+          wheelAnimId = requestAnimationFrame(animate);
+        } else {
+          wheelSpinning = false;
+          wheelAnimId = null;
+          // Only the original spinner writes the result back to Firestore
+          if(spinnerId === myId) {
+            triggerSpotlight(spinnerId, () => {
+              const cat = WHEEL_CATS[roomData?.categoryIndex??0];
+              updateDoc(doc(db,'rooms',roomCode),{
+                wheelSpun:true,
+                lastRevealedFor:spinnerId,
+                lastRevealedCategory:cat
+              });
+            });
+          } else {
+            triggerSpotlight(spinnerId, null);
+          }
+        }
+      }
+      wheelAnimId = requestAnimationFrame(animate);
+    }
+
     function buildWheel(players,highlightId) {
       const canvas=$('wheel-canvas');if(!canvas) return;
       const ctx=canvas.getContext('2d'),n=Math.max(players.length,1);
@@ -359,58 +441,63 @@
       }
       draw(wheelAngle);window._drawWheel=draw;
     }
+
+    // FIX: doSpinWheel now writes spin params to Firestore; animation is driven by startSyncedSpin on all clients
     async function doSpinWheel() {
       if(wheelSpinning) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
-      if(spinnerId!==myId||roomData?.wheelSpun) return;
-      wheelSpinning=true;$('p2-spin-btn').disabled=true;
-      const players=Object.values(playersData),targetIdx=players.findIndex(p=>p.id===spinnerId);
+      if(spinnerId!==myId||roomData?.wheelSpun||roomData?.spinData) return;
+      $('p2-spin-btn').disabled=true;
+
+      const players=Object.values(playersData);
+      const targetIdx=players.findIndex(p=>p.id===spinnerId);
       const sliceAng=(Math.PI*2)/players.length;
       const extraSpins=(5+Math.floor(Math.random()*4))*Math.PI*2;
-      const targetAng=extraSpins+(Math.PI*2-targetIdx*sliceAng-sliceAng/2);
-      const startAngle=wheelAngle,duration=4200,startTime=performance.now();
-      const easeOut=t=>1-Math.pow(1-t,4);
-      function animate(now){
-        const progress=Math.min((now-startTime)/duration,1);
-        wheelAngle=startAngle+targetAng*easeOut(progress);
-        window._drawWheel?.(wheelAngle);
-        if(progress<1){wheelAnimId=requestAnimationFrame(animate);}
-        else{
-          wheelSpinning=false;
-          triggerSpotlight(spinnerId,()=>{
-            const cat=WHEEL_CATS[roomData?.categoryIndex??0];
-            updateDoc(doc(db,'rooms',roomCode),{wheelSpun:true,lastRevealedFor:spinnerId,lastRevealedCategory:cat});
-          });
+      const totalRotation=extraSpins+(Math.PI*2-targetIdx*sliceAng-sliceAng/2);
+
+      // Write spin params; all clients (including this one) will animate via updatePhase2 → startSyncedSpin
+      await updateDoc(doc(db,'rooms',roomCode),{
+        spinData:{
+          startAngle: wheelAngle,
+          totalRotation,
+          startTime: Date.now(),
+          duration: 4200,
+          spinnerId
         }
-      }
-      wheelAnimId=requestAnimationFrame(animate);
+      });
     }
+
     function triggerSpotlight(targetId,cb){
       const p=playersData[targetId],av=getAv(p?.avatarId||'a1');
       $('spotlight-av').src=av.src;$('spotlight-name').textContent=p?.name||'???';
       $('spotlight-overlay').classList.add('active');
       setTimeout(()=>{$('spotlight-overlay').classList.remove('active');cb?.();},2200);
     }
+
     async function doAdvancePhase2() {
       if(!amHost()) return;
       const catIdx=roomData?.categoryIndex??0;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       const wIdx=roomData?.wheelIndex??0,newCat=catIdx+1;
+      const baseReset={wheelSpun:false,spinData:null,lastRevealedFor:null,lastRevealedCategory:null};
       if(newCat>=WHEEL_CATS.length){
         const newWIdx=wIdx+1;
         if(newWIdx>=order.length){
           await updateDoc(doc(db,'rooms',roomCode),{
-            phase:'backstory',wheelIndex:0,categoryIndex:0,wheelSpun:false,
-            lastRevealedFor:null,lastRevealedCategory:null,
+            phase:'backstory',wheelIndex:0,categoryIndex:0,...baseReset,
             backstoryEndTime:Date.now()+15*60*1000,extraTimeVotes:{},extraTimeRequested:false
           });
         } else {
-          await updateDoc(doc(db,'rooms',roomCode),{wheelIndex:newWIdx,categoryIndex:0,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null});
+          await updateDoc(doc(db,'rooms',roomCode),{wheelIndex:newWIdx,categoryIndex:0,...baseReset});
         }
       } else {
-        await updateDoc(doc(db,'rooms',roomCode),{categoryIndex:newCat,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null});
+        await updateDoc(doc(db,'rooms',roomCode),{categoryIndex:newCat,...baseReset});
       }
+      // FIX: Reset local wheel state so next spin starts cleanly for this client
+      lastAnimatedSpinTime=0;
+      wheelAngle=0;
+      wheelSpinning=false;
     }
 
     // ── BACKSTORY ───────────────────────────────────────────
@@ -441,6 +528,7 @@
         const rem=Math.max(0,endTime-Date.now());
         const mins=Math.floor(rem/60000),secs=Math.floor((rem%60000)/1000);
         const str=`${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        // FIX: IDs are 'bs-timer' (main) and 'bs-timer2' (submitted state)
         ['bs-timer','bs-timer2'].forEach(id=>{const el=$(id);if(el){el.textContent=str;el.classList.toggle('timer-urgent',rem<60000);}});
         if(rem<=0){clearInterval(bsTimer);if(amHost()) updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});}
       }
@@ -565,7 +653,6 @@
     myId=pid2;
     showScreen('screen-home');
 
-    // Rejoin attempt
     const sr=localStorage.getItem('edelith_room'),sn=localStorage.getItem('edelith_name');
     if(sr&&sn){
       getDoc(doc(db,'rooms',sr)).then(snap=>{
@@ -574,7 +661,6 @@
       }).catch(()=>{});
     }
 
-    // Wire up G namespace with real functions
     window.G._real = {
       createRoom:doCreate, joinRoom:doJoin, selectAvatar:doSelectAvatar,
       toggleReady:doToggleReady, startGame:doStartGame, submitPhase1:doSubmitPhase1,
@@ -583,7 +669,6 @@
       revealField:doRevealField, bsProceed:doBsProceed, bsUndo:doBsUndo,
       finishPresentation:doFinishPresentation, rate:doRate, leaveGame:doLeave
     };
-    // Replace all stub handlers with real ones
     Object.keys(window.G._real).forEach(fn => { window.G[fn] = window.G._real[fn]; });
   </script>
 <style>
@@ -1346,7 +1431,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
         <div class="p1-field">
           <label class="game-input-label" for="p1-flair">Flair / Weapon <span class="p1-optional-tag">required</span></label>
-          <input class="game-input" id="p1-flair" type="text" placeholder="e.g. Books and pages">
+          <input class="game-input" id="p1-flair" type="text" placeholder="e.g. Books and Paper">
         </div>
         <div class="p1-field">
           <label class="game-input-label" for="p1-charname">Character Name <span class="p1-optional-tag">required</span></label>
@@ -1395,7 +1480,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     <div id="slot-order-list" class="slot-order-list" style="margin:24px auto;max-width:280px;"></div>
   </div>
 
-  <!-- Spotlight overlay for slot machine -->
   <div id="slot-spotlight">
     <div class="spotlight-ring"><img id="slot-spotlight-av" src="" alt=""></div>
     <div id="slot-spotlight-name" style="font-family:var(--f-display);font-size:2rem;letter-spacing:6px;color:var(--frost);"></div>
@@ -1454,7 +1538,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     </div>
   </div>
 
-  <!-- Spotlight overlay for wheel -->
   <div id="spotlight-overlay">
     <div class="spotlight-ring">
       <img id="spotlight-av" src="" alt="" onerror="this.src='/assets/img/game/avatars/fallback.png'">
@@ -1477,16 +1560,13 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     <p class="screen-sub">This is who you're playing. Write their backstory.</p>
     <div class="ornament"><span>✦</span></div>
 
-    <!-- Timer -->
     <div class="bs-timer-wrap">
       <span id="bs-timer">15:00</span>
       <span class="bs-timer-label">remaining to write your backstory</span>
     </div>
 
-    <!-- Extra time vote status -->
     <div id="bs-vote-status"></div>
 
-    <!-- Character sheet -->
     <div class="bs-char-sheet">
       <div class="bs-field">
         <span class="bs-field-label">Name</span>
@@ -1514,7 +1594,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
       </div>
     </div>
 
-    <!-- Backstory form -->
     <div id="bs-form" class="lore-box lore-box--gold" style="margin-top:8px;">
       <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
         ◆ Write Their Backstory
@@ -1542,14 +1621,15 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
       </div>
     </div>
 
+    <!-- FIX: changed duplicate id "bs-timer" to "bs-timer2" so tickBsTimer can find it -->
     <div id="bs-submitted" style="display:none;text-align:center;padding:40px 0;">
       <div style="font-size:2rem;color:var(--gold);margin-bottom:12px;">◆</div>
       <h3 style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:3px;color:var(--frost);margin-bottom:8px;">Backstory Submitted</h3>
       <p style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
         Waiting for others to finish writing…
       </p>
-      <div id="bs-timer-submitted" style="margin-top:16px;">
-        <span id="bs-timer" style="font-family:var(--f-display);font-size:1.5rem;letter-spacing:4px;color:var(--gold);">15:00</span>
+      <div style="margin-top:16px;">
+        <span id="bs-timer2" style="font-family:var(--f-display);font-size:1.5rem;letter-spacing:4px;color:var(--gold);">15:00</span>
       </div>
     </div>
 
@@ -1569,14 +1649,12 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 
     <div class="phase3-layout">
 
-      <!-- Presenter sidebar -->
       <div class="p3-presenter-card lore-box">
         <img id="p3-presenter-av" src="" alt=""
              onerror="this.src='/assets/img/game/avatars/fallback.png'">
         <h3 id="p3-presenter-name" style="font-family:var(--f-display);font-size:.9rem;letter-spacing:2px;color:var(--frost);">—</h3>
         <span id="p3-turn-count"></span>
 
-        <!-- Audience: star rating -->
         <div id="p3-audience-controls" style="display:none;">
           <div style="font-family:var(--f-label);font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-top:16px;margin-bottom:8px;">
             Rate this character
@@ -1587,7 +1665,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
           </p>
         </div>
 
-        <!-- Presenter: finish button -->
         <div id="p3-presenter-controls" style="display:none;margin-top:16px;">
           <button class="btn-danger" id="p3-finish-btn" onclick="G.finishPresentation()"
                   style="width:100%;margin-top:8px;">
@@ -1596,7 +1673,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
       </div>
 
-      <!-- Main content area -->
       <div>
         <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
           ◆ Character Sheet
@@ -1636,9 +1712,6 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     GLOBAL TOAST
-═══════════════════════════════════════════════ -->
 <div id="global-error"></div>
 
 </body>
