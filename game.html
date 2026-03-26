@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,12 +19,14 @@
       arrayUnion, serverTimestamp, deleteField, increment
     } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
     import {
-      getAuth, signInAnonymously
-    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+      getStorage, ref as storageRef, uploadBytes, getDownloadURL
+    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
     // ═══════════════════════════════════════════════════
     // FIREBASE CONFIG — replace with your own values
     // ═══════════════════════════════════════════════════
+
+
     const firebaseConfig = {
       apiKey: "AIzaSyAEEYlYS0ckylSMsdl2zzoQlnH2Xko8VGk",
       authDomain: "rollplay-3ac1e.firebaseapp.com",
@@ -36,7 +39,6 @@
     const app     = initializeApp(firebaseConfig);
     const db      = getFirestore(app);
     const storage = getStorage(app);
-    const auth    = getAuth(app);
 
     // ═══════════════════════════════════════════════════
     // GLOBAL STATE
@@ -1138,26 +1140,8 @@
     // ═══════════════════════════════════════════════════
     // INIT
     // ═══════════════════════════════════════════════════
-async function init() {
-  initMyId();
-
-  // sign in anonymously
-  await signInAnonymously(auth).catch(console.error);
-
-  showScreen('screen-home');
-
-  // Rejoin logic
-  const savedRoom = localStorage.getItem('edelith_room');
-  const savedName = localStorage.getItem('edelith_name');
-
-  if (savedRoom && savedName) {
-    myName = savedName;
-    await subscribeRoom(savedRoom);
-    if (roomData) routeByPhase(roomData);
-  }
-}
-
-init();
+    initMyId();
+    showScreen('screen-home');
 
     // Rejoin: if localStorage has a room and player
     const savedRoom = localStorage.getItem('edelith_room');
