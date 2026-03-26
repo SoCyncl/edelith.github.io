@@ -46,18 +46,18 @@
     const storage = getStorage(app);
 
     const AVATARS = [
-      { id:'a1',  src:'/assets/img/game/avatars/avatar1.png',  label:'The Wanderer'   },
-      { id:'a2',  src:'/assets/img/game/avatars/avatar2.png',  label:'Iron Fang'      },
-      { id:'a3',  src:'/assets/img/game/avatars/avatar3.png',  label:'Shroud Mage'    },
-      { id:'a4',  src:'/assets/img/game/avatars/avatar4.png',  label:'Steelside'      },
-      { id:'a5',  src:'/assets/img/game/avatars/avatar5.png',  label:'Corrosion Born' },
-      { id:'a6',  src:'/assets/img/game/avatars/avatar6.png',  label:'Cherubrim'      },
-      { id:'a7',  src:'/assets/img/game/avatars/avatar7.png',  label:'Woodsworn'      },
-      { id:'a8',  src:'/assets/img/game/avatars/avatar8.png',  label:'The Heretic'    },
-      { id:'a9',  src:'/assets/img/game/avatars/avatar9.png',  label:'New Light'      },
-      { id:'a10', src:'/assets/img/game/avatars/avatar10.png', label:'Dust Dreg'      },
-      { id:'a11', src:'/assets/img/game/avatars/avatar11.png', label:'Aurum Guard'    },
-      { id:'a12', src:'/assets/img/game/avatars/avatar12.png', label:'The Unknown'    },
+      { id:'a1',  src:'/assets/img/game/avatars/avatar1.png',  label:'Herb Passerine'   },
+      { id:'a2',  src:'/assets/img/game/avatars/avatar2.png',  label:'Baxter Kokayin'      },
+      { id:'a3',  src:'/assets/img/game/avatars/avatar3.png',  label:'Blaze'    },
+      { id:'a4',  src:'/assets/img/game/avatars/avatar4.png',  label:'Tau Zervas'      },
+      { id:'a5',  src:'/assets/img/game/avatars/avatar5.png',  label:'Biblio' },
+      { id:'a6',  src:'/assets/img/game/avatars/avatar6.png',  label:'Blobert'      },
+      { id:'a7',  src:'/assets/img/game/avatars/avatar7.png',  label:'Eight'      },
+      { id:'a8',  src:'/assets/img/game/avatars/avatar8.png',  label:'Mousse B. Bonic'    },
+      { id:'a9',  src:'/assets/img/game/avatars/avatar9.png',  label:'Peggle Krastov'      },
+      { id:'a10', src:'/assets/img/game/avatars/avatar7.png', label:'Eight'      },
+      { id:'a11', src:'/assets/img/game/avatars/avatar7.png', label:'Eight'    },
+      { id:'a12', src:'/assets/img/game/avatars/avatar7.png', label:'Eight'    },
     ];
     const WHEEL_CATS = ['Race','Subrace','Class','Subclass','Flair','Name'];
 
@@ -1245,13 +1245,13 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="home-card">
     <img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives" class="home-logo"
          onerror="this.style.display='none'">
-    <h1 class="home-title">Character Forge</h1>
-    <p class="home-subtitle">A multiplayer character creation game set in Edelith.</p>
+    <h1 class="home-title">Autistic Canon</h1>
+    <p class="home-subtitle">Just a game where you bullshit it.</p>
     <div class="ornament"><span>✦</span></div>
 
     <label class="game-input-label" for="home-name">Your Name</label>
     <input class="game-input" id="home-name" type="text"
-           placeholder="e.g. Peggle Bottomsworth" maxlength="24"
+           placeholder="e.g. Peggle Krastov" maxlength="24"
            onkeydown="if(event.key==='Enter')G.joinRoom()">
 
     <div class="home-divider"><span>or join a room</span></div>
@@ -1277,7 +1277,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 ═══════════════════════════════════════════════ -->
 <div id="screen-lobby" class="screen">
   <div class="game-bar">
-    <span class="game-bar-title">◆ Character Forge</span>
+    <span class="game-bar-title">◆ Autistic Canon</span>
     <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
     <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
@@ -1619,7 +1619,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 ═══════════════════════════════════════════════ -->
 <div id="screen-leaderboard" class="screen">
   <div class="game-bar">
-    <span class="game-bar-title">◆ Character Forge — Results</span>
+    <span class="game-bar-title">◆ Autistic Canon — Results</span>
     <div class="game-bar-code"></div>
     <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
