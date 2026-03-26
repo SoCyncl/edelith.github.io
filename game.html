@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,1173 +9,583 @@
   <meta name="theme-color" content="#2a211b">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Firebase v10 modular SDK -->
+  <script>
+    // PATCH: expose G namespace before module loads so onclick handlers don't fail
+    // during the brief window between DOM ready and module execution.
+    window.G = {};
+    ['createRoom','joinRoom','selectAvatar','toggleReady','startGame','submitPhase1',
+     'spinWheel','advancePhase2','submitBackstory','requestExtraTime','voteExtraTime',
+     'revealField','bsProceed','bsUndo','finishPresentation','rate','leaveGame'
+    ].forEach(fn => {
+      window.G[fn] = (...args) => {
+        // If the real function is loaded, call it; otherwise queue it
+        if (window.G._real && window.G._real[fn]) return window.G._real[fn](...args);
+        console.warn('G.' + fn + ' called before module loaded');
+      };
+    });
+  </script>
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import {
-      getFirestore, doc, collection, setDoc, getDoc, updateDoc, onSnapshot,
-      arrayUnion, serverTimestamp, deleteField, increment
+      getFirestore, doc, collection, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
     import {
       getStorage, ref as storageRef, uploadBytes, getDownloadURL
     } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
-    // ═══════════════════════════════════════════════════
-    // FIREBASE CONFIG — replace with your own values
-    // ═══════════════════════════════════════════════════
-
-
     const firebaseConfig = {
-      apiKey: "AIzaSyAEEYlYS0ckylSMsdl2zzoQlnH2Xko8VGk",
-      authDomain: "rollplay-3ac1e.firebaseapp.com",
-      projectId: "rollplay-3ac1e",
-      storageBucket: "rollplay-3ac1e.firebasestorage.app",
+      apiKey:            "AIzaSyAEEYlYS0ckylSMsdl2zzoQlnH2Xko8VGk",
+      authDomain:        "rollplay-3ac1e.firebaseapp.com",
+      projectId:         "rollplay-3ac1e",
+      storageBucket:     "rollplay-3ac1e.firebasestorage.app",
       messagingSenderId: "649306531617",
-      appId: "1:649306531617:web:d6a125d0391c3826c5c060",
+      appId:             "1:649306531617:web:d6a125d0391c3826c5c060"
     };
-
     const app     = initializeApp(firebaseConfig);
     const db      = getFirestore(app);
     const storage = getStorage(app);
 
-    // ═══════════════════════════════════════════════════
-    // GLOBAL STATE
-    // ═══════════════════════════════════════════════════
-    let myId        = null;   // localStorage-persisted player ID
-    let myName      = null;
-    let roomCode    = null;
-    let roomUnsub   = null;   // Firestore listener unsubscribe
-    let roomData    = null;   // latest room snapshot
-    let playersData = {};     // { [playerId]: playerDoc }
-    let slotMachineTimer = null;
-    let wheelSpinning    = false;
-    let backstoryTimer   = null;
-    let backstoryEndTime = null;
-    let voteTimerInterval = null;
-
-    // ═══════════════════════════════════════════════════
-    // AVATAR LIST  (drop your /assets/img/game/avatars/*.png files here)
-    // ═══════════════════════════════════════════════════
     const AVATARS = [
-      { id: 'a1',  src: '/assets/img/game/avatars/avatar1.png',  label: 'The Wanderer'   },
-      { id: 'a2',  src: '/assets/img/game/avatars/avatar2.png',  label: 'Iron Fang'      },
-      { id: 'a3',  src: '/assets/img/game/avatars/avatar3.png',  label: 'Shroud Mage'    },
-      { id: 'a4',  src: '/assets/img/game/avatars/avatar4.png',  label: 'Steelside'      },
-      { id: 'a5',  src: '/assets/img/game/avatars/avatar5.png',  label: 'Corrosion Born' },
-      { id: 'a6',  src: '/assets/img/game/avatars/avatar6.png',  label: 'Cherubrim'      },
-      { id: 'a7',  src: '/assets/img/game/avatars/avatar7.png',  label: 'Woodsworn'      },
-      { id: 'a8',  src: '/assets/img/game/avatars/avatar8.png',  label: 'The Heretic'    },
-      { id: 'a9',  src: '/assets/img/game/avatars/avatar9.png',  label: 'New Light'      },
-      { id: 'a10', src: '/assets/img/game/avatars/avatar10.png', label: 'Dust Dreg'      },
-      { id: 'a11', src: '/assets/img/game/avatars/avatar11.png', label: 'Aurum Guard'    },
-      { id: 'a12', src: '/assets/img/game/avatars/avatar12.png', label: 'The Unknown'    },
+      { id:'a1',  src:'/assets/img/game/avatars/avatar1.png',  label:'The Wanderer'   },
+      { id:'a2',  src:'/assets/img/game/avatars/avatar2.png',  label:'Iron Fang'      },
+      { id:'a3',  src:'/assets/img/game/avatars/avatar3.png',  label:'Shroud Mage'    },
+      { id:'a4',  src:'/assets/img/game/avatars/avatar4.png',  label:'Steelside'      },
+      { id:'a5',  src:'/assets/img/game/avatars/avatar5.png',  label:'Corrosion Born' },
+      { id:'a6',  src:'/assets/img/game/avatars/avatar6.png',  label:'Cherubrim'      },
+      { id:'a7',  src:'/assets/img/game/avatars/avatar7.png',  label:'Woodsworn'      },
+      { id:'a8',  src:'/assets/img/game/avatars/avatar8.png',  label:'The Heretic'    },
+      { id:'a9',  src:'/assets/img/game/avatars/avatar9.png',  label:'New Light'      },
+      { id:'a10', src:'/assets/img/game/avatars/avatar10.png', label:'Dust Dreg'      },
+      { id:'a11', src:'/assets/img/game/avatars/avatar11.png', label:'Aurum Guard'    },
+      { id:'a12', src:'/assets/img/game/avatars/avatar12.png', label:'The Unknown'    },
     ];
+    const WHEEL_CATS = ['Race','Subrace','Class','Subclass','Flair','Name'];
 
-    // ═══════════════════════════════════════════════════
-    // UTILITY
-    // ═══════════════════════════════════════════════════
-    function genId()   { return Math.random().toString(36).slice(2, 11); }
-    function genCode() { return String(Math.floor(10000 + Math.random() * 90000)); }
-    function esc(s)    { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    function getAvatar(id) { return AVATARS.find(a => a.id === id) || AVATARS[0]; }
+    let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
+    let slotTimer=null, wheelSpinning=false, bsTimer=null, wheelAngle=0, wheelAnimId=null;
+    let p3State = {race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
 
-    function initMyId() {
-      let id = localStorage.getItem('edelith_pid');
-      if (!id) { id = genId(); localStorage.setItem('edelith_pid', id); }
-      myId = id;
-    }
+    const $   = id => document.getElementById(id);
+    const esc = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const genId   = () => Math.random().toString(36).slice(2,11);
+    const genCode = () => String(Math.floor(10000+Math.random()*90000));
+    const getAv   = id => AVATARS.find(a=>a.id===id)||AVATARS[0];
+    const amHost  = ()  => roomData?.hostId===myId;
 
-    function amHost() { return roomData?.hostId === myId; }
-
-    function currentPresenter() {
-      const order = roomData?.presenterOrder || [];
-      const idx   = roomData?.presenterIndex ?? 0;
-      return order[idx] || null;
-    }
-
-    function amPresenting() { return currentPresenter() === myId; }
-
-    // ═══════════════════════════════════════════════════
-    // SCREEN ROUTER
-    // ═══════════════════════════════════════════════════
     function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      const el = document.getElementById(id);
-      if (el) { el.classList.add('active'); }
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      const el=$(id); if(el) el.classList.add('active');
     }
-
-    function routeByPhase(data) {
-      if (!data) return showScreen('screen-home');
-      switch (data.phase) {
-        case 'lobby':     return showScreen('screen-lobby');
-        case 'phase1':    return showScreen('screen-phase1');
-        case 'wheel-order': return showScreen('screen-wheel-order');
-        case 'phase2':    return showScreen('screen-phase2');
-        case 'backstory': return showScreen('screen-backstory');
-        case 'phase3':    return showScreen('screen-phase3');
-        case 'leaderboard': return showScreen('screen-leaderboard');
-        default:          return showScreen('screen-home');
-      }
+    function routeByPhase() {
+      if(!roomData) return showScreen('screen-home');
+      const map={lobby:'screen-lobby',phase1:'screen-phase1','wheel-order':'screen-wheel-order',
+                 phase2:'screen-phase2',backstory:'screen-backstory',phase3:'screen-phase3',leaderboard:'screen-leaderboard'};
+      showScreen(map[roomData.phase]||'screen-home');
     }
+    function showErr(msg) {
+      const el=$('global-error'); el.textContent=msg; el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'),3500);
+    }
+    function shake(el){ el.classList.add('shake'); setTimeout(()=>el.classList.remove('shake'),500); }
 
-    // ═══════════════════════════════════════════════════
-    // FIRESTORE ROOM LISTENER
-    // ═══════════════════════════════════════════════════
     async function subscribeRoom(code) {
-      if (roomUnsub) roomUnsub();
-      roomCode = code;
-
-      const roomRef    = doc(db, 'rooms', code);
-      const playersRef = collection(db, 'rooms', code, 'players');
-
-      // Listen to room doc
-      roomUnsub = onSnapshot(roomRef, snap => {
-        if (!snap.exists()) return;
-        const prev = roomData?.phase;
-        roomData = snap.data();
-        if (prev !== roomData.phase) onPhaseChange(roomData.phase);
-        else onRoomUpdate(roomData);
+      if(roomUnsub){roomUnsub();roomUnsub=null;}
+      roomCode=code;
+      const roomRef=doc(db,'rooms',code);
+      const playersRef=collection(db,'rooms',code,'players');
+      roomUnsub=onSnapshot(roomRef,snap=>{
+        if(!snap.exists()) return;
+        const prev=roomData?.phase;
+        roomData=snap.data();
+        if(prev!==roomData.phase){routeByPhase();onPhaseEnter(roomData.phase);}
+        else onRoomUpdate();
       });
-
-      // Listen to players subcollection
-      onSnapshot(playersRef, snap => {
-        snap.docChanges().forEach(change => {
-          if (change.type === 'removed') delete playersData[change.doc.id];
-          else playersData[change.doc.id] = { id: change.doc.id, ...change.doc.data() };
+      onSnapshot(playersRef,snap=>{
+        snap.docChanges().forEach(c=>{
+          if(c.type==='removed') delete playersData[c.doc.id];
+          else playersData[c.doc.id]={id:c.doc.id,...c.doc.data()};
         });
         onPlayersUpdate();
       });
     }
 
-    function onPhaseChange(phase) {
-      routeByPhase(roomData);
-      switch (phase) {
-        case 'lobby':         renderLobby(); break;
-        case 'phase1':        renderPhase1(); break;
-        case 'wheel-order':   renderWheelOrder(); break;
-        case 'phase2':        renderPhase2(); break;
-        case 'backstory':     renderBackstory(); break;
-        case 'phase3':        renderPhase3(); break;
-        case 'leaderboard':   renderLeaderboard(); break;
-      }
+    function onPhaseEnter(phase){
+      ({lobby:renderLobby,phase1:renderPhase1,'wheel-order':renderWheelOrder,
+        phase2:renderPhase2,backstory:renderBackstory,phase3:renderPhase3,
+        leaderboard:renderLeaderboard})[phase]?.();
+    }
+    function onRoomUpdate(){
+      ({lobby:renderLobby,'wheel-order':renderWheelOrder,phase2:updatePhase2,
+        backstory:updateBackstory,phase3:updatePhase3,leaderboard:renderLeaderboard})[roomData?.phase]?.();
+    }
+    function onPlayersUpdate(){
+      if(roomData?.phase==='lobby') renderLobby();
+      if(roomData?.phase==='phase1') renderPhase1();
+      if(roomData?.phase==='phase3') updatePhase3();
     }
 
-    function onRoomUpdate(data) {
-      switch (data.phase) {
-        case 'lobby':       renderLobby(); break;
-        case 'wheel-order': updateWheelOrder(); break;
-        case 'phase2':      updatePhase2(); break;
-        case 'backstory':   updateBackstory(); break;
-        case 'phase3':      updatePhase3(); break;
-        case 'leaderboard': renderLeaderboard(); break;
-      }
+    // ── HOME ────────────────────────────────────────────────
+    async function doCreate() {
+      const nameEl=$('home-name'), name=nameEl.value.trim();
+      if(!name){shake(nameEl);showErr('Enter your name first.');return;}
+      myName=name;
+      const code=genCode();
+      try {
+        await setDoc(doc(db,'rooms',code),{
+          hostId:myId,phase:'lobby',createdAt:serverTimestamp(),
+          presenterOrder:[],presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0,
+          extraTimeVotes:{},extraTimeRequested:false,ratings:{},reveals:{}
+        });
+        await setDoc(doc(db,'rooms',code,'players',myId),{
+          name,avatarId:'a1',isReady:false,isHost:true,joinedAt:serverTimestamp()
+        });
+        localStorage.setItem('edelith_room',code);
+        localStorage.setItem('edelith_name',name);
+        $('room-code-display').textContent=code;
+        await subscribeRoom(code);
+        showScreen('screen-lobby');
+      } catch(e){showErr('Error: '+e.message);console.error(e);}
     }
 
-    function onPlayersUpdate() {
-      switch (roomData?.phase) {
-        case 'lobby':   renderLobby(); break;
-        case 'phase3':  updatePhase3(); break;
-      }
+    async function doJoin() {
+      const nameEl=$('home-name'),codeEl=$('home-code');
+      const name=nameEl.value.trim(),code=codeEl.value.trim();
+      if(!name){shake(nameEl);showErr('Enter your name.');return;}
+      if(!code){shake(codeEl);showErr('Enter a room code.');return;}
+      myName=name;
+      try {
+        const snap=await getDoc(doc(db,'rooms',code));
+        if(!snap.exists()){showErr('Room not found.');return;}
+        if(snap.data().phase!=='lobby'){showErr('Game already in progress.');return;}
+        const pSnap=await getDoc(doc(db,'rooms',code,'players',myId));
+        await setDoc(doc(db,'rooms',code,'players',myId),{
+          name,avatarId:pSnap.exists()?(pSnap.data().avatarId||'a1'):'a1',
+          isReady:false,isHost:false,joinedAt:serverTimestamp()
+        },{merge:true});
+        localStorage.setItem('edelith_room',code);
+        localStorage.setItem('edelith_name',name);
+        $('room-code-display').textContent=code;
+        await subscribeRoom(code);
+        showScreen('screen-lobby');
+      } catch(e){showErr('Error: '+e.message);console.error(e);}
     }
 
-    // ═══════════════════════════════════════════════════
-    // HOME SCREEN — CREATE / JOIN
-    // ═══════════════════════════════════════════════════
-    window.createRoom = async function() {
-      const nameEl = document.getElementById('home-name');
-      const name   = nameEl.value.trim();
-      if (!name) { shake(nameEl); return; }
-      myName = name;
-
-      const code      = genCode();
-      const roomRef   = doc(db, 'rooms', code);
-      const playerRef = doc(db, 'rooms', code, 'players', myId);
-
-      await setDoc(roomRef, {
-        hostId: myId, phase: 'lobby',
-        createdAt: serverTimestamp(),
-        presenterOrder: [], presenterIndex: 0,
-        wheelOrder: [], wheelIndex: 0,
-        extraTimeVotes: {}, extraTimeRequested: false,
-        ratings: {}
-      });
-
-      await setDoc(playerRef, {
-        name, avatarId: 'a1', isReady: false, isHost: true,
-        joinedAt: serverTimestamp()
-      });
-
-      document.getElementById('room-code-display').textContent = code;
-      await subscribeRoom(code);
-      showScreen('screen-lobby');
-    };
-
-    window.joinRoom = async function() {
-      const nameEl = document.getElementById('home-name');
-      const codeEl = document.getElementById('home-code');
-      const name   = nameEl.value.trim();
-      const code   = codeEl.value.trim();
-      if (!name) { shake(nameEl); return; }
-      if (!code) { shake(codeEl); return; }
-      myName = name;
-
-      const roomRef = doc(db, 'rooms', code);
-      const snap    = await getDoc(roomRef);
-      if (!snap.exists()) { showError('Room not found. Check the code.'); return; }
-      const data = snap.data();
-      if (data.phase !== 'lobby') { showError('Game already in progress.'); return; }
-
-      const playerRef = doc(db, 'rooms', code, 'players', myId);
-      const pSnap     = await getDoc(playerRef);
-
-      // Rejoin support: if same playerId exists, update name
-      await setDoc(playerRef, {
-        name, avatarId: pSnap.exists() ? (pSnap.data().avatarId || 'a1') : 'a1',
-        isReady: false, isHost: false,
-        joinedAt: serverTimestamp()
-      }, { merge: true });
-
-      document.getElementById('room-code-display').textContent = code;
-      await subscribeRoom(code);
-      showScreen('screen-lobby');
-    };
-
-    // ═══════════════════════════════════════════════════
-    // LOBBY
-    // ═══════════════════════════════════════════════════
+    // ── LOBBY ───────────────────────────────────────────────
     function renderLobby() {
-      const players  = Object.values(playersData);
-      const code     = roomCode;
-      const isHost   = amHost();
-
-      document.getElementById('lobby-code').textContent    = code;
-      document.getElementById('lobby-players-count').textContent =
-        players.length + ' player' + (players.length !== 1 ? 's' : '');
-
-      // Player list
-      const list = document.getElementById('lobby-player-list');
-      list.innerHTML = players.map(p => {
-        const av = getAvatar(p.avatarId);
-        return `<div class="lobby-player ${p.id === myId ? 'is-me' : ''}">
+      const players=Object.values(playersData);
+      $('lobby-code').textContent=roomCode||'—';
+      $('lobby-players-count').textContent=players.length+' player'+(players.length!==1?'s':'');
+      $('lobby-player-list').innerHTML=players.map(p=>{
+        const av=getAv(p.avatarId);
+        return `<div class="lobby-player ${p.id===myId?'is-me':''}">
           <div class="lobby-av-wrap">
-            <img src="${esc(av.src)}" alt="${esc(av.label)}" onerror="this.src='/assets/img/game/avatars/fallback.png'">
-            ${p.isHost ? '<span class="host-crown">♛</span>' : ''}
+            <img src="${esc(av.src)}" onerror="this.src='/assets/img/game/avatars/fallback.png'" alt="">
+            ${p.isHost?'<span class="host-crown">&#9819;</span>':''}
           </div>
           <div class="lobby-player-info">
-            <span class="lobby-player-name">${esc(p.name)}${p.id === myId ? ' (you)' : ''}</span>
-            <span class="lobby-player-status ${p.isReady ? 'ready' : 'waiting'}">
-              ${p.isReady ? '◆ Ready' : '○ Waiting'}
-            </span>
+            <span class="lobby-player-name">${esc(p.name)}${p.id===myId?' (you)':''}</span>
+            <span class="lobby-player-status ${p.isReady?'ready':'waiting'}">${p.isReady?'◆ Ready':'○ Waiting'}</span>
           </div>
         </div>`;
       }).join('');
-
-      // Avatar picker (only for self)
-      const myData = playersData[myId];
-      renderAvatarPicker(myData?.avatarId || 'a1');
-
-      // Ready button
-      const readyBtn = document.getElementById('lobby-ready-btn');
-      const isReady  = myData?.isReady;
-      readyBtn.textContent  = isReady ? 'Unready' : 'Ready';
-      readyBtn.className    = 'btn-gold' + (isReady ? ' btn-active' : '');
-
-      // Start button (host only, all ready)
-      const startBtn  = document.getElementById('lobby-start-btn');
-      const allReady  = players.length >= 2 && players.every(p => p.isReady);
-      startBtn.style.display = isHost ? '' : 'none';
-      startBtn.disabled      = !allReady;
-      startBtn.title         = !allReady ? 'All players must be ready' : '';
+      const myData=playersData[myId];
+      renderAvatarPicker(myData?.avatarId||'a1');
+      const rb=$('lobby-ready-btn');
+      rb.textContent=myData?.isReady?'Unready':'Ready';
+      rb.className='btn-gold'+(myData?.isReady?' btn-active':'');
+      const sb=$('lobby-start-btn');
+      const allReady=players.length>=2&&players.every(p=>p.isReady);
+      sb.style.display=amHost()?'':'none';
+      sb.disabled=!allReady;
     }
-
-    function renderAvatarPicker(currentId) {
-      const picker = document.getElementById('avatar-picker');
-      picker.innerHTML = AVATARS.map(av =>
-        `<div class="av-option ${av.id === currentId ? 'selected' : ''}"
-              onclick="selectAvatar('${av.id}')" title="${esc(av.label)}">
-          <img src="${esc(av.src)}" alt="${esc(av.label)}"
-               onerror="this.src='/assets/img/game/avatars/fallback.png'">
+    function renderAvatarPicker(cur) {
+      $('avatar-picker').innerHTML=AVATARS.map(av=>
+        `<div class="av-option ${av.id===cur?'selected':''}" onclick="G.selectAvatar('${av.id}')" title="${esc(av.label)}">
+          <img src="${esc(av.src)}" onerror="this.src='/assets/img/game/avatars/fallback.png'" alt="">
           <span>${esc(av.label)}</span>
-        </div>`
-      ).join('');
+        </div>`).join('');
     }
+    async function doSelectAvatar(id){await updateDoc(doc(db,'rooms',roomCode,'players',myId),{avatarId:id});}
+    async function doToggleReady(){await updateDoc(doc(db,'rooms',roomCode,'players',myId),{isReady:!playersData[myId]?.isReady});}
+    async function doStartGame(){if(!amHost())return;await updateDoc(doc(db,'rooms',roomCode),{phase:'phase1'});}
 
-    window.selectAvatar = async function(avatarId) {
-      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
-      await updateDoc(playerRef, { avatarId });
-    };
-
-    window.toggleReady = async function() {
-      const myData    = playersData[myId];
-      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
-      await updateDoc(playerRef, { isReady: !myData?.isReady });
-    };
-
-    window.startGame = async function() {
-      if (!amHost()) return;
-      const roomRef = doc(db, 'rooms', roomCode);
-      await updateDoc(roomRef, { phase: 'phase1' });
-    };
-
-    // ═══════════════════════════════════════════════════
-    // PHASE 1 — CHARACTER SUBMISSION
-    // ═══════════════════════════════════════════════════
+    // ── PHASE 1 ─────────────────────────────────────────────
     function renderPhase1() {
-      const myData = playersData[myId];
-      if (myData?.submitted) {
-        showPhase1Waiting();
+      const myData=playersData[myId],players=Object.values(playersData);
+      const done=players.filter(p=>p.submitted).length;
+      if(myData?.submitted){
+        $('phase1-form').style.display='none';$('phase1-waiting').style.display='';
+        $('phase1-wait-count').textContent=`${done} / ${players.length} submitted`;
+        if(amHost()&&done===players.length&&players.length>=2) randomizeAndAdvance();
       } else {
-        showPhase1Form();
+        $('phase1-form').style.display='';$('phase1-waiting').style.display='none';
       }
     }
-
-    function showPhase1Form() {
-      document.getElementById('phase1-form').style.display    = '';
-      document.getElementById('phase1-waiting').style.display = 'none';
-    }
-
-    function showPhase1Waiting() {
-      document.getElementById('phase1-form').style.display    = 'none';
-      document.getElementById('phase1-waiting').style.display = '';
-      const players = Object.values(playersData);
-      const done    = players.filter(p => p.submitted).length;
-      document.getElementById('phase1-wait-count').textContent =
-        `${done} / ${players.length} submitted`;
-    }
-
-    window.submitPhase1 = async function() {
-      const race      = document.getElementById('p1-race').value.trim();
-      const subrace   = document.getElementById('p1-subrace').value.trim();
-      const cls       = document.getElementById('p1-class').value.trim();
-      const subcls    = document.getElementById('p1-subclass').value.trim();
-      const flair     = document.getElementById('p1-flair').value.trim();
-      const charName  = document.getElementById('p1-charname').value.trim();
-
-      if (!race || !cls || !flair || !charName) {
-        showError('Fill in Race, Class, Flair, and Character Name at minimum.');
-        return;
-      }
-
-      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
-      await updateDoc(playerRef, {
-        submission: { race, subrace, cls, subcls, flair, charName },
-        submitted: true
+    async function doSubmitPhase1() {
+      const race=$('p1-race').value.trim(),subrace=$('p1-subrace').value.trim();
+      const cls=$('p1-class').value.trim(),subcls=$('p1-subclass').value.trim();
+      const flair=$('p1-flair').value.trim(),charName=$('p1-charname').value.trim();
+      if(!race||!cls||!flair||!charName){showErr('Race, Class, Flair, and Name are required.');return;}
+      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{
+        submission:{race,subrace,cls,subcls,flair,charName},submitted:true
       });
-
-      showPhase1Waiting();
-
-      // Host checks if all submitted → randomise and advance
-      if (amHost()) checkAllSubmitted();
-    };
-
-    async function checkAllSubmitted() {
-      const players = Object.values(playersData);
-      if (!players.every(p => p.submitted)) return;
-      await randomizeAssignments();
     }
-
-    async function randomizeAssignments() {
-      // Fisher-Yates shuffle — each player gets someone else's submission
-      const players  = Object.values(playersData);
-      const ids      = players.map(p => p.id);
+    async function randomizeAndAdvance() {
+      if(roomData?.phase!=='phase1') return;
+      const players=Object.values(playersData),ids=players.map(p=>p.id);
       let shuffled;
-      do {
-        shuffled = [...ids].sort(() => Math.random() - 0.5);
-      } while (shuffled.some((v, i) => v === ids[i])); // no self-assignment
-
-      const batch = [];
-      ids.forEach((id, i) => {
-        const donorId  = shuffled[i];
-        const donor    = playersData[donorId];
-        const sub      = donor.submission;
-        batch.push(
-          updateDoc(doc(db, 'rooms', roomCode, 'players', id), {
-            assignment: { ...sub, donorId }
-          })
-        );
-      });
-
-      await Promise.all(batch);
-
-      // Build presenter order (same as player ids, randomised)
-      const presenterOrder = [...ids].sort(() => Math.random() - 0.5);
-      await updateDoc(doc(db, 'rooms', roomCode), {
-        phase: 'wheel-order',
-        presenterOrder,
-        presenterIndex: 0,
-        wheelOrder: [],
-        wheelIndex: 0
+      do{shuffled=[...ids].sort(()=>Math.random()-.5);}
+      while(shuffled.some((v,i)=>v===ids[i]));
+      await Promise.all(ids.map((id,i)=>updateDoc(doc(db,'rooms',roomCode,'players',id),{
+        assignment:{...playersData[shuffled[i]].submission,donorId:shuffled[i]}
+      })));
+      const presenterOrder=[...ids].sort(()=>Math.random()-.5);
+      await updateDoc(doc(db,'rooms',roomCode),{
+        phase:'wheel-order',presenterOrder,presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0
       });
     }
 
-    // ═══════════════════════════════════════════════════
-    // WHEEL ORDER — SLOT MACHINE TO DETERMINE SPIN ORDER
-    // ═══════════════════════════════════════════════════
+    // ── SLOT MACHINE ────────────────────────────────────────
     function renderWheelOrder() {
-      const players = Object.values(playersData);
-      const order   = roomData?.presenterOrder || [];
-      const alreadyDone = roomData?.wheelOrder?.length || 0;
-
-      document.getElementById('wo-title').textContent =
-        alreadyDone === 0 ? 'Determining spin order…' : `Turn ${alreadyDone + 1} of ${order.length}`;
-
-      if (alreadyDone < order.length) {
-        runSlotMachine(order[alreadyDone], alreadyDone);
-      } else {
-        // All done — advance to phase2 (host does it)
-        if (amHost()) {
-          setTimeout(() => {
-            updateDoc(doc(db, 'rooms', roomCode), { phase: 'phase2', wheelIndex: 0 });
-          }, 2000);
-        }
+      const order=roomData?.presenterOrder||[],done=roomData?.wheelOrder?.length||0;
+      $('wo-title').textContent=done===0?'Determining spin order…':`Position ${done+1} of ${order.length}`;
+      const listEl=$('slot-order-list');
+      if(listEl&&roomData?.wheelOrder?.length){
+        listEl.innerHTML=roomData.wheelOrder.map((pid,i)=>{
+          const p=playersData[pid];
+          return `<div class="slot-order-item"><span class="slot-order-num">${i+1}</span>${esc(p?.name||'???')}</div>`;
+        }).join('');
       }
+      if(done<order.length) runSlotMachine(order[done],done);
+      else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{phase:'phase2',wheelIndex:0,categoryIndex:0}),2000);
     }
-
-    function updateWheelOrder() { renderWheelOrder(); }
-
-    function runSlotMachine(winnerId, slotIndex) {
-      const players    = Object.values(playersData);
-      const slotEl     = document.getElementById('slot-machine-name');
-      const subtitleEl = document.getElementById('slot-subtitle');
-      if (!slotEl) return;
-
-      subtitleEl.textContent = slotIndex === 0 ? 'Who spins first?' : `Slot ${slotIndex + 1}…`;
-
-      const names = players.map(p => p.name);
-      let   i     = 0;
-      let   speed = 60;
-      let   total = 0;
-      const maxCycles = 40 + slotIndex * 5;
-
-      clearInterval(slotMachineTimer);
+    function runSlotMachine(winnerId,slotIdx) {
+      const players=Object.values(playersData),slotEl=$('slot-machine-name'),subEl=$('slot-subtitle');
+      if(!slotEl) return;
+      subEl.textContent=slotIdx===0?'Who spins first?':`Position ${slotIdx+1}…`;
       slotEl.classList.remove('slot-lock');
-
-      slotMachineTimer = setInterval(() => {
-        slotEl.textContent = names[i % names.length];
-        slotEl.style.opacity = '0.7';
-        setTimeout(() => { slotEl.style.opacity = '1'; }, speed / 2);
-        i++; total++;
-
-        if (total >= maxCycles) {
-          // Land on winner
-          clearInterval(slotMachineTimer);
-          const winner = playersData[winnerId];
-          slotEl.textContent = winner?.name || '???';
-          slotEl.classList.add('slot-lock');
-
-          // Dramatic flash
-          setTimeout(() => {
-            document.getElementById('slot-spotlight').classList.add('active');
-            setTimeout(() => {
-              document.getElementById('slot-spotlight').classList.remove('active');
-              // Host writes result and advances
-              if (amHost()) {
-                const newOrder = [...(roomData.wheelOrder || []), winnerId];
-                updateDoc(doc(db, 'rooms', roomCode), { wheelOrder: newOrder });
-                // Small delay before next slot
-                setTimeout(() => renderWheelOrder(), 1800);
+      const names=players.map(p=>p.name);
+      let i=0,speed=60,total=0,maxCycles=40+slotIdx*5;
+      clearInterval(slotTimer);
+      slotTimer=setInterval(()=>{
+        slotEl.textContent=names[i%names.length];
+        slotEl.style.opacity='0.6';
+        setTimeout(()=>{slotEl.style.opacity='1';},speed/2);
+        i++;total++;
+        if(total>maxCycles*.6) speed=Math.min(speed*1.08,400);
+        if(total>=maxCycles){
+          clearInterval(slotTimer);
+          const winner=playersData[winnerId];
+          slotEl.textContent=winner?.name||'???';slotEl.classList.add('slot-lock');
+          setTimeout(()=>{
+            const av=getAv(winner?.avatarId||'a1');
+            $('slot-spotlight-av').src=av.src;
+            $('slot-spotlight-name').textContent=winner?.name||'???';
+            $('slot-spotlight').classList.add('active');
+            setTimeout(()=>{
+              $('slot-spotlight').classList.remove('active');
+              if(amHost()){
+                const newOrder=[...(roomData.wheelOrder||[]),winnerId];
+                updateDoc(doc(db,'rooms',roomCode),{wheelOrder:newOrder});
               }
-            }, 1400);
-          }, 200);
+            },1600);
+          },200);
         }
-
-        // Gradually slow down
-        if (total > maxCycles * 0.6) speed = Math.min(speed * 1.08, 400);
-      }, speed);
+      },speed);
     }
 
-    // ═══════════════════════════════════════════════════
-    // PHASE 2 — SPINNING WHEEL REVEAL
-    // ═══════════════════════════════════════════════════
-    let wheelCanvas, wheelCtx, wheelAngle = 0, wheelTargetAngle = 0, wheelAnimId = null;
-    const WHEEL_CATEGORIES = ['Race', 'Subrace', 'Class', 'Subclass', 'Flair', 'Name'];
-
+    // ── PHASE 2 WHEEL ────────────────────────────────────────
     function renderPhase2() {
-      const order   = roomData?.wheelOrder || roomData?.presenterOrder || [];
-      const wIdx    = roomData?.wheelIndex ?? 0;
-      const spinnerIdForThisRound = order[wIdx % order.length];
-      const isMyTurn = spinnerIdForThisRound === myId;
-      const catIdx   = roomData?.categoryIndex ?? 0;
-      const category = WHEEL_CATEGORIES[catIdx] || 'Race';
-
+      const players=Object.values(playersData);
+      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
+      const isMyTurn=spinnerId===myId,catIdx=roomData?.categoryIndex??0,cat=WHEEL_CATS[catIdx]||'Race';
+      const spinner=playersData[spinnerId];
+      $('p2-spinner-name').textContent=(spinner?.name||'?')+"'s spin";
+      $('p2-spinner-name-badge').textContent=(spinner?.name||'?')+"'s turn";
+      $('p2-category-label').textContent=cat;
+      $('p2-your-turn').style.display=isMyTurn?'':'none';
+      $('p2-wait-msg').style.display=isMyTurn?'none':'';
+      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun)?'':'none';
+      $('p2-spin-btn').disabled=!!roomData?.wheelSpun;
+      buildWheel(players,spinnerId);
       updatePhase2();
-
-      // Build wheel
-      const players = Object.values(playersData);
-      buildWheel(players, spinnerIdForThisRound);
-
-      document.getElementById('p2-spin-btn').style.display = isMyTurn && !roomData?.wheelSpun ? '' : 'none';
-      document.getElementById('p2-spin-btn').disabled = roomData?.wheelSpun;
-      document.getElementById('p2-category-label').textContent = `Category: ${category}`;
-      document.getElementById('p2-your-turn').style.display = isMyTurn ? '' : 'none';
-      document.getElementById('p2-wait-msg').style.display  = !isMyTurn ? '' : 'none';
-
-      const spinner = playersData[spinnerIdForThisRound];
-      if (spinner) {
-        document.getElementById('p2-spinner-name').textContent = spinner.name + "'s spin";
-      }
     }
-
     function updatePhase2() {
-      const wIdx   = roomData?.wheelIndex ?? 0;
-      const catIdx = roomData?.categoryIndex ?? 0;
-      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
-      const spinnerId = order[wIdx % order.length];
-      const isMyTurn  = spinnerId === myId;
-
-      // Reveal section — only shown if this round is done and it's my assignment being revealed
-      const revealEl = document.getElementById('p2-reveal');
-      if (roomData?.lastRevealedFor === myId && roomData?.lastRevealedCategory) {
-        const cat = roomData.lastRevealedCategory;
-        const val = getMyAssignmentField(cat);
-        revealEl.style.display = '';
-        revealEl.querySelector('.reveal-cat').textContent  = cat;
-        revealEl.querySelector('.reveal-val').textContent  = val || '(none)';
-        revealEl.classList.add('reveal-flash');
-        setTimeout(() => revealEl.classList.remove('reveal-flash'), 900);
-      } else {
-        revealEl.style.display = 'none';
-      }
-
-      // Advance button (host, after wheel spun)
-      const advBtn = document.getElementById('p2-advance-btn');
-      if (advBtn) {
-        advBtn.style.display = (amHost() && roomData?.wheelSpun) ? '' : 'none';
-      }
+      if(!roomData) return;
+      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
+      const revealEl=$('p2-reveal');
+      if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
+        const a=playersData[myId]?.assignment||{};
+        const map={Race:'race',Subrace:'subrace',Class:'cls',Subclass:'subcls',Flair:'flair',Name:'charName'};
+        const val=a[map[roomData.lastRevealedCategory]]||'(none)';
+        revealEl.style.display='';
+        revealEl.querySelector('.reveal-cat').textContent=roomData.lastRevealedCategory;
+        revealEl.querySelector('.reveal-val').textContent=val;
+        revealEl.classList.remove('reveal-flash');void revealEl.offsetWidth;revealEl.classList.add('reveal-flash');
+      } else {revealEl.style.display='none';}
+      const advBtn=$('p2-advance-btn');
+      if(advBtn) advBtn.style.display=(amHost()&&roomData?.wheelSpun)?'':'none';
+      buildWheel(Object.values(playersData),spinnerId);
     }
-
-    function getMyAssignmentField(cat) {
-      const a = playersData[myId]?.assignment;
-      if (!a) return '';
-      const map = { Race:'race', Subrace:'subrace', Class:'cls', Subclass:'subcls', Flair:'flair', Name:'charName' };
-      return a[map[cat]] || '';
-    }
-
-    function buildWheel(players, highlightId) {
-      const canvas = document.getElementById('wheel-canvas');
-      if (!canvas) return;
-      wheelCanvas = canvas;
-      wheelCtx    = canvas.getContext('2d');
-      const n     = players.length;
-      const cx    = canvas.width  / 2;
-      const cy    = canvas.height / 2;
-      const r     = Math.min(cx, cy) - 20;
-
-      // Color palette for slices
-      const colors = [
-        '#2a2214','#1e2a18','#22241a','#1a2226','#261e18','#201e26',
-        '#2a1e1e','#1a261e','#26221a','#1e1e26','#242018','#1e2418'
-      ];
-
-      function drawWheel(angle) {
-        wheelCtx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Outer glow ring
-        const grd = wheelCtx.createRadialGradient(cx, cy, r - 10, cx, cy, r + 14);
-        grd.addColorStop(0, 'rgba(201,168,76,0.4)');
-        grd.addColorStop(1, 'rgba(201,168,76,0)');
-        wheelCtx.beginPath();
-        wheelCtx.arc(cx, cy, r + 14, 0, Math.PI * 2);
-        wheelCtx.fillStyle = grd;
-        wheelCtx.fill();
-
-        for (let i = 0; i < n; i++) {
-          const start = angle + (i / n) * Math.PI * 2;
-          const end   = angle + ((i + 1) / n) * Math.PI * 2;
-          const p     = players[i];
-          const isHl  = p.id === highlightId;
-
-          // Slice
-          wheelCtx.beginPath();
-          wheelCtx.moveTo(cx, cy);
-          wheelCtx.arc(cx, cy, r, start, end);
-          wheelCtx.closePath();
-          wheelCtx.fillStyle = isHl ? '#3a2e10' : colors[i % colors.length];
-          wheelCtx.fill();
-          wheelCtx.strokeStyle = isHl ? '#c9a84c' : 'rgba(201,168,76,0.25)';
-          wheelCtx.lineWidth   = isHl ? 2.5 : 1;
-          wheelCtx.stroke();
-
-          // Text
-          wheelCtx.save();
-          wheelCtx.translate(cx, cy);
-          wheelCtx.rotate(start + (1 / n) * Math.PI);
-          wheelCtx.textAlign    = 'right';
-          wheelCtx.fillStyle    = isHl ? '#c9a84c' : '#c5c8ca';
-          wheelCtx.font         = isHl ? 'bold 13px Cinzel, serif' : '12px Cinzel, serif';
-          wheelCtx.fillText(p.name, r - 10, 4);
-          wheelCtx.restore();
+    function buildWheel(players,highlightId) {
+      const canvas=$('wheel-canvas');if(!canvas) return;
+      const ctx=canvas.getContext('2d'),n=Math.max(players.length,1);
+      const cx=canvas.width/2,cy=canvas.height/2,r=Math.min(cx,cy)-22;
+      const colors=['#2a2214','#1e2a18','#22241a','#1a2226','#261e18','#201e26','#2a1e1e','#1a261e','#26221a','#1e1e26','#242018','#1e2418'];
+      function draw(angle){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const grd=ctx.createRadialGradient(cx,cy,r-8,cx,cy,r+16);
+        grd.addColorStop(0,'rgba(201,168,76,.35)');grd.addColorStop(1,'rgba(201,168,76,0)');
+        ctx.beginPath();ctx.arc(cx,cy,r+16,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+        for(let i=0;i<n;i++){
+          const s=angle+(i/n)*Math.PI*2,e=angle+((i+1)/n)*Math.PI*2;
+          const p=players[i],hl=p.id===highlightId;
+          ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,s,e);ctx.closePath();
+          ctx.fillStyle=hl?'#3a2e10':colors[i%colors.length];ctx.fill();
+          ctx.strokeStyle=hl?'#c9a84c':'rgba(201,168,76,.22)';ctx.lineWidth=hl?2.5:1;ctx.stroke();
+          ctx.save();ctx.translate(cx,cy);ctx.rotate(s+(1/n)*Math.PI);
+          ctx.textAlign='right';ctx.fillStyle=hl?'#c9a84c':'#c5c8ca';
+          ctx.font=hl?'bold 13px Cinzel,serif':'12px Cinzel,serif';
+          ctx.fillText(p.name,r-10,4);ctx.restore();
         }
-
-        // Center hub
-        wheelCtx.beginPath();
-        wheelCtx.arc(cx, cy, 28, 0, Math.PI * 2);
-        wheelCtx.fillStyle = '#16191d';
-        wheelCtx.fill();
-        wheelCtx.strokeStyle = '#c9a84c';
-        wheelCtx.lineWidth   = 2;
-        wheelCtx.stroke();
-        wheelCtx.fillStyle    = '#c9a84c';
-        wheelCtx.font         = '10px Josefin Sans, sans-serif';
-        wheelCtx.textAlign    = 'center';
-        wheelCtx.fillText('◆', cx, cy + 4);
-
-        // Pointer
-        wheelCtx.beginPath();
-        wheelCtx.moveTo(cx + r - 4, cy);
-        wheelCtx.lineTo(cx + r + 22, cy - 10);
-        wheelCtx.lineTo(cx + r + 22, cy + 10);
-        wheelCtx.closePath();
-        wheelCtx.fillStyle   = '#c9a84c';
-        wheelCtx.strokeStyle = '#7a6030';
-        wheelCtx.lineWidth   = 1.5;
-        wheelCtx.fill();
-        wheelCtx.stroke();
+        ctx.beginPath();ctx.arc(cx,cy,28,0,Math.PI*2);ctx.fillStyle='#16191d';ctx.fill();
+        ctx.strokeStyle='#c9a84c';ctx.lineWidth=2;ctx.stroke();
+        ctx.fillStyle='#c9a84c';ctx.font='10px Josefin Sans,sans-serif';
+        ctx.textAlign='center';ctx.fillText('◆',cx,cy+4);
+        ctx.beginPath();ctx.moveTo(cx+r-4,cy);ctx.lineTo(cx+r+20,cy-10);ctx.lineTo(cx+r+20,cy+10);ctx.closePath();
+        ctx.fillStyle='#c9a84c';ctx.strokeStyle='#7a6030';ctx.lineWidth=1.5;ctx.fill();ctx.stroke();
       }
-
-      drawWheel(wheelAngle);
-
-      // Store drawWheel for animation
-      window._drawWheel = drawWheel;
+      draw(wheelAngle);window._drawWheel=draw;
     }
-
-    window.spinWheel = async function() {
-      if (wheelSpinning || !amTurnToSpin()) return;
-      wheelSpinning = true;
-      document.getElementById('p2-spin-btn').disabled = true;
-
-      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
-      const wIdx   = roomData?.wheelIndex ?? 0;
-      // The "target" is the player whose assignment field we're revealing
-      // This is the presenterOrder[wIdx] — the person being revealed TO
-      const targetId = order[wIdx % order.length];
-
-      // Random full spins (5–8) + land on target player
-      const players  = Object.values(playersData);
-      const targetIdx = players.findIndex(p => p.id === targetId);
-      const sliceAng  = (Math.PI * 2) / players.length;
-      const extraSpins = (5 + Math.floor(Math.random() * 4)) * Math.PI * 2;
-      const targetAng  = extraSpins + (Math.PI * 2 - targetIdx * sliceAng - sliceAng / 2);
-
-      const startAngle = wheelAngle;
-      const totalAngle = targetAng;
-      const duration   = 4000;
-      const startTime  = performance.now();
-
-      function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
-
-      function animate(now) {
-        const elapsed  = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        wheelAngle = startAngle + totalAngle * easeOut(progress);
+    async function doSpinWheel() {
+      if(wheelSpinning) return;
+      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
+      if(spinnerId!==myId||roomData?.wheelSpun) return;
+      wheelSpinning=true;$('p2-spin-btn').disabled=true;
+      const players=Object.values(playersData),targetIdx=players.findIndex(p=>p.id===spinnerId);
+      const sliceAng=(Math.PI*2)/players.length;
+      const extraSpins=(5+Math.floor(Math.random()*4))*Math.PI*2;
+      const targetAng=extraSpins+(Math.PI*2-targetIdx*sliceAng-sliceAng/2);
+      const startAngle=wheelAngle,duration=4200,startTime=performance.now();
+      const easeOut=t=>1-Math.pow(1-t,4);
+      function animate(now){
+        const progress=Math.min((now-startTime)/duration,1);
+        wheelAngle=startAngle+targetAng*easeOut(progress);
         window._drawWheel?.(wheelAngle);
-
-        if (progress < 1) {
-          wheelAnimId = requestAnimationFrame(animate);
-        } else {
-          wheelSpinning = false;
-          // Spotlight reveal
-          triggerSpotlight(targetId, () => {
-            // Write to Firestore that wheel was spun
-            const catIdx  = roomData?.categoryIndex ?? 0;
-            const cat     = WHEEL_CATEGORIES[catIdx];
-            updateDoc(doc(db, 'rooms', roomCode), {
-              wheelSpun: true,
-              lastRevealedFor: targetId,
-              lastRevealedCategory: cat
-            });
+        if(progress<1){wheelAnimId=requestAnimationFrame(animate);}
+        else{
+          wheelSpinning=false;
+          triggerSpotlight(spinnerId,()=>{
+            const cat=WHEEL_CATS[roomData?.categoryIndex??0];
+            updateDoc(doc(db,'rooms',roomCode),{wheelSpun:true,lastRevealedFor:spinnerId,lastRevealedCategory:cat});
           });
         }
       }
-
-      wheelAnimId = requestAnimationFrame(animate);
-    };
-
-    function amTurnToSpin() {
-      const order = roomData?.wheelOrder || roomData?.presenterOrder || [];
-      const wIdx  = roomData?.wheelIndex ?? 0;
-      return order[wIdx % order.length] === myId;
+      wheelAnimId=requestAnimationFrame(animate);
     }
-
-    function triggerSpotlight(targetId, cb) {
-      const player  = playersData[targetId];
-      const overlay = document.getElementById('spotlight-overlay');
-      const nameEl  = document.getElementById('spotlight-name');
-      const av      = getAvatar(player?.avatarId || 'a1');
-
-      document.getElementById('spotlight-av').src = av.src;
-      nameEl.textContent = player?.name || '???';
-      overlay.classList.add('active');
-
-      setTimeout(() => {
-        overlay.classList.remove('active');
-        cb?.();
-      }, 2200);
+    function triggerSpotlight(targetId,cb){
+      const p=playersData[targetId],av=getAv(p?.avatarId||'a1');
+      $('spotlight-av').src=av.src;$('spotlight-name').textContent=p?.name||'???';
+      $('spotlight-overlay').classList.add('active');
+      setTimeout(()=>{$('spotlight-overlay').classList.remove('active');cb?.();},2200);
     }
-
-    window.advancePhase2 = async function() {
-      if (!amHost()) return;
-      const catIdx = roomData?.categoryIndex ?? 0;
-      const order  = roomData?.wheelOrder || roomData?.presenterOrder || [];
-      const wIdx   = roomData?.wheelIndex ?? 0;
-      const newCatIdx = catIdx + 1;
-
-      if (newCatIdx >= WHEEL_CATEGORIES.length) {
-        // All 6 categories done for this player — advance to next presenter
-        const newWIdx = wIdx + 1;
-        if (newWIdx >= order.length) {
-          // All players done — go to backstory phase
-          await updateDoc(doc(db, 'rooms', roomCode), {
-            phase: 'backstory', wheelIndex: 0, categoryIndex: 0,
-            wheelSpun: false, lastRevealedFor: null, lastRevealedCategory: null,
-            backstoryStartTime: Date.now(), backstoryEndTime: Date.now() + 15 * 60 * 1000,
-            extraTimeVotes: {}, extraTimeRequested: false
+    async function doAdvancePhase2() {
+      if(!amHost()) return;
+      const catIdx=roomData?.categoryIndex??0;
+      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      const wIdx=roomData?.wheelIndex??0,newCat=catIdx+1;
+      if(newCat>=WHEEL_CATS.length){
+        const newWIdx=wIdx+1;
+        if(newWIdx>=order.length){
+          await updateDoc(doc(db,'rooms',roomCode),{
+            phase:'backstory',wheelIndex:0,categoryIndex:0,wheelSpun:false,
+            lastRevealedFor:null,lastRevealedCategory:null,
+            backstoryEndTime:Date.now()+15*60*1000,extraTimeVotes:{},extraTimeRequested:false
           });
         } else {
-          await updateDoc(doc(db, 'rooms', roomCode), {
-            wheelIndex: newWIdx, categoryIndex: 0,
-            wheelSpun: false, lastRevealedFor: null, lastRevealedCategory: null
-          });
+          await updateDoc(doc(db,'rooms',roomCode),{wheelIndex:newWIdx,categoryIndex:0,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null});
         }
       } else {
-        await updateDoc(doc(db, 'rooms', roomCode), {
-          categoryIndex: newCatIdx, wheelSpun: false,
-          lastRevealedFor: null, lastRevealedCategory: null
-        });
+        await updateDoc(doc(db,'rooms',roomCode),{categoryIndex:newCat,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null});
       }
-    };
+    }
 
-    // ═══════════════════════════════════════════════════
-    // BACKSTORY PHASE
-    // ═══════════════════════════════════════════════════
+    // ── BACKSTORY ───────────────────────────────────────────
     function renderBackstory() {
-      const myAssign = playersData[myId]?.assignment;
-      if (!myAssign) return;
-
-      // Show character sheet
-      document.getElementById('bs-race').textContent     = myAssign.race || '—';
-      document.getElementById('bs-subrace').textContent  = myAssign.subrace || '(none)';
-      document.getElementById('bs-class').textContent    = myAssign.cls || '—';
-      document.getElementById('bs-subclass').textContent = myAssign.subcls || '(none)';
-      document.getElementById('bs-flair').textContent    = myAssign.flair || '—';
-      document.getElementById('bs-name').textContent     = myAssign.charName || '—';
-
-      startBackstoryTimer();
+      const a=playersData[myId]?.assignment||{};
+      $('bs-name').textContent=a.charName||'—';$('bs-race').textContent=a.race||'—';
+      $('bs-subrace').textContent=a.subrace||'(none)';$('bs-class').textContent=a.cls||'—';
+      $('bs-subclass').textContent=a.subcls||'(none)';$('bs-flair').textContent=a.flair||'—';
+      tickBsTimer();
     }
-
     function updateBackstory() {
-      // Extra time votes
-      const votes   = roomData?.extraTimeVotes || {};
-      const players = Object.values(playersData);
-      const voteEl  = document.getElementById('bs-vote-status');
-      if (roomData?.extraTimeRequested) {
-        const yes = Object.values(votes).filter(v => v === 'yes').length;
-        const no  = Object.values(votes).filter(v => v === 'no').length;
-        voteEl.textContent = `Extra time vote: ${yes} yes / ${no} no`;
-        voteEl.style.display = '';
-
-        // All agreed
-        if (yes === players.length) {
-          const newEnd = roomData.backstoryEndTime + 5 * 60 * 1000;
-          updateDoc(doc(db, 'rooms', roomCode), {
-            backstoryEndTime: newEnd,
-            extraTimeVotes: {}, extraTimeRequested: false
-          });
-        }
-        // Someone said no
-        if (no > 0) {
-          updateDoc(doc(db, 'rooms', roomCode), {
-            extraTimeVotes: {}, extraTimeRequested: false
-          });
-        }
-      } else {
-        voteEl.style.display = 'none';
-      }
-
-      // Timer
-      startBackstoryTimer();
+      tickBsTimer();
+      const votes=roomData?.extraTimeVotes||{},players=Object.values(playersData);
+      const voteEl=$('bs-vote-status'),voteBtns=$('bs-vote-btns');
+      if(roomData?.extraTimeRequested){
+        const yes=Object.values(votes).filter(v=>v==='yes').length;
+        const no=Object.values(votes).filter(v=>v==='no').length;
+        voteEl.textContent=`Extra time vote: ${yes} yes / ${no} no`;voteEl.style.display='';
+        voteBtns.style.display=votes[myId]?'none':'';
+        if(yes===players.length) updateDoc(doc(db,'rooms',roomCode),{backstoryEndTime:roomData.backstoryEndTime+5*60*1000,extraTimeVotes:{},extraTimeRequested:false});
+        else if(no>0) updateDoc(doc(db,'rooms',roomCode),{extraTimeVotes:{},extraTimeRequested:false});
+      } else {voteEl.style.display='none';voteBtns.style.display='none';}
     }
-
-    function startBackstoryTimer() {
-      clearInterval(backstoryTimer);
-      const endTime = roomData?.backstoryEndTime;
-      if (!endTime) return;
-
-      backstoryTimer = setInterval(() => {
-        const remaining = Math.max(0, endTime - Date.now());
-        const mins = Math.floor(remaining / 60000);
-        const secs = Math.floor((remaining % 60000) / 1000);
-        const el = document.getElementById('bs-timer');
-        if (el) {
-          el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-          el.classList.toggle('timer-urgent', remaining < 60000);
-        }
-        if (remaining <= 0) {
-          clearInterval(backstoryTimer);
-          if (amHost()) {
-            updateDoc(doc(db, 'rooms', roomCode), { phase: 'phase3', presenterIndex: 0 });
-          }
-        }
-      }, 500);
-    }
-
-    window.submitBackstory = async function() {
-      const text = document.getElementById('bs-text').value.trim();
-      if (!text) { showError('Write at least a sentence for your backstory!'); return; }
-
-      const playerRef = doc(db, 'rooms', roomCode, 'players', myId);
-      const fileInput = document.getElementById('bs-img-upload');
-      let imageUrl    = '';
-
-      if (fileInput.files[0]) {
-        try {
-          const file    = fileInput.files[0];
-          const sRef    = storageRef(storage, `games/${roomCode}/${myId}/character.${file.name.split('.').pop()}`);
-          const snap    = await uploadBytes(sRef, file);
-          imageUrl      = await getDownloadURL(snap.ref);
-        } catch (e) { console.warn('Image upload failed:', e); }
+    function tickBsTimer() {
+      clearInterval(bsTimer);
+      const endTime=roomData?.backstoryEndTime;if(!endTime) return;
+      function tick(){
+        const rem=Math.max(0,endTime-Date.now());
+        const mins=Math.floor(rem/60000),secs=Math.floor((rem%60000)/1000);
+        const str=`${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        ['bs-timer','bs-timer2'].forEach(id=>{const el=$(id);if(el){el.textContent=str;el.classList.toggle('timer-urgent',rem<60000);}});
+        if(rem<=0){clearInterval(bsTimer);if(amHost()) updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});}
       }
+      tick();bsTimer=setInterval(tick,500);
+    }
+    async function doSubmitBackstory() {
+      const text=$('bs-text').value.trim();if(!text){showErr('Write at least a sentence!');return;}
+      let imageUrl='';
+      const fi=$('bs-img-upload');
+      if(fi?.files[0]){try{const f=fi.files[0];const sr=storageRef(storage,`games/${roomCode}/${myId}/character.${f.name.split('.').pop()}`);const sn=await uploadBytes(sr,f);imageUrl=await getDownloadURL(sn.ref);}catch(e){console.warn(e);}}
+      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{backstory:{text,imageUrl},backstorySubmitted:true});
+      $('bs-form').style.display='none';$('bs-submitted').style.display='';
+    }
+    async function doRequestExtraTime(){await updateDoc(doc(db,'rooms',roomCode),{extraTimeRequested:true,[`extraTimeVotes.${myId}`]:'yes'});}
+    async function doVoteExtraTime(v){await updateDoc(doc(db,'rooms',roomCode),{[`extraTimeVotes.${myId}`]:v});}
 
-      await updateDoc(playerRef, {
-        backstory: { text, imageUrl },
-        backstorySubmitted: true
-      });
-
-      document.getElementById('bs-form').style.display    = 'none';
-      document.getElementById('bs-submitted').style.display = '';
-    };
-
-    window.requestExtraTime = async function() {
-      await updateDoc(doc(db, 'rooms', roomCode), {
-        extraTimeRequested: true,
-        [`extraTimeVotes.${myId}`]: 'yes'
-      });
-    };
-
-    window.voteExtraTime = async function(vote) {
-      await updateDoc(doc(db, 'rooms', roomCode), {
-        [`extraTimeVotes.${myId}`]: vote
-      });
-    };
-
-    // ═══════════════════════════════════════════════════
-    // PHASE 3 — PRESENTATIONS
-    // ═══════════════════════════════════════════════════
-    let p3RevealState = {
-      race: false, subrace: false, cls: false,
-      subcls: false, flair: false, name: false,
-      backstory: [], backstoryIdx: 0
-    };
-
+    // ── PHASE 3 ─────────────────────────────────────────────
     function renderPhase3() {
-      const pidx     = roomData?.presenterIndex ?? 0;
-      const order    = roomData?.presenterOrder || [];
-      const pid      = order[pidx];
-      const presenter = playersData[pid];
-      const isMe      = pid === myId;
-      const assign    = presenter?.assignment || {};
-      const backstory = presenter?.backstory || {};
-      const av        = getAvatar(presenter?.avatarId || 'a1');
-
-      // Presenter info
-      document.getElementById('p3-presenter-name').textContent = presenter?.name || '???';
-      document.getElementById('p3-presenter-av').src           = av.src;
-      document.getElementById('p3-turn-count').textContent     =
-        `Presenter ${pidx + 1} of ${order.length}`;
-
-      // Show/hide presenter controls
-      document.getElementById('p3-presenter-controls').style.display = isMe ? '' : 'none';
-      document.getElementById('p3-audience-controls').style.display  = !isMe ? '' : 'none';
-
-      // Rating (audience only)
-      if (!isMe) {
-        const myRating = roomData?.ratings?.[pid]?.[myId] || 0;
-        renderStars(myRating);
-      }
-
-      // Reset reveal state
-      p3RevealState = {
-        race: false, subrace: false, cls: false,
-        subcls: false, flair: false, name: false,
-        backstory: backstory.text ? backstory.text.split('\n\n').filter(Boolean) : [],
-        backstoryIdx: 0
-      };
-
-      updateP3Reveals(assign, backstory, isMe);
+      const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
+      const p=playersData[pid],isMe=pid===myId,av=getAv(p?.avatarId||'a1');
+      $('p3-presenter-av').src=av.src;$('p3-presenter-name').textContent=p?.name||'???';
+      $('p3-turn-count').textContent=`Presenter ${pidx+1} of ${(roomData?.presenterOrder||[]).length}`;
+      $('p3-presenter-controls').style.display=isMe?'':'none';
+      $('p3-audience-controls').style.display=isMe?'none':'';
+      p3State={race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
+      if(!isMe) renderStars(roomData?.ratings?.[pid]?.[myId]||0);
+      drawP3Sheet(p?.assignment||{},p?.backstory||{},isMe);
     }
-
     function updatePhase3() {
-      const pidx     = roomData?.presenterIndex ?? 0;
-      const order    = roomData?.presenterOrder || [];
-      const pid      = order[pidx];
-      if (!pid) return;
-
-      const presenter = playersData[pid];
-      const assign    = presenter?.assignment || {};
-      const backstory = presenter?.backstory || {};
-      const isMe      = pid === myId;
-
-      // Update reveal state from room
-      const reveals = roomData?.reveals || {};
-      Object.assign(p3RevealState, reveals);
-
-      updateP3Reveals(assign, backstory, isMe);
-
-      // Update rating
-      if (!isMe) {
-        const myRating = roomData?.ratings?.[pid]?.[myId] || 0;
-        renderStars(myRating);
-      }
+      const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
+      if(!pid) return;
+      const p=playersData[pid],isMe=pid===myId,reveals=roomData?.reveals||{};
+      Object.assign(p3State,reveals);
+      if(!isMe) renderStars(roomData?.ratings?.[pid]?.[myId]||0);
+      drawP3Sheet(p?.assignment||{},p?.backstory||{},isMe);
     }
-
-    function updateP3Reveals(assign, backstory, isPresenter) {
-      const fields = [
-        { key: 'name',    label: 'Name',     val: assign.charName },
-        { key: 'race',    label: 'Race',     val: assign.race     },
-        { key: 'subrace', label: 'Subrace',  val: assign.subrace  },
-        { key: 'cls',     label: 'Class',    val: assign.cls      },
-        { key: 'subcls',  label: 'Subclass', val: assign.subcls   },
-        { key: 'flair',   label: 'Flair',    val: assign.flair    },
-      ];
-
-      const sheet = document.getElementById('p3-char-sheet');
-      sheet.innerHTML = fields.map(f => {
-        const revealed = p3RevealState[f.key];
-        return `<div class="p3-field ${revealed ? 'revealed' : 'hidden'}">
+    function drawP3Sheet(assign,backstory,isPresenter) {
+      const fields=[{key:'name',label:'Name',val:assign.charName},{key:'race',label:'Race',val:assign.race},
+                    {key:'subrace',label:'Subrace',val:assign.subrace},{key:'cls',label:'Class',val:assign.cls},
+                    {key:'subcls',label:'Subclass',val:assign.subcls},{key:'flair',label:'Flair',val:assign.flair}];
+      $('p3-char-sheet').innerHTML=fields.map(f=>{
+        const rev=!!p3State[f.key];
+        return `<div class="p3-field ${rev?'revealed':'hidden'}">
           <span class="p3-field-label">${f.label}</span>
-          <span class="p3-field-val">${revealed ? esc(f.val || '—') : '???'}</span>
-          ${isPresenter && !revealed
-            ? `<button class="p3-reveal-btn" onclick="revealField('${f.key}')">Reveal</button>`
-            : ''}
+          <span class="p3-field-val">${rev?esc(f.val||'—'):'???'}</span>
+          ${isPresenter&&!rev?`<button class="p3-reveal-btn" onclick="G.revealField('${f.key}')">Reveal</button>`:''}
         </div>`;
       }).join('');
-
-      // Backstory
-      const bsEl      = document.getElementById('p3-backstory');
-      const bsText    = backstory.text || '';
-      const paragraphs = bsText.split('\n\n').filter(Boolean);
-      const revealedUpTo = p3RevealState.backstoryIdx || 0;
-
-      bsEl.innerHTML = paragraphs.slice(0, revealedUpTo).map((p, i) =>
-        `<p class="p3-bs-para ${i === revealedUpTo - 1 ? 'para-new' : ''}">${esc(p)}</p>`
-      ).join('') + (revealedUpTo < paragraphs.length
-        ? `<div class="p3-bs-hidden">▓▓▓▓ (${paragraphs.length - revealedUpTo} more paragraph${paragraphs.length - revealedUpTo !== 1 ? 's' : ''})</div>`
-        : '');
-
-      if (backstory.imageUrl && revealedUpTo === paragraphs.length && revealedUpTo > 0) {
-        bsEl.insertAdjacentHTML('afterbegin',
-          `<img src="${esc(backstory.imageUrl)}" class="p3-char-img" alt="Character art">`);
-      }
-
-      // Backstory controls
-      const bsBtns = document.getElementById('p3-backstory-btns');
-      if (bsBtns && isPresenter) {
-        const canProceed = revealedUpTo < paragraphs.length;
-        const canUndo    = revealedUpTo > 0;
-        bsBtns.innerHTML = `
-          ${canProceed ? `<button class="btn-gold" onclick="backstoryProceed()">Proceed ▶</button>` : ''}
-          ${canUndo    ? `<button class="btn-outline" onclick="backstoryUndo()">◀ Undo</button>` : ''}
-        `;
-      }
-
-      // Finished button
-      const finBtn = document.getElementById('p3-finish-btn');
-      if (finBtn) finBtn.style.display = isPresenter ? '' : 'none';
+      const paras=(backstory.text||'').split('\n\n').filter(Boolean);
+      const upTo=p3State.backstoryIdx||0;
+      $('p3-backstory').innerHTML=paras.slice(0,upTo).map((p,i)=>
+        `<p class="p3-bs-para ${i===upTo-1?'para-new':''}">${esc(p)}</p>`
+      ).join('')+(upTo<paras.length?`<div class="p3-bs-hidden">&#9619;&#9619;&#9619;&#9619; (${paras.length-upTo} more)</div>`:'');
+      if(backstory.imageUrl&&upTo===paras.length&&upTo>0)
+        $('p3-backstory').insertAdjacentHTML('afterbegin',`<img src="${esc(backstory.imageUrl)}" class="p3-char-img" alt="">`);
+      const bsBtns=$('p3-backstory-btns');
+      if(bsBtns&&isPresenter){
+        bsBtns.innerHTML=(upTo<paras.length?`<button class="btn-gold" onclick="G.bsProceed()">Proceed &#9654;</button>`:'')+
+                         (upTo>0?`<button class="btn-outline" onclick="G.bsUndo()">&#9664; Undo</button>`:'');
+      } else if(bsBtns) bsBtns.innerHTML='';
+      const fb=$('p3-finish-btn');if(fb) fb.style.display=isPresenter?'':'none';
     }
-
-    window.revealField = async function(key) {
-      const roomRef = doc(db, 'rooms', roomCode);
-      await updateDoc(roomRef, { [`reveals.${key}`]: true });
-      p3RevealState[key] = true;
-      updateP3RevealsFromState();
-    };
-
-    window.backstoryProceed = async function() {
-      const newIdx = (p3RevealState.backstoryIdx || 0) + 1;
-      p3RevealState.backstoryIdx = newIdx;
-      await updateDoc(doc(db, 'rooms', roomCode), { 'reveals.backstoryIdx': newIdx });
-      updateP3RevealsFromState();
-    };
-
-    window.backstoryUndo = async function() {
-      const newIdx = Math.max(0, (p3RevealState.backstoryIdx || 0) - 1);
-      p3RevealState.backstoryIdx = newIdx;
-      await updateDoc(doc(db, 'rooms', roomCode), { 'reveals.backstoryIdx': newIdx });
-      updateP3RevealsFromState();
-    };
-
-    function updateP3RevealsFromState() {
-      const pidx     = roomData?.presenterIndex ?? 0;
-      const order    = roomData?.presenterOrder || [];
-      const pid      = order[pidx];
-      const presenter = playersData[pid];
-      const assign    = presenter?.assignment || {};
-      const backstory = presenter?.backstory  || {};
-      const isMe      = pid === myId;
-      updateP3Reveals(assign, backstory, isMe);
+    async function doRevealField(key){p3State[key]=true;await updateDoc(doc(db,'rooms',roomCode),{[`reveals.${key}`]:true});refreshP3();}
+    async function doBsProceed(){const n=(p3State.backstoryIdx||0)+1;p3State.backstoryIdx=n;await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});refreshP3();}
+    async function doBsUndo(){const n=Math.max(0,(p3State.backstoryIdx||0)-1);p3State.backstoryIdx=n;await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});refreshP3();}
+    function refreshP3(){const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];const p=playersData[pid];drawP3Sheet(p?.assignment||{},p?.backstory||{},pid===myId);}
+    async function doFinishPresentation(){
+      const pidx=roomData?.presenterIndex??0,order=roomData?.presenterOrder||[],newIdx=pidx+1;
+      p3State={race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
+      if(newIdx>=order.length){await calcLeaderboard();await updateDoc(doc(db,'rooms',roomCode),{phase:'leaderboard'});}
+      else await updateDoc(doc(db,'rooms',roomCode),{presenterIndex:newIdx,reveals:{}});
     }
-
-    window.finishPresentation = async function() {
-      const pidx    = roomData?.presenterIndex ?? 0;
-      const order   = roomData?.presenterOrder || [];
-      const newIdx  = pidx + 1;
-
-      if (newIdx >= order.length) {
-        // All done — go to leaderboard
-        await buildLeaderboard();
-        await updateDoc(doc(db, 'rooms', roomCode), { phase: 'leaderboard' });
-      } else {
-        await updateDoc(doc(db, 'rooms', roomCode), {
-          presenterIndex: newIdx,
-          reveals: {}
-        });
-      }
-      p3RevealState = { race:false, subrace:false, cls:false, subcls:false, flair:false, name:false, backstory:[], backstoryIdx:0 };
-    };
-
-    // Ratings
-    window.ratePresenter = async function(stars) {
-      const pidx  = roomData?.presenterIndex ?? 0;
-      const order = roomData?.presenterOrder || [];
-      const pid   = order[pidx];
-      if (pid === myId) return; // can't rate yourself
-      await updateDoc(doc(db, 'rooms', roomCode), {
-        [`ratings.${pid}.${myId}`]: stars
-      });
-      renderStars(stars);
-    };
-
-    function renderStars(current) {
-      const el = document.getElementById('p3-stars');
-      if (!el) return;
-      el.innerHTML = [1,2,3,4,5].map(n =>
-        `<span class="star ${n <= current ? 'lit' : ''}" onclick="ratePresenter(${n})">★</span>`
-      ).join('');
+    async function doRate(stars){
+      const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
+      if(!pid||pid===myId) return;
+      await updateDoc(doc(db,'rooms',roomCode),{[`ratings.${pid}.${myId}`]:stars});renderStars(stars);
     }
+    function renderStars(cur){const el=$('p3-stars');if(!el)return;el.innerHTML=[1,2,3,4,5].map(n=>`<span class="star ${n<=cur?'lit':''}" onclick="G.rate(${n})">&#9733;</span>`).join('');}
 
-    // ═══════════════════════════════════════════════════
-    // LEADERBOARD
-    // ═══════════════════════════════════════════════════
-    async function buildLeaderboard() {
-      const ratings = roomData?.ratings || {};
-      const players = Object.values(playersData);
-      const scores  = players.map(p => {
-        const r    = ratings[p.id] || {};
-        const total = Object.values(r).reduce((s, v) => s + v, 0);
-        return { ...p, totalScore: total };
-      }).sort((a, b) => b.totalScore - a.totalScore);
-
-      // Write scores back
-      const updates = {};
-      scores.forEach(p => { updates[`scores.${p.id}`] = p.totalScore; });
-      await updateDoc(doc(db, 'rooms', roomCode), updates);
+    // ── LEADERBOARD ─────────────────────────────────────────
+    async function calcLeaderboard(){
+      const r=roomData?.ratings||{},players=Object.values(playersData),u={};
+      players.forEach(p=>{u[`scores.${p.id}`]=Object.values(r[p.id]||{}).reduce((s,v)=>s+v,0);});
+      await updateDoc(doc(db,'rooms',roomCode),u);
     }
-
-    function renderLeaderboard() {
-      const scores  = roomData?.scores || {};
-      const players = Object.values(playersData)
-        .map(p => ({ ...p, totalScore: scores[p.id] || 0 }))
-        .sort((a, b) => b.totalScore - a.totalScore);
-
-      const lb = document.getElementById('leaderboard-list');
-      lb.innerHTML = '';
-
-      // Reveal top 3 one by one
-      const medals = ['🥉', '🥈', '🥇'];
-      const toShow  = players.slice(0, Math.min(3, players.length));
-      const rest    = players.slice(3);
-
-      // Rest (4th+) show immediately
-      if (rest.length) {
-        lb.insertAdjacentHTML('beforeend',
-          `<div class="lb-rest">${rest.map((p,i) =>
-            `<div class="lb-row lb-row--rest">
-              <span class="lb-rank">${i + 4}</span>
-              <img src="${esc(getAvatar(p.avatarId).src)}" class="lb-av" alt="">
-              <span class="lb-name">${esc(p.name)}</span>
-              <span class="lb-score">${p.totalScore} pts</span>
-            </div>`).join('')}</div>`
-        );
-      }
-
-      // Animate top 3 reveal: 3rd, 2nd, 1st with delays
-      toShow.reverse().forEach((p, i) => {
-        const rank  = toShow.length - i;
-        const medal = medals[rank - 1] || rank;
-        setTimeout(() => {
-          const row = document.createElement('div');
-          row.className = `lb-row lb-row--top lb-rank-${rank} lb-reveal`;
-          row.innerHTML = `
-            <span class="lb-medal">${medal}</span>
-            <img src="${esc(getAvatar(p.avatarId).src)}" class="lb-av lb-av--big" alt=""
-                 onerror="this.src='/assets/img/game/avatars/fallback.png'">
-            <div class="lb-info">
-              <span class="lb-name lb-name--big">${esc(p.name)}</span>
-              <span class="lb-char-name">${esc(p.assignment?.charName || '')}</span>
-            </div>
-            <span class="lb-score lb-score--big">${p.totalScore} pts</span>`;
-          lb.insertBefore(row, lb.firstChild);
-          setTimeout(() => row.classList.add('visible'), 50);
-        }, (i + 1) * 1800);
+    function renderLeaderboard(){
+      const sc=roomData?.scores||{};
+      const players=Object.values(playersData).map(p=>({...p,score:sc[p.id]||0})).sort((a,b)=>b.score-a.score);
+      const lb=$('leaderboard-list');lb.innerHTML='';
+      const rest=players.slice(3);
+      if(rest.length) lb.insertAdjacentHTML('beforeend',`<div class="lb-rest">${rest.map((p,i)=>`
+        <div class="lb-row lb-row--rest"><span class="lb-rank">${i+4}</span>
+        <img class="lb-av" src="${esc(getAv(p.avatarId).src)}" onerror="this.src='/assets/img/game/avatars/fallback.png'" alt="">
+        <span class="lb-name">${esc(p.name)}</span><span class="lb-score">${p.score} pts</span></div>`).join('')}</div>`);
+      const medals=['&#129349;','&#129350;','&#129351;'];
+      players.slice(0,3).reverse().forEach((p,i)=>{
+        const rank=players.slice(0,3).length-i;
+        setTimeout(()=>{
+          const row=document.createElement('div');
+          row.className=`lb-row lb-row--top lb-rank-${rank} lb-reveal`;
+          row.innerHTML=`<span class="lb-medal">${medals[rank-1]||rank}</span>
+            <img class="lb-av lb-av--big" src="${esc(getAv(p.avatarId).src)}" onerror="this.src='/assets/img/game/avatars/fallback.png'" alt="">
+            <div class="lb-info"><span class="lb-name lb-name--big">${esc(p.name)}</span><span class="lb-char-name">${esc(p.assignment?.charName||'')}</span></div>
+            <span class="lb-score lb-score--big">${p.score} pts</span>`;
+          lb.insertBefore(row,lb.firstChild);
+          setTimeout(()=>row.classList.add('visible'),50);
+        },(i+1)*1800);
       });
     }
 
-    // ═══════════════════════════════════════════════════
-    // UI HELPERS
-    // ═══════════════════════════════════════════════════
-    function showError(msg) {
-      const el = document.getElementById('global-error');
-      el.textContent = msg;
-      el.classList.add('show');
-      setTimeout(() => el.classList.remove('show'), 3500);
+    function doLeave(){
+      localStorage.removeItem('edelith_room');localStorage.removeItem('edelith_name');
+      clearInterval(bsTimer);clearInterval(slotTimer);if(wheelAnimId) cancelAnimationFrame(wheelAnimId);
+      if(roomUnsub) roomUnsub();
+      roomData=null;playersData={};roomCode=null;
+      showScreen('screen-home');
     }
 
-    function shake(el) {
-      el.classList.add('shake');
-      setTimeout(() => el.classList.remove('shake'), 600);
-    }
-
-    // ═══════════════════════════════════════════════════
-    // INIT
-    // ═══════════════════════════════════════════════════
-    initMyId();
+    // ── INIT ────────────────────────────────────────────────
+    let pid2=localStorage.getItem('edelith_pid');
+    if(!pid2){pid2=genId();localStorage.setItem('edelith_pid',pid2);}
+    myId=pid2;
     showScreen('screen-home');
 
-    // Rejoin: if localStorage has a room and player
-    const savedRoom = localStorage.getItem('edelith_room');
-    const savedName = localStorage.getItem('edelith_name');
-    if (savedRoom && savedName) {
-      myName = savedName;
-      subscribeRoom(savedRoom).then(() => {
-        if (roomData) routeByPhase(roomData);
-      });
+    // Rejoin attempt
+    const sr=localStorage.getItem('edelith_room'),sn=localStorage.getItem('edelith_name');
+    if(sr&&sn){
+      getDoc(doc(db,'rooms',sr)).then(snap=>{
+        if(snap.exists()){myName=sn;subscribeRoom(sr);}
+        else localStorage.removeItem('edelith_room');
+      }).catch(()=>{});
     }
 
-    // Save room/name on join
-    const _origCreate = window.createRoom;
-    window.createRoom = async function() {
-      await _origCreate();
-      localStorage.setItem('edelith_room', roomCode);
-      localStorage.setItem('edelith_name', myName);
+    // Wire up G namespace with real functions
+    window.G._real = {
+      createRoom:doCreate, joinRoom:doJoin, selectAvatar:doSelectAvatar,
+      toggleReady:doToggleReady, startGame:doStartGame, submitPhase1:doSubmitPhase1,
+      spinWheel:doSpinWheel, advancePhase2:doAdvancePhase2, submitBackstory:doSubmitBackstory,
+      requestExtraTime:doRequestExtraTime, voteExtraTime:doVoteExtraTime,
+      revealField:doRevealField, bsProceed:doBsProceed, bsUndo:doBsUndo,
+      finishPresentation:doFinishPresentation, rate:doRate, leaveGame:doLeave
     };
-    const _origJoin = window.joinRoom;
-    window.joinRoom = async function() {
-      await _origJoin();
-      localStorage.setItem('edelith_room', roomCode);
-      localStorage.setItem('edelith_name', myName);
-    };
-
-    window.leaveGame = function() {
-      localStorage.removeItem('edelith_room');
-      localStorage.removeItem('edelith_name');
-      if (roomUnsub) roomUnsub();
-      roomData = null; playersData = {}; roomCode = null;
-      showScreen('screen-home');
-    };
-
+    // Replace all stub handlers with real ones
+    Object.keys(window.G._real).forEach(fn => { window.G[fn] = window.G._real[fn]; });
   </script>
-
 <style>
 /* ═══════════════════════════════════════════════════
    ROOT & BASE
@@ -1843,18 +1252,18 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     <label class="game-input-label" for="home-name">Your Name</label>
     <input class="game-input" id="home-name" type="text"
            placeholder="e.g. Peggle Bottomsworth" maxlength="24"
-           onkeydown="if(event.key==='Enter')joinRoom()">
+           onkeydown="if(event.key==='Enter')G.joinRoom()">
 
     <div class="home-divider"><span>or join a room</span></div>
 
     <label class="game-input-label" for="home-code">Room Code</label>
     <input class="game-input" id="home-code" type="text"
            placeholder="e.g. 87221" maxlength="5"
-           onkeydown="if(event.key==='Enter')joinRoom()">
+           onkeydown="if(event.key==='Enter')G.joinRoom()">
 
     <div class="home-row" style="margin-top:18px;">
-      <button class="btn-gold" onclick="createRoom()">Create Room</button>
-      <button class="btn-gold" onclick="joinRoom()">Join Room</button>
+      <button class="btn-gold" onclick="G.createRoom()">Create Room</button>
+      <button class="btn-gold" onclick="G.joinRoom()">Join Room</button>
     </div>
 
     <p style="font-family:var(--f-label);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--fog-dim);opacity:.5;text-align:center;margin-top:16px;">
@@ -1870,7 +1279,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Character Forge</span>
     <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content">
     <h2 class="screen-title">The Lobby</h2>
@@ -1886,8 +1295,8 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
         <div id="lobby-player-list" class="lobby-player-list"></div>
         <div class="lobby-controls">
-          <button class="btn-gold" id="lobby-ready-btn" onclick="toggleReady()">Ready</button>
-          <button class="btn-gold" id="lobby-start-btn" onclick="startGame()" disabled>
+          <button class="btn-gold" id="lobby-ready-btn" onclick="G.toggleReady()">Ready</button>
+          <button class="btn-gold" id="lobby-start-btn" onclick="G.startGame()" disabled>
             Start Game →
           </button>
         </div>
@@ -1909,7 +1318,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase I — The Forge</span>
     <div class="game-bar-code">Room <span id="p1-room-code-display"></span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content game-content--narrow">
 
@@ -1945,7 +1354,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
       </div>
 
-      <button class="btn-gold" style="width:100%;margin-top:20px;" onclick="submitPhase1()">
+      <button class="btn-gold" style="width:100%;margin-top:20px;" onclick="G.submitPhase1()">
         Submit Character →
       </button>
     </div>
@@ -1969,7 +1378,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Determining Spin Order</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content" style="text-align:center;padding-top:50px;">
     <h2 class="screen-title" id="wo-title">Determining spin order…</h2>
@@ -2000,7 +1409,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase II — The Reveal</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content game-content--wide">
     <h2 class="screen-title" id="p2-spinner-name">Spinning…</h2>
@@ -2021,7 +1430,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 
         <div id="p2-your-turn" style="display:none;">
           <p class="p2-your-turn-msg">✦ It's your turn to spin!</p>
-          <button class="btn-gold" id="p2-spin-btn" style="margin-top:12px;" onclick="spinWheel()">
+          <button class="btn-gold" id="p2-spin-btn" style="margin-top:12px;" onclick="G.spinWheel()">
             Spin the Wheel ◆
           </button>
         </div>
@@ -2037,7 +1446,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
 
         <div id="p2-advance-btn-wrap">
-          <button class="btn-outline" id="p2-advance-btn" style="display:none;" onclick="advancePhase2()">
+          <button class="btn-outline" id="p2-advance-btn" style="display:none;" onclick="G.advancePhase2()">
             Next Category →
           </button>
         </div>
@@ -2061,7 +1470,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase II — Your Character Sheet</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content">
     <h2 class="screen-title">Your Assigned Character</h2>
@@ -2123,13 +1532,13 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
       </div>
 
       <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
-        <button class="btn-gold" onclick="submitBackstory()">Submit Backstory →</button>
-        <button class="btn-outline" onclick="requestExtraTime()">Request +5 min</button>
+        <button class="btn-gold" onclick="G.submitBackstory()">Submit Backstory →</button>
+        <button class="btn-outline" onclick="G.requestExtraTime()">Request +5 min</button>
       </div>
 
       <div id="bs-vote-btns" class="bs-vote-btns" style="display:none;">
-        <button class="btn-gold" onclick="voteExtraTime('yes')">✓ Agree (+5 min)</button>
-        <button class="btn-danger" onclick="voteExtraTime('no')">✕ Disagree</button>
+        <button class="btn-gold" onclick="G.voteExtraTime('yes')">✓ Agree (+5 min)</button>
+        <button class="btn-danger" onclick="G.voteExtraTime('no')">✕ Disagree</button>
       </div>
     </div>
 
@@ -2154,7 +1563,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase III — Presentations</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content game-content--wide">
 
@@ -2180,7 +1589,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 
         <!-- Presenter: finish button -->
         <div id="p3-presenter-controls" style="display:none;margin-top:16px;">
-          <button class="btn-danger" id="p3-finish-btn" onclick="finishPresentation()"
+          <button class="btn-danger" id="p3-finish-btn" onclick="G.finishPresentation()"
                   style="width:100%;margin-top:8px;">
             Finished →
           </button>
@@ -2212,7 +1621,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Character Forge — Results</span>
     <div class="game-bar-code"></div>
-    <button class="leave-btn" onclick="leaveGame()">Leave</button>
+    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
   <div class="game-content">
     <h2 class="screen-title" style="margin-bottom:6px;">The Results</h2>
@@ -2222,7 +1631,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     <div id="leaderboard-list" class="leaderboard-list"></div>
 
     <div style="text-align:center;margin-top:32px;">
-      <button class="btn-gold" onclick="leaveGame()">Return to Archives</button>
+      <button class="btn-gold" onclick="G.leaveGame()">Return to Archives</button>
     </div>
   </div>
 </div>
