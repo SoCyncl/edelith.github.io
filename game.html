@@ -151,7 +151,25 @@
     // SCREEN ROUTING
     // ══════════════════════════════════════════════════════
     function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+        // Once we leave the home screen, remove it from layout entirely so
+        // it can never be scrolled back to.
+        if (s.id === 'screen-home' && id !== 'screen-home') {
+          s.style.display = 'none';
+          s.style.position = 'absolute';
+          s.style.visibility = 'hidden';
+          s.style.pointerEvents = 'none';
+        }
+      });
+      // If we're going back to home, restore it
+      if (id === 'screen-home') {
+        const home = $('screen-home');
+        home.style.display = '';
+        home.style.position = '';
+        home.style.visibility = '';
+        home.style.pointerEvents = '';
+      }
       const el=$(id); if(el) el.classList.add('active');
     }
 
@@ -472,9 +490,16 @@
     function updatePhase2() {
       if(!roomData) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
-      const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
-
+      const wIdx=roomData?.wheelIndex??0, spinnerId=order[wIdx%order.length];
+      const isMyTurn=spinnerId===myId;
+      const catIdx=roomData?.categoryIndex??0, cat=WHEEL_CATS[catIdx]||'Race';
       const sd=roomData?.spinData;
+
+      // Always keep category label and spinner badge in sync with Firestore
+      $('p2-category-label').textContent=cat;
+      $('p2-spinner-name').textContent=(playersData[spinnerId]?.name||'?')+"'s spin";
+      $('p2-spinner-name-badge').textContent=(playersData[spinnerId]?.name||'?')+"'s turn";
+
       if(sd && sd.startTime && sd.startTime!==lastAnimatedSpinTime && !roomData?.wheelSpun) {
         lastAnimatedSpinTime = sd.startTime;
         startSyncedSpin(sd);
@@ -492,14 +517,14 @@
         revealEl.classList.remove('reveal-flash');void revealEl.offsetWidth;revealEl.classList.add('reveal-flash');
       } else {revealEl.style.display='none';}
 
+      // Current spinner controls "Next Category" — not the host
       const advBtn=$('p2-advance-btn');
-      if(advBtn) advBtn.style.display=(amHost()&&roomData?.wheelSpun)?'':'none';
+      if(advBtn) advBtn.style.display=(isMyTurn&&roomData?.wheelSpun)?'':'none';
 
-      const isMyTurn=spinnerId===myId;
       $('p2-your-turn').style.display=isMyTurn?'':'none';
       $('p2-wait-msg').style.display=isMyTurn?'none':'';
-      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!roomData?.spinData)?'':'none';
-      $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||roomData?.spinData);
+      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!sd)?'':'none';
+      $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||sd);
 
       buildWheel(Object.values(playersData),spinnerId);
     }
@@ -609,10 +634,12 @@
     }
 
     async function doAdvancePhase2() {
-      if(!amHost()) return;
-      const catIdx=roomData?.categoryIndex??0;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
-      const wIdx=roomData?.wheelIndex??0,newCat=catIdx+1;
+      const wIdx=roomData?.wheelIndex??0, spinnerId=order[wIdx%order.length];
+      // Only the current spinner (or host as fallback) can advance
+      if(myId !== spinnerId && !amHost()) return;
+      const catIdx=roomData?.categoryIndex??0;
+      const newCat=catIdx+1;
       const baseReset={wheelSpun:false,spinData:null,lastRevealedFor:null,lastRevealedCategory:null};
       if(newCat>=WHEEL_CATS.length){
         const newWIdx=wIdx+1;
@@ -658,11 +685,14 @@
     function updateBackstory() {
       tickBsTimer();
 
-      // Check if all players have submitted backstories — host advances to phase3
-      if (amHost()) {
-        const players = Object.values(playersData);
-        const allSubmitted = players.length >= 2 && players.every(p => p.backstorySubmitted);
-        if (allSubmitted && roomData?.phase === 'backstory') {
+      // Check if all players have submitted — host advances immediately
+      const players = Object.values(playersData);
+      const allSubmitted = players.length >= 2 && players.every(p => p.backstorySubmitted);
+      if (allSubmitted && roomData?.phase === 'backstory') {
+        // Update the waiting message to reflect everyone is done
+        const waitMsg = $('bs-submitted-msg');
+        if (waitMsg) waitMsg.textContent = 'Everyone has submitted! Starting presentations…';
+        if (amHost()) {
           updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});
           return;
         }
@@ -1968,7 +1998,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
     <div id="bs-submitted" style="display:none;text-align:center;padding:40px 0;">
       <div style="font-size:2rem;color:var(--gold);margin-bottom:12px;">◆</div>
       <h3 style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:3px;color:var(--frost);margin-bottom:8px;">Backstory Submitted</h3>
-      <p style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
+      <p id="bs-submitted-msg" style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
         Waiting for others to finish writing…
       </p>
       <div style="margin-top:16px;">
