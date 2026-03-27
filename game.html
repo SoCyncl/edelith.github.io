@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Autistic Canon — Solstitheo Archives</title>
-  <meta name="description" content="A multiplayer character creation game where you straigh up make sum BULLSHIDD.">
+  <meta name="description" content="A multiplayer character creation game where youo just make sum BULLSHIDDD.">
   <meta name="theme-color" content="#2a211b">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -58,8 +58,119 @@
     ];
     const WHEEL_CATS = ['Race','Subrace','Class','Subclass','Flair','Name'];
 
+    // ╔══════════════════════════════════════════════════════════════════╗
+    // ║                        SOUND SYSTEM                             ║
+    // ║  Add file paths (strings) to any array to enable that sound.    ║
+    // ║  Multiple paths = one is chosen at random each time.            ║
+    // ║  Leave an array empty [] to silence that event.                 ║
+    // ╚══════════════════════════════════════════════════════════════════╝
+    const SOUNDS = {
+
+      // ── HOME / NAVIGATION ──────────────────────────────────────────
+      home: {
+        createRoom:   [],   // You create a new room
+        joinRoom:     [],   // You successfully join a room
+        error:        [],   // Any error toast fires
+        leave:        [],   // Any player clicks Leave
+      },
+
+      // ── LOBBY ──────────────────────────────────────────────────────
+      lobby: {
+        playerJoin:   [],   // A new player appears in the lobby list
+        playerLeave:  [],   // A player disappears from the lobby list
+        ready:        [],   // Someone toggles Ready ON
+        unready:      [],   // Someone toggles Ready OFF (Unready)
+        selectAvatar: [],   // You pick an avatar
+        startGame:    [],   // Host clicks Start Game (game begins)
+      },
+
+      // ── PHASE 1 — BUILD YOUR CHARACTER ────────────────────────────
+      phase1: {
+        submit:       [],   // You submit your character sheet
+        waiting:      [],   // You enter the "waiting for others" state
+        allSubmitted: [],   // Everyone has submitted (host advances)
+      },
+
+      // ── SLOT MACHINE (wheel-order screen) ─────────────────────────
+      slotMachine: {
+        start:        [],   // Slot machine begins spinning for a position
+        tick:         [],   // Each name-flash tick (keep short/quiet!)
+        lock:         [],   // Slot machine locks on a winner
+        spotlight:    [],   // Spotlight overlay appears with winner
+        spotlightOut: [],   // Spotlight overlay disappears
+        positionSet:  [],   // A position is written to the order list
+      },
+
+      // ── PHASE 2 — THE WHEEL ────────────────────────────────────────
+      wheel: {
+        yourTurn:     [],   // It becomes YOUR turn to spin
+        spinStart:    [],   // Wheel begins spinning (heard by ALL players)
+        spinning:     [],   // Looping ambient sound while wheel is moving
+        land:         [],   // Wheel finishes spinning
+        spotlight:    [],   // Spotlight overlay appears after wheel lands
+        spotlightOut: [],   // Spotlight overlay disappears
+        reveal:       [],   // Your category value is revealed to you
+        nextCategory: [],   // Host advances to next category (same spinner)
+        nextSpinner:  [],   // Host advances to next player's turn
+        allDone:      [],   // All spinners done — transitioning to backstory
+      },
+
+      // ── BACKSTORY ──────────────────────────────────────────────────
+      backstory: {
+        enter:            [],  // Backstory phase begins for you
+        timerUrgent:      [],  // Timer drops below 1 minute (fires once)
+        timerExpired:     [],  // Timer hits 00:00
+        submit:           [],  // You submit your backstory
+        imageUpload:      [],  // You attach a character image
+        extraTimeRequest: [],  // Someone requests +5 min vote
+        voteYes:          [],  // You vote Yes on extra time
+        voteNo:           [],  // You vote No on extra time
+        extraTimeGranted: [],  // Everyone voted yes — time extended
+        extraTimeDenied:  [],  // Someone voted no — vote dismissed
+      },
+
+      // ── PHASE 3 — PRESENTATIONS ────────────────────────────────────
+      phase3: {
+        enter:           [],   // Phase 3 begins (first presenter up)
+        nextPresenter:   [],   // A new presenter's turn starts
+        revealField:     [],   // Presenter reveals a character field (Name/Race/etc.)
+        backstoryOpen:   [],   // First backstory paragraph revealed
+        backstoryProceed:[],   // Subsequent paragraph revealed
+        backstoryUndo:   [],   // Presenter un-reveals a paragraph
+        rate:            [],   // Audience member clicks a star (any star)
+        finish:          [],   // Presenter clicks Finished
+        lastPresenter:   [],   // Final presenter finishes (transitioning to leaderboard)
+      },
+
+      // ── LEADERBOARD ────────────────────────────────────────────────
+      leaderboard: {
+        enter:    [],   // Leaderboard screen opens
+        reveal3rd:[],   // 3rd place row animates in
+        reveal2nd:[],   // 2nd place row animates in
+        reveal1st:[],   // 1st place row animates in (the big moment)
+      },
+
+    };
+
+    // Plays a random sound from SOUNDS[category][event]. Safe to call even if empty.
+    function playSound(category, event, opts = {}) {
+      const pool = SOUNDS[category]?.[event];
+      if (!pool || pool.length === 0) return;
+      const src = pool[Math.floor(Math.random() * pool.length)];
+      try {
+        const audio = new Audio(src);
+        if (opts.volume !== undefined) audio.volume = opts.volume;
+        if (opts.loop) audio.loop = true;
+        audio.play().catch(() => {}); // swallow autoplay policy errors silently
+        return audio; // caller can hold ref to stop looping sounds
+      } catch(e) {}
+    }
+
+    // ── END SOUND SYSTEM ──────────────────────────────────────────────
+
     let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
     let slotTimer=null, wheelSpinning=false, bsTimer=null, wheelAngle=0, wheelAnimId=null;
+    // FIX: track the startTime of the last spin we've already animated, to avoid re-triggering
     let lastAnimatedSpinTime=0;
     let p3State = {race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
 
@@ -70,137 +181,22 @@
     const getAv   = id => AVATARS.find(a=>a.id===id)||AVATARS[0];
     const amHost  = ()  => roomData?.hostId===myId;
 
-    // ══════════════════════════════════════════════════════
-    // SOUND SYSTEM — add file paths to any array to enable
-    // ══════════════════════════════════════════════════════
-    const SOUNDS = {
-      // UI actions
-      buttonClick:      [],   // enter sound here
-      readyUp:          [],   // enter sound here
-      playerJoin:       [],   // enter sound here
-      playerLeave:      [],   // enter sound here
-      gameStart:        [],   // enter sound here
-      submit:           [],   // enter sound here
-      error:            [],   // enter sound here
-
-      // Wheel / spinning
-      wheelSpin:        [],   // enter sound here
-      wheelTick:        [],   // enter sound here (plays each tick during spin)
-      wheelLand:        [],   // enter sound here
-      spotlight:        [],   // enter sound here
-      slotMachineTick:  [],   // enter sound here
-      slotMachineLock:  [],   // enter sound here
-
-      // Phase transitions
-      phaseTransition:  [],   // enter sound here
-      lobbyStart:       [],   // enter sound here (plays when lobby begins / randomized chaos)
-      backstoryReveal:  [],   // enter sound here
-      presentationNext: [],   // enter sound here
-
-      // OSTs (looping background music)
-      ost: {
-        lobby:        [],     // enter sound here — plays during lobby
-        spinning:     [],     // enter sound here — plays during wheel phase
-        backstory:    [],     // enter sound here — plays during backstory writing
-        presentation: [],     // enter sound here — plays during presentations
-        leaderboard:  [],     // enter sound here — plays on results screen
-      }
-    };
-
-    let currentOst = null;
-    let currentOstAudio = null;
-
-    function playSound(key) {
-      const arr = SOUNDS[key];
-      if (!arr || !arr.length) return;
-      const src = arr[Math.floor(Math.random() * arr.length)];
-      if (!src) return;
-      try { new Audio(src).play(); } catch(e) {}
-    }
-
-    function playOst(key) {
-      if (currentOst === key) return;
-      if (currentOstAudio) {
-        currentOstAudio.pause();
-        currentOstAudio.currentTime = 0;
-        currentOstAudio = null;
-      }
-      currentOst = key;
-      const arr = SOUNDS.ost[key];
-      if (!arr || !arr.length) return;
-      const src = arr[Math.floor(Math.random() * arr.length)];
-      if (!src) return;
-      try {
-        currentOstAudio = new Audio(src);
-        currentOstAudio.loop = true;
-        currentOstAudio.volume = 0.5;
-        currentOstAudio.play();
-      } catch(e) {}
-    }
-
-    function stopOst() {
-      if (currentOstAudio) {
-        currentOstAudio.pause();
-        currentOstAudio.currentTime = 0;
-        currentOstAudio = null;
-      }
-      currentOst = null;
-    }
-
-    // ══════════════════════════════════════════════════════
-    // SCREEN ROUTING
-    // ══════════════════════════════════════════════════════
     function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => {
-        s.classList.remove('active');
-        // Once we leave the home screen, remove it from layout entirely so
-        // it can never be scrolled back to.
-        if (s.id === 'screen-home' && id !== 'screen-home') {
-          s.style.display = 'none';
-          s.style.position = 'absolute';
-          s.style.visibility = 'hidden';
-          s.style.pointerEvents = 'none';
-        }
-      });
-      // If we're going back to home, restore it
-      if (id === 'screen-home') {
-        const home = $('screen-home');
-        home.style.display = '';
-        home.style.position = '';
-        home.style.visibility = '';
-        home.style.pointerEvents = '';
-      }
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       const el=$(id); if(el) el.classList.add('active');
     }
-
     function routeByPhase() {
       if(!roomData) return showScreen('screen-home');
-      const map={
-        lobby:'screen-lobby', phase1:'screen-phase1',
-        'wheel-order':'screen-wheel-order', phase2:'screen-phase2',
-        backstory:'screen-backstory', phase3:'screen-phase3',
-        leaderboard:'screen-leaderboard'
-      };
+      const map={lobby:'screen-lobby',phase1:'screen-phase1','wheel-order':'screen-wheel-order',
+                 phase2:'screen-phase2',backstory:'screen-backstory',phase3:'screen-phase3',leaderboard:'screen-leaderboard'};
       showScreen(map[roomData.phase]||'screen-home');
     }
-
     function showErr(msg) {
-      playSound('error');
       const el=$('global-error'); el.textContent=msg; el.classList.add('show');
       setTimeout(()=>el.classList.remove('show'),3500);
+      playSound('home','error');
     }
     function shake(el){ el.classList.add('shake'); setTimeout(()=>el.classList.remove('shake'),500); }
-
-    // OST per phase
-    const PHASE_OST = {
-      lobby: 'lobby',
-      phase1: 'lobby',
-      'wheel-order': 'spinning',
-      phase2: 'spinning',
-      backstory: 'backstory',
-      phase3: 'presentation',
-      leaderboard: 'leaderboard',
-    };
 
     async function subscribeRoom(code) {
       if(roomUnsub){roomUnsub();roomUnsub=null;}
@@ -211,86 +207,66 @@
         if(!snap.exists()) return;
         const prev=roomData?.phase;
         roomData=snap.data();
-        if(prev!==roomData.phase){
-          routeByPhase();
-          onPhaseEnter(roomData.phase);
-          // Switch OST when phase changes
-          const ostKey = PHASE_OST[roomData.phase];
-          if (ostKey) playOst(ostKey);
-        } else {
-          onRoomUpdate();
-        }
+        if(prev!==roomData.phase){routeByPhase();onPhaseEnter(roomData.phase);}
+        else onRoomUpdate();
       });
       onSnapshot(playersRef,snap=>{
-        const prevCount = Object.keys(playersData).length;
         snap.docChanges().forEach(c=>{
           if(c.type==='removed') delete playersData[c.doc.id];
           else playersData[c.doc.id]={id:c.doc.id,...c.doc.data()};
         });
-        const newCount = Object.keys(playersData).length;
-        // Play join/leave sounds
-        if (newCount > prevCount && prevCount > 0) playSound('playerJoin');
-        if (newCount < prevCount) playSound('playerLeave');
         onPlayersUpdate();
       });
     }
 
     function onPhaseEnter(phase){
-      playSound('phaseTransition');
-      ({
-        lobby:    renderLobby,
-        phase1:   renderPhase1,
-        'wheel-order': renderWheelOrder,
-        phase2:   renderPhase2,
-        backstory: renderBackstory,
-        phase3:   renderPhase3,
-        leaderboard: renderLeaderboard
-      })[phase]?.();
+      ({lobby:renderLobby,phase1:renderPhase1,'wheel-order':renderWheelOrder,
+        phase2:renderPhase2,backstory:renderBackstory,phase3:renderPhase3,
+        leaderboard:renderLeaderboard})[phase]?.();
     }
     function onRoomUpdate(){
-      ({
-        lobby: renderLobby,
-        'wheel-order': renderWheelOrder,
-        phase2: updatePhase2,
-        backstory: updateBackstory,
-        phase3: updatePhase3,
-        leaderboard: renderLeaderboard
-      })[roomData?.phase]?.();
+      ({lobby:renderLobby,'wheel-order':renderWheelOrder,phase2:updatePhase2,
+        backstory:updateBackstory,phase3:updatePhase3,leaderboard:renderLeaderboard})[roomData?.phase]?.();
     }
+    let _prevPlayerCount = 0;
     function onPlayersUpdate(){
-      if(roomData?.phase==='lobby') renderLobby();
+      const count = Object.keys(playersData).length;
+      if(roomData?.phase==='lobby'){
+        if(count > _prevPlayerCount) playSound('lobby','playerJoin');
+        else if(count < _prevPlayerCount) playSound('lobby','playerLeave');
+        _prevPlayerCount = count;
+        renderLobby();
+      }
       if(roomData?.phase==='phase1') renderPhase1();
       if(roomData?.phase==='phase3') updatePhase3();
     }
 
     // ── HOME ────────────────────────────────────────────────
     async function doCreate() {
-      playSound('buttonClick');
       const nameEl=$('home-name'), name=nameEl.value.trim();
       if(!name){shake(nameEl);showErr('Enter your name first.');return;}
       myName=name;
       const code=genCode();
       try {
         await setDoc(doc(db,'rooms',code),{
-          hostId:myId, phase:'lobby', createdAt:serverTimestamp(),
-          presenterOrder:[], presenterIndex:0, wheelOrder:[], wheelIndex:0, categoryIndex:0,
-          extraTimeVotes:{}, extraTimeRequested:false, ratings:{}, reveals:{},
-          spinData:null, wheelSpun:false
+          hostId:myId,phase:'lobby',createdAt:serverTimestamp(),
+          presenterOrder:[],presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0,
+          extraTimeVotes:{},extraTimeRequested:false,ratings:{},reveals:{},
+          spinData:null,wheelSpun:false
         });
         await setDoc(doc(db,'rooms',code,'players',myId),{
-          name, avatarId:'a1', isReady:false, isHost:true, joinedAt:serverTimestamp()
+          name,avatarId:'a1',isReady:false,isHost:true,joinedAt:serverTimestamp()
         });
         localStorage.setItem('edelith_room',code);
         localStorage.setItem('edelith_name',name);
         $('room-code-display').textContent=code;
         await subscribeRoom(code);
+        playSound('home','createRoom');
         showScreen('screen-lobby');
-        playOst('lobby');
       } catch(e){showErr('Error: '+e.message);console.error(e);}
     }
 
     async function doJoin() {
-      playSound('buttonClick');
       const nameEl=$('home-name'),codeEl=$('home-code');
       const name=nameEl.value.trim(),code=codeEl.value.trim();
       if(!name){shake(nameEl);showErr('Enter your name.');return;}
@@ -302,15 +278,15 @@
         if(snap.data().phase!=='lobby'){showErr('Game already in progress.');return;}
         const pSnap=await getDoc(doc(db,'rooms',code,'players',myId));
         await setDoc(doc(db,'rooms',code,'players',myId),{
-          name, avatarId:pSnap.exists()?(pSnap.data().avatarId||'a1'):'a1',
-          isReady:false, isHost:false, joinedAt:serverTimestamp()
+          name,avatarId:pSnap.exists()?(pSnap.data().avatarId||'a1'):'a1',
+          isReady:false,isHost:false,joinedAt:serverTimestamp()
         },{merge:true});
         localStorage.setItem('edelith_room',code);
         localStorage.setItem('edelith_name',name);
         $('room-code-display').textContent=code;
         await subscribeRoom(code);
+        playSound('home','joinRoom');
         showScreen('screen-lobby');
-        playOst('lobby');
       } catch(e){showErr('Error: '+e.message);console.error(e);}
     }
 
@@ -350,16 +326,17 @@
         </div>`).join('');
     }
     async function doSelectAvatar(id){
-      playSound('buttonClick');
+      playSound('lobby','selectAvatar');
       await updateDoc(doc(db,'rooms',roomCode,'players',myId),{avatarId:id});
     }
     async function doToggleReady(){
-      playSound('readyUp');
-      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{isReady:!playersData[myId]?.isReady});
+      const cur=playersData[myId]?.isReady;
+      playSound('lobby', cur ? 'unready' : 'ready');
+      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{isReady:!cur});
     }
     async function doStartGame(){
       if(!amHost())return;
-      playSound('gameStart');
+      playSound('lobby','startGame');
       await updateDoc(doc(db,'rooms',roomCode),{phase:'phase1'});
     }
 
@@ -370,17 +347,20 @@
       if(myData?.submitted){
         $('phase1-form').style.display='none';$('phase1-waiting').style.display='';
         $('phase1-wait-count').textContent=`${done} / ${players.length} submitted`;
-        if(amHost()&&done===players.length&&players.length>=2) randomizeAndAdvance();
+        if(amHost()&&done===players.length&&players.length>=2){
+          playSound('phase1','allSubmitted');
+          randomizeAndAdvance();
+        }
       } else {
         $('phase1-form').style.display='';$('phase1-waiting').style.display='none';
       }
     }
     async function doSubmitPhase1() {
-      playSound('submit');
       const race=$('p1-race').value.trim(),subrace=$('p1-subrace').value.trim();
       const cls=$('p1-class').value.trim(),subcls=$('p1-subclass').value.trim();
       const flair=$('p1-flair').value.trim(),charName=$('p1-charname').value.trim();
       if(!race||!cls||!flair||!charName){showErr('Race, Class, Flair, and Name are required.');return;}
+      playSound('phase1','submit');
       await updateDoc(doc(db,'rooms',roomCode,'players',myId),{
         submission:{race,subrace,cls,subcls,flair,charName},submitted:true
       });
@@ -390,7 +370,7 @@
       const players=Object.values(playersData),ids=players.map(p=>p.id);
       let shuffled;
       do{shuffled=[...ids].sort(()=>Math.random()-.5);}
-      while(ids.length>1&&shuffled.some((v,i)=>v===ids[i]));
+      while(shuffled.some((v,i)=>v===ids[i]));
       await Promise.all(ids.map((id,i)=>updateDoc(doc(db,'rooms',roomCode,'players',id),{
         assignment:{...playersData[shuffled[i]].submission,donorId:shuffled[i]}
       })));
@@ -425,32 +405,32 @@
       const names=players.map(p=>p.name);
       let i=0,speed=60,total=0,maxCycles=40+slotIdx*5;
       clearInterval(slotTimer);
-      let tickCount=0;
+      playSound('slotMachine','start');
       slotTimer=setInterval(()=>{
         slotEl.textContent=names[i%names.length];
         slotEl.style.opacity='0.6';
+        playSound('slotMachine','tick');
         setTimeout(()=>{slotEl.style.opacity='1';},speed/2);
-        // Play tick sound every few cycles so it's not overwhelming
-        tickCount++;
-        if(tickCount%3===0) playSound('slotMachineTick');
         i++;total++;
         if(total>maxCycles*.6) speed=Math.min(speed*1.08,400);
         if(total>=maxCycles){
           clearInterval(slotTimer);
-          playSound('slotMachineLock');
           const winner=playersData[winnerId];
           slotEl.textContent=winner?.name||'???';slotEl.classList.add('slot-lock');
+          playSound('slotMachine','lock');
           setTimeout(()=>{
             const av=getAv(winner?.avatarId||'a1');
             $('slot-spotlight-av').src=av.src;
             $('slot-spotlight-name').textContent=winner?.name||'???';
-            playSound('spotlight');
             $('slot-spotlight').classList.add('active');
+            playSound('slotMachine','spotlight');
             setTimeout(()=>{
               $('slot-spotlight').classList.remove('active');
+              playSound('slotMachine','spotlightOut');
               if(amHost()){
                 const newOrder=[...(roomData.wheelOrder||[]),winnerId];
                 updateDoc(doc(db,'rooms',roomCode),{wheelOrder:newOrder});
+                playSound('slotMachine','positionSet');
               }
             },1600);
           },200);
@@ -459,7 +439,9 @@
     }
 
     // ── PHASE 2 WHEEL ────────────────────────────────────────
+
     function renderPhase2() {
+      // FIX: Reset all wheel state when entering phase2 fresh
       wheelAngle = 0;
       wheelSpinning = false;
       lastAnimatedSpinTime = 0;
@@ -477,33 +459,31 @@
       $('p2-wait-msg').style.display=isMyTurn?'none':'';
       $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun)?'':'none';
       $('p2-spin-btn').disabled=!!roomData?.wheelSpun;
+      if(isMyTurn && !roomData?.wheelSpun && !roomData?.spinData) playSound('wheel','yourTurn');
       buildWheel(players,spinnerId);
 
+      // FIX: If there's already spinData from a previous spin (e.g. on rejoin), jump to end
       const sd=roomData?.spinData;
       if(sd && roomData?.wheelSpun) {
+        // spin already finished, just show end position
         wheelAngle = sd.startAngle + sd.totalRotation;
         window._drawWheel?.(wheelAngle);
       }
+
       updatePhase2();
     }
 
     function updatePhase2() {
       if(!roomData) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
-      const wIdx=roomData?.wheelIndex??0, spinnerId=order[wIdx%order.length];
-      const isMyTurn=spinnerId===myId;
-      const catIdx=roomData?.categoryIndex??0, cat=WHEEL_CATS[catIdx]||'Race';
+      const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
+
+      // FIX: Detect new spinData and kick off a synced animation on all clients
       const sd=roomData?.spinData;
-
-      // Always keep category label and spinner badge in sync with Firestore
-      $('p2-category-label').textContent=cat;
-      $('p2-spinner-name').textContent=(playersData[spinnerId]?.name||'?')+"'s spin";
-      $('p2-spinner-name-badge').textContent=(playersData[spinnerId]?.name||'?')+"'s turn";
-
       if(sd && sd.startTime && sd.startTime!==lastAnimatedSpinTime && !roomData?.wheelSpun) {
         lastAnimatedSpinTime = sd.startTime;
+        playSound('wheel','spinStart');
         startSyncedSpin(sd);
-        playSound('wheelSpin');
       }
 
       const revealEl=$('p2-reveal');
@@ -515,25 +495,29 @@
         revealEl.querySelector('.reveal-cat').textContent=roomData.lastRevealedCategory;
         revealEl.querySelector('.reveal-val').textContent=val;
         revealEl.classList.remove('reveal-flash');void revealEl.offsetWidth;revealEl.classList.add('reveal-flash');
+        playSound('wheel','reveal');
       } else {revealEl.style.display='none';}
 
-      // Current spinner controls "Next Category" — not the host
       const advBtn=$('p2-advance-btn');
-      if(advBtn) advBtn.style.display=(isMyTurn&&roomData?.wheelSpun)?'':'none';
+      if(advBtn) advBtn.style.display=(amHost()&&roomData?.wheelSpun)?'':'none';
 
+      // Update spinner badge and spin button visibility
+      const isMyTurn=spinnerId===myId;
       $('p2-your-turn').style.display=isMyTurn?'':'none';
       $('p2-wait-msg').style.display=isMyTurn?'none':'';
-      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!sd)?'':'none';
-      $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||sd);
+      $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!roomData?.spinData)?'':'none';
+      $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||roomData?.spinData);
 
       buildWheel(Object.values(playersData),spinnerId);
     }
 
+    // FIX: New function — all clients animate from the same Firestore-stored params
     function startSyncedSpin(sd) {
       if(wheelSpinning) return;
       const {startAngle, totalRotation, startTime, duration, spinnerId} = sd;
       const elapsed = Date.now() - startTime;
 
+      // If the spin is already over (e.g. late joiner), just snap to end position
       if(elapsed >= duration) {
         wheelAngle = startAngle + totalRotation;
         window._drawWheel?.(wheelAngle);
@@ -553,9 +537,10 @@
         } else {
           wheelSpinning = false;
           wheelAnimId = null;
-          playSound('wheelLand');
+          // Only the original spinner writes the result back to Firestore
           if(spinnerId === myId) {
             triggerSpotlight(spinnerId, () => {
+              playSound('wheel','land');
               const cat = WHEEL_CATS[roomData?.categoryIndex??0];
               updateDoc(doc(db,'rooms',roomCode),{
                 wheelSpun:true,
@@ -602,6 +587,7 @@
       draw(wheelAngle);window._drawWheel=draw;
     }
 
+    // FIX: doSpinWheel now writes spin params to Firestore; animation is driven by startSyncedSpin on all clients
     async function doSpinWheel() {
       if(wheelSpinning) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
@@ -615,6 +601,7 @@
       const extraSpins=(5+Math.floor(Math.random()*4))*Math.PI*2;
       const totalRotation=extraSpins+(Math.PI*2-targetIdx*sliceAng-sliceAng/2);
 
+      // Write spin params; all clients (including this one) will animate via updatePhase2 → startSyncedSpin
       await updateDoc(doc(db,'rooms',roomCode),{
         spinData:{
           startAngle: wheelAngle,
@@ -630,30 +617,37 @@
       const p=playersData[targetId],av=getAv(p?.avatarId||'a1');
       $('spotlight-av').src=av.src;$('spotlight-name').textContent=p?.name||'???';
       $('spotlight-overlay').classList.add('active');
-      setTimeout(()=>{$('spotlight-overlay').classList.remove('active');cb?.();},2200);
+      playSound('wheel','spotlight');
+      setTimeout(()=>{
+        $('spotlight-overlay').classList.remove('active');
+        playSound('wheel','spotlightOut');
+        cb?.();
+      },2200);
     }
 
     async function doAdvancePhase2() {
-      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
-      const wIdx=roomData?.wheelIndex??0, spinnerId=order[wIdx%order.length];
-      // Only the current spinner (or host as fallback) can advance
-      if(myId !== spinnerId && !amHost()) return;
+      if(!amHost()) return;
       const catIdx=roomData?.categoryIndex??0;
-      const newCat=catIdx+1;
+      const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      const wIdx=roomData?.wheelIndex??0,newCat=catIdx+1;
       const baseReset={wheelSpun:false,spinData:null,lastRevealedFor:null,lastRevealedCategory:null};
       if(newCat>=WHEEL_CATS.length){
         const newWIdx=wIdx+1;
         if(newWIdx>=order.length){
+          playSound('wheel','allDone');
           await updateDoc(doc(db,'rooms',roomCode),{
             phase:'backstory',wheelIndex:0,categoryIndex:0,...baseReset,
             backstoryEndTime:Date.now()+15*60*1000,extraTimeVotes:{},extraTimeRequested:false
           });
         } else {
+          playSound('wheel','nextSpinner');
           await updateDoc(doc(db,'rooms',roomCode),{wheelIndex:newWIdx,categoryIndex:0,...baseReset});
         }
       } else {
+        playSound('wheel','nextCategory');
         await updateDoc(doc(db,'rooms',roomCode),{categoryIndex:newCat,...baseReset});
       }
+      // Reset local wheel state so next spin starts cleanly for this client
       lastAnimatedSpinTime=0;
       wheelAngle=0;
       wheelSpinning=false;
@@ -662,108 +656,68 @@
     // ── BACKSTORY ───────────────────────────────────────────
     function renderBackstory() {
       const a=playersData[myId]?.assignment||{};
-      $('bs-name').textContent=a.charName||'—';
-      $('bs-race').textContent=a.race||'—';
-      $('bs-subrace').textContent=a.subrace||'(none)';
-      $('bs-class').textContent=a.cls||'—';
-      $('bs-subclass').textContent=a.subcls||'(none)';
-      $('bs-flair').textContent=a.flair||'—';
-
-      // Restore submitted state if player already submitted (e.g. on rejoin)
-      const myData = playersData[myId];
-      if (myData?.backstorySubmitted) {
-        $('bs-form').style.display='none';
-        $('bs-submitted').style.display='';
-      } else {
-        $('bs-form').style.display='';
-        $('bs-submitted').style.display='none';
-      }
-
+      $('bs-name').textContent=a.charName||'—';$('bs-race').textContent=a.race||'—';
+      $('bs-subrace').textContent=a.subrace||'(none)';$('bs-class').textContent=a.cls||'—';
+      $('bs-subclass').textContent=a.subcls||'(none)';$('bs-flair').textContent=a.flair||'—';
+      playSound('backstory','enter');
       tickBsTimer();
     }
-
     function updateBackstory() {
       tickBsTimer();
-
-      // Check if all players have submitted — host advances immediately
-      const players = Object.values(playersData);
-      const allSubmitted = players.length >= 2 && players.every(p => p.backstorySubmitted);
-      if (allSubmitted && roomData?.phase === 'backstory') {
-        // Update the waiting message to reflect everyone is done
-        const waitMsg = $('bs-submitted-msg');
-        if (waitMsg) waitMsg.textContent = 'Everyone has submitted! Starting presentations…';
-        if (amHost()) {
-          updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});
-          return;
-        }
-      }
-
       const votes=roomData?.extraTimeVotes||{},players=Object.values(playersData);
       const voteEl=$('bs-vote-status'),voteBtns=$('bs-vote-btns');
       if(roomData?.extraTimeRequested){
         const yes=Object.values(votes).filter(v=>v==='yes').length;
         const no=Object.values(votes).filter(v=>v==='no').length;
-        voteEl.textContent=`Extra time vote: ${yes} yes / ${no} no`;
-        voteEl.style.display='';
+        voteEl.textContent=`Extra time vote: ${yes} yes / ${no} no`;voteEl.style.display='';
         voteBtns.style.display=votes[myId]?'none':'';
-        if(yes===players.length) updateDoc(doc(db,'rooms',roomCode),{backstoryEndTime:roomData.backstoryEndTime+5*60*1000,extraTimeVotes:{},extraTimeRequested:false});
-        else if(no>0) updateDoc(doc(db,'rooms',roomCode),{extraTimeVotes:{},extraTimeRequested:false});
-      } else {
-        voteEl.style.display='none';
-        voteBtns.style.display='none';
-      }
+        if(yes===players.length){
+          playSound('backstory','extraTimeGranted');
+          updateDoc(doc(db,'rooms',roomCode),{backstoryEndTime:roomData.backstoryEndTime+5*60*1000,extraTimeVotes:{},extraTimeRequested:false});
+        }
+        else if(no>0){
+          playSound('backstory','extraTimeDenied');
+          updateDoc(doc(db,'rooms',roomCode),{extraTimeVotes:{},extraTimeRequested:false});
+        }
+      } else {voteEl.style.display='none';voteBtns.style.display='none';}
     }
-
+    let _bsUrgentFired = false;
     function tickBsTimer() {
       clearInterval(bsTimer);
+      _bsUrgentFired = false;
       const endTime=roomData?.backstoryEndTime;if(!endTime) return;
       function tick(){
         const rem=Math.max(0,endTime-Date.now());
         const mins=Math.floor(rem/60000),secs=Math.floor((rem%60000)/1000);
         const str=`${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-        ['bs-timer','bs-timer2'].forEach(id=>{
-          const el=$(id);
-          if(el){el.textContent=str;el.classList.toggle('timer-urgent',rem<60000);}
-        });
+        ['bs-timer','bs-timer2'].forEach(id=>{const el=$(id);if(el){el.textContent=str;el.classList.toggle('timer-urgent',rem<60000);}});
+        if(rem<60000 && !_bsUrgentFired){ _bsUrgentFired=true; playSound('backstory','timerUrgent'); }
         if(rem<=0){
           clearInterval(bsTimer);
+          playSound('backstory','timerExpired');
           if(amHost()) updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});
         }
       }
       tick();bsTimer=setInterval(tick,500);
     }
-
     async function doSubmitBackstory() {
-      const text=$('bs-text').value.trim();
-      if(!text){showErr('Write at least a sentence!');return;}
-      playSound('submit');
-
+      const text=$('bs-text').value.trim();if(!text){showErr('Write at least a sentence!');return;}
       let imageUrl='';
       const fi=$('bs-img-upload');
       if(fi?.files[0]){
-        try{
-          const f=fi.files[0];
-          const sr2=storageRef(storage,`games/${roomCode}/${myId}/character.${f.name.split('.').pop()}`);
-          const sn=await uploadBytes(sr2,f);
-          imageUrl=await getDownloadURL(sn.ref);
-        }catch(e){console.warn(e);}
+        playSound('backstory','imageUpload');
+        try{const f=fi.files[0];const sr=storageRef(storage,`games/${roomCode}/${myId}/character.${f.name.split('.').pop()}`);const sn=await uploadBytes(sr,f);imageUrl=await getDownloadURL(sn.ref);}catch(e){console.warn(e);}
       }
-
-      // Mark player as submitted with their backstory
-      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{
-        backstory:{text,imageUrl},
-        backstorySubmitted:true
-      });
-
-      // Update UI immediately
-      $('bs-form').style.display='none';
-      $('bs-submitted').style.display='';
+      playSound('backstory','submit');
+      await updateDoc(doc(db,'rooms',roomCode,'players',myId),{backstory:{text,imageUrl},backstorySubmitted:true});
+      $('bs-form').style.display='none';$('bs-submitted').style.display='';
     }
-
     async function doRequestExtraTime(){
+      playSound('backstory','extraTimeRequest');
       await updateDoc(doc(db,'rooms',roomCode),{extraTimeRequested:true,[`extraTimeVotes.${myId}`]:'yes'});
     }
     async function doVoteExtraTime(v){
+      playSound('backstory', v==='yes' ? 'voteYes' : 'voteNo');
       await updateDoc(doc(db,'rooms',roomCode),{[`extraTimeVotes.${myId}`]:v});
     }
 
@@ -771,15 +725,14 @@
     function renderPhase3() {
       const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
       const p=playersData[pid],isMe=pid===myId,av=getAv(p?.avatarId||'a1');
-      $('p3-presenter-av').src=av.src;
-      $('p3-presenter-name').textContent=p?.name||'???';
+      $('p3-presenter-av').src=av.src;$('p3-presenter-name').textContent=p?.name||'???';
       $('p3-turn-count').textContent=`Presenter ${pidx+1} of ${(roomData?.presenterOrder||[]).length}`;
       $('p3-presenter-controls').style.display=isMe?'':'none';
       $('p3-audience-controls').style.display=isMe?'none':'';
       p3State={race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
+      playSound('phase3', pidx===0 ? 'enter' : 'nextPresenter');
       if(!isMe) renderStars(roomData?.ratings?.[pid]?.[myId]||0);
       drawP3Sheet(p?.assignment||{},p?.backstory||{},isMe);
-      playSound('backstoryReveal');
     }
     function updatePhase3() {
       const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
@@ -790,14 +743,9 @@
       drawP3Sheet(p?.assignment||{},p?.backstory||{},isMe);
     }
     function drawP3Sheet(assign,backstory,isPresenter) {
-      const fields=[
-        {key:'name',label:'Name',val:assign.charName},
-        {key:'race',label:'Race',val:assign.race},
-        {key:'subrace',label:'Subrace',val:assign.subrace},
-        {key:'cls',label:'Class',val:assign.cls},
-        {key:'subcls',label:'Subclass',val:assign.subcls},
-        {key:'flair',label:'Flair',val:assign.flair}
-      ];
+      const fields=[{key:'name',label:'Name',val:assign.charName},{key:'race',label:'Race',val:assign.race},
+                    {key:'subrace',label:'Subrace',val:assign.subrace},{key:'cls',label:'Class',val:assign.cls},
+                    {key:'subcls',label:'Subclass',val:assign.subcls},{key:'flair',label:'Flair',val:assign.flair}];
       $('p3-char-sheet').innerHTML=fields.map(f=>{
         const rev=!!p3State[f.key];
         return `<div class="p3-field ${rev?'revealed':'hidden'}">
@@ -822,48 +770,40 @@
     }
     async function doRevealField(key){
       p3State[key]=true;
-      await updateDoc(doc(db,'rooms',roomCode),{[`reveals.${key}`]:true});
-      refreshP3();
+      playSound('phase3','revealField');
+      await updateDoc(doc(db,'rooms',roomCode),{[`reveals.${key}`]:true});refreshP3();
     }
     async function doBsProceed(){
       const n=(p3State.backstoryIdx||0)+1;
       p3State.backstoryIdx=n;
-      await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});
-      refreshP3();
+      playSound('phase3', n===1 ? 'backstoryOpen' : 'backstoryProceed');
+      await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});refreshP3();
     }
     async function doBsUndo(){
       const n=Math.max(0,(p3State.backstoryIdx||0)-1);
       p3State.backstoryIdx=n;
-      await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});
-      refreshP3();
+      playSound('phase3','backstoryUndo');
+      await updateDoc(doc(db,'rooms',roomCode),{'reveals.backstoryIdx':n});refreshP3();
     }
-    function refreshP3(){
-      const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
-      const p=playersData[pid];
-      drawP3Sheet(p?.assignment||{},p?.backstory||{},pid===myId);
-    }
+    function refreshP3(){const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];const p=playersData[pid];drawP3Sheet(p?.assignment||{},p?.backstory||{},pid===myId);}
     async function doFinishPresentation(){
-      if(!amHost()&&(roomData?.presenterOrder||[])[roomData?.presenterIndex??0]!==myId) return;
-      playSound('presentationNext');
       const pidx=roomData?.presenterIndex??0,order=roomData?.presenterOrder||[],newIdx=pidx+1;
       p3State={race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
       if(newIdx>=order.length){
-        await calcLeaderboard();
-        await updateDoc(doc(db,'rooms',roomCode),{phase:'leaderboard'});
+        playSound('phase3','lastPresenter');
+        await calcLeaderboard();await updateDoc(doc(db,'rooms',roomCode),{phase:'leaderboard'});
       } else {
+        playSound('phase3','finish');
         await updateDoc(doc(db,'rooms',roomCode),{presenterIndex:newIdx,reveals:{}});
       }
     }
     async function doRate(stars){
       const pidx=roomData?.presenterIndex??0,pid=(roomData?.presenterOrder||[])[pidx];
       if(!pid||pid===myId) return;
-      await updateDoc(doc(db,'rooms',roomCode),{[`ratings.${pid}.${myId}`]:stars});
-      renderStars(stars);
+      playSound('phase3','rate');
+      await updateDoc(doc(db,'rooms',roomCode),{[`ratings.${pid}.${myId}`]:stars});renderStars(stars);
     }
-    function renderStars(cur){
-      const el=$('p3-stars');if(!el)return;
-      el.innerHTML=[1,2,3,4,5].map(n=>`<span class="star ${n<=cur?'lit':''}" onclick="G.rate(${n})">&#9733;</span>`).join('');
-    }
+    function renderStars(cur){const el=$('p3-stars');if(!el)return;el.innerHTML=[1,2,3,4,5].map(n=>`<span class="star ${n<=cur?'lit':''}" onclick="G.rate(${n})">&#9733;</span>`).join('');}
 
     // ── LEADERBOARD ─────────────────────────────────────────
     async function calcLeaderboard(){
@@ -872,6 +812,7 @@
       await updateDoc(doc(db,'rooms',roomCode),u);
     }
     function renderLeaderboard(){
+      playSound('leaderboard','enter');
       const sc=roomData?.scores||{};
       const players=Object.values(playersData).map(p=>({...p,score:sc[p.id]||0})).sort((a,b)=>b.score-a.score);
       const lb=$('leaderboard-list');lb.innerHTML='';
@@ -881,9 +822,11 @@
         <img class="lb-av" src="${esc(getAv(p.avatarId).src)}" onerror="this.src='/assets/img/game/avatars/fallback.png'" alt="">
         <span class="lb-name">${esc(p.name)}</span><span class="lb-score">${p.score} pts</span></div>`).join('')}</div>`);
       const medals=['&#129349;','&#129350;','&#129351;'];
+      const sounds=['reveal3rd','reveal2nd','reveal1st'];
       players.slice(0,3).reverse().forEach((p,i)=>{
         const rank=players.slice(0,3).length-i;
         setTimeout(()=>{
+          playSound('leaderboard', sounds[rank-1]);
           const row=document.createElement('div');
           row.className=`lb-row lb-row--top lb-rank-${rank} lb-reveal`;
           row.innerHTML=`<span class="lb-medal">${medals[rank-1]||rank}</span>
@@ -897,11 +840,10 @@
     }
 
     function doLeave(){
+      playSound('home','leave');
       localStorage.removeItem('edelith_room');localStorage.removeItem('edelith_name');
-      clearInterval(bsTimer);clearInterval(slotTimer);
-      if(wheelAnimId) cancelAnimationFrame(wheelAnimId);
+      clearInterval(bsTimer);clearInterval(slotTimer);if(wheelAnimId) cancelAnimationFrame(wheelAnimId);
       if(roomUnsub) roomUnsub();
-      stopOst();
       roomData=null;playersData={};roomCode=null;
       showScreen('screen-home');
     }
@@ -915,12 +857,8 @@
     const sr=localStorage.getItem('edelith_room'),sn=localStorage.getItem('edelith_name');
     if(sr&&sn){
       getDoc(doc(db,'rooms',sr)).then(snap=>{
-        if(snap.exists()){
-          myName=sn;
-          subscribeRoom(sr);
-        } else {
-          localStorage.removeItem('edelith_room');
-        }
+        if(snap.exists()){myName=sn;subscribeRoom(sr);}
+        else localStorage.removeItem('edelith_room');
       }).catch(()=>{});
     }
 
@@ -988,6 +926,8 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
   animation: screenIn 0.45s ease forwards;
 }
 .screen.active { display: block; }
+/* Home screen needs flex layout but ONLY when active — higher specificity than .screen */
+#screen-home.active { display: flex; }
 @keyframes screenIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
 
 /* ═══════════════════════════════════════════════════
@@ -1125,9 +1065,8 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
    HOME SCREEN
 ═══════════════════════════════════════════════════ */
 #screen-home {
-  display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+  align-items: center; justify-content: center; padding: 40px 20px;
 }
-#screen-home.active { display: flex; }
 .home-card {
   width: 100%; max-width: 480px;
   background: var(--ink-mid);
@@ -1165,123 +1104,18 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
 .home-row .btn-gold { flex: 1; }
 
 /* ═══════════════════════════════════════════════════
-   LOBBY — compact, no-scroll layout
+   LOBBY
 ═══════════════════════════════════════════════════ */
-
-/* The lobby screen fills the viewport height — no overflow needed */
-#screen-lobby {
-  min-height: 100vh;
-  display: none;
-  flex-direction: column;
-}
-#screen-lobby.active {
-  display: flex;
-}
-
-/* The scrollable area sits below the fixed bar */
-.lobby-body {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Compact header strip — code + player count, no giant display */
-.lobby-header-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 24px;
-  background: var(--ink);
-  border-bottom: 1px solid rgba(201,168,76,0.15);
-  flex-shrink: 0;
-}
-.lobby-code-inline {
-  font-family: var(--f-display);
-  font-size: 1.4rem;
-  letter-spacing: 8px;
-  color: var(--gold);
-}
-.lobby-code-hint {
-  font-family: var(--f-label);
-  font-size: 0.46rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--fog-dim);
-  margin-top: 2px;
-}
-.lobby-player-count-label {
-  font-family: var(--f-label);
-  font-size: 0.52rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--fog-dim);
-}
-.lobby-player-count-label span { color: var(--gold); }
-
-/* Two-column layout fills remaining height */
-.lobby-columns {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 0;
-  flex: 1;
-  overflow: hidden;
-  min-height: 0;
-}
-
-/* Left column: players + controls — scrollable within its column */
-.lobby-left {
-  border-right: 1px solid rgba(201,168,76,0.12);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.lobby-left-label {
-  font-family: var(--f-label); font-size: .5rem; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gold);
-  padding: 12px 18px 8px;
-  flex-shrink: 0;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
+.lobby-layout {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 24px; align-items: start;
 }
 .lobby-player-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px 14px;
-  display: flex; flex-direction: column; gap: 8px;
+  display: flex; flex-direction: column; gap: 10px;
 }
-.lobby-controls {
-  flex-shrink: 0;
-  padding: 12px 14px;
-  display: flex; flex-direction: column; gap: 8px;
-  border-top: 1px solid rgba(201,168,76,0.12);
-}
-
-/* Right column: avatar picker — scrollable */
-.lobby-right {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.lobby-right-label {
-  font-family: var(--f-label); font-size: .5rem; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gold);
-  padding: 12px 18px 8px;
-  flex-shrink: 0;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
-}
-.avatar-picker-scroll {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 16px;
-}
-.avatar-picker-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px;
-}
-
-/* Player cards — slightly more compact in lobby */
 .lobby-player {
-  display: flex; align-items: center; gap: 12px;
-  padding: 9px 12px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
   background: var(--ink); border: 1px solid rgba(201,168,76,0.1);
   transition: border-color 0.25s;
   animation: slideUp 0.3s ease;
@@ -1290,7 +1124,7 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
 .lobby-player:hover { border-color: rgba(201,168,76,0.25); }
 @keyframes slideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 .lobby-av-wrap {
-  position: relative; width: 44px; height: 44px; flex-shrink: 0;
+  position: relative; width: 52px; height: 52px; flex-shrink: 0;
 }
 .lobby-av-wrap img {
   width: 100%; height: 100%; object-fit: cover;
@@ -1303,17 +1137,20 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
 }
 .lobby-player-info { flex: 1; min-width: 0; }
 .lobby-player-name {
-  font-family: var(--f-head); font-size: 0.78rem; letter-spacing: 1px;
+  font-family: var(--f-head); font-size: 0.82rem; letter-spacing: 1px;
   text-transform: uppercase; color: var(--frost);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .lobby-player-status {
-  font-family: var(--f-label); font-size: 0.46rem; letter-spacing: 2px;
-  text-transform: uppercase; display: block; margin-top: 3px;
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 2px;
+  text-transform: uppercase; display: block; margin-top: 4px;
 }
 .lobby-player-status.ready  { color: #5a8c6a; }
 .lobby-player-status.waiting { color: var(--fog-dim); }
 
+.avatar-picker-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px;
+}
 .av-option {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   padding: 6px; cursor: pointer;
@@ -1330,9 +1167,15 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
 }
 .av-option.selected span { color: var(--gold); }
 
-/* room-code-display is no longer shown in lobby — it's shown inline in the header strip */
-.room-code-display { display: none; }
-.code-hint { display: none; }
+.lobby-controls { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.room-code-display {
+  font-family: var(--f-display); font-size: 2.2rem; letter-spacing: 10px;
+  color: var(--gold); text-align: center; margin-bottom: 6px;
+}
+.code-hint {
+  font-family: var(--f-label); font-size: 0.5rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--fog-dim); text-align: center; margin-bottom: 20px;
+}
 
 /* ═══════════════════════════════════════════════════
    PHASE 1
@@ -1665,8 +1508,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
    RESPONSIVE
 ═══════════════════════════════════════════════════ */
 @media(max-width:768px) {
-  .lobby-columns { grid-template-columns: 1fr; }
-  .lobby-left { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.12); max-height: 50vh; }
+  .lobby-layout { grid-template-columns: 1fr; }
   .phase2-layout { grid-template-columns: 1fr; }
   #wheel-canvas { width: 300px !important; height: 300px !important; }
   .phase3-layout { grid-template-columns: 1fr; }
@@ -1718,54 +1560,40 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 </div>
 
 <!-- ═══════════════════════════════════════════════
-     SCREEN: LOBBY  (no-scroll, viewport-filling)
+     SCREEN: LOBBY
 ═══════════════════════════════════════════════ -->
 <div id="screen-lobby" class="screen">
-
-  <!-- Top bar — same as every other screen -->
   <div class="game-bar">
     <span class="game-bar-title">◆ Autistic Canon</span>
     <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
     <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
+  <div class="game-content">
+    <h2 class="screen-title">The Lobby</h2>
+    <p class="screen-sub">Choose your avatar and ready up. The host starts when everyone is ready.</p>
 
-  <!-- Body fills the space below the bar, no page scroll -->
-  <div class="lobby-body">
+    <div class="room-code-display" id="room-code-display">—</div>
+    <p class="code-hint">Share this code with your party</p>
 
-    <!-- Compact header strip: big code + player count -->
-    <div class="lobby-header-strip">
+    <div class="lobby-layout">
       <div>
-        <div class="lobby-code-inline" id="room-code-display">—</div>
-        <div class="lobby-code-hint">Share this code with your party</div>
-      </div>
-      <div class="lobby-player-count-label">
-        <span id="lobby-players-count">0 players</span>
-      </div>
-    </div>
-
-    <!-- Two-column layout: players left, avatars right -->
-    <div class="lobby-columns">
-
-      <!-- LEFT: player list + ready/start buttons -->
-      <div class="lobby-left">
-        <div class="lobby-left-label">◆ Players</div>
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
+          ◆ Players — <span id="lobby-players-count">0 players</span>
+        </div>
         <div id="lobby-player-list" class="lobby-player-list"></div>
         <div class="lobby-controls">
           <button class="btn-gold" id="lobby-ready-btn" onclick="G.toggleReady()">Ready</button>
-          <button class="btn-gold" id="lobby-start-btn" onclick="G.startGame()" disabled style="display:none;">
+          <button class="btn-gold" id="lobby-start-btn" onclick="G.startGame()" disabled>
             Start Game →
           </button>
         </div>
       </div>
-
-      <!-- RIGHT: avatar picker -->
-      <div class="lobby-right">
-        <div class="lobby-right-label">◆ Choose Avatar</div>
-        <div class="avatar-picker-scroll">
-          <div id="avatar-picker" class="avatar-picker-grid"></div>
+      <div class="lore-box lore-box--gold">
+        <div style="font-family:var(--f-label);font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
+          ◆ Choose Avatar
         </div>
+        <div id="avatar-picker" class="avatar-picker-grid"></div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1775,7 +1603,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 ═══════════════════════════════════════════════ -->
 <div id="screen-phase1" class="screen">
   <div class="game-bar">
-    <span class="game-bar-title">◆ Phase I — The Forge</span>
+    <span class="game-bar-title">◆ Phase I — The Autistic Canon</span>
     <div class="game-bar-code">Room <span id="p1-room-code-display"></span></div>
     <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
@@ -1805,11 +1633,11 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
         </div>
         <div class="p1-field">
           <label class="game-input-label" for="p1-flair">Flair / Weapon <span class="p1-optional-tag">required</span></label>
-          <input class="game-input" id="p1-flair" type="text" placeholder="e.g. Books and Paper">
+          <input class="game-input" id="p1-flair" type="text" placeholder="e.g. Paper and books">
         </div>
         <div class="p1-field">
           <label class="game-input-label" for="p1-charname">Character Name <span class="p1-optional-tag">required</span></label>
-          <input class="game-input" id="p1-charname" type="text" placeholder="e.g. Biblio Silverpage">
+          <input class="game-input" id="p1-charname" type="text" placeholder="e.g. Bilbio Silverpage">
         </div>
       </div>
 
@@ -1995,10 +1823,11 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
       </div>
     </div>
 
+    <!-- FIX: changed duplicate id "bs-timer" to "bs-timer2" so tickBsTimer can find it -->
     <div id="bs-submitted" style="display:none;text-align:center;padding:40px 0;">
       <div style="font-size:2rem;color:var(--gold);margin-bottom:12px;">◆</div>
       <h3 style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:3px;color:var(--frost);margin-bottom:8px;">Backstory Submitted</h3>
-      <p id="bs-submitted-msg" style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
+      <p style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
         Waiting for others to finish writing…
       </p>
       <div style="margin-top:16px;">
