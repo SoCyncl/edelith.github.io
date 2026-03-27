@@ -68,27 +68,27 @@
 
       // ── HOME / NAVIGATION ──────────────────────────────────────────
       home: {
-        createRoom:   [],   // You create a new room
-        joinRoom:     [],   // You successfully join a room
+        createRoom:   ["https://file.garden/aE4BmvQeoiKwc59V/game/create-lobby"],   // You create a new room
+        joinRoom:     ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],   // You successfully join a room
         error:        [],   // Any error toast fires
         leave:        [],   // Any player clicks Leave
       },
 
       // ── LOBBY ──────────────────────────────────────────────────────
       lobby: {
-        playerJoin:   [],   // A new player appears in the lobby list
+        playerJoin:   ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],   // A new player appears in the lobby list
         playerLeave:  [],   // A player disappears from the lobby list
-        ready:        [],   // Someone toggles Ready ON
-        unready:      [],   // Someone toggles Ready OFF (Unready)
-        selectAvatar: [],   // You pick an avatar
-        startGame:    [],   // Host clicks Start Game (game begins)
+        ready:        ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // Someone toggles Ready ON
+        unready:      ["https://file.garden/aE4BmvQeoiKwc59V/game/unready"],   // Someone toggles Ready OFF (Unready)
+        selectAvatar: ["https://file.garden/aE4BmvQeoiKwc59V/game/avatar4", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar3", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar2", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar1"],   // You pick an avatar
+        startGame:    ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // Host clicks Start Game (game begins)
       },
 
       // ── PHASE 1 — BUILD YOUR CHARACTER ────────────────────────────
       phase1: {
-        submit:       [],   // You submit your character sheet
+        submit:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // You submit your character sheet
         waiting:      [],   // You enter the "waiting for others" state
-        allSubmitted: [],   // Everyone has submitted (host advances)
+        allSubmitted: ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // Everyone has submitted (host advances)
       },
 
       // ── SLOT MACHINE (wheel-order screen) ─────────────────────────
@@ -109,10 +109,10 @@
         land:         [],   // Wheel finishes spinning
         spotlight:    [],   // Spotlight overlay appears after wheel lands
         spotlightOut: [],   // Spotlight overlay disappears
-        reveal:       [],   // Your category value is revealed to you
+        reveal:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // Your category value is revealed to you
         nextCategory: [],   // Host advances to next category (same spinner)
         nextSpinner:  [],   // Host advances to next player's turn
-        allDone:      [],   // All spinners done — transitioning to backstory
+        allDone:      ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // All spinners done — transitioning to backstory
       },
 
       // ── BACKSTORY ──────────────────────────────────────────────────
@@ -120,7 +120,7 @@
         enter:            ["https://file.garden/aE4BmvQeoiKwc59V/game/Weird%20thing.wav"],  // Backstory phase begins for you
         timerUrgent:      [],  // Timer drops below 1 minute (fires once)
         timerExpired:     [],  // Timer hits 00:00
-        submit:           [],  // You submit your backstory
+        submit:           ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],  // You submit your backstory
         imageUpload:      [],  // You attach a character image
         extraTimeRequest: [],  // Someone requests +5 min vote
         voteYes:          [],  // You vote Yes on extra time
