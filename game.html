@@ -539,7 +539,12 @@
 
       // FIX: Advance button shown to CURRENT SPINNER only (not host)
       const advBtn=$('p2-advance-btn');
-      if(advBtn) advBtn.style.display=(isMyTurn&&roomData?.wheelSpun)?'':'none';
+      const sd = roomData?.spinData;
+const spinFinished = roomData?.wheelSpun || (
+  sd && Date.now() - sd.startTime >= sd.duration
+);
+
+advBtn.style.display = (isMyTurn && spinFinished) ? '' : 'none';
 
       $('p2-your-turn').style.display=isMyTurn?'':'none';
       $('p2-wait-msg').style.display=isMyTurn?'none':'';
@@ -581,9 +586,10 @@
               playSound('wheel','land');
               const cat = WHEEL_CATS[roomData?.categoryIndex??0];
               updateDoc(doc(db,'rooms',roomCode),{
-                wheelSpun:true,
-                lastRevealedFor:spinnerId,
-                lastRevealedCategory:cat
+                wheelSpun: true,
+                spinData: null, // ← CRITICAL FIX
+                lastRevealedFor: spinnerId,
+                lastRevealedCategory: cat
               });
             });
           } else {
