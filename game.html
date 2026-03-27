@@ -170,8 +170,11 @@
 
     let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
     let slotTimer=null, wheelSpinning=false, bsTimer=null, wheelAngle=0, wheelAnimId=null;
-    // FIX: track the startTime of the last spin we've already animated, to avoid re-triggering
+    // track the startTime of the last spin we've already animated, to avoid re-triggering
     let lastAnimatedSpinTime=0;
+    // re-entrancy guards — prevent async functions from firing twice before Firestore confirms
+    let _randomizeLock=false, _backstoryAdvanceLock=false, _leaderboardRendered=false;
+    let _lastSlotDone=-1; // tracks which slot machine position was last started
     let p3State = {race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
 
     const $   = id => document.getElementById(id);
@@ -253,6 +256,8 @@
         if(countEl) countEl.textContent=`${done} / ${total} submitted`;
         // Auto-advance once everyone is done (host writes the phase change)
         if(amHost() && done===total && total>=2) {
+          if(_backstoryAdvanceLock) return;
+          _backstoryAdvanceLock=true;
           clearInterval(bsTimer);
           updateDoc(doc(db,'rooms',roomCode),{phase:'phase3',presenterIndex:0});
         }
@@ -388,6 +393,8 @@
     }
     async function randomizeAndAdvance() {
       if(roomData?.phase!=='phase1') return;
+      if(_randomizeLock) return;        // guard: prevent concurrent calls before Firestore confirms
+      _randomizeLock=true;
       const players=Object.values(playersData),ids=players.map(p=>p.id);
       let shuffled;
       do{shuffled=[...ids].sort(()=>Math.random()-.5);}
@@ -399,6 +406,7 @@
       await updateDoc(doc(db,'rooms',roomCode),{
         phase:'wheel-order',presenterOrder,presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0
       });
+      // lock stays true — phase has changed, so randomizeAndAdvance won't run again anyway
     }
 
     // ── SLOT MACHINE ────────────────────────────────────────
@@ -412,8 +420,10 @@
           return `<div class="slot-order-item"><span class="slot-order-num">${i+1}</span>${esc(p?.name||'???')}</div>`;
         }).join('');
       }
-      if(done<order.length) runSlotMachine(order[done],done);
-      else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{
+      if(done<order.length) {
+        // Only (re)start the slot machine if we haven't already started this position
+        if(done !== _lastSlotDone) { _lastSlotDone=done; runSlotMachine(order[done],done); }
+      } else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{
         phase:'phase2',wheelIndex:0,categoryIndex:0,
         spinData:null,wheelSpun:false,lastRevealedFor:null,lastRevealedCategory:null
       }),2000);
@@ -525,8 +535,7 @@
         startSyncedSpin(sd);
       }
 
-      const revealEl=$('p2-reveal');
-      if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
+      const revealEl=$('p2-reveal');      if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
         const a=playersData[myId]?.assignment||{};
         const map={Race:'race',Subrace:'subrace',Class:'cls',Subclass:'subcls',Flair:'flair',Name:'charName'};
         const val=a[map[roomData.lastRevealedCategory]]||'(none)';
@@ -537,16 +546,21 @@
         playSound('wheel','reveal');
       } else {revealEl.style.display='none';}
 
-      // FIX: Advance button shown to CURRENT SPINNER only (not host)
+      // Advance button shown to CURRENT SPINNER only (not host)
       const advBtn=$('p2-advance-btn');
-      if(advBtn) advBtn.style.display=(isMyTurn&&roomData?.wheelSpun)?'':'none';
+      if(advBtn) {
+        const showAdv=!!(isMyTurn&&roomData?.wheelSpun);
+        advBtn.style.display=showAdv?'':'none';
+        advBtn.disabled=!showAdv;
+      }
 
       $('p2-your-turn').style.display=isMyTurn?'':'none';
       $('p2-wait-msg').style.display=isMyTurn?'none':'';
       $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!roomData?.spinData)?'':'none';
       $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||roomData?.spinData);
 
-      buildWheel(Object.values(playersData),spinnerId);
+      // Skip rebuilding canvas mid-animation — the rAF loop owns the canvas at that point
+      if(!wheelSpinning) buildWheel(Object.values(playersData),spinnerId);
     }
 
     // FIX: New function — all clients animate from the same Firestore-stored params
@@ -625,13 +639,16 @@
       draw(wheelAngle);window._drawWheel=draw;
     }
 
-    // FIX: doSpinWheel now writes spin params to Firestore; animation is driven by startSyncedSpin on all clients
+    // doSpinWheel now writes spin params to Firestore; animation is driven by startSyncedSpin on all clients
     async function doSpinWheel() {
       if(wheelSpinning) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      if(!order.length) return;
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
       if(spinnerId!==myId||roomData?.wheelSpun||roomData?.spinData) return;
-      $('p2-spin-btn').disabled=true;
+      // Disable immediately to prevent double-click race
+      const spinBtn=$('p2-spin-btn');
+      if(spinBtn){spinBtn.disabled=true;spinBtn.style.display='none';}
 
       const players=Object.values(playersData);
       const targetIdx=players.findIndex(p=>p.id===spinnerId);
@@ -652,7 +669,8 @@
     }
 
     function triggerSpotlight(targetId,cb){
-      const p=playersData[targetId],av=getAv(p?.avatarId||'a1');
+      const p=playersData[targetId]||{name:'???',avatarId:'a1'};
+      const av=getAv(p.avatarId||'a1');
       $('spotlight-av').src=av.src;$('spotlight-name').textContent=p?.name||'???';
       $('spotlight-overlay').classList.add('active');
       playSound('wheel','spotlight');
@@ -664,10 +682,14 @@
     }
 
     async function doAdvancePhase2() {
-      // FIX: Current spinner controls advance, not host
+      // Current spinner controls advance, not host
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
+      if(!order.length) return;
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
       if(spinnerId!==myId) return;
+      // Disable advance button immediately to prevent double-click skipping a category
+      const advBtn=$('p2-advance-btn');
+      if(advBtn){advBtn.disabled=true;advBtn.style.display='none';}
       const catIdx=roomData?.categoryIndex??0;
       const newCat=catIdx+1;
       const baseReset={wheelSpun:false,spinData:null,lastRevealedFor:null,lastRevealedCategory:null};
