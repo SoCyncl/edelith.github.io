@@ -349,6 +349,10 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Shop">
             <span>Shop</span>
           </a>
+          <a href="stocks.edelith.org">
+            <img src="/assets/img/homepage/Biblio_green.png" class="nav-icon" alt="Stocks">
+            <span>Edel Exchange</span>
+          </a>
         </div>
 
         <div class="search-wrapper">
