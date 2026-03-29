@@ -165,7 +165,22 @@
         return audio; // caller can hold ref to stop looping sounds
       } catch(e) {}
     }
-
+    function getVolume() {
+      return parseFloat(document.getElementById('volume-slider')?.value ?? 1);
+    }
+    
+    function playSound(category, event, opts = {}) {
+      const pool = SOUNDS[category]?.[event];
+      if (!pool || pool.length === 0) return;
+      const src = pool[Math.floor(Math.random() * pool.length)];
+      try {
+        const audio = new Audio(src);
+        audio.volume = opts.volume !== undefined ? opts.volume : getVolume();
+        if (opts.loop) audio.loop = true;
+        audio.play().catch(() => {});
+        return audio;
+      } catch(e) {}
+    }
     // ── END SOUND SYSTEM ──────────────────────────────────────────────
 
     let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
@@ -1644,6 +1659,13 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 <div id="screen-lobby" class="screen">
   <div class="game-bar">
     <span class="game-bar-title">◆ Autistic Canon</span>
+
+<div id="volume-control" style="display:flex;align-items:center;gap:8px;">
+  <span style="font-family:var(--f-label);font-size:.48rem;letter-spacing:2px;color:var(--fog-dim);">🔊</span>
+  <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1"
+    style="width:80px;accent-color:var(--gold);cursor:pointer;">
+</div>
+    
     <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
     <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
   </div>
