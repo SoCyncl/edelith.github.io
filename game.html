@@ -68,107 +68,96 @@
 
       // ── HOME / NAVIGATION ──────────────────────────────────────────
       home: {
-        createRoom:   ["https://file.garden/aE4BmvQeoiKwc59V/game/create-lobby"],   // You create a new room
-        joinRoom:     ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],   // You successfully join a room
-        error:        [],   // Any error toast fires
-        leave:        [],   // Any player clicks Leave
+        createRoom:   ["https://file.garden/aE4BmvQeoiKwc59V/game/create-lobby"],
+        joinRoom:     ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],
+        error:        [],
+        leave:        [],
       },
 
       // ── LOBBY ──────────────────────────────────────────────────────
       lobby: {
-        playerJoin:   ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],   // A new player appears in the lobby list
-        playerLeave:  [],   // A player disappears from the lobby list
-        ready:        ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // Someone toggles Ready ON
-        unready:      ["https://file.garden/aE4BmvQeoiKwc59V/game/unready"],   // Someone toggles Ready OFF (Unready)
-        selectAvatar: ["https://file.garden/aE4BmvQeoiKwc59V/game/avatar4", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar3", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar2", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar1"],   // You pick an avatar
-        startGame:    ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // Host clicks Start Game (game begins)
+        playerJoin:   ["https://file.garden/aE4BmvQeoiKwc59V/game/joinroom"],
+        playerLeave:  [],
+        ready:        ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],
+        unready:      ["https://file.garden/aE4BmvQeoiKwc59V/game/unready"],
+        selectAvatar: ["https://file.garden/aE4BmvQeoiKwc59V/game/avatar4", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar3", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar2", "https://file.garden/aE4BmvQeoiKwc59V/game/avatar1"],
+        startGame:    ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],
       },
 
       // ── PHASE 1 — BUILD YOUR CHARACTER ────────────────────────────
       phase1: {
-        submit:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // You submit your character sheet
-        waiting:      [],   // You enter the "waiting for others" state
-        allSubmitted: ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // Everyone has submitted (host advances)
+        submit:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],
+        waiting:      [],
+        allSubmitted: ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],
       },
 
       // ── SLOT MACHINE (wheel-order screen) ─────────────────────────
       slotMachine: {
-        start:        [],   // Slot machine begins spinning for a position
-        tick:         [],   // Each name-flash tick (keep short/quiet!)
-        lock:         [],   // Slot machine locks on a winner
-        spotlight:    [],   // Spotlight overlay appears with winner
-        spotlightOut: [],   // Spotlight overlay disappears
-        positionSet:  [],   // A position is written to the order list
+        start:        [],
+        tick:         [],
+        lock:         [],
+        spotlight:    [],
+        spotlightOut: [],
+        positionSet:  [],
       },
 
       // ── PHASE 2 — THE WHEEL ────────────────────────────────────────
       wheel: {
-        yourTurn:     [],   // It becomes YOUR turn to spin
-        spinStart:    [],   // Wheel begins spinning (heard by ALL players)
-        spinning:     [],   // Looping ambient sound while wheel is moving
-        land:         [],   // Wheel finishes spinning
-        spotlight:    [],   // Spotlight overlay appears after wheel lands
-        spotlightOut: [],   // Spotlight overlay disappears
-        reveal:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],   // Your category value is revealed to you
-        nextCategory: [],   // Host advances to next category (same spinner)
-        nextSpinner:  [],   // Host advances to next player's turn
-        allDone:      ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],   // All spinners done — transitioning to backstory
+        yourTurn:     [],
+        spinStart:    [],
+        spinning:     [],
+        land:         [],
+        spotlight:    [],
+        spotlightOut: [],
+        reveal:       ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],
+        nextCategory: [],
+        nextSpinner:  [],
+        allDone:      ["https://file.garden/aE4BmvQeoiKwc59V/game/next-phase"],
       },
 
       // ── BACKSTORY ──────────────────────────────────────────────────
       backstory: {
-        enter:            ["https://file.garden/aE4BmvQeoiKwc59V/game/Weird%20thing.wav"],  // Backstory phase begins for you
-        timerUrgent:      [],  // Timer drops below 1 minute (fires once)
-        timerExpired:     [],  // Timer hits 00:00
-        submit:           ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],  // You submit your backstory
-        imageUpload:      [],  // You attach a character image
-        extraTimeRequest: [],  // Someone requests +5 min vote
-        voteYes:          [],  // You vote Yes on extra time
-        voteNo:           [],  // You vote No on extra time
-        extraTimeGranted: [],  // Everyone voted yes — time extended
-        extraTimeDenied:  [],  // Someone voted no — vote dismissed
+        enter:            ["https://file.garden/aE4BmvQeoiKwc59V/game/Weird%20thing.wav"],
+        timerUrgent:      [],
+        timerExpired:     [],
+        submit:           ["https://file.garden/aE4BmvQeoiKwc59V/game/ready"],
+        imageUpload:      [],
+        extraTimeRequest: [],
+        voteYes:          [],
+        voteNo:           [],
+        extraTimeGranted: [],
+        extraTimeDenied:  [],
       },
 
       // ── PHASE 3 — PRESENTATIONS ────────────────────────────────────
       phase3: {
-        enter:           [],   // Phase 3 begins (first presenter up)
-        nextPresenter:   [],   // A new presenter's turn starts
-        revealField:     [],   // Presenter reveals a character field (Name/Race/etc.)
-        backstoryOpen:   [],   // First backstory paragraph revealed
-        backstoryProceed:[],   // Subsequent paragraph revealed
-        backstoryUndo:   [],   // Presenter un-reveals a paragraph
-        rate:            [],   // Audience member clicks a star (any star)
-        finish:          [],   // Presenter clicks Finished
-        lastPresenter:   [],   // Final presenter finishes (transitioning to leaderboard)
+        enter:           [],
+        nextPresenter:   [],
+        revealField:     [],
+        backstoryOpen:   [],
+        backstoryProceed:[],
+        backstoryUndo:   [],
+        rate:            [],
+        finish:          [],
+        lastPresenter:   [],
       },
 
       // ── LEADERBOARD ────────────────────────────────────────────────
       leaderboard: {
-        enter:    [],   // Leaderboard screen opens
-        reveal3rd:[],   // 3rd place row animates in
-        reveal2nd:[],   // 2nd place row animates in
-        reveal1st:[],   // 1st place row animates in (the big moment)
+        enter:    [],
+        reveal3rd:[],
+        reveal2nd:[],
+        reveal1st:[],
       },
 
     };
 
-    // Plays a random sound from SOUNDS[category][event]. Safe to call even if empty.
-    function playSound(category, event, opts = {}) {
-      const pool = SOUNDS[category]?.[event];
-      if (!pool || pool.length === 0) return;
-      const src = pool[Math.floor(Math.random() * pool.length)];
-      try {
-        const audio = new Audio(src);
-        if (opts.volume !== undefined) audio.volume = opts.volume;
-        if (opts.loop) audio.loop = true;
-        audio.play().catch(() => {}); // swallow autoplay policy errors silently
-        return audio; // caller can hold ref to stop looping sounds
-      } catch(e) {}
-    }
+    // ── VOLUME HELPER ─────────────────────────────────────────────────
     function getVolume() {
       return parseFloat(document.getElementById('volume-slider')?.value ?? 1);
     }
-    
+
+    // Plays a random sound from SOUNDS[category][event]. Safe to call even if empty.
     function playSound(category, event, opts = {}) {
       const pool = SOUNDS[category]?.[event];
       if (!pool || pool.length === 0) return;
@@ -181,15 +170,14 @@
         return audio;
       } catch(e) {}
     }
+
     // ── END SOUND SYSTEM ──────────────────────────────────────────────
 
     let myId='', myName='', roomCode=null, roomUnsub=null, roomData=null, playersData={};
     let slotTimer=null, wheelSpinning=false, bsTimer=null, wheelAngle=0, wheelAnimId=null;
-    // track the startTime of the last spin we've already animated, to avoid re-triggering
     let lastAnimatedSpinTime=0;
-    // re-entrancy guards — prevent async functions from firing twice before Firestore confirms
     let _randomizeLock=false, _backstoryAdvanceLock=false, _leaderboardRendered=false;
-    let _lastSlotDone=-1; // tracks which slot machine position was last started
+    let _lastSlotDone=-1;
     let p3State = {race:false,subrace:false,cls:false,subcls:false,flair:false,name:false,backstoryIdx:0};
 
     const $   = id => document.getElementById(id);
@@ -238,7 +226,6 @@
     }
 
     function onPhaseEnter(phase){
-      // Reset per-phase re-entrancy guards whenever we move to a new phase
       if(phase==='phase1') _randomizeLock=false;
       if(phase==='backstory') _backstoryAdvanceLock=false;
       if(phase==='leaderboard') _leaderboardRendered=false;
@@ -251,12 +238,11 @@
       ({lobby:renderLobby,'wheel-order':renderWheelOrder,phase2:updatePhase2,
         backstory:updateBackstory,phase3:updatePhase3,leaderboard:renderLeaderboard})[roomData?.phase]?.();
     }
-    let _prevPlayerCount = -1; // -1 = uninitialised; set to real count on first call to suppress rejoin noise
+    let _prevPlayerCount = -1;
     function onPlayersUpdate(){
       const count = Object.keys(playersData).length;
       if(roomData?.phase==='lobby'){
         if(_prevPlayerCount === -1){
-          // First load — don't play sounds, just capture baseline
           _prevPlayerCount = count;
         } else {
           if(count > _prevPlayerCount) playSound('lobby','playerJoin');
@@ -266,15 +252,12 @@
         renderLobby();
       }
       if(roomData?.phase==='phase1') renderPhase1();
-      // FIX: backstory phase — update submitted count + auto-advance when everyone done
       if(roomData?.phase==='backstory') {
         const players=Object.values(playersData);
         const done=players.filter(p=>p.backstorySubmitted).length;
         const total=players.length;
-        // Update count in the submitted-state panel
         const countEl=$('bs-submitted-count');
         if(countEl) countEl.textContent=`${done} / ${total} submitted`;
-        // Auto-advance once everyone is done (host writes the phase change)
         if(amHost() && done===total && total>=2) {
           if(_backstoryAdvanceLock) return;
           _backstoryAdvanceLock=true;
@@ -338,7 +321,6 @@
     function renderLobby() {
       const players=Object.values(playersData);
       $('lobby-code').textContent=roomCode||'—';
-      // FIX: Keep room-code-display in sync on rejoin (not just on create/join)
       const rcd=$('room-code-display');if(rcd) rcd.textContent=roomCode||'—';
       $('lobby-players-count').textContent=players.length+' player'+(players.length!==1?'s':'');
       $('lobby-player-list').innerHTML=players.map(p=>{
@@ -413,7 +395,7 @@
     }
     async function randomizeAndAdvance() {
       if(roomData?.phase!=='phase1') return;
-      if(_randomizeLock) return;        // guard: prevent concurrent calls before Firestore confirms
+      if(_randomizeLock) return;
       _randomizeLock=true;
       const players=Object.values(playersData),ids=players.map(p=>p.id);
       let shuffled;
@@ -426,7 +408,6 @@
       await updateDoc(doc(db,'rooms',roomCode),{
         phase:'wheel-order',presenterOrder,presenterIndex:0,wheelOrder:[],wheelIndex:0,categoryIndex:0
       });
-      // lock stays true — phase has changed, so randomizeAndAdvance won't run again anyway
     }
 
     // ── SLOT MACHINE ────────────────────────────────────────
@@ -441,7 +422,6 @@
         }).join('');
       }
       if(done<order.length) {
-        // Only (re)start the slot machine if we haven't already started this position
         if(done !== _lastSlotDone) { _lastSlotDone=done; runSlotMachine(order[done],done); }
       } else if(amHost()) setTimeout(()=>updateDoc(doc(db,'rooms',roomCode),{
         phase:'phase2',wheelIndex:0,categoryIndex:0,
@@ -492,7 +472,6 @@
     // ── PHASE 2 WHEEL ────────────────────────────────────────
 
     function renderPhase2() {
-      // FIX: Reset all wheel state when entering phase2 fresh
       wheelAngle = 0;
       wheelSpinning = false;
       lastAnimatedSpinTime = 0;
@@ -513,10 +492,8 @@
       if(isMyTurn && !roomData?.wheelSpun && !roomData?.spinData) playSound('wheel','yourTurn');
       buildWheel(players,spinnerId);
 
-      // FIX: If there's already spinData from a previous spin (e.g. on rejoin), jump to end
       const sd=roomData?.spinData;
       if(sd && roomData?.wheelSpun) {
-        // spin already finished, just show end position
         wheelAngle = sd.startAngle + sd.totalRotation;
         window._drawWheel?.(wheelAngle);
       }
@@ -530,15 +507,12 @@
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
       const isMyTurn=spinnerId===myId;
 
-      // FIX: Always sync category label, spinner name, and turn state for ALL clients
       const catIdx=roomData?.categoryIndex??0, cat=WHEEL_CATS[catIdx]||'Race';
       const spinner=playersData[spinnerId];
       $('p2-spinner-name').textContent=(spinner?.name||'?')+"'s spin";
       $('p2-spinner-name-badge').textContent=(spinner?.name||'?')+"'s turn";
       $('p2-category-label').textContent=cat;
 
-      // FIX: Reset wheel angle on ALL clients when a new spin round starts
-      // (spinData cleared + wheelSpun false = host/spinner just called advancePhase2)
       const sd=roomData?.spinData;
       if(!sd && !roomData?.wheelSpun && lastAnimatedSpinTime !== 0) {
         lastAnimatedSpinTime = 0;
@@ -548,14 +522,14 @@
         window._drawWheel?.(0);
       }
 
-      // FIX: Detect new spinData and kick off a synced animation on all clients
       if(sd && sd.startTime && sd.startTime!==lastAnimatedSpinTime && !roomData?.wheelSpun) {
         lastAnimatedSpinTime = sd.startTime;
         playSound('wheel','spinStart');
         startSyncedSpin(sd);
       }
 
-      const revealEl=$('p2-reveal');      if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
+      const revealEl=$('p2-reveal');
+      if(roomData?.lastRevealedFor===myId&&roomData?.lastRevealedCategory){
         const a=playersData[myId]?.assignment||{};
         const map={Race:'race',Subrace:'subrace',Class:'cls',Subclass:'subcls',Flair:'flair',Name:'charName'};
         const val=a[map[roomData.lastRevealedCategory]]||'(none)';
@@ -566,7 +540,6 @@
         playSound('wheel','reveal');
       } else {revealEl.style.display='none';}
 
-      // Advance button shown to CURRENT SPINNER only (not host)
       const advBtn=$('p2-advance-btn');
       if(advBtn) {
         const showAdv=!!(isMyTurn&&roomData?.wheelSpun);
@@ -579,17 +552,14 @@
       $('p2-spin-btn').style.display=(isMyTurn&&!roomData?.wheelSpun&&!roomData?.spinData)?'':'none';
       $('p2-spin-btn').disabled=!!(roomData?.wheelSpun||roomData?.spinData);
 
-      // Skip rebuilding canvas mid-animation — the rAF loop owns the canvas at that point
       if(!wheelSpinning) buildWheel(Object.values(playersData),spinnerId);
     }
 
-    // FIX: New function — all clients animate from the same Firestore-stored params
     function startSyncedSpin(sd) {
       if(wheelSpinning) return;
       const {startAngle, totalRotation, startTime, duration, spinnerId} = sd;
       const elapsed = Date.now() - startTime;
 
-      // If the spin is already over (e.g. late joiner), just snap to end position
       if(elapsed >= duration) {
         wheelAngle = startAngle + totalRotation;
         window._drawWheel?.(wheelAngle);
@@ -609,7 +579,6 @@
         } else {
           wheelSpinning = false;
           wheelAnimId = null;
-          // Only the original spinner writes the result back to Firestore
           if(spinnerId === myId) {
             triggerSpotlight(spinnerId, () => {
               playSound('wheel','land');
@@ -659,14 +628,12 @@
       draw(wheelAngle);window._drawWheel=draw;
     }
 
-    // doSpinWheel now writes spin params to Firestore; animation is driven by startSyncedSpin on all clients
     async function doSpinWheel() {
       if(wheelSpinning) return;
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       if(!order.length) return;
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
       if(spinnerId!==myId||roomData?.wheelSpun||roomData?.spinData) return;
-      // Disable immediately to prevent double-click race
       const spinBtn=$('p2-spin-btn');
       if(spinBtn){spinBtn.disabled=true;spinBtn.style.display='none';}
 
@@ -676,7 +643,6 @@
       const extraSpins=(5+Math.floor(Math.random()*4))*Math.PI*2;
       const totalRotation=extraSpins+(Math.PI*2-targetIdx*sliceAng-sliceAng/2);
 
-      // Write spin params; all clients (including this one) will animate via updatePhase2 → startSyncedSpin
       await updateDoc(doc(db,'rooms',roomCode),{
         spinData:{
           startAngle: wheelAngle,
@@ -702,12 +668,10 @@
     }
 
     async function doAdvancePhase2() {
-      // Current spinner controls advance, not host
       const order=roomData?.wheelOrder||roomData?.presenterOrder||[];
       if(!order.length) return;
       const wIdx=roomData?.wheelIndex??0,spinnerId=order[wIdx%order.length];
       if(spinnerId!==myId) return;
-      // Disable advance button immediately to prevent double-click skipping a category
       const advBtn=$('p2-advance-btn');
       if(advBtn){advBtn.disabled=true;advBtn.style.display='none';}
       const catIdx=roomData?.categoryIndex??0;
@@ -729,7 +693,6 @@
         playSound('wheel','nextCategory');
         await updateDoc(doc(db,'rooms',roomCode),{categoryIndex:newCat,...baseReset});
       }
-      // Reset local wheel state so next spin starts cleanly for this client
       lastAnimatedSpinTime=0;
       wheelAngle=0;
       wheelSpinning=false;
@@ -793,9 +756,8 @@
       playSound('backstory','submit');
       await updateDoc(doc(db,'rooms',roomCode,'players',myId),{backstory:{text,imageUrl},backstorySubmitted:true});
       $('bs-form').style.display='none';$('bs-submitted').style.display='';
-      // Seed the count right away so it's not blank before the next snapshot
       const players=Object.values(playersData);
-      const done=players.filter(p=>p.backstorySubmitted).length+1; // +1 for ourself (Firestore hasn't echoed yet)
+      const done=players.filter(p=>p.backstorySubmitted).length+1;
       const countEl=$('bs-submitted-count');
       if(countEl) countEl.textContent=`${done} / ${players.length} submitted`;
     }
@@ -1020,7 +982,6 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
   animation: screenIn 0.45s ease forwards;
 }
 .screen.active { display: block; }
-/* Home screen needs flex layout but ONLY when active — higher specificity than .screen */
 #screen-home.active { display: flex; }
 @keyframes screenIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
 
@@ -1055,6 +1016,49 @@ a { color: rgba(201,168,76,0.8); text-decoration: none; }
   text-transform: uppercase; cursor: pointer; transition: all 0.2s;
 }
 .leave-btn:hover { border-color: var(--gold-dim); color: var(--fog); }
+
+/* ── VOLUME SLIDER ─────────────────────────────── */
+.volume-control {
+  display: flex; align-items: center; gap: 8px; margin-left: 12px;
+}
+.volume-icon {
+  font-size: 0.75rem; color: var(--fog-dim); user-select: none; line-height: 1;
+  transition: color 0.2s;
+}
+#volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 72px;
+  height: 3px;
+  background: var(--gold-dim);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  box-shadow: 0 0 6px rgba(201,168,76,0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+#volume-slider::-moz-range-thumb {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  box-shadow: 0 0 6px rgba(201,168,76,0.4);
+}
+#volume-slider:hover::-webkit-slider-thumb {
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(201,168,76,0.6);
+}
+#volume-slider:hover { background: var(--gold); }
+.volume-control:hover .volume-icon { color: var(--gold); }
 
 /* ═══════════════════════════════════════════════════
    CONTENT WRAPPER
@@ -1609,6 +1613,7 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   .p3-presenter-card { position: static; }
   .bs-char-sheet { grid-template-columns: 1fr 1fr; }
   .p1-form-grid { grid-template-columns: 1fr; }
+  .volume-control { display: none; }
 }
 @media(max-width:480px) {
   .home-card { padding: 28px 20px; }
@@ -1659,15 +1664,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
 <div id="screen-lobby" class="screen">
   <div class="game-bar">
     <span class="game-bar-title">◆ Autistic Canon</span>
-
-<div id="volume-control" style="display:flex;align-items:center;gap:8px;">
-  <span style="font-family:var(--f-label);font-size:.48rem;letter-spacing:2px;color:var(--fog-dim);">🔊</span>
-  <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1"
-    style="width:80px;accent-color:var(--gold);cursor:pointer;">
-</div>
-    
     <div class="game-bar-code">Room Code <span id="lobby-code">—</span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content">
     <h2 class="screen-title">The Lobby</h2>
@@ -1706,7 +1710,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase I — The Forge</span>
     <div class="game-bar-code">Room <span id="p1-room-code-display"></span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-p1" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content game-content--narrow">
 
@@ -1766,7 +1777,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Determining Spin Order</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-wo" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content" style="text-align:center;padding-top:50px;">
     <h2 class="screen-title" id="wo-title">Determining spin order…</h2>
@@ -1796,7 +1814,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase II — The Reveal</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-p2" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content game-content--wide">
     <h2 class="screen-title" id="p2-spinner-name">Spinning…</h2>
@@ -1856,7 +1881,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase II — Your Character Sheet</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-bs" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content">
     <h2 class="screen-title">Your Assigned Character</h2>
@@ -1924,14 +1956,12 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
       </div>
     </div>
 
-    <!-- FIX: changed duplicate id "bs-timer" to "bs-timer2" so tickBsTimer can find it -->
     <div id="bs-submitted" style="display:none;text-align:center;padding:40px 0;">
       <div style="font-size:2rem;color:var(--gold);margin-bottom:12px;">◆</div>
       <h3 style="font-family:var(--f-display);font-size:1.1rem;letter-spacing:3px;color:var(--frost);margin-bottom:8px;">Backstory Submitted</h3>
       <p style="font-family:var(--f-italic);font-style:italic;color:var(--fog-dim);">
         Waiting for others to finish writing…
       </p>
-      <!-- FIX: Live submitted count — updated by onPlayersUpdate -->
       <p id="bs-submitted-count" style="font-family:var(--f-label);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:14px;"></p>
       <div style="margin-top:12px;">
         <span id="bs-timer2" style="font-family:var(--f-display);font-size:1.5rem;letter-spacing:4px;color:var(--gold);">15:00</span>
@@ -1948,7 +1978,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Phase III — Presentations</span>
     <div class="game-bar-code">Room <span></span></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-p3" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content game-content--wide">
 
@@ -2002,7 +2039,14 @@ textarea.game-input { resize: vertical; min-height: 160px; font-family: var(--f-
   <div class="game-bar">
     <span class="game-bar-title">◆ Autistic Canon — Results</span>
     <div class="game-bar-code"></div>
-    <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider-lb" min="0" max="1" step="0.05" value="1"
+               oninput="document.getElementById('volume-slider').value=this.value">
+      </div>
+      <button class="leave-btn" onclick="G.leaveGame()">Leave</button>
+    </div>
   </div>
   <div class="game-content">
     <h2 class="screen-title" style="margin-bottom:6px;">The Results</h2>
