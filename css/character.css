@@ -307,6 +307,16 @@ padding: 28px 28px 48px;
 .ov-right { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
 
 /* ════════════════════════════════════════════
+   OVERVIEW GRID
+════════════════════════════════════════════ */
+
+.split-personality {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 20px; /* Optional space between columns */
+}
+
+/* ════════════════════════════════════════════
    MOODBOARD
 ════════════════════════════════════════════ */
 .cs-moodboard { padding: 16px 18px; }
@@ -317,11 +327,12 @@ padding: 28px 28px 48px;
 }
 .mood-header-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-dim), transparent); }
 .mood-frames { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; height: 180px; }
-.mood-f { border: 1px solid rgba(201,168,76,0.12); overflow: hidden; transition: transform 0.4s ease, border-color 0.3s; }
+.mood-f { border: 3px solid var(--gold); overflow: hidden; transition: transform 0.4s ease, border-color 0.3s; }
 .mood-f--1 { background: var(--char-mood1); background-size: cover !important; background-position: center !important; }
 .mood-f--2 { background: var(--char-mood2); background-size: cover !important; background-position: center !important; }
 .mood-f--3 { background: var(--char-mood3); background-size: cover !important; background-position: center !important; }
-.mood-f:hover { transform: scale(1.03); z-index: 1; border-color: rgba(201,168,76,0.4); }
+.mood-f--4 { background: var(--char-mood4); background-size: cover !important; background-position: center !important; }
+.mood-f:hover { transform: scale(1.03); z-index: 1; border-color: var(--ct); }
 
 /* ════════════════════════════════════════════
    SECTION BLOCKS
@@ -360,11 +371,32 @@ padding: 28px 28px 48px;
 .cs-drop--s { color: var(--cs); }
 .cs-drop--t { color: var(--ct); }
 .cs-drop--p { color: var(--cp); }
+/* ════════════════════════════════════════════
+   Little moodboard
+════════════════════════════════════════════ */
+.cs-moodboard--single {
+  padding: 0;
+  overflow: hidden;
+}
+.cs-moodboard--single .mood-frames {
+  display: block;
+  height: 120px;
+  gap: 0;
+}
+.cs-moodboard--single .mood-f--4 {
+  height: 100%;
+
+  transition: filter 0.4s;
+}
+
 
 /* ════════════════════════════════════════════
    LIKES / DISLIKES
 ════════════════════════════════════════════ */
-.ov-affinity-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ov-affinity-row {display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.ov-affinity-facts {margin-top: 10px; margin-bottom: 10px;}
+.row-little {  display: grid; grid-template-rows: 100px 1fr;}
+
 .cs-affinity { padding: 18px 20px; position: relative; overflow: hidden; }
 .cs-affinity-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .cs-affinity-head h2 { font-family: var(--f-head); font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin: 0; font-weight: 400; }

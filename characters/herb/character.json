@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "pageTitle": "Herb • Solstitheo",
+    "ogDescription": "Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia.",
+    "ogImage": "img/avi.png",
+    "themeColor": "#f2c166",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+      "cp":         "#5f7d4d",
+      "cs":         "#8ea87a",
+      "ct":         "#6b4e3d",
+      "cd":         "#0f1a16",
+      "cl":         "#e8f0e4",
+      "ink":        "#141a17",
+      "inkMid":     "#1c2622",
+      "inkLight":   "#24312b",
+      "fog":        "#c7d1c8",
+      "fogDim":     "#7f9187",
+      "frost":      "#eef5ee",
+      "void":       "#0d1411",
+      "gold":       "#6fa86b",
+      "goldDim":    "#3e6b44"
+    },
+    "images": {
+      "banner":  "/characters/herb/img/header.gif",
+      "avatar":  "/characters/herb/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/forget-me-not.png",
+      "mood1":   "/characters/herb/img/moodimage1.webp",
+      "mood2":   "/characters/herb/img/moodimage2.webp",
+      "mood3":   "/characters/herb/img/moodboard.gif",
+      "mood4": "/characters/herb/img/moodboard2.gif",
+      "lorebg":  "/characters/herb/img/lorebg.webp",
+      "stamp1":  "/characters/herb/img/stamp1.png",
+      "stamp2":  "/characters/herb/img/stamp2.png",
+      "chibi":   "/characters/herb/img/chibi.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Herb",
+    "fullName":   "Herb Passerine",
+    "watermark":  "Herb",
+    "quote":      "Knock on Wood",
+    "tags": [
+      { "label": "Woodsworn",        "type": "p" },
+      { "label": "Bard",             "type": "s" },
+      { "label": "College of Spirits","type": "t" },
+      { "label": "Main Party",       "type": "d" }
+    ],
+    "stripMeta": [
+      "Immortal City of Edelith",
+      "Campaign Character",
+      "Player Character"
+    ],
+    "playlistUrl": "https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh",
+    "pokemonTeam": [
+      "/assets/img/pokemon/venusaur.png",
+      "/assets/img/pokemon/rotom-mow.png",
+      "/assets/img/pokemon/rillaboom.png",
+      "/assets/img/pokemon/butterfree.png",
+      "/assets/img/pokemon/decidueye.png",
+      "/assets/img/pokemon/flapple.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Herb is a Woodsworn created from Laura in the now defunct nation of Saoglas outside the Immortal City of Edelith, and the only one seemingly immune to the corrosion plaguing his kind. He has horrible memory and is adorned with masks able to cast various affects to whoever wears them. He is on a mission to find a way to bring back a beloved figure dear to his mother, and one he shares a body with. The mask he carries is too corroded to be fixed by any normal means. He found Blobert Goopington on his way to the shroud taking the form as a chicken as Herb was feeding them.",
+    "personality": "Herb is a curious, sentimental, and clueless idiot, who has moments of genuine clarity and others of idiocacy, he is naturally good hearted and is very impulsive and driven to act in the moment than care about fore or hindsight.",
+    "likes":    ["Birds and collecting bird feathers", "Nature", "Adores woodcarving in his free time", "writing about his day in a journal"],
+    "dislikes": ["Intrusion of personal space", "Desert", "Wood chippers", "Blueberries"],
+    "trivia": [
+      { "text": "Herb's race is mostly concentrated to Arvegum", "redacted": false },
+      { "text": "He is valued and chosen by the mysterious figure, Rotcio. Who betrayed his entire race and is a vessel of the Corrosion.", "redacted": false },
+      { "redacted": true },
+      { "redacted": true }
+    ],
+    "sideQuote": "Knock on Wood"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Herb Passerine" },
+    "alsoKnownAs": { "value": "Herbert · Avao" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Woodsworn" },
+    "class":       { "value": "Bard" },
+    "subclass":    { "value": "College of Spirits" },
+    "occupation":  { "value": "Unemployed", "unknown": true }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/Freaky-herb.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/Freaky-herb.png",
+      "altText":   "Herb reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "4'7\" / 183cm",
+      "build":    "Slim",
+      "demeanor": "Laid-back"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#2E2E2E" }
+      ],
+      "body": [
+        { "hex": "#bda78c" }
+      ],
+      "other": [
+        { "hex": "#9e996e" },
+        { "hex": "#665754" },
+        { "hex": "#444d40" },
+        { "hex": "#9f6a4b" }
+      ]
+    },
+    "notes": [
+      "Herb was made because the PC listened to \"Everywhere at the end of time\" and thought playing a character that can't remember would be terrifying to portray.",
+      "Herb has a real face underneath his mask, but all Woodsworn will never show it.",
+      "He loves to collect feathers and has them around his design."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Saoglas" },
+      "region":           { "value": "Outside Edelith" },
+      "currentLocation":  { "value": "Immortal City of Edelith" },
+      "affiliation":      { "value": null, "unknown": true },
+      "firstSeen":        { "value": "Session 01" },
+      "status":           { "value": "Active", "colorVar": "cp" }
+    },
+
+    "loreQuote": "I dont have the luxury to remember like you, Peggle.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 01",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Herb made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 02",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 03",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ],
+
+    "relatedStories": [
+      {
+        "cssClass":   "edelith",
+        "href":       "/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html",
+        "coverImage": "/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp",
+        "altText":    "The Woodsworn",
+        "series":     "Travels of a post-wake Edelith",
+        "title":      "The Woodsworn",
+        "tag":        "\"Damien Zerxes\"",
+        "date":       "June 14, 2025"
+      }
+    ]
+  },
+
+  "relationships": [
+    {
+      "name":            "Peggle Krastov",
+      "race":            "Barbarian",
+      "closeness":       70,
+      "dotsOn":          3,
+      "dotsHalf":        1,
+      "dotsOff":         1,
+      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "profileHref":     "/characters/peggle/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "PLasmoid",
+      "closeness":       90,
+      "dotsOn":          4,
+      "dotsHalf":        1,
+      "dotsOff":         0,
+      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Blaze Holiday",
+      "race":            "Tiefling",
+      "closeness":       20,
+      "dotsOn":          1,
+      "dotsHalf":        1,
+      "dotsOff":         3,
+      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "profileHref":     "/characters/blaze/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-inurekairos.jpg",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-inurekairos.jpg",
+      "caption":   "Art by @Inurekairos on Instagram!",
+      "altText":   "Gallery image by Inurekairos"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-korb.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-korb.png",
+      "caption":   "Art by me @Korb_karbage on Instagram!",
+      "altText":   "Gallery image by Korb_karbage"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/doode-herb.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/doode-herb.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by CYncl.art"
+    }
+  ]
+}
