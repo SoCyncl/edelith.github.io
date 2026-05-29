@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="/assets/img/ico/white.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Herb • Solstitheo</title>
-  <meta property="og:url" content="index.html">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Herb • Solstitheo">
-  <meta property="og:description" content="Does not like being called Herbert. Herb Passerine is a College of Spirits, Woodsworn with dementia.">
-  <meta property="og:image" content="img/avi.png">
-  <meta name="theme-color" content="#f2c166">
 
   <link rel="stylesheet" href="/css/home.css">
-  <link rel="stylesheet" href="/css/character.css">  
+  <link rel="stylesheet" href="/css/character.css">
   <link rel="stylesheet" href="/css/lightbox.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -22,62 +14,12 @@
   <script src="/scripts/sidenav.js" defer></script>
   <script src="/scripts/playlist.js" type="text/javascript" defer></script>
   <script src="/scripts/lightbox-plus-jquery.js" defer></script>
-  <meta name="glossary" content="off">
-  <script>
-    window.addEventListener("load", () => {
-      document.querySelectorAll(".fade-block").forEach((el, i) =>
-        setTimeout(() => el.classList.add("visible"), i * 70)
-      );
-    });
-  </script>
+
+  <!-- Per-character CSS vars — written by JS -->
+  <style id="char-vars"></style>
 </head>
 
-<!-- ══════════════════════════════════════════════════════
-   PER-CHARACTER TOKENS
-════════════════════════════════════════════════════════ -->
-<style>
-:root {
-  --cp:  #5f7d4d;     /* moss canopy */
-  --cs:  #8ea87a;     /* soft fern */
-  --ct:  #6b4e3d;     /* bark */
-  --cd:  #0f1a16;     /* forest night */
-  --cl:  #e8f0e4;     /* pale lichen */
-  
-  --ink:         #141a17;  /* deep forest soil */
-  --ink-mid:     #1c2622;  /* shaded moss */
-  --ink-light:   #24312b;  /* damp stone */
-  
-  --fog:         #c7d1c8;  /* mist */
-  --fog-dim:     #7f9187;  /* dim foliage */
-  --frost:       #eef5ee;  /* pale morning fog */
-  
-  --void:        #0d1411;  /* deep woodland */
-  
-  --gold:        #6fa86b;  /* forest glow (primary accent) */
-  --gold-dim:    #3e6b44;  /* shaded moss accent */
-  --gold-pale:   rgba(111,168,107,0.12);
-  --gold-glow:   rgba(111,168,107,0.25);
-  
-  --rule:        1px solid rgba(111,168,107,0.28);
-
-
-  --char-banner:  url(/characters/herb/img/header.gif)    bottom/cover   no-repeat;
-  --avatar:     url(/characters/herb/img/avi.png)         center/cover   no-repeat;
-  --avao:     url(/characters/herb/img/avao.png)         center/cover   no-repeat;  
-  --char-focal:   url(/characters/herb/img/placeholder.webp) center/contain no-repeat;
-  --char-mood1:   url(/characters/herb/img/moodimage1.webp) center/cover   no-repeat;
-  --char-mood2:   url(/characters/herb/img/moodimage2.webp) center/cover   no-repeat;
-  --char-mood3:   url(/characters/herb/img/moodboard.gif)   center/cover   no-repeat;
-  --char-lorebg:  url(/characters/herb/img/lorebg.webp)     center/cover   no-repeat;
-  --stamp1: url(/characters/herb/img/stamp1.png)     center/cover   no-repeat;
-  --stamp1: url(/characters/herb/img/stamp2.png)     center/cover   no-repeat;
-
-
-  --site-bg-img:  url('/characters/herb/img/lorebg.webp');
-}
-</style>
-
-<body>
+<body style="visibility:hidden">
 
 <div class="clouds">
   <div class="clouds-1"></div>
@@ -88,765 +30,738 @@
 
 <transparent-navbar class="fade-block visible"></transparent-navbar>
 
-
-
-<!-- ══════════════════════════════════════════════════════
-   MAIN SHELL — everything below the hero
-════════════════════════════════════════════════════════ -->
 <div class="outer">
-  
-
-  
 <div class="all-content">
 
-<!-- ══════════════════════════════════════════════════════
-   FULL-BLEED HERO — lives OUTSIDE .all-content so it can
-   stretch edge-to-edge regardless of the outer max-width
-════════════════════════════════════════════════════════ -->
-<div class="cs-hero fade-block">
-
-  <div class="cs-hero-bg"></div>
-  <div class="cs-hero-veil"></div>
-  <div class="cs-hero-texture"></div>
-
-  <div class="cs-stamp">Archive Record<br><span>Field Dossier — Confidential</span></div>
-
-  <div class="cs-hero-inner outer">
-
-    <!-- Avatar -->
-  <div class="avatar-chibi"></div>
+  <!-- HERO ──────────────────────────────────────────────────────── -->
+  <div class="cs-hero fade-block" id="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-veil"></div>
+    <div class="cs-hero-texture"></div>
 
 
-    <!-- Name block -->
-    <div class="cs-nameblock">
-      <div class="cs-eyebrow">Solstitheo Archives  ◆  Field Dossier</div>
-      <h1 class="cs-name">Herb</h1>
-      <div class="cs-fullname">Herb Passerine</div>
-      <div class="cs-rule-wrap">
-        <div class="cs-rule-line"></div>
-        <span class="cs-rule-gem">✦</span>
-        <div class="cs-rule-line cs-rule-line--r"></div>
+    <div class="cs-hero-inner outer">
+      <div class="avatar-chibi"></div>
+      <div class="cs-nameblock">
+        <h1 class="cs-name"     id="hero-name"></h1>
+        <div class="cs-fullname" id="hero-fullname"></div>
+        <div class="cs-rule-wrap">
+          <span class="cs-rule-gem">✦</span>
+        </div>
+        <blockquote class="cs-hero-quote" id="hero-quote"></blockquote>
       </div>
-      <div class="cs-tags">
-        <span class="cs-tag cs-tag--p">Woodsworn</span>
-        <span class="cs-tag cs-tag--s">Bard</span>
-        <span class="cs-tag cs-tag--t">College of Spirits</span>
-        <span class="cs-tag cs-tag--d">Main Party</span>
-      </div>
-      <blockquote class="cs-hero-quote">"Knock on Wood"</blockquote>
+      <div class="cs-hero-wm"   id="hero-wm" aria-hidden="true"></div>
     </div>
 
-    <div class="cs-hero-wm" aria-hidden="true">Herb</div>
+    <div class="pokemon-team" id="pokemon-team"></div>
 
-  </div><!-- end hero-inner -->
+    <div class="cs-hero-strip">
+      <div class="outer cs-hero-strip-inner">
+        <a href="/characters/index.html" class="cs-nav-link">
+          <i class="fa-solid fa-arrow-left-long"></i> Character Roster
+        </a>
 
-<div class="pokemon-team">
-                <img src="/assets/img/pokemon/venusaur.png">
-                <img src="/assets/img/pokemon/rotom-mow.png">
-                <img src="/assets/img/pokemon/rillaboom.png">
-                <img src="/assets/img/pokemon/butterfree.png">
-                <img src="/assets/img/pokemon/decidueye.png">
-                <img src="/assets/img/pokemon/flapple.png">
-            </div>
-
-
-  <!-- Bottom strip -->
-  <div class="cs-hero-strip">
-
-    <div class="outer cs-hero-strip-inner">
-      <a href="/characters/index.html" class="cs-nav-link">
-        <i class="fa-solid fa-arrow-left-long"></i> Character Roster
-      </a>
-      <div class="cs-hero-strip-meta">
-        <span>Immortal City of Edelith</span>
-        <span class="cs-dot">◆</span>
-        <span>Campaign Character</span>
-        <span class="cs-dot">◆</span>
-        <span>Player Character</span>
+        <a id="hero-playlist" class="cs-nav-link cs-nav-link--playlist" target="_blank">
+          <i class="fa-solid fa-music"></i> Playlist
+        </a>
       </div>
-      <a href="https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh" class="cs-nav-link cs-nav-link--playlist" target="_blank">
-        <i class="fa-solid fa-music"></i> Playlist
-      </a>
     </div>
   </div>
-</div>
-<!-- end cs-hero -->
+  <!-- end hero -->
 
-  <!-- PLAYLIST -->
   <playlist-block></playlist-block>
-<div class="paddington fade-block">
 
-  <!-- ═══ TAB NAVIGATION ════════════════════════════════ -->
-  <div class="cs-tabs fade-block" id="csTabs">
-    
-        <div class="stamps">
-              <img style="width: 80px;" src="img/stamp1.png">
-           </div>
-    
-    <button class="cs-tab cs-tab--active" data-tab="Overview">
-      <i class="fa-solid fa-scroll fa-xs"></i><span>Overview</span>
-    </button>
-    <button class="cs-tab" data-tab="Design">
-      <i class="fa-solid fa-palette fa-xs"></i><span>Design</span>
-    </button>
-    <button class="cs-tab" data-tab="Lore">
-      <i class="fa-solid fa-book-bookmark fa-xs"></i><span>Lore</span>
-    </button>
-    <button class="cs-tab" data-tab="Relationships">
-      <i class="fa-solid fa-users fa-xs"></i><span>Relationships</span>
-    </button>
-    <div class="cs-tab-ink" id="tabInk"></div>
-    
-            <div class="stamps">
-              <img style="width: 80px;" src="img/stamp2.png">
-           </div>
-    
-  </div>
+  <div class="paddington fade-block">
 
+    <!-- TABS ────────────────────────────────────────────────────── -->
+    <div class="cs-tabs fade-block" id="csTabs">
+      <div class="stamps"><img style="width:80px" id="stamp1-img"></div>
+      <button class="cs-tab cs-tab--active" data-tab="Overview">
+        <i class="fa-solid fa-scroll fa-xs"></i><span>Overview</span>
+      </button>
+      <button class="cs-tab" data-tab="Design">
+        <i class="fa-solid fa-palette fa-xs"></i><span>Design</span>
+      </button>
+      <button class="cs-tab" data-tab="Lore">
+        <i class="fa-solid fa-book-bookmark fa-xs"></i><span>Lore</span>
+      </button>
+      <button class="cs-tab" data-tab="Relationships">
+        <i class="fa-solid fa-users fa-xs"></i><span>Relationships</span>
+      </button>
+      <div class="cs-tab-ink" id="tabInk"></div>
+      <div class="stamps"><img style="width:80px" id="stamp2-img"></div>
+    </div>
 
-  <!-- ═══════════════════════════════════════════════════
-     TAB: OVERVIEW
-  ════════════════════════════════════════════════════ -->
-  <div id="tab-Overview" class="cs-panel cs-panel--active fade-block">
-    <div class="overview-grid">
+    <!-- ══════════════════════════════════════════
+       TAB: OVERVIEW
+    ══════════════════════════════════════════ -->
+    <div id="tab-Overview" class="cs-panel cs-panel--active fade-block">
+      <div class="overview-grid">
 
-      <!-- ── LEFT ── -->
-      <div class="ov-left">
+        <div class="ov-left">
 
-        <!-- Moodboard -->
-        <div class="cs-moodboard lore-box lore-box--gold fade-block">
-          <div class="mood-header">
+          <!-- Moodboard -->
+          <div class="cs-moodboard lore-box lore-box--gold fade-block">
+            <div class="mood-header"></div>
+            <div class="mood-frames">
+              <div class="mood-f mood-f--1"></div>
+              <div class="mood-f mood-f--2"></div>
+              <div class="mood-f mood-f--3"></div>
+            </div>
           </div>
-          <div class="mood-frames">
-            <div class="mood-f mood-f--1"></div>
-            <div class="mood-f mood-f--2"></div>
-            <div class="mood-f mood-f--3"></div>
-          </div>
-        </div>
 
-        <!-- Summary -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
+          <!-- Summary -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">S</span>ummary</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <p class="cs-body" id="ov-summary"></p>
+          </div>
+
+          <!-- Personality -->
+          <div class="split-personality">
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">P</span>ersonality</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <p class="cs-body" id="ov-personality"></p>
+          </div>
+
+          <!-- Trivia -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">T</span>rivia</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <ol class="cs-trivia" id="ov-trivia"></ol>
+          </div>
+      </div>
+
+          <!-- Likes / Dislikes -->
+          <div class="ov-affinity-row fade-block">
+            <div class="cs-affinity lore-box lore-box--gold">
+              <div class="cs-affinity-head cs-affinity-head--likes">
+                <i class="fa-solid fa-heart"></i>
+                <h2><span class="cs-drop cs-drop--p">L</span>ikes</h2>
+              </div>
+              <div class="cs-affinity-rule"></div>
+              <ul class="cs-affinity-list" id="ov-likes"></ul>
+              <div class="cs-affinity-ghost"><i class="fa-solid fa-heart"></i></div>
+            </div>
+            
+                      <!-- Quote -->
+                      <div class="two-rows">
+          <div class="ov-affinity-facts cs-quote lore-box lore-box--gold fade-block">
+            <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="cs-quote-text" id="ov-side-quote"></p>
+            <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+          
+          <!-- Little mood board -->
+
+            <div class="cs-moodboard--single lore-box lore-box--gold fade-block">
+            <div class="mood-frames">
+              <div class="mood-f--4"></div>
+            </div>
+          </div>
+                               </div>
+          
+            <div class="cs-affinity lore-box lore-box--gold">
+              <div class="cs-affinity-head cs-affinity-head--dislikes">
+                <i class="fa-solid fa-heart-crack"></i>
+                <h2><span class="cs-drop cs-drop--t">D</span>islikes</h2>
+              </div>
+              <div class="cs-affinity-rule"></div>
+              <ul class="cs-affinity-list" id="ov-dislikes"></ul>
+              <div class="cs-affinity-ghost"><i class="fa-solid fa-heart-crack"></i></div>
+            </div>
+          </div>
+
+   
+
+
+
+
+
+        </div><!-- end ov-left -->
+
+        <div class="ov-right">
+
+          <!-- Focal image -->
+          <div class="cs-focal lore-box lore-box--gold fade-block">
+            <div class="cs-focal-img"></div>
+          </div>
+
+          <!-- Dossier -->
+          <div class="cs-dossier lore-box lore-box--gold fade-block">
+            <div class="cs-dossier-header">
+              <div class="cs-dossier-rule"></div>
+            </div>
+            <div class="cs-dossier-items" id="ov-dossier"></div>
+          </div>
+
+
+
+          <!-- Chibi -->
+          <div class="cs-chibi fade-block">
+            <img id="chibi-img" alt="chibi">
+          </div>
+
+        </div><!-- end ov-right -->
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+       TAB: DESIGN
+    ══════════════════════════════════════════ -->
+    <div id="tab-Design" class="cs-panel fade-block">
+      <div class="design-grid">
+
+        <div class="cs-block cs-block--refsheet lore-box lore-box--gold fade-block">
           <div class="cs-block-head">
             <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">S</span>ummary</h2>
+            <h2 class="cs-block-title">Reference Sheet</h2>
             <div class="cs-block-line"></div>
           </div>
-          <p class="cs-body">
-            Herb is a Warforged, College of Masks Bard from The Great Forest. Herb was found by a Deaf bard, who listened to her music by feeling the vibrations of her instruments through them and the ground. She fixed a broken and unresponsive Herb who had multiple broken masks alongside him beyond repair. She taught him how to play music even though she was deaf to it, and how to carve masks to replace broken ones. After her death of old age, Herb would forget her as he would forget everything, but he kept mementos of her and everything else he cares about never truly to forget. His goal is to create a song neither he nor the world will ever forget.
-          </p>
-        </div>
-
-        <!-- Personality -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">P</span>ersonality</h2>
-            <div class="cs-block-line"></div>
-          </div>
-          <p class="cs-body">
-            Herb is a curious, sentimental, spiteful and painfully oblivious, obsessively clinging to fleeting moments and trinkets in a world he can barely hold onto. Though he forgets names, faces, and places, he never forgets how things made him feel — and that longing drives everything he does.
-          </p>
-        </div>
-
-        <!-- Likes / Dislikes -->
-        <div class="ov-affinity-row fade-block">
-          <div class="cs-affinity lore-box lore-box--gold">
-            <div class="cs-affinity-head cs-affinity-head--likes">
-              <i class="fa-solid fa-heart"></i>
-              <h2><span class="cs-drop cs-drop--p">L</span>ikes</h2>
-            </div>
-            <div class="cs-affinity-rule"></div>
-            <ul class="cs-affinity-list">
-              <li>Peggle</li>
-              <li>Blobert</li>
-              <li>Laura</li>
-              <li>Blovert</li>
-            </ul>
-            <div class="cs-affinity-ghost"><i class="fa-solid fa-heart"></i></div>
-          </div>
-          <div class="cs-affinity lore-box lore-box--gold">
-            <div class="cs-affinity-head cs-affinity-head--dislikes">
-              <i class="fa-solid fa-heart-crack"></i>
-              <h2><span class="cs-drop cs-drop--t">D</span>islikes</h2>
-            </div>
-            <div class="cs-affinity-rule"></div>
-            <ul class="cs-affinity-list">
-              <li>Intrusion of personal space</li>
-              <li>Desert</li>
-              <li>Wood chippers</li>
-              <li>Blueberries</li>
-            </ul>
-            <div class="cs-affinity-ghost"><i class="fa-solid fa-heart-crack"></i></div>
+          <div class="cs-ref-img-wrap">
+            <a id="refsheet-link" data-lightbox="reference-image">
+              <img id="refsheet-img" class="cs-ref-img">
+              <div class="cs-ref-overlay">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                <span>View Full Sheet</span>
+              </div>
+            </a>
           </div>
         </div>
 
-        <!-- Trivia -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">T</span>rivia</h2>
-            <div class="cs-block-line"></div>
+        <div class="design-right">
+
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title">Physical Build</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <div class="cs-basics" id="design-build"></div>
           </div>
-          <ol class="cs-trivia">
-            <li>Herb's race is exclusive to Arvegum</li>
-            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
-            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
-            <li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>
-          </ol>
-        </div>
 
-
-      </div><!-- end ov-left -->
-
-      <!-- ── RIGHT ── -->
-      <div class="ov-right">
-
-        <!-- Focal image -->
-        <div class="cs-focal lore-box lore-box--gold fade-block">
-          <div class="cs-focal-img"></div>
-        </div>
-
-        <!-- Dossier card -->
-        <div class="cs-dossier lore-box lore-box--gold fade-block">
-          <div class="cs-dossier-header">
-            <span class="cs-dossier-eyebrow">Field Dossier</span>
-            <div class="cs-dossier-rule"></div>
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title">Colour Palette</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <div class="cs-palette" id="design-palette"></div>
           </div>
-          <div class="cs-dossier-items">
-            <div class="cs-di">
-              <span class="cs-di-label">Full Name</span>
-              <span class="cs-di-val">Herb Passerine</span>
+
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">D</span>esign Notes</h2>
+              <div class="cs-block-line"></div>
             </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Also Known As</span>
-              <span class="cs-di-val">Herbert · Avao</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Gender</span>
-              <span class="cs-di-val">Male (He/Him)</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Age</span>
-              <span class="cs-di-val cs-di-val--unk">Unknown</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Race</span>
-              <span class="cs-di-val">Woodsworn</span>
-            </div>
-            <div class="cs-di-divider"></div>
-            <div class="cs-di">
-              <span class="cs-di-label">Class</span>
-              <span class="cs-di-val">Bard</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Subclass</span>
-              <span class="cs-di-val">College of Spirits</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Occupation</span>
-              <span class="cs-di-val cs-di-val--unk">Unemployed</span>
-            </div>
+            <ul class="cs-notes" id="design-notes"></ul>
           </div>
+
         </div>
+      </div>
+    </div>
 
-        <!-- Quote -->
-        <div class="cs-quote lore-box lore-box--gold fade-block">
-          <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
-          <p class="cs-quote-text">Knock on Wood</p>
-          <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+    <!-- ══════════════════════════════════════════
+       TAB: LORE
+    ══════════════════════════════════════════ -->
+    <div id="tab-Lore" class="cs-panel fade-block">
+      <div class="lore-grid">
+
+        <div class="lore-main">
+
+          <!-- Biography -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">B</span>iography</h2>
+              <div class="cs-block-line"></div>
+              <span class="cs-block-meta">Archival Record</span>
+            </div>
+            <div class="cs-lore-body" id="lore-bio"></div>
+          </div>
+
+          <!-- Session Log -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">S</span>ession Log</h2>
+              <div class="cs-block-line"></div>
+              <span class="cs-block-meta">Activity</span>
+            </div>
+            <div class="cs-session-list" id="lore-sessions"></div>
+          </div>
+
+          <!-- Related Stories -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">R</span>elated Stories</h2>
+              <div class="cs-block-line"></div>
+              <span class="cs-block-meta">More Content</span>
+            </div>
+            <div class="cs-stories-grid" id="lore-stories"></div>
+          </div>
+
+        </div><!-- end lore-main -->
+
+        <div class="lore-aside">
+
+          <!-- Origin -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title">Origin</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <div class="cs-dossier-items" id="lore-origin"></div>
+          </div>
+
+          <!-- Lore quote -->
+          <div class="cs-quote lore-box lore-box--gold fade-block">
+            <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="cs-quote-text" id="lore-quote"></p>
+            <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+
         </div>
+      </div>
+    </div>
 
-        <!-- Chibi -->
-        <div class="cs-chibi fade-block">
-          <img src="/characters/herb/img/chibi.png" alt="Herb chibi">
-        </div>
-
-
-      </div><!-- end ov-right -->
-
-    </div><!-- end overview-grid -->
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════
-     TAB: DESIGN
-  ════════════════════════════════════════════════════ -->
-  <div id="tab-Design" class="cs-panel fade-block">
-    <div class="design-grid">
-
-      <div class="cs-block cs-block--refsheet lore-box lore-box--gold fade-block">
+    <!-- ══════════════════════════════════════════
+       TAB: RELATIONSHIPS
+    ══════════════════════════════════════════ -->
+    <div id="tab-Relationships" class="cs-panel fade-block">
+      <div class="cs-block lore-box lore-box--gold fade-block" style="margin-bottom:20px">
         <div class="cs-block-head">
           <span class="cs-glyph">◈</span>
-          <h2 class="cs-block-title">Reference Sheet</h2>
+          <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">C</span>onnections</h2>
           <div class="cs-block-line"></div>
+          <span class="cs-block-meta">Cross-Referenced</span>
         </div>
-        <div class="cs-ref-img-wrap">
-          <a href="img/placeholder_big.webp" data-lightbox="reference-image">
-            <img src="img/placeholder.webp" alt="Herb reference sheet" class="cs-ref-img">
-            <div class="cs-ref-overlay">
-              <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-              <span>View Full Sheet</span>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div class="design-right">
-
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title">Physical Build</h2>
-            <div class="cs-block-line"></div>
-          </div>
-          <div class="cs-basics">
-            <div class="cs-basic-item">
-              <span class="cs-basic-label">Height</span>
-              <span class="cs-basic-val">4'7" / 183cm</span>
-            </div>
-            <div class="cs-basic-item">
-              <span class="cs-basic-label">Build</span>
-              <span class="cs-basic-val">Slim</span>
-            </div>
-            <div class="cs-basic-item">
-              <span class="cs-basic-label">Demeanor</span>
-              <span class="cs-basic-val">Laid-back</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title">Colour Palette</h2>
-            <div class="cs-block-line"></div>
-          </div>
-          <div class="cs-palette">
-            <div class="cs-pal-row">
-              <span class="cs-pal-label">Eyes</span>
-              <div class="cs-swatches">
-                <div class="cs-swatch" style="--sw:#2E2E2E;">
-                  <div class="cs-swatch-chip"></div>
-                  <span class="cs-swatch-hex">#2E2E2E</span>
-                </div>
-              </div>
-            </div>
-            <div class="cs-pal-row">
-              <span class="cs-pal-label">Body</span>
-              <div class="cs-swatches">
-                <div class="cs-swatch" style="--sw:#bda78c;">
-                  <div class="cs-swatch-chip"></div>
-                  <span class="cs-swatch-hex">#bda78c</span>
-                </div>
-              </div>
-            </div>
-            <div class="cs-pal-row">
-              <span class="cs-pal-label">Other</span>
-              <div class="cs-swatches">
-                <div class="cs-swatch" style="--sw:#9e996e;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#9e996e</span></div>
-                <div class="cs-swatch" style="--sw:#665754;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#665754</span></div>
-                <div class="cs-swatch" style="--sw:#444d40;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#444d40</span></div>
-                <div class="cs-swatch" style="--sw:#9f6a4b;"><div class="cs-swatch-chip"></div><span class="cs-swatch-hex">#9f6a4b</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">D</span>esign Notes</h2>
-            <div class="cs-block-line"></div>
-          </div>
-          <ul class="cs-notes">
-            <li>Herb was made because the PC listened to "Everywhere at the end of time" and thought playing a character that can't remember would be terrifying to portray.</li>
-            <li>Herb has a real face underneath his mask, but all Woodsworn will never show it.</li>
-            <li>He loves to collect feathers and has them around his design.</li>
-          </ul>
-        </div>
-
+        <div class="cs-rel-grid" id="rel-grid"></div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════════════
-     TAB: LORE
-  ════════════════════════════════════════════════════ -->
-  <div id="tab-Lore" class="cs-panel fade-block">
-    <div class="lore-grid">
 
-      <!-- ── LEFT COLUMN ── -->
-      <div class="lore-main">
 
-        <!-- Biography -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">B</span>iography</h2>
-            <div class="cs-block-line"></div>
-            <span class="cs-block-meta">Archival Record</span>
-          </div>
-          <div class="cs-lore-body">
-            <p class="cs-body">
-              Herb is a Woodsworn — a living construct of bark, root, and carved wood — whose origins stretch back further than even he can recall. Found unresponsive in the depths of The Great Forest, he was discovered by a travelling bard who was Deaf from birth. She heard nothing of the world but felt everything in it: the resonance of a struck drum through the soil, the hum of a plucked string through timber and fingertip.
-            </p>
-            <p class="cs-body">
-              She repaired him over many seasons, replacing his shattered masks with new ones she carved herself, teaching him the shapes of music through vibration and touch. Though she never heard a single note he played, she gave him more than craft — she gave him purpose. They travelled together for what Herb now suspects were decades, though the exact shape of those years has long since blurred into feeling.
-            </p>
-            <p class="cs-body">
-              When she died of old age, Herb forgot her. He forgot her name, her face, the sound of her laughter. But he remembered the weight of her hands guiding his, the warmth of sitting beside a fire while she hummed songs she'd never hear. He kept everything she gave him — every carved token, every tool, every feather pressed between old pages — not knowing why he treasured them so fiercely.
-            </p>
-            <p class="cs-body">
-              This is how Herb moves through the world now: accumulating mementos of people and places he cannot keep, haunted by the echo of feelings that have outlasted their origins. His singular ambition is to compose a song so enduring that neither he nor the world will ever be able to forget it. A monument to everything he has lost and loved.
-            </p>
-          </div>
-        </div>
-
-        <!-- Session Log -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">S</span>ession Log</h2>
-            <div class="cs-block-line"></div>
-            <span class="cs-block-meta">Field Record</span>
-          </div>
-          <div class="cs-session-list">
-
-            <!-- Introduction session -->
-            <div class="cs-session cs-session--intro">
-              <div class="cs-session-marker">
-                <div class="cs-session-dot cs-session-dot--intro"></div>
-                <div class="cs-session-line"></div>
-              </div>
-              <div class="cs-session-content">
-                <div class="cs-session-header">
-                  <span class="cs-session-label cs-session-label--intro">
-                    <i class="fa-solid fa-star-of-life fa-xs"></i> Introduction
-                  </span>
-                  <span class="cs-session-ep">Session 01</span>
-                  <div class="cs-session-rule"></div>
-                  <span class="cs-session-date">—</span>
-                </div>
-                <h4 class="cs-session-title">First Appearance</h4>
-                <p class="cs-session-body">
-                  Herb made his debut in Session 01 of the Immortal City of Edelith campaign. Placeholder: add the specifics of how and where he entered the story here.
-                </p>
-              </div>
-            </div>
-
-            <!-- Regular session example entries — duplicate this block for each session -->
-            <div class="cs-session">
-              <div class="cs-session-marker">
-                <div class="cs-session-dot"></div>
-                <div class="cs-session-line"></div>
-              </div>
-              <div class="cs-session-content">
-                <div class="cs-session-header">
-                  <span class="cs-session-ep">Session 02</span>
-                  <div class="cs-session-rule"></div>
-                  <span class="cs-session-date">—</span>
-                </div>
-                <h4 class="cs-session-title">Placeholder Session Title</h4>
-                <p class="cs-session-body">
-                  Summary of what occurred this session goes here. What did Herb do, learn, or lose? What moments stood out?
-                </p>
-              </div>
-            </div>
-
-            <div class="cs-session cs-session--last">
-              <div class="cs-session-marker">
-                <div class="cs-session-dot"></div>
-              </div>
-              <div class="cs-session-content">
-                <div class="cs-session-header">
-                  <span class="cs-session-ep">Session 03</span>
-                  <div class="cs-session-rule"></div>
-                  <span class="cs-session-date">—</span>
-                </div>
-                <h4 class="cs-session-title">Placeholder Session Title</h4>
-                <p class="cs-session-body">
-                  Summary of what occurred this session goes here.
-                </p>
-              </div>
-            </div>
-
-          </div><!-- end cs-session-list -->
-        </div>
-
-        <!-- Related Stories -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">R</span>elated Stories</h2>
-            <div class="cs-block-line"></div>
-            <span class="cs-block-meta">External Archive</span>
-          </div>
-          <!-- Stories grid — add more .grid-item divs freely; the flex-wrap handles layout -->
-          <div class="cs-stories-grid">
-
-            <div class="grid-item edelith" data-date="2025-6-14">
-              <a href="/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html" class="news-card-link">
-                <div class="news-card">
-                  <img src="/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp" alt="The Woodsworn" loading="lazy" width="400" height="243">
-                  <div class="news-content">
-                    <h5 class="news-author">Travels of a post-wake Edelith</h5>
-                    <h3 class="news-title">The Woodsworn</h3>
-                    <div class="news-meta">
-                      <span class="news-tag">"Damien Zerxes"</span>
-                      <span class="news-date">June 14, 2025</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Add more grid-item divs here freely -->
-
-          </div>
-        </div>
-
-      </div><!-- end lore-main -->
-
-      <!-- ── RIGHT SIDEBAR ── -->
-      <div class="lore-aside">
-
-        <!-- Origin & Location -->
-        <div class="cs-block lore-box lore-box--gold fade-block">
-          <div class="cs-block-head">
-            <span class="cs-glyph">◈</span>
-            <h2 class="cs-block-title">Origin</h2>
-            <div class="cs-block-line"></div>
-          </div>
-          <div class="cs-dossier-items">
-            <div class="cs-di">
-              <span class="cs-di-label">Birthplace</span>
-              <span class="cs-di-val">The Great Forest</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Region</span>
-              <span class="cs-di-val">Arvegum</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Current Location</span>
-              <span class="cs-di-val">Immortal City of Edelith</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Affiliation</span>
-              <span class="cs-di-val cs-di-val--unk">Unknown</span>
-            </div>
-            <div class="cs-di-divider"></div>
-            <div class="cs-di">
-              <span class="cs-di-label">First Seen</span>
-              <span class="cs-di-val">Session 01</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Campaign</span>
-              <span class="cs-di-val">Immortal City of Edelith</span>
-            </div>
-            <div class="cs-di">
-              <span class="cs-di-label">Status</span>
-              <span class="cs-di-val" style="color:var(--cp);">Active</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quote sidebar -->
-        <div class="cs-quote lore-box lore-box--gold fade-block">
-          <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
-          <p class="cs-quote-text">He never forgets how things made him feel — and that longing drives everything he does.</p>
-          <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
-        </div>
-
-      </div><!-- end lore-aside -->
-
-    </div><!-- end lore-grid -->
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════
-     TAB: RELATIONSHIPS
-  ════════════════════════════════════════════════════ -->
-  <div id="tab-Relationships" class="cs-panel fade-block">
-
-    <div class="cs-block lore-box lore-box--gold fade-block" style="margin-bottom: 20px;">
+    <!-- GALLERY — outside tabs ─────────────────────────────────── -->
+    <div class="cs-gallery lore-box lore-box--gold fade-block">
       <div class="cs-block-head">
         <span class="cs-glyph">◈</span>
-        <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">C</span>onnections</h2>
+        <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">F</span>eatured Gallery</h2>
         <div class="cs-block-line"></div>
-        <span class="cs-block-meta">Cross-Referenced</span>
+        <span class="cs-block-meta">Images and Art</span>
       </div>
-      <!-- Relationship cards grid — add more .rel-card divs freely -->
-      <div class="cs-rel-grid">
-
-<!-- Peggle Krastov -->
-<div class="char">
-      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
-        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
-        <div class="card-info">
-          <div class="card-info-section">
-            <div class="rel-card-meter-wrap">
-              <div class="rel-card-meter-label">Closeness</div>
-              <div class="rel-card-meter">
-                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
-              </div>
-              <div class="rel-card-meter-dots">
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--half"></span>
-                <span class="rmd"></span>
-                <span class="rmd"></span>
-              </div>
-            </div>
-              <div class="card-info__faction">
-               <div class="card-info__name">Tau Zervas</div>
-              <div class="card-info__region">Changeling</div>
-            </div>
-          </div>
-          <div class="see-more">
-            Profile
-            <div class="arrow">
-    <svg viewBox="0 0 162 70.28">
-      <circle cx="31.57" cy="35.21" r="11.57"></circle>
-      <g>
-        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
-        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
-      </g>
-    </svg></div>
-          </div>
-        </div>
-      </div></div>
-
-<!-- Peggle Krastov -->
-<div class="char">
-      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
-        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
-        <div class="card-info">
-          <div class="card-info-section">
-            <div class="rel-card-meter-wrap">
-              <div class="rel-card-meter-label">Closeness</div>
-              <div class="rel-card-meter">
-                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
-              </div>
-              <div class="rel-card-meter-dots">
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--half"></span>
-                <span class="rmd"></span>
-                <span class="rmd"></span>
-              </div>
-            </div>
-              <div class="card-info__faction">
-               <div class="card-info__name">Tau Zervas</div>
-              <div class="card-info__region">Changeling</div>
-            </div>
-          </div>
-          <div class="see-more">
-            Profile
-            <div class="arrow">
-    <svg viewBox="0 0 162 70.28">
-      <circle cx="31.57" cy="35.21" r="11.57"></circle>
-      <g>
-        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
-        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
-      </g>
-    </svg></div>
-          </div>
-        </div>
-      </div></div>
-
-<!-- Peggle Krastov -->
-<div class="char">
-      <div class="card" data-bg="https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg">
-        <div class="bg" style="background-image:url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg')"></div>
-        <div class="card-info">
-          <div class="card-info-section">
-            <div class="rel-card-meter-wrap">
-              <div class="rel-card-meter-label">Closeness</div>
-              <div class="rel-card-meter">
-                <div class="rel-card-meter-fill" style="--rel-fill: 45%;"></div>
-              </div>
-              <div class="rel-card-meter-dots">
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--on"></span>
-                <span class="rmd rmd--half"></span>
-                <span class="rmd"></span>
-                <span class="rmd"></span>
-              </div>
-            </div>
-              <div class="card-info__faction">
-               <div class="card-info__name">Tau Zervas</div>
-              <div class="card-info__region">Changeling</div>
-            </div>
-          </div>
-          <div class="see-more">
-            Profile
-            <div class="arrow">
-    <svg viewBox="0 0 162 70.28">
-      <circle cx="31.57" cy="35.21" r="11.57"></circle>
-      <g>
-        <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
-        <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
-      </g>
-    </svg></div>
-          </div>
-        </div>
-      </div></div>
-
-      </div>
+      <div class="cs-gallery-grid" id="gallery-grid"></div>
+      <p class="cs-gallery-updated">
+        <i class="fa-regular fa-clock"></i>
+        Page last updated: <span id="csUpdateTime"></span>
+      </p>
     </div>
 
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════
-     GALLERY  — persistent, outside tabs
-  ════════════════════════════════════════════════════ -->
-  <div class="cs-gallery lore-box lore-box--gold fade-block">
-    <div class="cs-block-head">
-      <span class="cs-glyph">◈</span>
-      <h2 class="cs-block-title"><span class="cs-drop cs-drop--p">F</span>eatured Gallery</h2>
-      <div class="cs-block-line"></div>
-      <span class="cs-block-meta">Visual Archive</span>
-    </div>
-    <div class="cs-gallery-grid">
-      <div class="cs-gal-item">
-        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-          <img src="img/placeholder.webp" alt="Gallery">
-          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
-        </a>
-      </div>
-      <div class="cs-gal-item">
-        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-          <img src="img/placeholder.webp" alt="Gallery">
-          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
-        </a>
-      </div>
-      <div class="cs-gal-item">
-        <a href="img/placeholder_big.webp" data-lightbox="featured" data-title="Art by me!">
-          <img src="img/placeholder.webp" alt="Gallery">
-          <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
-        </a>
-      </div>
-    </div>
-    <p class="cs-gallery-updated">
-      <i class="fa-regular fa-clock"></i>
-      Page last updated: <span id="csUpdateTime"></span>
-    </p>
-  </div>
-</div>
+  </div><!-- end paddington -->
 </div><!-- end all-content -->
 </div><!-- end outer -->
 
 <footer-block class="fade-block"></footer-block>
 
-<!-- ═══════════════════════════════════════════════════
-   SCRIPTS
-════════════════════════════════════════════════════ -->
-<script>
-  document.getElementById("csUpdateTime").textContent = document.lastModified;
 
+<style>
+
+</style>
+
+<!-- ════════════════════════════════════════════════════════
+   JSON TEMPLATE 
+════════════════════════════════════════════════════════ -->
+<script>
+(async () => {
+
+  const params   = new URLSearchParams(location.search);
+  const jsonFile = params.get('data') || 'character.json';
+
+  let c;
+  try {
+    const res = await fetch(jsonFile);
+    if (!res.ok) throw new Error(res.statusText);
+    c = await res.json();
+  } catch (e) {
+    document.body.innerHTML = `<p style="color:red;padding:2rem">
+      Failed to load ${jsonFile}: ${e.message}</p>`;
+    document.body.style.visibility = 'visible';
+    return;
+  }
+
+  /* ─── 2. Helpers ────────────────────────────────────────────── */
+  const el  = id => document.getElementById(id);
+  const set = (id, html) => { const n = el(id); if (n) n.innerHTML = html; };
+
+  function dosRow(label, field) {
+    if (!field) return '';
+    if (field.unknown || field.value === null) {
+      const display = field.value || 'Unknown';
+      return `<div class="cs-di">
+        <span class="cs-di-label">${label}</span>
+        <span class="cs-di-val cs-di-val--unk">${display}</span>
+      </div>`;
+    }
+    return `<div class="cs-di">
+      <span class="cs-di-label">${label}</span>
+      <span class="cs-di-val">${field.value}</span>
+    </div>`;
+  }
+
+  function dosRowStyled(label, field) {
+    if (!field) return '';
+    const color = field.colorVar ? `color:var(--${field.colorVar})` : '';
+    if (field.unknown || field.value === null) {
+      return `<div class="cs-di">
+        <span class="cs-di-label">${label}</span>
+        <span class="cs-di-val cs-di-val--unk" style="${color}">${field.value || 'Unknown'}</span>
+      </div>`;
+    }
+    return `<div class="cs-di">
+      <span class="cs-di-label">${label}</span>
+      <span class="cs-di-val" style="${color}">${field.value}</span>
+    </div>`;
+  }
+
+  function buildDots(on, half, off) {
+    let html = '';
+    for (let i = 0; i < on;   i++) html += `<span class="rmd rmd--on"></span>`;
+    for (let i = 0; i < half; i++) html += `<span class="rmd rmd--half"></span>`;
+    for (let i = 0; i < off;  i++) html += `<span class="rmd"></span>`;
+    return html;
+  }
+
+  /* ─── 3. <head> meta ────────────────────────────────────────── */
+  const m = c.meta;
+  document.title = m.pageTitle;
+  const setMeta = (prop, val, attr='content') => {
+    let tag = document.querySelector(`meta[property="${prop}"]`) ||
+              document.querySelector(`meta[name="${prop}"]`);
+    if (!tag) { tag = document.createElement('meta'); document.head.appendChild(tag); }
+    tag.setAttribute(attr === 'name' ? 'name' : 'property', prop);
+    tag.setAttribute('content', val);
+  };
+  if (m.favicon) {
+    let ico = document.querySelector('link[rel="icon"]');
+    if (!ico) { ico = document.createElement('link'); ico.rel = 'icon'; ico.type = 'image/x-icon'; document.head.prepend(ico); }
+    ico.href = m.favicon;
+  }
+  setMeta('og:url',         location.href);
+  setMeta('og:type',        'website');
+  setMeta('og:title',       m.pageTitle);
+  setMeta('og:description', m.ogDescription);
+  setMeta('og:image',       m.ogImage || '');
+  if (m.themeColor) {
+    let tc = document.querySelector('meta[name="theme-color"]');
+    if (!tc) { tc = document.createElement('meta'); tc.name = 'theme-color'; document.head.appendChild(tc); }
+    tc.content = m.themeColor;
+  }
+  if (m.glossary) {
+    let gm = document.querySelector('meta[name="glossary"]');
+    if (!gm) { gm = document.createElement('meta'); gm.name = 'glossary'; document.head.appendChild(gm); }
+    gm.content = m.glossary;
+  }
+
+  /* ─── 4. CSS custom properties ─────────────────────────────── */
+  const t = c.theme;
+  const col = t.colors;
+  const img = t.images;
+
+  const goldRgb = hexToRgb(col.gold || '#c9a84c');
+  const goldPale = goldRgb ? `rgba(${goldRgb},0.12)` : 'rgba(201,168,76,0.12)';
+  const goldGlow = goldRgb ? `rgba(${goldRgb},0.25)` : 'rgba(201,168,76,0.25)';
+
+  function hexToRgb(hex) {
+    const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return r ? `${parseInt(r[1],16)},${parseInt(r[2],16)},${parseInt(r[3],16)}` : null;
+  }
+
+  function cssUrl(path) { return path ? `url('${path}')` : 'none'; }
+
+  const varsCSS = `
+:root {
+  --cp:  ${col.cp  || '#c9a84c'};
+  --cs:  ${col.cs  || '#b0a070'};
+  --ct:  ${col.ct  || '#9f6a4b'};
+  --cd:  ${col.cd  || '#0f1208'};
+  --cl:  ${col.cl  || '#f5f0e4'};
+  --ink:        ${col.ink      || '#141008'};
+  --ink-mid:    ${col.inkMid   || '#1c1a0e'};
+  --ink-light:  ${col.inkLight || '#24200a'};
+  --fog:        ${col.fog      || '#d1cfc8'};
+  --fog-dim:    ${col.fogDim   || '#91877a'};
+  --frost:      ${col.frost    || '#f5f2ea'};
+  --void:       ${col.void     || '#0d0d08'};
+  --gold:       ${col.gold     || '#c9a84c'};
+  --gold-dim:   ${col.goldDim  || '#6b5520'};
+  --gold-pale:  ${goldPale};
+  --gold-glow:  ${goldGlow};
+  --rule:       1px solid rgba(${goldRgb||'201,168,76'},0.28);
+
+  --char-banner:  ${cssUrl(img.banner)}  bottom/cover  no-repeat;
+  --avatar:       ${cssUrl(img.avatar)}  center/cover  no-repeat;
+  --avao:         ${cssUrl(img.avao)}    center/cover  no-repeat;
+  --char-focal:   ${cssUrl(img.focal)}   center/contain no-repeat;
+  --char-mood1:   ${cssUrl(img.mood1)}   center/cover  no-repeat;
+  --char-mood2:   ${cssUrl(img.mood2)}   center/cover  no-repeat;
+  --char-mood3:   ${cssUrl(img.mood3)}   center/cover  no-repeat;
+  --char-mood4:   ${cssUrl(img.mood4)}   center/cover  no-repeat;
+  --char-lorebg:  ${cssUrl(img.lorebg)}  center/cover  no-repeat;
+  --site-bg-img:  ${cssUrl(img.lorebg)};
+}`;
+  el('char-vars').textContent = varsCSS;
+
+  /* ─── 5. Stamps ─────────────────────────────────────────────── */
+  if (el('stamp1-img')) el('stamp1-img').src = img.stamp1 || '';
+  if (el('stamp2-img')) el('stamp2-img').src = img.stamp2 || '';
+
+  /* ─── 6. HERO ───────────────────────────────────────────────── */
+  const h = c.hero;
+  set('hero-eyebrow', h.eyebrow || '');
+  set('hero-name',    h.name    || '');
+  set('hero-fullname',h.fullName || '');
+  set('hero-wm',      h.watermark || h.name || '');
+  set('hero-quote',   h.quote   || '');
+
+  // Tags
+  set('hero-tags', (h.tags || []).map(t =>
+    `<span class="cs-tag cs-tag--${t.type}">${t.label}</span>`
+  ).join(''));
+
+  // Strip meta
+  if (el('hero-strip-meta')) {
+    el('hero-strip-meta').innerHTML = (h.stripMeta || []).map((s, i, arr) =>
+      `<span>${s}</span>${i < arr.length - 1 ? '<span class="cs-dot">◆</span>' : ''}`
+    ).join('');
+  }
+
+  // Playlist
+  if (el('hero-playlist') && h.playlistUrl) {
+    el('hero-playlist').href = h.playlistUrl;
+  }
+
+  // Pokémon
+  if (el('pokemon-team')) {
+    el('pokemon-team').innerHTML = (h.pokemonTeam || []).map(src =>
+      `<img src="${src}">`
+    ).join('');
+  }
+
+  /* ─── 7. OVERVIEW ───────────────────────────────────────────── */
+  const ov = c.overview;
+  set('ov-summary',     ov.summary     || '');
+  set('ov-personality', ov.personality || '');
+  set('ov-side-quote',  ov.sideQuote   || '');
+
+  set('ov-likes',    (ov.likes    || []).map(l => `<li>${l}</li>`).join(''));
+  set('ov-dislikes', (ov.dislikes || []).map(d => `<li>${d}</li>`).join(''));
+
+  set('ov-trivia', (ov.trivia || []).map(t =>
+    t.redacted
+      ? `<li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>`
+      : `<li>${t.text}</li>`
+  ).join(''));
+
+  // Dossier
+  const dos = c.dossier;
+  set('ov-dossier',
+    dosRow('Full Name',    dos.fullName)    +
+    dosRow('Also Known As',dos.alsoKnownAs) +
+    dosRow('Gender',       dos.gender)      +
+    dosRow('Age',          dos.age)         +
+    dosRow('Race',         dos.race)        +
+    `<div class="cs-di-divider"></div>`     +
+    dosRow('Class',        dos.class)       +
+    dosRow('Subclass',     dos.subclass)    +
+    dosRow('Occupation',   dos.occupation)
+  );
+
+  // Chibi
+  if (el('chibi-img')) el('chibi-img').src = img.chibi || '';
+
+  /* ─── 8. DESIGN ─────────────────────────────────────────────── */
+  const ds = c.design;
+
+  if (el('refsheet-link') && ds.referenceSheet) {
+    el('refsheet-link').href = ds.referenceSheet.full;
+    if (el('refsheet-img')) {
+      el('refsheet-img').src     = ds.referenceSheet.thumbnail;
+      el('refsheet-img').alt     = ds.referenceSheet.altText || '';
+    }
+  }
+
+  if (ds.physicalBuild) {
+    const b = ds.physicalBuild;
+    set('design-build', [
+      ['Height',   b.height],
+      ['Build',    b.build],
+      ['Demeanor', b.demeanor]
+    ].map(([label, val]) => `
+      <div class="cs-basic-item">
+        <span class="cs-basic-label">${label}</span>
+        <span class="cs-basic-val">${val || '—'}</span>
+      </div>`
+    ).join(''));
+  }
+
+  if (ds.colorPalette) {
+    const p = ds.colorPalette;
+    const palRow = (label, swatches) =>
+      swatches && swatches.length ? `
+        <div class="cs-pal-row">
+          <span class="cs-pal-label">${label}</span>
+          <div class="cs-swatches">
+            ${swatches.map(s => `
+              <div class="cs-swatch" style="--sw:${s.hex}">
+                <div class="cs-swatch-chip"></div>
+                <span class="cs-swatch-hex">${s.hex}</span>
+              </div>`).join('')}
+          </div>
+        </div>` : '';
+    set('design-palette',
+      palRow('Eyes',  p.eyes)  +
+      palRow('Body',  p.body)  +
+      palRow('Other', p.other)
+    );
+  }
+
+  set('design-notes', (ds.notes || []).map(n => `<li>${n}</li>`).join(''));
+
+  /* ─── 9. LORE ───────────────────────────────────────────────── */
+  const lo = c.lore;
+  set('lore-bio', (lo.biography || []).map(p => `<p class="cs-body">${p}</p>`).join(''));
+  set('lore-quote', lo.loreQuote || '');
+
+  // Origin
+  const or = lo.origin || {};
+  set('lore-origin',
+    dosRow('Birthplace',       or.birthplace)       +
+    dosRow('Region',           or.region)           +
+    dosRow('Current Location', or.currentLocation)  +
+    dosRow('Affiliation',      or.affiliation)      +
+    `<div class="cs-di-divider"></div>`             +
+    dosRow('First Seen',       or.firstSeen)        +
+    dosRow('Campaign',         or.campaign)         +
+    dosRowStyled('Status',     or.status)
+  );
+
+  // Sessions
+  set('lore-sessions', (lo.sessions || []).map(s => {
+    const isLast  = s.isLast  ? 'cs-session--last'  : '';
+    const isIntro = s.isIntro ? 'cs-session--intro' : '';
+    const dot     = s.isIntro
+      ? `<div class="cs-session-dot cs-session-dot--intro"></div>`
+      : `<div class="cs-session-dot"></div>`;
+    const line    = s.isLast ? '' : `<div class="cs-session-line"></div>`;
+    const introLabel = s.isIntro
+      ? `<span class="cs-session-label cs-session-label--intro">
+           <i class="fa-solid fa-star-of-life fa-xs"></i> Introduction
+         </span>` : '';
+    return `
+      <div class="cs-session ${isIntro} ${isLast}">
+        <div class="cs-session-marker">${dot}${line}</div>
+        <div class="cs-session-content">
+          <div class="cs-session-header">
+            ${introLabel}
+            <span class="cs-session-ep">${s.episode}</span>
+            <div class="cs-session-rule"></div>
+            <span class="cs-session-date">${s.date || '—'}</span>
+          </div>
+          <h4 class="cs-session-title">${s.title}</h4>
+          <p class="cs-session-body">${s.body}</p>
+        </div>
+      </div>`;
+  }).join(''));
+
+  // Related Stories
+  set('lore-stories', (lo.relatedStories || []).map(s => `
+    <div class="grid-item ${s.cssClass || ''}" data-date="${s.date || ''}">
+      <a href="${s.href}" class="news-card-link">
+        <div class="news-card">
+          <img src="${s.coverImage}" alt="${s.altText || ''}" loading="lazy" width="400" height="243">
+          <div class="news-content">
+            <h5 class="news-author">${s.series}</h5>
+            <h3 class="news-title">${s.title}</h3>
+            <div class="news-meta">
+              <span class="news-tag">${s.tag}</span>
+              <span class="news-date">${s.date}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>`
+  ).join(''));
+
+  /* ─── 10. RELATIONSHIPS ──────────────────────────────────────── */
+  const arrowSVG = `<svg viewBox="0 0 162 70.28">
+    <circle cx="31.57" cy="35.21" r="11.57"></circle>
+    <g>
+      <polygon points="124.18,70.39 118.31,64.09 149.37,35.22 118.31,6.35 124.18,0.05 162,35.22"></polygon>
+      <rect x="84.61" y="29.76" width="65" height="11.06"></rect>
+    </g></svg>`;
+
+  set('rel-grid', (c.relationships || []).map(r => `
+    <div class="char">
+      <div class="card" data-bg="${r.backgroundImage}">
+        <div class="bg" style="background-image:url('${r.backgroundImage}')"></div>
+        <div class="card-info">
+          <div class="card-info-section">
+            <div class="rel-card-meter-wrap">
+              <div class="rel-card-meter-label">Closeness</div>
+              <div class="rel-card-meter">
+                <div class="rel-card-meter-fill" style="--rel-fill:${r.closeness}%"></div>
+              </div>
+              <div class="rel-card-meter-dots">
+                ${buildDots(r.dotsOn || 0, r.dotsHalf || 0, r.dotsOff || 0)}
+              </div>
+            </div>
+            <div class="card-info__faction">
+              <div class="card-info__name">${r.name}</div>
+              <div class="card-info__region">${r.race}</div>
+            </div>
+          </div>
+          <a class="see-more" href="${r.profileHref || '#'}">
+            Profile
+            <div class="arrow">${arrowSVG}</div>
+          </a>
+        </div>
+      </div>
+    </div>`
+  ).join(''));
+
+  /* ─── 11. GALLERY ───────────────────────────────────────────── */
+  set('gallery-grid', (c.gallery || []).map(g => `
+    <div class="cs-gal-item">
+      <a href="${g.full}" data-lightbox="featured" data-title="${g.caption || ''}">
+        <img src="${g.thumbnail}" alt="${g.altText || 'Gallery'}">
+        <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
+      </a>
+    </div>`
+  ).join(''));
+
+  /* ─── 12. Footer timestamp ──────────────────────────────────── */
+  if (el('csUpdateTime')) el('csUpdateTime').textContent = document.lastModified;
+
+  /* ─── 13. Tab logic ─────────────────────────────────────────── */
   const tabs   = document.querySelectorAll('.cs-tab');
   const panels = document.querySelectorAll('.cs-panel');
-  const ink    = document.getElementById('tabInk');
+  const ink    = el('tabInk');
 
   function moveInk(btn) {
+    if (!ink) return;
     ink.style.left  = btn.offsetLeft + 'px';
     ink.style.width = btn.offsetWidth + 'px';
   }
@@ -855,39 +770,41 @@
     btn.addEventListener('click', () => {
       tabs.forEach(b  => b.classList.remove('cs-tab--active'));
       panels.forEach(p => { p.classList.remove('cs-panel--active'); p.style.display = 'none'; });
-
       btn.classList.add('cs-tab--active');
-      const panel = document.getElementById('tab-' + btn.dataset.tab);
-      panel.style.display = 'block';
-      requestAnimationFrame(() => {
-        panel.classList.add('cs-panel--active');
-        panel.classList.add('visible');
-      });
+      const panel = el('tab-' + btn.dataset.tab);
+      if (panel) {
+        panel.style.display = 'block';
+        requestAnimationFrame(() => {
+          panel.classList.add('cs-panel--active');
+          panel.classList.add('visible');
+        });
+      }
       moveInk(btn);
     });
   });
 
+  /* ─── 14. Fade-in + show page ───────────────────────────────── */
+  document.body.style.visibility = 'visible';
+
   window.addEventListener('load', () => {
+    document.querySelectorAll('.fade-block').forEach((el, i) =>
+      setTimeout(() => el.classList.add('visible'), i * 70)
+    );
     const active = document.querySelector('.cs-tab--active');
     if (active) {
       moveInk(active);
-      const first = document.getElementById('tab-' + active.dataset.tab);
+      const first = el('tab-' + active.dataset.tab);
       if (first) { first.style.display = 'block'; first.classList.add('visible'); }
     }
   });
+
   window.addEventListener('resize', () => {
     const a = document.querySelector('.cs-tab--active');
     if (a) moveInk(a);
   });
+
+})();
 </script>
-
-<!-- ═══════════════════════════════════════════════════
-   CHARACTER SHEET STYLES
-════════════════════════════════════════════════════ -->
-<style>
-
-
-</style>
 
 </body>
 </html>
