@@ -1,127 +1,108 @@
 {
   "meta": {
     "pageTitle": "Blobert • Solstitheo",
-    "ogDescription": "Colorblind and stupid  Blobert Goopington is a Plasmoid, Artillerist Artificer, now free of being inside a tower, who wants to see the places and things the books he read talked about.",
+    "ogDescription": "A childish and curious Plasmoid Slime bestowed an unknown Patron, seeking the simple mirth of life.",
     "ogImage": "img/avi.png",
-    "themeColor": "#f2c166",
+    "themeColor": "#bfd4d8",
     "favicon": "/assets/img/ico/white.ico",
     "glossary": "off"
   },
 
-  "theme": {
-    "colors": {
-      "cp":         "#5f7d4d",
-      "cs":         "#8ea87a",
-      "ct":         "#6b4e3d",
-      "cd":         "#0f1a16",
-      "cl":         "#e8f0e4",
-      "ink":        "#141a17",
-      "inkMid":     "#1c2622",
-      "inkLight":   "#24312b",
-      "fog":        "#c7d1c8",
-      "fogDim":     "#7f9187",
-      "frost":      "#eef5ee",
-      "void":       "#0d1411",
-      "gold":       "#6fa86b",
-      "goldDim":    "#3e6b44"
+    "theme": {
+      "colors": {
+        "cp":         "#2f6f8a",
+        "cs":         "#6cb7c9",
+        "ct":         "#3f7266",
+        "cd":         "#09171c",
+        "cl":         "#e4f2f4",
+        "ink":        "#10181b",
+        "inkMid":     "#17252b",
+        "inkLight":   "#20343d",
+        "fog":        "#bfd4d8",
+        "fogDim":     "#738e95",
+        "frost":      "#edf7f8",
+        "void":       "#071217",
+        "gold":       "#58c4b0",
+        "goldDim":    "#2c6d66"
     },
     "images": {
-      "banner":  "/characters/herb/img/header.gif",
-      "avatar":  "/characters/herb/img/avi.png",
-      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/forget-me-not.png",
-      "mood1":   "/characters/herb/img/moodimage1.webp",
-      "mood2":   "/characters/herb/img/moodimage2.webp",
-      "mood3":   "/characters/herb/img/moodboard.gif",
-      "mood4": "/characters/herb/img/moodboard2.gif",
-      "lorebg":  "/characters/herb/img/lorebg.webp",
-      "stamp1":  "/characters/herb/img/stamp1.png",
-      "stamp2":  "/characters/herb/img/stamp2.png",
-      "chibi":   "/characters/herb/img/chibi.png"
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/banner.gif",
+      "avatar":  "/characters/blobert/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/Jarbert.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/sea.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/moodboard2.jpg",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/moodboard3.gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/moodboard4",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/moodboard/background.jpg",
+      "stamp1":  "/characters/blobert/img/stamp1.png",
+      "stamp2":  "/characters/blobert/img/stamp2.png",
+      "chibi":   "/characters/blobert/img/chibi.webp"
     }
   },
 
   "hero": {
     "eyebrow":    "Solstitheo Archives",
-    "name":       "Herb",
-    "fullName":   "Herb Passerine",
-    "watermark":  "Herb",
-    "quote":      "Knock on Wood",
-    "tags": [
-      { "label": "Woodsworn",        "type": "p" },
-      { "label": "Bard",             "type": "s" },
-      { "label": "College of Spirits","type": "t" },
-      { "label": "Main Party",       "type": "d" }
-    ],
-    "stripMeta": [
-      "Immortal City of Edelith",
-      "Campaign Character",
-      "Player Character"
-    ],
-    "playlistUrl": "https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh",
+    "name":       "Blobert",
+    "fullName":   "Blobert Goopington",
+    "watermark":  "Player",
+    "quote":      "I died for your sins, commit more.",
+    "playlistUrl": "https://youtu.be/MeRIAew8eXc?si=bRjqA_UN0usYhker",
     "pokemonTeam": [
-      "/assets/img/pokemon/venusaur.png",
-      "/assets/img/pokemon/rotom-mow.png",
-      "/assets/img/pokemon/rillaboom.png",
-      "/assets/img/pokemon/butterfree.png",
-      "/assets/img/pokemon/decidueye.png",
-      "/assets/img/pokemon/flapple.png"
+      "/assets/img/pokemon/reuniclus.png",
+      "/assets/img/pokemon/nihilego.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/wobbuffet.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/quagsire.png",
+      "/assets/img/pokemon/tangrowth.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/dewgong.png"
     ]
   },
 
   "overview": {
-    "summary": "Herb is a Woodsworn created from Laura in the now defunct nation of Saoglas outside the Immortal City of Edelith, and the only one seemingly immune to the corrosion plaguing his kind. He has horrible memory and is adorned with masks able to cast various affects to whoever wears them. He is on a mission to find a way to bring back a beloved figure dear to his mother, and one he shares a body with. The mask he carries is too corroded to be fixed by any normal means. He found Blobert Goopington on his way to the shroud taking the form as a chicken as Herb was feeding them.",
-    "personality": "Herb is a curious, sentimental, and clueless idiot, who has moments of genuine clarity and others of idiocacy, he is naturally good hearted and is very impulsive and driven to act in the moment than care about fore or hindsight.",
-    "likes":    ["Birds and collecting bird feathers", "Nature", "Adores woodcarving in his free time", "writing about his day in a journal"],
-    "dislikes": ["Intrusion of personal space", "Desert", "Wood chippers", "Blueberries"],
+    "summary": "Blobert Goopington is a Plasmoid who was artificially created by Dr. Nikolas. They are an Artificer prior to their first death, where they ate an Edelith Pod. they returned by a patron named Liorah who deems humanity worthless and wants to find a reason of which they deserve any inherent value, through Blobert, who is inherently childish and curious about everything, he seems to be the perfect window to humans.",
+    "personality": "Blobert is clueless and unintelligent at times but shows genuine care, and naive recklessness towards things he cares about. He is impulsive but can be very understanding at times. He is book smart by information hoarding rather than genuine understanding of the materials.",
+    "likes":    ["Trying new things", "Edelith pods", "his friends", "Blobbing"],
+    "dislikes": ["Alchemy jugs"],
     "trivia": [
-      { "text": "Herb's race is mostly concentrated to Arvegum", "redacted": false },
-      { "text": "He is valued and chosen by the mysterious figure, Rotcio. Who betrayed his entire race and is a vessel of the Corrosion.", "redacted": false },
+      { "text": "Blobert does not posess Luminessence", "redacted": false },
+      { "text": "He seems to be the only character that has been resurrected.", "redacted": false },
       { "redacted": true },
       { "redacted": true }
     ],
-    "sideQuote": "Knock on Wood"
+    "sideQuote": "My plan was to drown herb to scare the kids."
   },
 
   "dossier": {
-    "fullName":    { "value": "Herb Passerine" },
-    "alsoKnownAs": { "value": "Herbert · Avao" },
-    "gender":      { "value": "Male (He/Him)" },
+    "fullName":    { "value": "Blobert Goopington" },
+    "alsoKnownAs": { "value": "Blobert · Anomaly" },
+    "gender":      { "value": "Nonbinary (They/Them)" },
     "age":         { "value": null, "unknown": true },
-    "race":        { "value": "Woodsworn" },
-    "class":       { "value": "Bard" },
-    "subclass":    { "value": "College of Spirits" },
-    "occupation":  { "value": "Unemployed", "unknown": true }
+    "race":        { "value": "Plasmoid" },
+    "class":       { "value": "Warlock" },
+    "subclass":    { "value": "Hexblade" },
+    "occupation":  { "value": "Wanderer", "unknown": true }
   },
 
   "design": {
     "referenceSheet": {
-      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/Freaky-herb.png",
-      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/Freaky-herb.png",
-      "altText":   "Herb reference sheet"
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/Blobert_chill.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/Blobert_chill.png",
+      "altText":   "Blobert reference sheet"
     },
     "physicalBuild": {
-      "height":   "4'7\" / 183cm",
-      "build":    "Slim",
-      "demeanor": "Laid-back"
+      "height":   "4'8\" / 142",
+      "build":    "Amorphous",
+      "demeanor": "Curious"
     },
     "colorPalette": {
-      "eyes": [
-        { "hex": "#2E2E2E" }
-      ],
       "body": [
-        { "hex": "#bda78c" }
+        { "hex": "#4ba0bd" }
       ],
       "other": [
-        { "hex": "#9e996e" },
-        { "hex": "#665754" },
-        { "hex": "#444d40" },
-        { "hex": "#9f6a4b" }
+        { "hex": "#464854" }
       ]
     },
     "notes": [
-      "Herb was made because the PC listened to \"Everywhere at the end of time\" and thought playing a character that can't remember would be terrifying to portray.",
-      "Herb has a real face underneath his mask, but all Woodsworn will never show it.",
-      "He loves to collect feathers and has them around his design."
+      "Blobert's design is the absolute easiest, most simple design i could've created."
     ]
   },
 
@@ -131,15 +112,15 @@
     ],
 
     "origin": {
-      "birthplace":       { "value": "Saoglas" },
-      "region":           { "value": "Outside Edelith" },
+      "birthplace":       { "value": "Unkown" },
+      "region":           { "value": "Unkown" },
       "currentLocation":  { "value": "Immortal City of Edelith" },
-      "affiliation":      { "value": null, "unknown": true },
+      "affiliation":      { "value": null, "Main party": true },
       "firstSeen":        { "value": "Session 01" },
-      "status":           { "value": "Active", "colorVar": "cp" }
+      "status":           { "value": "Revived and Active", "colorVar": "cp" }
     },
 
-    "loreQuote": "I dont have the luxury to remember like you, Peggle.",
+    "loreQuote": "Gooping a ton.",
 
     "sessions": [
       {
@@ -147,7 +128,7 @@
         "episode":  "Session 01",
         "date":     "—",
         "title":    "First Appearance",
-        "body":     "Herb made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "body":     "Blobert made his debut in Session 01 of the Immortal City of Edelith campaign..",
         "isLast":   false
       },
       {
@@ -171,13 +152,13 @@
     "relatedStories": [
       {
         "cssClass":   "edelith",
-        "href":       "/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html",
-        "coverImage": "/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp",
-        "altText":    "The Woodsworn",
-        "series":     "Travels of a post-wake Edelith",
-        "title":      "The Woodsworn",
-        "tag":        "\"Damien Zerxes\"",
-        "date":       "June 14, 2025"
+        "href":       "/fun-fact-friday/from-the-grapevine/nikolas-monster.html",
+        "coverImage": "/fun-fact-friday/from-the-grapevine/cover.webp",
+        "altText":    "Nikolas' Monster",
+        "series":     "From the Grapevine",
+        "title":      "NIKOLAS' MONSTER",
+        "tag":        "\"THE Dr. Nikolas Frytz Klatlberg\"",
+        "date":       "Aug 25, 2025"
       }
     ]
   },
@@ -194,14 +175,14 @@
       "profileHref":     "/characters/peggle/index.html"
     },
     {
-      "name":            "Blobert Goopington",
-      "race":            "PLasmoid",
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
       "closeness":       90,
       "dotsOn":          4,
       "dotsHalf":        1,
       "dotsOff":         0,
       "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-      "profileHref":     "/characters/blobert/index.html"
+      "profileHref":     "/characters/herb/index.html"
     },
     {
       "name":            "Blaze Holiday",
@@ -217,22 +198,22 @@
 
   "gallery": [
     {
-      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-inurekairos.jpg",
-      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-inurekairos.jpg",
-      "caption":   "Art by @Inurekairos on Instagram!",
-      "altText":   "Gallery image by Inurekairos"
-    },
-    {
-      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-korb.png",
-      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/fanart-korb.png",
-      "caption":   "Art by me @Korb_karbage on Instagram!",
-      "altText":   "Gallery image by Korb_karbage"
-    },
-    {
-      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/doode-herb.png",
-      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Herb/doode-herb.png",
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobert-bindle.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobert-bindle.png",
       "caption":   "Art by me! @Cyncl.art",
-      "altText":   "Gallery image by CYncl.art"
+      "altText":   "Gallery image by @Cyncl Art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobert_cooking.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobert_cooking.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobby-sketches.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blobert/blobby-sketches.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by Cyncl.art"
     }
   ]
 }
