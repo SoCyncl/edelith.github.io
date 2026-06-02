@@ -1,15 +1,8 @@
-/* ═══════════════════════════════════════════════════════════
-   gallery-core.js
-   Shared gallery logic for gallery.html and character pages.
-   Exports: GalleryCore { fetchItems, buildLightbox, buildCard,
-                          parseDate, dateToMs, CAT_LABEL, CAT_LABEL_SM }
-═══════════════════════════════════════════════════════════ */
-
 const GalleryCore = (() => {
 
   const CACHE_KEY      = 'gallery_json_cache_v1';
   const CACHE_TIME_KEY = 'gallery_json_cache_time_v1';
-  const CACHE_LIFETIME = 1000 * 60 * 60 * 24; // 24 hours
+  const CACHE_LIFETIME = 1000 * 60 * 60 * 24;
 
   const CAT_LABEL = {
     illustration: 'Illustration',
@@ -25,7 +18,6 @@ const GalleryCore = (() => {
     slander:      'Slander',
   };
 
-  /* ── Date helpers ─────────────────────────────────────── */
   function parseDate(str) {
     if (!str) return '—';
     const [year, day, month] = str.split('-');
@@ -39,16 +31,13 @@ const GalleryCore = (() => {
     return new Date(+year, +month - 1, +day).getTime() || 0;
   }
 
-  /* ── Data fetching ────────────────────────────────────── */
   async function fetchItems() {
     try {
       const cached     = localStorage.getItem(CACHE_KEY);
       const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
       const valid      = cached && cachedTime &&
                          (Date.now() - Number(cachedTime) < CACHE_LIFETIME);
-
       if (valid) {
-        // Return cache immediately, refresh in background
         fetch('/data/gallery.json')
           .then(r => r.ok ? r.json() : Promise.reject())
           .then(fresh => {
@@ -58,14 +47,12 @@ const GalleryCore = (() => {
           .catch(() => {});
         return JSON.parse(cached);
       }
-
       const res   = await fetch('/data/gallery.json');
       if (!res.ok) throw new Error(res.statusText);
       const items = await res.json();
       localStorage.setItem(CACHE_KEY,      JSON.stringify(items));
       localStorage.setItem(CACHE_TIME_KEY, Date.now());
       return items;
-
     } catch (e) {
       console.warn('gallery-core: fetch failed', e);
       const stale = localStorage.getItem(CACHE_KEY);
@@ -73,18 +60,9 @@ const GalleryCore = (() => {
     }
   }
 
-  /* ── Category badge HTML ──────────────────────────────── */
-  function catBadge(cat, { prefix = 'glb', small = false } = {}) {
-    const label = small ? (CAT_LABEL_SM[cat] || cat) : (CAT_LABEL[cat] || cat);
-    return `<span class="${prefix}-tag ${prefix}-tag--${cat}">${label}</span>`;
-  }
-
-  /* ── Lightbox DOM builder ─────────────────────────────── */
-  // prefix: css class prefix, e.g. 'glb' → '.glb-overlay', 'csg-glb' → '.csg-glb-overlay'
-  // Returns: { overlay (element), open(items, index), close(), populate(index) }
   function buildLightbox({ prefix = 'glb', showChars = false } = {}) {
-    const p   = prefix;
-    const el  = id => document.getElementById(`${p}-${id}`);
+    const p  = prefix;
+    const el = id => document.getElementById(`${p}-${id}`);
 
     const overlay = document.createElement('div');
     overlay.id        = `${p}-overlay`;
@@ -115,7 +93,7 @@ const GalleryCore = (() => {
             <div class="${p}-tags"    id="${p}-tags"></div>
             <div class="${p}-counter" id="${p}-counter"></div>
           </div>
-          <h2 class="${p}-title"   id="${p}-title"></h2>
+          <h2 class="${p}-title"    id="${p}-title"></h2>
           <div class="${p}-caption" id="${p}-caption"></div>
           <div class="${p}-details">
             <div class="${p}-detail-row">
@@ -127,7 +105,8 @@ const GalleryCore = (() => {
               <span class="${p}-detail-val" id="${p}-date"></span>
             </div>
           </div>
-          ${showChars ? `<div class="${p}-chars" id="${p}-chars"></div>` : ''}
+          ${showChars ? `
+          <div class="${p}-chars" id="${p}-chars"></div>` : ''}
           <div class="${p}-share-row">
             <a class="${p}-raw-link" id="${p}-raw-link" target="_blank" rel="noopener">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> View full image
@@ -165,20 +144,20 @@ const GalleryCore = (() => {
       };
       tmp.src = src;
 
-      el('title').textContent  = item.title  || 'Untitled';
-      el('artist').textContent = item.artist || '—';
-      el('date').textContent   = parseDate(item.date);
-      el('raw-link').href      = item.full   || item.thumbnail;
+      el('title').textContent    = item.title  || 'Untitled';
+      el('artist').textContent   = item.artist || '—';
+      el('date').textContent     = parseDate(item.date);
+      el('raw-link').href        = item.full   || item.thumbnail;
 
       const cap = el('caption');
       cap.textContent   = item.caption || '';
       cap.style.display = item.caption ? 'block' : 'none';
 
       const cat = item.category || 'illustration';
-      el('tags').innerHTML    = catBadge(cat, { prefix: p });
+      el('tags').innerHTML      = `<span class="${p}-tag ${p}-tag--${cat}">${CAT_LABEL[cat] || cat}</span>`;
       el('counter').textContent = `${i + 1} / ${items.length}`;
-      el('prev').style.opacity  = i > 0                 ? '1' : '0.2';
-      el('next').style.opacity  = i < items.length - 1  ? '1' : '0.2';
+      el('prev').style.opacity  = i > 0                ? '1' : '0.2';
+      el('next').style.opacity  = i < items.length - 1 ? '1' : '0.2';
 
       if (showChars && el('chars')) {
         const chars = item.characters || [];
@@ -211,23 +190,22 @@ const GalleryCore = (() => {
       document.body.style.overflow = '';
     }
 
-    // Wire up controls
     el('close').addEventListener('click', close);
     el('prev').addEventListener('click', e => {
       e.stopPropagation();
-      if (index > 0) { populate(--index); }
+      if (index > 0) populate(--index);
     });
     el('next').addEventListener('click', e => {
       e.stopPropagation();
-      if (index < items.length - 1) { populate(++index); }
+      if (index < items.length - 1) populate(++index);
     });
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
 
     document.addEventListener('keydown', e => {
       if (!overlay.classList.contains(`${p}-overlay--active`)) return;
       if (e.key === 'Escape')     close();
-      if (e.key === 'ArrowLeft'  && index > 0)                  populate(--index);
-      if (e.key === 'ArrowRight' && index < items.length - 1)   populate(++index);
+      if (e.key === 'ArrowLeft'  && index > 0)                 populate(--index);
+      if (e.key === 'ArrowRight' && index < items.length - 1)  populate(++index);
     });
 
     let touchStartX = 0;
@@ -241,11 +219,9 @@ const GalleryCore = (() => {
       if (dx > 0 && index > 0)                populate(--index);
     }, { passive: true });
 
-    return { overlay, open, close, populate: i => { index = i; populate(i); } };
+    return { overlay, open, close };
   }
 
-  /* ── Card builder ─────────────────────────────────────── */
-  // Returns a DOM element. onClick receives (item, index, allItems).
   function buildCard(item, index, { onClick, cardClass = 'gal-card', prefix = 'gal' } = {}) {
     const cat         = item.category || 'illustration';
     const charClasses = (item.characters || [])
@@ -277,7 +253,6 @@ const GalleryCore = (() => {
     return div;
   }
 
-  /* ── Lazy image loader for a card (after Isotope/append) ─ */
   function loadCardImage(card, { prefix = 'gal', onLoad } = {}) {
     const img = card.querySelector(`.${prefix}-card-img[data-src]`);
     if (!img) return;
@@ -295,14 +270,5 @@ const GalleryCore = (() => {
     tmp.src = src;
   }
 
-  return {
-    fetchItems,
-    buildLightbox,
-    buildCard,
-    loadCardImage,
-    parseDate,
-    dateToMs,
-    CAT_LABEL,
-    CAT_LABEL_SM,
-  };
+  return { fetchItems, buildLightbox, buildCard, loadCardImage, parseDate, dateToMs, CAT_LABEL, CAT_LABEL_SM };
 })();
