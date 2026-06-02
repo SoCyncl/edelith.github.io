@@ -15,7 +15,7 @@
     "date": 1,
     "categories": ["main"],
     "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "link": "/characters/avao/index.html"
   },
   {
     "id": "peggle-krastov",
@@ -24,7 +24,7 @@
     "date": 1,
     "categories": ["main", "bjornguard"],
     "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "link": "/characters/peggle/index.html"
   },
   {
     "id": "blobert-goopington",
@@ -33,7 +33,7 @@
     "date": 1,
     "categories": ["main"],
     "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "link": "/characters/blobert/index.html"
   },
   {
     "id": "eight-nanako",
