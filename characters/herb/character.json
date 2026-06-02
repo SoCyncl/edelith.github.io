@@ -44,19 +44,8 @@
     "eyebrow":    "Solstitheo Archives",
     "name":       "Herb",
     "fullName":   "Herb Passerine",
-    "watermark":  "Herb",
+    "watermark":  "Player",
     "quote":      "Knock on Wood",
-    "tags": [
-      { "label": "Woodsworn",        "type": "p" },
-      { "label": "Bard",             "type": "s" },
-      { "label": "College of Spirits","type": "t" },
-      { "label": "Main Party",       "type": "d" }
-    ],
-    "stripMeta": [
-      "Immortal City of Edelith",
-      "Campaign Character",
-      "Player Character"
-    ],
     "playlistUrl": "https://open.spotify.com/album/1k2WWlWmP2bCDNQhsN8ofh",
     "pokemonTeam": [
       "/assets/img/pokemon/venusaur.png",
@@ -100,7 +89,7 @@
       "altText":   "Herb reference sheet"
     },
     "physicalBuild": {
-      "height":   "4'7\" / 183cm",
+      "height":   "4'7\" / 139cm",
       "build":    "Slim",
       "demeanor": "Laid-back"
     },
