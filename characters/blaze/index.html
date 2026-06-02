@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-  <script src="/scripts/gallery.js"></script>
   <script src="/scripts/home-footer.js" defer></script>
   <script src="/scripts/sidenav.js" defer></script>
   <script src="/scripts/playlist.js" type="text/javascript" defer></script>
   <script src="/scripts/lightbox-plus-jquery.js" defer></script>
 
+  <!-- Per-character CSS vars — written by JS -->
   <style id="char-vars"></style>
 </head>
 
@@ -38,30 +38,36 @@
     <div class="cs-hero-bg"></div>
     <div class="cs-hero-veil"></div>
     <div class="cs-hero-texture"></div>
+
+
     <div class="cs-hero-inner outer">
       <div class="avatar-chibi"></div>
       <div class="cs-nameblock">
-        <h1 class="cs-name"      id="hero-name"></h1>
+        <h1 class="cs-name"     id="hero-name"></h1>
         <div class="cs-fullname" id="hero-fullname"></div>
         <div class="cs-rule-wrap">
           <span class="cs-rule-gem">✦</span>
         </div>
         <blockquote class="cs-hero-quote" id="hero-quote"></blockquote>
       </div>
-      <div class="cs-hero-wm" id="hero-wm" aria-hidden="true"></div>
+      <div class="cs-hero-wm"   id="hero-wm" aria-hidden="true"></div>
     </div>
+
     <div class="pokemon-team" id="pokemon-team"></div>
+
     <div class="cs-hero-strip">
       <div class="outer cs-hero-strip-inner">
         <a href="/characters/index.html" class="cs-nav-link">
           <i class="fa-solid fa-arrow-left-long"></i> Character Roster
         </a>
+
         <a id="hero-playlist" class="cs-nav-link cs-nav-link--playlist" target="_blank">
           <i class="fa-solid fa-music"></i> Playlist
         </a>
       </div>
     </div>
   </div>
+  <!-- end hero -->
 
   <playlist-block></playlist-block>
 
@@ -82,17 +88,19 @@
       <button class="cs-tab" data-tab="Relationships">
         <i class="fa-solid fa-users fa-xs"></i><span>Relationships</span>
       </button>
-      <button class="cs-tab" data-tab="Gallery">
-        <i class="fa-solid fa-images fa-xs"></i><span>Gallery</span>
-      </button>
       <div class="cs-tab-ink" id="tabInk"></div>
       <div class="stamps"><img style="width:80px" id="stamp2-img"></div>
     </div>
 
-    <!-- TAB: OVERVIEW ───────────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════
+       TAB: OVERVIEW
+    ══════════════════════════════════════════ -->
     <div id="tab-Overview" class="cs-panel cs-panel--active fade-block">
       <div class="overview-grid">
+
         <div class="ov-left">
+
+          <!-- Moodboard -->
           <div class="cs-moodboard lore-box lore-box--gold fade-block">
             <div class="mood-header"></div>
             <div class="mood-frames">
@@ -101,6 +109,8 @@
               <div class="mood-f mood-f--3"></div>
             </div>
           </div>
+
+          <!-- Summary -->
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -109,24 +119,30 @@
             </div>
             <p class="cs-body" id="ov-summary"></p>
           </div>
+
+          <!-- Personality -->
           <div class="split-personality">
-            <div class="cs-block lore-box lore-box--gold fade-block">
-              <div class="cs-block-head">
-                <span class="cs-glyph">◈</span>
-                <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">P</span>ersonality</h2>
-                <div class="cs-block-line"></div>
-              </div>
-              <p class="cs-body" id="ov-personality"></p>
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--s">P</span>ersonality</h2>
+              <div class="cs-block-line"></div>
             </div>
-            <div class="cs-block lore-box lore-box--gold fade-block">
-              <div class="cs-block-head">
-                <span class="cs-glyph">◈</span>
-                <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">T</span>rivia</h2>
-                <div class="cs-block-line"></div>
-              </div>
-              <ol class="cs-trivia" id="ov-trivia"></ol>
-            </div>
+            <p class="cs-body" id="ov-personality"></p>
           </div>
+
+          <!-- Trivia -->
+          <div class="cs-block lore-box lore-box--gold fade-block">
+            <div class="cs-block-head">
+              <span class="cs-glyph">◈</span>
+              <h2 class="cs-block-title"><span class="cs-drop cs-drop--t">T</span>rivia</h2>
+              <div class="cs-block-line"></div>
+            </div>
+            <ol class="cs-trivia" id="ov-trivia"></ol>
+          </div>
+      </div>
+
+          <!-- Likes / Dislikes -->
           <div class="ov-affinity-row fade-block">
             <div class="cs-affinity lore-box lore-box--gold">
               <div class="cs-affinity-head cs-affinity-head--likes">
@@ -137,18 +153,24 @@
               <ul class="cs-affinity-list" id="ov-likes"></ul>
               <div class="cs-affinity-ghost"><i class="fa-solid fa-heart"></i></div>
             </div>
-            <div class="two-rows">
-              <div class="ov-affinity-facts cs-quote lore-box lore-box--gold fade-block">
-                <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
-                <p class="cs-quote-text" id="ov-side-quote"></p>
-                <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
-              </div>
-              <div class="cs-moodboard--single lore-box lore-box--gold fade-block">
-                <div class="mood-frames">
-                  <div class="mood-f--4"></div>
-                </div>
-              </div>
+            
+                      <!-- Quote -->
+                      <div class="two-rows">
+          <div class="ov-affinity-facts cs-quote lore-box lore-box--gold fade-block">
+            <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="cs-quote-text" id="ov-side-quote"></p>
+            <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+          
+          <!-- Little mood board -->
+
+            <div class="cs-moodboard--single lore-box lore-box--gold fade-block">
+            <div class="mood-frames">
+              <div class="mood-f--4"></div>
             </div>
+          </div>
+                               </div>
+          
             <div class="cs-affinity lore-box lore-box--gold">
               <div class="cs-affinity-head cs-affinity-head--dislikes">
                 <i class="fa-solid fa-heart-crack"></i>
@@ -159,27 +181,47 @@
               <div class="cs-affinity-ghost"><i class="fa-solid fa-heart-crack"></i></div>
             </div>
           </div>
-        </div>
+
+   
+
+
+
+
+
+        </div><!-- end ov-left -->
+
         <div class="ov-right">
+
+          <!-- Focal image -->
           <div class="cs-focal lore-box lore-box--gold fade-block">
             <div class="cs-focal-img"></div>
           </div>
+
+          <!-- Dossier -->
           <div class="cs-dossier lore-box lore-box--gold fade-block">
             <div class="cs-dossier-header">
               <div class="cs-dossier-rule"></div>
             </div>
             <div class="cs-dossier-items" id="ov-dossier"></div>
           </div>
+
+
+
+          <!-- Chibi -->
           <div class="cs-chibi fade-block">
             <img id="chibi-img" alt="chibi">
           </div>
-        </div>
+
+        </div><!-- end ov-right -->
       </div>
     </div>
 
-    <!-- TAB: DESIGN ─────────────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════
+       TAB: DESIGN
+    ══════════════════════════════════════════ -->
     <div id="tab-Design" class="cs-panel fade-block">
       <div class="design-grid">
+
         <div class="cs-block cs-block--refsheet lore-box lore-box--gold fade-block">
           <div class="cs-block-head">
             <span class="cs-glyph">◈</span>
@@ -196,7 +238,9 @@
             </a>
           </div>
         </div>
+
         <div class="design-right">
+
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -205,6 +249,7 @@
             </div>
             <div class="cs-basics" id="design-build"></div>
           </div>
+
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -213,6 +258,7 @@
             </div>
             <div class="cs-palette" id="design-palette"></div>
           </div>
+
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -221,14 +267,20 @@
             </div>
             <ul class="cs-notes" id="design-notes"></ul>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- TAB: LORE ───────────────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════
+       TAB: LORE
+    ══════════════════════════════════════════ -->
     <div id="tab-Lore" class="cs-panel fade-block">
       <div class="lore-grid">
+
         <div class="lore-main">
+
+          <!-- Biography -->
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -238,6 +290,8 @@
             </div>
             <div class="cs-lore-body" id="lore-bio"></div>
           </div>
+
+          <!-- Session Log -->
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -247,6 +301,8 @@
             </div>
             <div class="cs-session-list" id="lore-sessions"></div>
           </div>
+
+          <!-- Related Stories -->
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -256,8 +312,12 @@
             </div>
             <div class="cs-stories-grid" id="lore-stories"></div>
           </div>
-        </div>
+
+        </div><!-- end lore-main -->
+
         <div class="lore-aside">
+
+          <!-- Origin -->
           <div class="cs-block lore-box lore-box--gold fade-block">
             <div class="cs-block-head">
               <span class="cs-glyph">◈</span>
@@ -266,16 +326,21 @@
             </div>
             <div class="cs-dossier-items" id="lore-origin"></div>
           </div>
+
+          <!-- Lore quote -->
           <div class="cs-quote lore-box lore-box--gold fade-block">
             <div class="cs-quote-mark-open"><i class="fa-solid fa-quote-left"></i></div>
             <p class="cs-quote-text" id="lore-quote"></p>
             <div class="cs-quote-mark-close"><i class="fa-solid fa-quote-right"></i></div>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- TAB: RELATIONSHIPS ──────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════
+       TAB: RELATIONSHIPS
+    ══════════════════════════════════════════ -->
     <div id="tab-Relationships" class="cs-panel fade-block">
       <div class="cs-block lore-box lore-box--gold fade-block" style="margin-bottom:20px">
         <div class="cs-block-head">
@@ -288,20 +353,9 @@
       </div>
     </div>
 
-    <!-- TAB: GALLERY ────────────────────────────────────────────── -->
-    <div id="tab-Gallery" class="cs-panel fade-block">
-      <div class="csg-header">
-        <a href="/gallery.html" class="csg-goto-link">
-          <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i> Go to gallery
-        </a>
-      </div>
-      <div id="csg-grid" class="csg-grid"></div>
-      <div id="csg-empty" class="csg-empty" style="display:none">
-        <img src="/assets/placeholder.webp" class="csg-placeholder-img" alt="No art yet">
-      </div>
-    </div>
 
-    <!-- FEATURED GALLERY — outside tabs ─────────────────────────── -->
+
+    <!-- GALLERY — outside tabs ─────────────────────────────────── -->
     <div class="cs-gallery lore-box lore-box--gold fade-block">
       <div class="cs-block-head">
         <span class="cs-glyph">◈</span>
@@ -322,155 +376,14 @@
 
 <footer-block class="fade-block"></footer-block>
 
+
 <style>
-/* ── Character Gallery Tab ───────────────────────────────── */
-.csg-header { display: flex; justify-content: flex-end; padding: 0 0 18px; }
-.csg-goto-link {
-  font-family: var(--f-label); font-size: 0.6rem; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(201,168,76,0.6); text-decoration: none;
-  border: 1px solid rgba(201,168,76,0.2); padding: 5px 14px;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-.csg-goto-link:hover { color: var(--gold); border-color: rgba(201,168,76,0.5); }
 
-.csg-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 10px;
-}
-.csg-card {
-  position: relative; overflow: hidden; cursor: pointer;
-  border: 1px solid rgba(201,168,76,0.1);
-  background: rgba(17,19,24,0.5); aspect-ratio: 1 / 1.2;
-}
-
-/* gallery-core builds cards with a .csg-card-img-wrap wrapper and
-   placeholder/lazy-load pattern — mirror the gal-card styles here */
-.csg-card-img-wrap {
-  position: relative; overflow: hidden; width: 100%; height: 100%;
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
-}
-.csg-card:hover .csg-card-img-wrap {
-  transform: scale(1.04);
-  box-shadow: 0 0 2rem rgba(147,115,65,0.25), 0 0 1.8rem rgba(0,0,0,0.75);
-}
-.csg-card-placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
-.csg-card-img-wrap.img-loaded .csg-card-placeholder { display: none; }
-.csg-card-img { display: none; width: 100%; height: 100%; object-fit: cover; }
-.csg-card-img-wrap.img-loaded .csg-card-img { display: block; }
-
-.csg-card-hover {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(17,19,24,0.92) 0%, rgba(17,19,24,0.25) 60%, transparent 100%);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 12px 10px 8px; opacity: 0; transition: opacity 0.25s ease;
-}
-.csg-card:hover .csg-card-hover { opacity: 1; }
-.csg-card-hover-title {
-  font-family: var(--f-label); font-size: 0.65rem;
-  letter-spacing: 1.5px; color: var(--frost); text-transform: uppercase;
-}
-.csg-card-hover-artist {
-  font-family: var(--f-label); font-size: 0.55rem;
-  letter-spacing: 1px; color: var(--gold); margin-top: 2px;
-}
-.csg-card-hover-icon { position: absolute; top: 10px; right: 10px; color: rgba(201,168,76,0.7); font-size: 0.75rem; }
-.csg-card-cat {
-  position: absolute; top: 8px; left: 8px;
-  font-family: var(--f-label); font-size: 0.48rem;
-  letter-spacing: 2px; text-transform: uppercase; padding: 3px 7px;
-}
-.csg-card-cat--illustration { background: rgba(83,74,183,0.75);  color: #c9c5f5; }
-.csg-card-cat--doodle       { background: rgba(15,110,86,0.75);   color: #9fe1cb; }
-.csg-card-cat--render       { background: rgba(133,79,11,0.75);   color: #fac775; }
-.csg-card-cat--slander      { background: rgba(153,60,29,0.75);   color: #f0997b; }
-
-.csg-empty { width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; }
-.csg-placeholder-img {
-  width: 100%; max-height: 520px; object-fit: cover;
-  opacity: 0.7; filter: sepia(0.2); border: 1px solid rgba(201,168,76,0.1);
-}
-
-/* ── Gallery Tab Lightbox — prefix "csg-glb" ────────────── */
-.csg-glb-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: rgba(7,6,8,0.93);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-}
-.csg-glb-overlay--active { opacity: 1; pointer-events: all; }
-.csg-glb-close {
-  position: fixed; top: 18px; right: 22px;
-  background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
-  color: var(--gold); font-size: 1.1rem; width: 38px; height: 38px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s ease; z-index: 2;
-}
-.csg-glb-close:hover { background: rgba(201,168,76,0.2); }
-.csg-glb-nav {
-  position: fixed; top: 50%; transform: translateY(-50%);
-  background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
-  color: var(--gold); font-size: 1rem; width: 40px; height: 60px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s ease; z-index: 2;
-}
-.csg-glb-nav:hover { background: rgba(201,168,76,0.18); }
-.csg-glb-nav--prev { left: 14px; }
-.csg-glb-nav--next { right: 14px; }
-.csg-glb-inner {
-  display: flex; gap: 28px;
-  max-width: min(1100px, 92vw); max-height: 90vh; align-items: flex-start;
-}
-.csg-glb-img-wrap { position: relative; flex-shrink: 0; max-width: min(580px, 58vw); }
-.csg-glb-img {
-  display: block; max-width: 100%; max-height: 85vh; object-fit: contain;
-  border: 1px solid rgba(201,168,76,0.15); transition: opacity 0.3s ease;
-}
-.csg-glb-img--loading { opacity: 0; }
-.csg-glb-img-loader {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(201,168,76,0.4); font-size: 1.5rem;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
-}
-.csg-glb-img-loader--active { opacity: 1; }
-.csg-glb-meta {
-  flex: 1; overflow-y: auto; max-height: 85vh;
-  padding-right: 4px; display: flex; flex-direction: column; gap: 14px;
-}
-.csg-glb-meta-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.csg-glb-tag {
-  font-family: var(--f-label); font-size: 0.5rem;
-  letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px;
-}
-.csg-glb-tag--illustration { background: rgba(83,74,183,0.35); color: #c9c5f5; border: 1px solid rgba(83,74,183,0.5); }
-.csg-glb-tag--doodle       { background: rgba(15,110,86,0.35);  color: #9fe1cb; border: 1px solid rgba(15,110,86,0.5); }
-.csg-glb-tag--render       { background: rgba(133,79,11,0.35);  color: #fac775; border: 1px solid rgba(133,79,11,0.5); }
-.csg-glb-tag--slander      { background: rgba(153,60,29,0.35);  color: #f0997b; border: 1px solid rgba(153,60,29,0.5); }
-.csg-glb-counter { font-family: var(--f-label); font-size: 0.6rem; letter-spacing: 2px; color: var(--fog-dim); }
-.csg-glb-title {
-  font-family: var(--f-display); font-size: 1.3rem; letter-spacing: 2px;
-  color: var(--frost); margin: 0;
-  border-bottom: 1px solid rgba(201,168,76,0.15); padding-bottom: 12px;
-}
-.csg-glb-caption { font-family: var(--f-italic); font-style: italic; font-size: 0.9rem; line-height: 1.6; color: var(--fog); }
-.csg-glb-details { display: flex; flex-direction: column; gap: 8px; }
-.csg-glb-detail-row {
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  font-family: var(--f-label); font-size: 0.65rem; letter-spacing: 1.5px;
-  padding-bottom: 6px; border-bottom: 1px dashed rgba(201,168,76,0.1);
-}
-.csg-glb-detail-label { color: var(--fog-dim); text-transform: uppercase; }
-.csg-glb-detail-val   { color: var(--fog); text-align: right; }
-.csg-glb-share-row    { margin-top: auto; }
-.csg-glb-raw-link {
-  font-family: var(--f-label); font-size: 0.6rem; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(201,168,76,0.6);
-  text-decoration: none; transition: color 0.2s ease;
-}
-.csg-glb-raw-link:hover { color: var(--gold); }
 </style>
 
+<!-- ════════════════════════════════════════════════════════
+   JSON TEMPLATE 
+════════════════════════════════════════════════════════ -->
 <script>
 (async () => {
 
@@ -489,16 +402,17 @@
     return;
   }
 
-  /* ─── Helpers ───────────────────────────────────────────── */
+  /* ─── 2. Helpers ────────────────────────────────────────────── */
   const el  = id => document.getElementById(id);
   const set = (id, html) => { const n = el(id); if (n) n.innerHTML = html; };
 
   function dosRow(label, field) {
     if (!field) return '';
     if (field.unknown || field.value === null) {
+      const display = field.value || 'Unknown';
       return `<div class="cs-di">
         <span class="cs-di-label">${label}</span>
-        <span class="cs-di-val cs-di-val--unk">${field.value || 'Unknown'}</span>
+        <span class="cs-di-val cs-di-val--unk">${display}</span>
       </div>`;
     }
     return `<div class="cs-di">
@@ -530,20 +444,14 @@
     return html;
   }
 
-  function hexToRgb(hex) {
-    const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return r ? `${parseInt(r[1],16)},${parseInt(r[2],16)},${parseInt(r[3],16)}` : null;
-  }
-  function cssUrl(path) { return path ? `url('${path}')` : 'none'; }
-
-  /* ─── Meta ──────────────────────────────────────────────── */
+  /* ─── 3. <head> meta ────────────────────────────────────────── */
   const m = c.meta;
   document.title = m.pageTitle;
-  const setMeta = (prop, val) => {
+  const setMeta = (prop, val, attr='content') => {
     let tag = document.querySelector(`meta[property="${prop}"]`) ||
               document.querySelector(`meta[name="${prop}"]`);
     if (!tag) { tag = document.createElement('meta'); document.head.appendChild(tag); }
-    tag.setAttribute(prop.startsWith('og:') ? 'property' : 'name', prop);
+    tag.setAttribute(attr === 'name' ? 'name' : 'property', prop);
     tag.setAttribute('content', val);
   };
   if (m.favicon) {
@@ -567,15 +475,23 @@
     gm.content = m.glossary;
   }
 
-  /* ─── CSS vars ──────────────────────────────────────────── */
-  const t   = c.theme;
+  /* ─── 4. CSS custom properties ─────────────────────────────── */
+  const t = c.theme;
   const col = t.colors;
   const img = t.images;
-  const goldRgb  = hexToRgb(col.gold || '#c9a84c');
+
+  const goldRgb = hexToRgb(col.gold || '#c9a84c');
   const goldPale = goldRgb ? `rgba(${goldRgb},0.12)` : 'rgba(201,168,76,0.12)';
   const goldGlow = goldRgb ? `rgba(${goldRgb},0.25)` : 'rgba(201,168,76,0.25)';
 
-  el('char-vars').textContent = `
+  function hexToRgb(hex) {
+    const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return r ? `${parseInt(r[1],16)},${parseInt(r[2],16)},${parseInt(r[3],16)}` : null;
+  }
+
+  function cssUrl(path) { return path ? `url('${path}')` : 'none'; }
+
+  const varsCSS = `
 :root {
   --cp:  ${col.cp  || '#c9a84c'};
   --cs:  ${col.cs  || '#b0a070'};
@@ -594,55 +510,72 @@
   --gold-pale:  ${goldPale};
   --gold-glow:  ${goldGlow};
   --rule:       1px solid rgba(${goldRgb||'201,168,76'},0.28);
-  --char-banner:  ${cssUrl(img.banner)}  bottom/cover   no-repeat;
-  --avatar:       ${cssUrl(img.avatar)}  center/cover   no-repeat;
-  --avao:         ${cssUrl(img.avao)}    center/cover   no-repeat;
+
+  --char-banner:  ${cssUrl(img.banner)}  bottom/cover  no-repeat;
+  --avatar:       ${cssUrl(img.avatar)}  center/cover  no-repeat;
+  --avao:         ${cssUrl(img.avao)}    center/cover  no-repeat;
   --char-focal:   ${cssUrl(img.focal)}   center/contain no-repeat;
-  --char-mood1:   ${cssUrl(img.mood1)}   center/cover   no-repeat;
-  --char-mood2:   ${cssUrl(img.mood2)}   center/cover   no-repeat;
-  --char-mood3:   ${cssUrl(img.mood3)}   center/cover   no-repeat;
-  --char-mood4:   ${cssUrl(img.mood4)}   center/cover   no-repeat;
-  --char-lorebg:  ${cssUrl(img.lorebg)}  center/cover   no-repeat;
+  --char-mood1:   ${cssUrl(img.mood1)}   center/cover  no-repeat;
+  --char-mood2:   ${cssUrl(img.mood2)}   center/cover  no-repeat;
+  --char-mood3:   ${cssUrl(img.mood3)}   center/cover  no-repeat;
+  --char-mood4:   ${cssUrl(img.mood4)}   center/cover  no-repeat;
+  --char-lorebg:  ${cssUrl(img.lorebg)}  center/cover  no-repeat;
   --site-bg-img:  ${cssUrl(img.lorebg)};
 }`;
+  el('char-vars').textContent = varsCSS;
 
-  /* ─── Stamps ────────────────────────────────────────────── */
+  /* ─── 5. Stamps ─────────────────────────────────────────────── */
   if (el('stamp1-img')) el('stamp1-img').src = img.stamp1 || '';
   if (el('stamp2-img')) el('stamp2-img').src = img.stamp2 || '';
 
-  /* ─── Hero ──────────────────────────────────────────────── */
+  /* ─── 6. HERO ───────────────────────────────────────────────── */
   const h = c.hero;
-  set('hero-eyebrow', h.eyebrow  || '');
-  set('hero-name',    h.name     || '');
+  set('hero-eyebrow', h.eyebrow || '');
+  set('hero-name',    h.name    || '');
   set('hero-fullname',h.fullName || '');
   set('hero-wm',      h.watermark || h.name || '');
-  set('hero-quote',   h.quote    || '');
+  set('hero-quote',   h.quote   || '');
+
+  // Tags
   set('hero-tags', (h.tags || []).map(t =>
     `<span class="cs-tag cs-tag--${t.type}">${t.label}</span>`
   ).join(''));
+
+  // Strip meta
   if (el('hero-strip-meta')) {
     el('hero-strip-meta').innerHTML = (h.stripMeta || []).map((s, i, arr) =>
       `<span>${s}</span>${i < arr.length - 1 ? '<span class="cs-dot">◆</span>' : ''}`
     ).join('');
   }
-  if (el('hero-playlist') && h.playlistUrl) el('hero-playlist').href = h.playlistUrl;
-  if (el('pokemon-team')) {
-    el('pokemon-team').innerHTML = (h.pokemonTeam || []).map(src => `<img src="${src}">`).join('');
+
+  // Playlist
+  if (el('hero-playlist') && h.playlistUrl) {
+    el('hero-playlist').href = h.playlistUrl;
   }
 
-  /* ─── Overview ──────────────────────────────────────────── */
+  // Pokémon
+  if (el('pokemon-team')) {
+    el('pokemon-team').innerHTML = (h.pokemonTeam || []).map(src =>
+      `<img src="${src}">`
+    ).join('');
+  }
+
+  /* ─── 7. OVERVIEW ───────────────────────────────────────────── */
   const ov = c.overview;
   set('ov-summary',     ov.summary     || '');
   set('ov-personality', ov.personality || '');
   set('ov-side-quote',  ov.sideQuote   || '');
+
   set('ov-likes',    (ov.likes    || []).map(l => `<li>${l}</li>`).join(''));
   set('ov-dislikes', (ov.dislikes || []).map(d => `<li>${d}</li>`).join(''));
-  set('ov-trivia',   (ov.trivia   || []).map(t =>
+
+  set('ov-trivia', (ov.trivia || []).map(t =>
     t.redacted
       ? `<li class="cs-redacted">[ CLASSIFIED — pending archival review ]</li>`
       : `<li>${t.text}</li>`
   ).join(''));
 
+  // Dossier
   const dos = c.dossier;
   set('ov-dossier',
     dosRow('Full Name',    dos.fullName)    +
@@ -655,71 +588,84 @@
     dosRow('Subclass',     dos.subclass)    +
     dosRow('Occupation',   dos.occupation)
   );
+
+  // Chibi
   if (el('chibi-img')) el('chibi-img').src = img.chibi || '';
 
-  /* ─── Design ────────────────────────────────────────────── */
+  /* ─── 8. DESIGN ─────────────────────────────────────────────── */
   const ds = c.design;
+
   if (el('refsheet-link') && ds.referenceSheet) {
     el('refsheet-link').href = ds.referenceSheet.full;
     if (el('refsheet-img')) {
-      el('refsheet-img').src = ds.referenceSheet.thumbnail;
-      el('refsheet-img').alt = ds.referenceSheet.altText || '';
+      el('refsheet-img').src     = ds.referenceSheet.thumbnail;
+      el('refsheet-img').alt     = ds.referenceSheet.altText || '';
     }
   }
+
   if (ds.physicalBuild) {
     const b = ds.physicalBuild;
-    set('design-build', [['Height', b.height], ['Build', b.build], ['Demeanor', b.demeanor]]
-      .map(([label, val]) => `
-        <div class="cs-basic-item">
-          <span class="cs-basic-label">${label}</span>
-          <span class="cs-basic-val">${val || '—'}</span>
-        </div>`).join(''));
+    set('design-build', [
+      ['Height',   b.height],
+      ['Build',    b.build],
+      ['Demeanor', b.demeanor]
+    ].map(([label, val]) => `
+      <div class="cs-basic-item">
+        <span class="cs-basic-label">${label}</span>
+        <span class="cs-basic-val">${val || '—'}</span>
+      </div>`
+    ).join(''));
   }
+
   if (ds.colorPalette) {
     const p = ds.colorPalette;
-    const palRow = (label, swatches) => swatches && swatches.length ? `
-      <div class="cs-pal-row">
-        <span class="cs-pal-label">${label}</span>
-        <div class="cs-swatches">
-          ${swatches.map(s => `
-            <div class="cs-swatch" style="--sw:${s.hex}">
-              <div class="cs-swatch-chip"></div>
-              <span class="cs-swatch-hex">${s.hex}</span>
-            </div>`).join('')}
-        </div>
-      </div>` : '';
+    const palRow = (label, swatches) =>
+      swatches && swatches.length ? `
+        <div class="cs-pal-row">
+          <span class="cs-pal-label">${label}</span>
+          <div class="cs-swatches">
+            ${swatches.map(s => `
+              <div class="cs-swatch" style="--sw:${s.hex}">
+                <div class="cs-swatch-chip"></div>
+                <span class="cs-swatch-hex">${s.hex}</span>
+              </div>`).join('')}
+          </div>
+        </div>` : '';
     set('design-palette',
       palRow('Eyes',  p.eyes)  +
       palRow('Body',  p.body)  +
       palRow('Other', p.other)
     );
   }
+
   set('design-notes', (ds.notes || []).map(n => `<li>${n}</li>`).join(''));
 
-  /* ─── Lore ──────────────────────────────────────────────── */
+  /* ─── 9. LORE ───────────────────────────────────────────────── */
   const lo = c.lore;
-  set('lore-bio',   (lo.biography || []).map(p => `<p class="cs-body">${p}</p>`).join(''));
+  set('lore-bio', (lo.biography || []).map(p => `<p class="cs-body">${p}</p>`).join(''));
   set('lore-quote', lo.loreQuote || '');
 
+  // Origin
   const or = lo.origin || {};
   set('lore-origin',
-    dosRow('Birthplace',       or.birthplace)      +
-    dosRow('Region',           or.region)          +
-    dosRow('Current Location', or.currentLocation) +
-    dosRow('Affiliation',      or.affiliation)     +
-    `<div class="cs-di-divider"></div>`            +
-    dosRow('First Seen',       or.firstSeen)       +
-    dosRow('Campaign',         or.campaign)        +
+    dosRow('Birthplace',       or.birthplace)       +
+    dosRow('Region',           or.region)           +
+    dosRow('Current Location', or.currentLocation)  +
+    dosRow('Affiliation',      or.affiliation)      +
+    `<div class="cs-di-divider"></div>`             +
+    dosRow('First Seen',       or.firstSeen)        +
+    dosRow('Campaign',         or.campaign)         +
     dosRowStyled('Status',     or.status)
   );
 
+  // Sessions
   set('lore-sessions', (lo.sessions || []).map(s => {
-    const isLast     = s.isLast  ? 'cs-session--last'  : '';
-    const isIntro    = s.isIntro ? 'cs-session--intro' : '';
-    const dot        = s.isIntro
+    const isLast  = s.isLast  ? 'cs-session--last'  : '';
+    const isIntro = s.isIntro ? 'cs-session--intro' : '';
+    const dot     = s.isIntro
       ? `<div class="cs-session-dot cs-session-dot--intro"></div>`
       : `<div class="cs-session-dot"></div>`;
-    const line       = s.isLast ? '' : `<div class="cs-session-line"></div>`;
+    const line    = s.isLast ? '' : `<div class="cs-session-line"></div>`;
     const introLabel = s.isIntro
       ? `<span class="cs-session-label cs-session-label--intro">
            <i class="fa-solid fa-star-of-life fa-xs"></i> Introduction
@@ -740,6 +686,7 @@
       </div>`;
   }).join(''));
 
+  // Related Stories
   set('lore-stories', (lo.relatedStories || []).map(s => `
     <div class="grid-item ${s.cssClass || ''}" data-date="${s.date || ''}">
       <a href="${s.href}" class="news-card-link">
@@ -755,9 +702,10 @@
           </div>
         </div>
       </a>
-    </div>`).join(''));
+    </div>`
+  ).join(''));
 
-  /* ─── Relationships ─────────────────────────────────────── */
+  /* ─── 10. RELATIONSHIPS ──────────────────────────────────────── */
   const arrowSVG = `<svg viewBox="0 0 162 70.28">
     <circle cx="31.57" cy="35.21" r="11.57"></circle>
     <g>
@@ -791,21 +739,23 @@
           </a>
         </div>
       </div>
-    </div>`).join(''));
+    </div>`
+  ).join(''));
 
-  /* ─── Featured gallery (outside tabs) ──────────────────── */
+  /* ─── 11. GALLERY ───────────────────────────────────────────── */
   set('gallery-grid', (c.gallery || []).map(g => `
     <div class="cs-gal-item">
       <a href="${g.full}" data-lightbox="featured" data-title="${g.caption || ''}">
         <img src="${g.thumbnail}" alt="${g.altText || 'Gallery'}">
         <div class="cs-gal-overlay"><i class="fa-solid fa-expand"></i></div>
       </a>
-    </div>`).join(''));
+    </div>`
+  ).join(''));
 
-  /* ─── Footer timestamp ──────────────────────────────────── */
+  /* ─── 12. Footer timestamp ──────────────────────────────────── */
   if (el('csUpdateTime')) el('csUpdateTime').textContent = document.lastModified;
 
-  /* ─── Tab logic ─────────────────────────────────────────── */
+  /* ─── 13. Tab logic ─────────────────────────────────────────── */
   const tabs   = document.querySelectorAll('.cs-tab');
   const panels = document.querySelectorAll('.cs-panel');
   const ink    = el('tabInk');
@@ -833,8 +783,9 @@
     });
   });
 
-  /* ─── Fade-in + show page ───────────────────────────────── */
+  /* ─── 14. Fade-in + show page ───────────────────────────────── */
   document.body.style.visibility = 'visible';
+
   window.addEventListener('load', () => {
     document.querySelectorAll('.fade-block').forEach((el, i) =>
       setTimeout(() => el.classList.add('visible'), i * 70)
@@ -846,47 +797,11 @@
       if (first) { first.style.display = 'block'; first.classList.add('visible'); }
     }
   });
+
   window.addEventListener('resize', () => {
     const a = document.querySelector('.cs-tab--active');
     if (a) moveInk(a);
   });
-
-  /* ─── Gallery tab ───────────────────────────────────────── */
-  const charName = (c.hero.name || '').toLowerCase();
-  const csgGrid  = el('csg-grid');
-  const csgEmpty = el('csg-empty');
-
-  const lightbox = GalleryCore.buildLightbox({ prefix: 'csg-glb', showChars: false });
-
-  let galItems = [];
-  try {
-    const all = await GalleryCore.fetchItems();
-    galItems = all
-      .filter(g => (g.characters || []).some(n => n.toLowerCase() === charName))
-      .sort((a, b) => GalleryCore.dateToMs(b.date) - GalleryCore.dateToMs(a.date));
-  } catch (e) {
-    console.warn('Character gallery tab load failed', e);
-  }
-
-  if (galItems.length === 0) {
-    if (csgEmpty) csgEmpty.style.display = 'flex';
-  } else {
-    const frag = document.createDocumentFragment();
-    galItems.forEach((item, i) => {
-      const card = GalleryCore.buildCard(item, i, {
-        cardClass: 'csg-card',
-        prefix:    'csg',
-        onClick:   (_item, i) => lightbox.open(galItems, i),
-      });
-      frag.appendChild(card);
-    });
-    if (csgGrid) {
-      csgGrid.appendChild(frag);
-      csgGrid.querySelectorAll('.csg-card').forEach(card => {
-        GalleryCore.loadCardImage(card, { prefix: 'csg' });
-      });
-    }
-  }
 
 })();
 </script>
