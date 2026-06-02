@@ -6,7 +6,7 @@
   <title>Solstitheo Archives — Gallery</title>
   <meta name="description" content="Artwork gallery for the Solstitheo Archives — illustrations, doodles, and renders from the world of Edelith.">
   <meta name="theme-color" content="#2a211b">
-
+  <link rel="preload" href="/data/gallery.json" as="fetch" crossorigin>
   <link rel="icon" type="image/x-icon" href="/assets/img/ico/purple.ico">
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,9 +16,11 @@
   <script src="/scripts/sidenav.js" defer></script>
   <script src="/scripts/playlist.js" type="text/javascript" defer></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
   <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script src="/scripts/isotope.pkgd.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body style="visibility:hidden">
@@ -86,10 +88,11 @@
   </div>
 
   <!-- ══════════════════════════════════════════
-     SEARCH
+     SEARCH  —  matches character page style
   ══════════════════════════════════════════ -->
   <div class="gal-search-wrap fade-block">
     <div class="gal-search-box">
+      <i class="fa-solid fa-magnifying-glass gal-search-icon"></i>
       <input
         id="galSearch"
         class="gal-search-input"
@@ -250,30 +253,59 @@
   padding: 3px 10px; transition: all 0.2s ease;
 }
 
-/* ── Search ─────────────────────────────────────────────── */
-.gal-search-wrap { display: flex; justify-content: center; padding: 28px 20px 4px; }
+/* ── Search  —  mirrors .char-search-* from characters/index.html ── */
+.gal-search-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px 4px;
+}
+
 .gal-search-box {
-  position: relative; display: flex; align-items: center;
-  width: 100%; max-width: 500px;
-  border-bottom: 1px solid rgba(201,168,76,0.25); transition: border-color 0.25s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  border-bottom: 1px solid rgba(201,168,76,0.25);
+  transition: border-color 0.25s ease;
 }
-.gal-search-box:focus-within { border-color: rgba(201,168,76,0.7); }
+.gal-search-box:focus-within {
+  border-color: rgba(201,168,76,0.7);
+}
+
 .gal-search-icon {
-  color: rgba(201,168,76,0.45); font-size: 0.78rem;
-  flex-shrink: 0; margin-right: 12px; transition: color 0.2s ease;
+  color: rgba(201,168,76,0.45);
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  margin-right: 12px;
+  transition: color 0.2s ease;
 }
-.gal-search-box:focus-within .gal-search-icon { color: rgba(201,168,76,0.85); }
+.gal-search-box:focus-within .gal-search-icon {
+  color: rgba(201,168,76,0.85);
+}
+
 .gal-search-input {
-  flex: 1; background: transparent; border: none; outline: none;
-  font-family: var(--f-label, 'Cinzel', serif); font-size: 0.8rem;
-  letter-spacing: 2px; color: var(--fog, #c4b998);
-  padding: 10px 0; caret-color: var(--gold, #c9a84c);
+  flex: 1;
+  background: transparent;
+  border: none; outline: none;
+  font-family: var(--f-label, 'Cinzel', serif);
+  font-size: 0.8rem; letter-spacing: 2px;
+  color: var(--fog, #c4b998);
+  padding: 10px 0;
+  caret-color: var(--gold, #c9a84c);
 }
-.gal-search-input::placeholder { color: rgba(201,168,76,0.22); letter-spacing: 2px; }
+.gal-search-input::placeholder {
+  color: rgba(201,168,76,0.22);
+  letter-spacing: 2px;
+}
+
 .gal-search-clear {
-  background: none; border: none; color: rgba(201,168,76,0.4);
-  font-size: 0.65rem; cursor: pointer; padding: 4px 8px; flex-shrink: 0;
-  opacity: 0; pointer-events: none; transition: opacity 0.15s ease, color 0.15s ease;
+  background: none; border: none;
+  color: rgba(201,168,76,0.4);
+  font-size: 0.65rem; cursor: pointer;
+  padding: 4px 8px; flex-shrink: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s ease, color 0.15s ease;
 }
 .gal-search-clear.visible { opacity: 1; pointer-events: auto; }
 .gal-search-clear:hover   { color: var(--gold, #c9a84c); }
@@ -282,13 +314,6 @@
 .gal-grid-wrap { padding: 28px 0 48px; }
 .gal-masonry   { position: relative; }
 
-/*
-  Column sizer controls how many columns Isotope produces.
-  6 columns desktop  →  ~16.666% width minus gutters
-  Gutter is 10px; with 6 cols there are 5 gutters = 50px total.
-  Each col = (100% - 5*10px) / 6  ≈  16.666% - ~8.33px
-  We use percentPosition so this is expressed as a percentage.
-*/
 .gal-col-sizer    { width: calc(16.6667% - 8.34px); }
 .gal-gutter-sizer { width: 10px; }
 
@@ -297,19 +322,8 @@
   width: calc(16.6667% - 8.34px);
   margin-bottom: 10px;
   cursor: pointer;
-  /*
-    IMPORTANT: do NOT put transform here at the card level.
-    Isotope controls position via its own inline left/top transforms.
-    Mixing our CSS transitions with Isotope's position transitions
-    causes the "pop" — cards briefly escape their bounds as both
-    transforms fire at once.
-
-    Hover scale goes on the inner img-wrap only (see below),
-    so it never interferes with Isotope's layout transform.
-  */
 }
 
-/* Isotope fade-in/out — opacity only, no transform */
 .gal-card { opacity: 1; }
 .gal-card.iso-hidden { opacity: 0; pointer-events: none; }
 
@@ -317,10 +331,6 @@
   position: relative; overflow: hidden;
   background: rgba(17,19,24,0.5);
   border: 1px solid rgba(201,168,76,0.1);
-  /*
-    Scale lives here, NOT on .gal-card.
-    overflow:hidden clips it so it never breaks the grid boundary.
-  */
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 .gal-card:hover .gal-card-img-wrap {
@@ -328,12 +338,6 @@
   box-shadow: 0 0 2rem rgba(147,115,65,0.25), 0 0 1.8rem rgba(0,0,0,0.75);
 }
 
-/* ── Placeholder gif ────────────────────────────────────── */
-/*
-  Shown while real image is not yet loaded.
-  Fixed height so Isotope can lay out before images arrive.
-  ↓ swap src in the JS template ↓
-*/
 .gal-card-placeholder {
   display: block; width: 100%; height: 180px;
   object-fit: cover;
@@ -348,7 +352,6 @@
   display: block;
 }
 
-/* Hover overlay */
 .gal-card-hover {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(17,19,24,0.92) 0%, rgba(17,19,24,0.3) 60%, transparent 100%);
@@ -370,7 +373,6 @@
   color: rgba(201,168,76,0.7); font-size: 0.75rem;
 }
 
-/* Category badge */
 .gal-card-cat {
   position: absolute; top: 8px; left: 8px;
   font-family: var(--f-label, 'Cinzel', serif);
@@ -489,22 +491,18 @@
 .gal-updated i { margin-right: 6px; }
 
 /* ── Responsive column counts ───────────────────────────── */
-/* 5 cols under 1300px */
 @media (max-width: 1300px) {
   .gal-col-sizer, .gal-card { width: calc(20% - 8px); }
 }
-/* 4 cols under 1050px */
 @media (max-width: 1050px) {
   .gal-col-sizer, .gal-card { width: calc(25% - 7.5px); }
 }
-/* 3 cols under 800px */
 @media (max-width: 800px) {
   .gal-col-sizer, .gal-card { width: calc(33.333% - 6.67px); }
   .gal-masthead { padding: 24px 20px 18px; }
   .gal-masthead-title { font-size: 1.6rem; }
   .gal-masthead-watermark { display: none; }
 }
-/* 2 cols under 500px */
 @media (max-width: 500px) {
   .gal-col-sizer, .gal-card { width: calc(50% - 5px); }
 }
@@ -513,16 +511,68 @@
 <script>
 (async () => {
 
-  /* ─── 1. Load data ─────────────────────────────────────── */
-  let items = [];
-  try {
+/* ─── 1. Load data with cache ──────────────────────────── */
+
+let items = [];
+
+const CACHE_KEY = 'gallery_json_cache_v1';
+const CACHE_TIME_KEY = 'gallery_json_cache_time_v1';
+const CACHE_LIFETIME = 1000 * 60 * 60 * 24; // 24 hours
+
+try {
+
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+
+  const cacheValid =
+    cachedData &&
+    cachedTime &&
+    (Date.now() - Number(cachedTime) < CACHE_LIFETIME);
+
+  if (cacheValid) {
+    console.log('Gallery loaded from cache');
+    items = JSON.parse(cachedData);
+
+    // Fetch fresh copy in background
+    fetch('/data/gallery.json')
+      .then(res => {
+        if (!res.ok) throw new Error(res.statusText);
+        return res.json();
+      })
+      .then(freshData => {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
+        localStorage.setItem(CACHE_TIME_KEY, Date.now());
+        console.log('Gallery cache refreshed');
+      })
+      .catch(() => {});
+  } else {
+
+    console.log('Gallery loaded from server');
+
     const res = await fetch('/data/gallery.json');
-    if (!res.ok) throw new Error(res.statusText);
+
+    if (!res.ok)
+      throw new Error(res.statusText);
+
     items = await res.json();
-  } catch(e) {
-    console.warn('Gallery: could not load /data/gallery.json', e);
+
+    localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+    localStorage.setItem(CACHE_TIME_KEY, Date.now());
+  }
+
+} catch (e) {
+
+  console.warn('Gallery load failed', e);
+
+  const cachedData = localStorage.getItem(CACHE_KEY);
+
+  if (cachedData) {
+    items = JSON.parse(cachedData);
+    console.log('Using stale cache');
+  } else {
     items = DEMO_ITEMS;
   }
+}
 
   /* ─── 2. Helpers ────────────────────────────────────────── */
   function parseDate(str) {
@@ -577,7 +627,6 @@
 
   /* ─── 7. Card builder ───────────────────────────────────── */
   const catLabel = { illustration: 'Illus.', doodle: 'Doodle', render: 'Render', slander: 'Slander' };
-  const catIcon  = { illustration: 'fa-paintbrush', doodle: 'fa-pencil', render: 'fa-cube', slander: 'fa-fire' };
 
   function buildCard(item, idx) {
     const cat         = item.category || 'illustration';
@@ -588,6 +637,8 @@
     const el = document.createElement('div');
     el.className     = `gal-card cat-${cat} ${charClasses}`;
     el.dataset.index = idx;
+    // Store lowercased character names directly for fast search lookup
+    el.dataset.chars = (item.characters || []).map(c => c.toLowerCase()).join('|');
 
     el.innerHTML = `
       <div class="gal-card-img-wrap">
@@ -614,7 +665,7 @@
     return el;
   }
 
-  /* ─── 8. Inject cards (DOM only — no images yet) ─────────── */
+  /* ─── 8. Inject cards ───────────────────────────────────── */
   const frag = document.createDocumentFragment();
   items.forEach((item, i) => frag.appendChild(buildCard(item, i)));
   grid.appendChild(frag);
@@ -636,7 +687,6 @@
   /* ─── 10. Window load — images + fade-in ────────────────── */
   window.addEventListener('load', () => {
 
-    // Trigger real-image loads by moving data-src → src
     grid.querySelectorAll('.gal-card-img[data-src]').forEach(img => {
       const src = img.dataset.src;
       delete img.dataset.src;
@@ -653,59 +703,45 @@
       tmp.src = src;
     });
 
-    // Staggered card entrance
     document.querySelectorAll('.gal-card').forEach((c, i) => {
       c.style.opacity = '0';
       setTimeout(() => { c.style.opacity = ''; }, Math.min(i * 30, 500));
     });
 
-    // Fade-blocks
     document.querySelectorAll('.fade-block').forEach((el, i) =>
       setTimeout(() => el.classList.add('visible'), i * 70)
     );
   });
 
   /* ─── 11. Filter helpers ────────────────────────────────── */
-  function buildIsoFilter() {
-    const q = searchQuery.trim().toLowerCase();
-
-    if (!q) return activeFilter;
-
-    const allCards   = [...grid.querySelectorAll('.gal-card')];
-    const matchSlugs = new Set();
-    allCards.forEach(card => {
-      [...card.classList]
-        .filter(c => c.startsWith('char-'))
-        .forEach(cls => {
-          const readable = cls.replace('char-', '').replace(/-/g, ' ');
-          if (readable.includes(q)) matchSlugs.add('.' + cls);
-        });
+  // Mirrors the character page's matchQ && matchF pattern exactly.
+  // matchQ: check if searchQuery appears in any character name on the card.
+  // matchF: check if card matches the active category filter.
+  function applyFilters() {
+    iso.arrange({
+      filter: function(el) {
+        const chars   = el.dataset.chars || '';   // pipe-separated lowercase names
+        const matchQ  = !searchQuery || chars.split('|').some(name => name.includes(searchQuery));
+        const matchF  = activeFilter === '*' || el.matches(activeFilter);
+        return matchQ && matchF;
+      }
     });
-
-    if (!matchSlugs.size) return '.gal-no-match';
-
-    const slugArr = [...matchSlugs];
-    return el => {
-      if (activeFilter !== '*' && !el.matches(activeFilter)) return false;
-      return slugArr.some(s => el.matches(s));
-    };
-  }
-
-  function applyFilter() {
-    const f = buildIsoFilter();
-    iso.arrange({ filter: f });
     updateCount();
   }
 
   function updateCount() {
-    const shown = [...grid.querySelectorAll('.gal-card')]
-      .filter(c => c.style.display !== 'none').length;
-    galCount.textContent = `${shown} piece${shown !== 1 ? 's' : ''}`;
-    emptyMsg.style.display = shown === 0 ? 'block' : 'none';
+    // Isotope hides filtered-out items with display:none after arrange settles;
+    // we count cards that are NOT hidden by checking Isotope's filtered items.
+    setTimeout(() => {
+      const shown = [...grid.querySelectorAll('.gal-card')]
+        .filter(c => c.style.display !== 'none').length;
+      galCount.textContent = `${shown} piece${shown !== 1 ? 's' : ''}`;
+      emptyMsg.style.display = shown === 0 ? 'block' : 'none';
 
-    visibleItems = [...grid.querySelectorAll('.gal-card')]
-      .filter(c => c.style.display !== 'none')
-      .map(c => items[+c.dataset.index]);
+      visibleItems = [...grid.querySelectorAll('.gal-card')]
+        .filter(c => c.style.display !== 'none')
+        .map(c => items[+c.dataset.index]);
+    }, 350); // wait for Isotope transition to settle
   }
 
   /* ─── 12. Filter buttons ────────────────────────────────── */
@@ -714,23 +750,27 @@
       document.querySelectorAll('.gal-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeFilter = btn.dataset.filter;
-      applyFilter();
+      applyFilters();
     });
   });
 
-  /* ─── 13. Search ────────────────────────────────────────── */
+  /* ─── 13. Search — debounced at 160ms, matching character page ── */
   let searchTimer;
-  searchInput.addEventListener('input', () => {
-    searchQuery = searchInput.value;
-    searchClear.classList.toggle('visible', searchQuery.length > 0);
+  searchInput.addEventListener('input', function() {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(applyFilter, 200);
+    const val = this.value.trim().toLowerCase();
+    searchTimer = setTimeout(() => {
+      searchQuery = val;
+      applyFilters();
+      searchClear.classList.toggle('visible', val.length > 0);
+    }, 160);
   });
+
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
     searchQuery = '';
     searchClear.classList.remove('visible');
-    applyFilter();
+    applyFilters();
     searchInput.focus();
   });
 
