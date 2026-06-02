@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "pageTitle": "Blaze • Solstitheo",
+    "ogDescription": "A man on the run from the ghosts of his past, Lucious Holiday, also known as Blaze is a Gunslinger Tiefling who made a deal with a devil.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/blaze-doodle.png",
+    "themeColor": "#d0bca1",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+      "cp":         "#8a4b3a",
+      "cs":         "#c29a68",
+      "ct":         "#6f543d",
+      "cd":         "#1c1411",
+      "cl":         "#efe2c9",
+      "ink":        "#1a130f",
+      "inkMid":     "#261c16",
+      "inkLight":   "#38291f",
+      "fog":        "#d0bca1",
+      "fogDim":     "#8f7a62",
+      "frost":      "#f6ecdc",
+      "void":       "#120c09",
+      "gold":       "#b8854a",
+      "goldDim":    "#70512b"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/moodboard5.gif",
+      "avatar":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Misc/blaze-sketch.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/moodboard1.jpg",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/moodboard2.gif",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/moodboard3.jpg",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/moodboard4.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/background.jpg",
+      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/stamp1.png",
+      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/stamp2.png",
+      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/moodboard/blaze-doodle.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Blaze",
+    "fullName":   "Lucious \"Blaze\" Holiday",
+    "watermark":  "Player",
+    "quote":      "Ill see you in hell!",
+    "playlistUrl": "https://youtu.be/na47wMFfQCo?si=Dw12oVPdxqaR4mFh",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/golem.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/tauros.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/miltank.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/crustle.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/bouffalant.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/mudsdale.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Blaze is a Fighter: Gunslinger. A wanted man around Solstitheo, Blaze is on the run after killing a man in the Southern Edelith Colonies. He made a deal with a devil and challenged him to play the paino, and succeeded being granted his two guns. However these guns refuse to abandon him. The gold plated guns that refuse the corrosion's attempts is surely not demonic in origin. He is apart of the Main cast for the Ministry of Edelith to null his warrant.",
+    "personality": "Blaze is a raggedy and cynical man, deeply paranoid by the people around him and very self centered. But very very funny and quipy with a lot of charisma.",
+    "likes":    ["work in progress!"],
+    "dislikes": ["work in progress!"],
+    "trivia": [
+      { "text": "The Guns that blaze wields are called The Toll, and The Tally.", "redacted": false },
+      { "text": "It's been revealed by Pazenless in Gratehaven, that the Guns are of divine origin rather than the preassumed infernal.", "redacted": false },
+      { "text": "Blaze has markings on his back which are usually invisible to the naked eye.", "redacted": false },
+      { "text": "Earned the name Blaze during his years on the farm when he tried to use his burgeoning hellfire to instantly brand a rowdy bull; he missed, torched the barn's winter hay supply, and spent the next three days sweeping ash out of his father's boots.", "redacted": false }
+    ],
+    "sideQuote": "No yeah i lived in a farm"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Lucious Holiday" },
+    "alsoKnownAs": { "value": "Blaze · Infernal Sharpshooter" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Tiefling" },
+    "class":       { "value": "Fighter" },
+    "subclass":    { "value": "Gunslinger" },
+    "occupation":  { "value": "On the run", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/blaze-sketch.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/blaze-sketch.png",
+      "altText":   "Herb reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "4'7\" / 139cm",
+      "build":    "Rugged",
+      "demeanor": "Dry whit"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#2E2E2E" }
+      ],
+      "body": [
+        { "hex": "#bda78c" }
+      ],
+      "other": [
+        { "hex": "#9e996e" },
+        { "hex": "#665754" },
+        { "hex": "#444d40" },
+        { "hex": "#9f6a4b" }
+      ]
+    },
+    "notes": [
+      "Blaze's horns are based on the Longhorn.",
+      "His back has runic markings which are usually not visible."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Outside Edelith" },
+      "region":           { "value": "Outside Edelith" },
+      "currentLocation":  { "value": "Immortal City of Edelith" },
+      "affiliation":      { "value": null, "unknown": true },
+      "firstSeen":        { "value": "Session 27" },
+      "status":           { "value": "Active", "colorVar": "cp" }
+    },
+
+    "loreQuote": "I shot 'em' because i ain' trust 'em.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 26",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Blaze made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 27",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 28",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ],
+
+    "relatedStories": [
+      {
+        "cssClass":   "edelith",
+        "href":       "/fun-fact-friday/travels-of-a-post-wake-edelith/woodsworn.html",
+        "coverImage": "/fun-fact-friday/travels-of-a-post-wake-edelith/cover.webp",
+        "altText":    "The Woodsworn",
+        "series":     "Travels of a post-wake Edelith",
+        "title":      "The Woodsworn",
+        "tag":        "\"Damien Zerxes\"",
+        "date":       "June 14, 2025"
+      }
+    ]
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       30,
+      "dotsOn":          2,
+      "dotsHalf":        0,
+      "dotsOff":         3,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "Plasmoid",
+      "closeness":       35,
+      "dotsOn":          2,
+      "dotsHalf":        1,
+      "dotsOff":         3,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Alloy Rusty",
+      "race":            "Human",
+      "closeness":       15,
+      "dotsOn":          1,
+      "dotsHalf":        1,
+      "dotsOff":         4,
+      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "profileHref":     "/characters/rusty/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/Curiosity.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/blaze/Curiosity.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}
