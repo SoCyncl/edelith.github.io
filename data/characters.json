@@ -41,7 +41,7 @@
     "race": "Dude",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/eight-card.png",
     "link": "/characters/eight/index.html"
   },
   {
@@ -50,7 +50,7 @@
     "race": "Wood Gnome",
     "date": 2,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
     "link": "/characters/baxter/index.html"
   },
   {
@@ -77,8 +77,8 @@
     "race": "Unknown",
     "date": 26,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mathew-card.png",
+    "link": "/characters/mathew/index.html"
   },
   {
     "id": "pizzaz",
