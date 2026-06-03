@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "pageTitle": "Baxter • Solstitheo",
+    "ogDescription": "A genius in the making, Baxter Kokayin is a Wood Gnome, Conjuration Wizard, who seeks to prove to Skollarium that he is worth the enrollment.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
+    "themeColor": "#e1d4cd",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+      "cp":         "#6b5a8e",
+      "cs":         "#f1e9ff",
+      "ct":         "#8d7ab6",
+      "cd":         "#17121f",
+      "cl":         "#faf5ff",
+    
+      "ink":        "#f3efff",
+      "inkMid":     "#d6caef",
+      "inkLight":   "#b8abd8",
+    
+      "fog":        "#c7bddf",
+      "fogDim":     "#8d7ab6",
+    
+      "frost":      "#ffd65c",
+    
+      "void":       "#0c0912",
+    
+      "gold":       "#ffb732",
+      "goldDim":    "#9c7422"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/banner.gif",
+      "avatar":  "/characters/baxter/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight_nanako-close.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard3.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard2.jpg",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard3.jpg",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard1.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/bg.gif",
+      "stamp1":  "/characters/baxter/img/stamp1.png",
+      "stamp2":  "/characters/baxter/img/stamp2.png",
+      "chibi":   "/characters/baxter/img/chibi.webp"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Baxter",
+    "fullName":   "Baxter Kokayin",
+    "watermark":  "Player",
+    "quote":      "...",
+    "playlistUrl": "https://youtu.be/w4saikdG9pQ?si=yXsiMt9l0c5VeC7e",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/gengar.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/spiritomb.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/musharna.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/malamar.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/noivern.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/tapu-fini.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Baxter Kokayin is a Wood Gnome Wizard from a far away land. He was raised in a noble family. Baxter was taught in a religious school that focused on Conjuration. He was praised by both his classmates and teachers for being a natural prodigy. Once he graduated the school, he went out on an adventure as a freeman, exploring the outer world and wishing goodbye to his family and friends back in his forest hometown.",
+     "personality": "Despite his natural look, he is very clueless, interrogative, and question-oriented about all things that happen.",
+    "likes":    ["Work in progress!"],
+    "dislikes": ["Work in progress!"],
+    "trivia": [
+      { "text": "Work in progress!", "redacted": false },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true }
+    ],
+    "sideQuote": "Work in progress!"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Baxter Kokayin" },
+    "alsoKnownAs": { "value": "Baxter" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Wood Gnome" },
+    "class":       { "value": "Wizard" },
+    "subclass":    { "value": "School of Conjuration" },
+    "occupation":  { "value": "Alive", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/Kokayin.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/Kokayin.png",
+      "altText":   "Baxter reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "3'2\" / 96cm",
+      "build":    "Small",
+      "demeanor": "Confused"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#2f2e35" }
+      ],
+      "body": [
+        { "hex": "#e9cabe" }
+      ],
+      "other": [
+        { "hex": "#3c365b" },
+        { "hex": "#a59379" },
+        { "hex": "#4f4d58" },
+        { "hex": "#2b2937" },
+        { "hex": "#6a7a83" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Unkown" },
+      "region":           { "value": "Unkown" },
+      "currentLocation":  { "value": "Unkown" },
+      "affiliation":      { "value": null, "Unkown": true },
+      "firstSeen":        { "value": "Session 1" },
+      "status":           { "value": "Unkown", "colorVar": "cp" }
+    },
+
+    "loreQuote": "Unkown.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 1",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 2",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 3",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ]
+
+
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "Plasmoid",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Peggle Krastov",
+      "race":            "Goliath",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+      "profileHref":     "/characters/peggle/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/hollow%20purple.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/hollow%20purple.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}
