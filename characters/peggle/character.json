@@ -1,0 +1,234 @@
+{
+  "meta": {
+    "pageTitle": "Peggle • Solstitheo",
+    "ogDescription": "Insatiable rage, suppressed for the sake and love of his niece. A Goliath barbarian from the Krastov Clan of Bjornguard, far from Edelith. Peggle Krastov is a noble and heir to the Krastov's and seeks Edelith to find a way to suppress his anger.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+    "themeColor": "#d0bca1",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+
+  "cp":         "#f7d0d7",
+  "cs":         "#fcfbf9",
+  "ct":         "#5b4740",
+  "cd":         "#170b0e",
+  "cl":         "#fffdfa",
+
+  "ink":        "#181214",
+  "inkMid":     "#242529",
+  "inkLight":   "#3a2d31",
+
+  "fog":        "#d7d0cb",
+  "fogDim":     "#8e8580",
+
+  "frost":      "#f2efec",
+
+  "void":       "#0d090a",
+
+  "gold":       "#d1acb3",
+  "goldDim":    "#4e1b24"
+
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/banner.gif",
+      "avatar":  "/characters/peggle/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/pegglesticker.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/moodboard1.jpg",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/moodboard2.gif",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/moodboard3.jpg",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/moodboard4.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/moodboard/background.jpg",
+      "stamp1":  "/characters/peggle/img/stamp1.png",
+      "stamp2":  "/characters/peggle/img/stamp2.png",
+      "chibi":   "/characters/peggle/img/chibi.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Beast of The North",
+    "fullName":   "Peggle Krastov",
+    "watermark":  "Player",
+    "quote":      "My name is the Beast of The North! ... But mother call me Peggle.",
+    "playlistUrl": "https://youtu.be/na47wMFfQCo?si=Dw12oVPdxqaR4mFh",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/machamp.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/regice.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/urshifu.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/abomasnow.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/froslass.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/garchomp.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Peggle Krastov is a Goliath, Bear Totem Barbarian from the North Bjornguard. In search of inheritance from his noble family, and for the sake of his niece, he consulted the best anger management in Solstitheo, inside the Immortal City of Edelith. he is a man guided by a strong moral compass, and to find a way to suppress his anger. After finding out Vaskel Krastov from the Iron Fang Sect is in Edelith, he left the main party to reassess his priorities and to grow stronger in fear his plans are to kill him, or harm his family as his ultimate goal.",
+     "personality": "Peggle is a kind, but hardy soul that refuses to yield and bow to anyone aside from family. The only thing stopping him is his own anger and temperment and now seeks a therapist who can help him control his anger, so he may be the best Uncle to his neice.",
+    "likes":    ["Tea", "Broomhilda's Cookies", "Gambling", "Dominant Women"],
+    "dislikes": ["Absolutes", "Playing with lives", "Carriage Kin", "Vaskel Krastov"],
+    "trivia": [
+      { "text": "In Bjornguard culture, the rite to adulthood is to go on your first solo hunt, and wearing the pelt of your first kill into adulthoold, hence the bear.", "redacted": false },
+      { "text": "It's been revealed by Pazenless in Gratehaven, that the Guns are of divine origin rather than the preassumed infernal.", "redacted": true },
+      { "text": "Blaze has markings on his back which are usually invisible to the naked eye.", "redacted": true },
+      { "text": "Earned the name Blaze during his years on the farm when he tried to use his burgeoning hellfire to instantly brand a rowdy bull; he missed, torched the barn's winter hay supply, and spent the next three days sweeping ash out of his father's boots.", "redacted": true }
+    ],
+    "sideQuote": "If your plan is to use people, i will kill you."
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Peggle Krastov" },
+    "alsoKnownAs": { "value": "The Beast of The North · The Mountain" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Goliath" },
+    "class":       { "value": "Barbarian" },
+    "subclass":    { "value": "Bear Totem" },
+    "occupation":  { "value": "Departed from Main Party", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/Peggle%20concept.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/Peggle%20concept.png",
+      "altText":   "Peggle reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "8'6\" / 259cm",
+      "build":    "Fit and Swole",
+      "demeanor": "Gentlemanly"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#0f0803" }
+      ],
+      "body": [
+        { "hex": "#ebd1c0" }
+      ],
+      "other": [
+        { "hex": "#2c2018" },
+        { "hex": "#603843" },
+        { "hex": "#bababa" },
+        { "hex": "#856c5e" },
+        { "hex": "#8f8680" },
+        { "hex": "#d6d2c1" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Bjornguard" },
+      "region":           { "value": "Outside Edelith" },
+      "currentLocation":  { "value": "Immortal City of Edelith" },
+      "affiliation":      { "value": null, "Krastov Clan": true },
+      "firstSeen":        { "value": "Session 1" },
+      "status":           { "value": "Departed from Main Party", "colorVar": "cp" }
+    },
+
+    "loreQuote": "I am in Edelith for my Niece.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 1",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "peggle made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 27",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 28",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ],
+
+    "relatedStories": [
+      {
+        "cssClass":   "edelith",
+        "href":       "/fun-fact-friday/from-the-grapevine/dearest-broomhilda.html",
+        "coverImage": "/fun-fact-friday/from-the-grapevine/cover.webp",
+        "altText":    "Dearest Broomhilda",
+        "series":     "From the Grapevine",
+        "title":      "Dearest Broomhilda",
+        "tag":        "\"Peggle Krastov\"",
+        "date":       "Aug 1, 2025"
+      }
+    ]
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       70,
+      "dotsOn":          3,
+      "dotsHalf":        1,
+      "dotsOff":         0,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "Plasmoid",
+      "closeness":       70,
+      "dotsOn":          3,
+      "dotsHalf":        1,
+      "dotsOff":         0,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Broomhilda Krastov",
+      "race":            "Goliath",
+      "closeness":       100,
+      "dotsOn":          5,
+      "dotsHalf":        0,
+      "dotsOff":         0,
+      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "profileHref":     "/characters/broomhilda/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/locked-in.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/locked-in.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/Peggle_poster.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/Peggle_poster.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/peggle-sketches.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/peggle/peggle-sketches.png",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}
