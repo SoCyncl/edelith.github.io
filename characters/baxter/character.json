@@ -10,30 +10,34 @@
 
   "theme": {
     "colors": {
-      "cp":         "#6b5a8e",
-      "cs":         "#f1e9ff",
-      "ct":         "#8d7ab6",
-      "cd":         "#17121f",
-      "cl":         "#faf5ff",
-    
-      "ink":        "#f3efff",
-      "inkMid":     "#d6caef",
-      "inkLight":   "#b8abd8",
-    
-      "fog":        "#c7bddf",
-      "fogDim":     "#8d7ab6",
-    
-      "frost":      "#ffd65c",
-    
-      "void":       "#0c0912",
-    
-      "gold":       "#ffb732",
-      "goldDim":    "#9c7422"
+
+
+  "cp":         "#efcd9d",
+  "cs":         "#f7f3ff",
+  "ct":         "#8f69bc",
+  "cd":         "#140a1f",
+  "cl":         "#e4d4ff",
+
+  "ink":        "#e4d4ff",
+  "inkMid":     "#201728",
+  "inkLight":   "#41274c",
+
+  "fog":        "#cdb9e9",
+  "fogDim":     "#f6d3f9",
+
+  "frost":      "#ffe08a",
+
+  "void":       "#09040f",
+
+  "gold":       "#d4b86a",
+  "goldDim":    "#7f6735"
+
+
     },
     "images": {
       "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/banner.gif",
       "avatar":  "/characters/baxter/img/avi.png",
-      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight_nanako-close.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/hollow%20purple.png",
       "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard3.gif",
       "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard2.jpg",
       "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Baxter/moodboard/moodboard3.jpg",
