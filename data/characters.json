@@ -10,11 +10,11 @@
   },
   {
     "id": "avao",
-    "name": "Avao",
+    "name": "Avao Rosa",
     "race": "Woodsworn",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/avao-card.png",
     "link": "/characters/avao/index.html"
   },
   {
@@ -59,7 +59,7 @@
     "race": "Rat",
     "date": 13,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mousse-card.png",
     "link": "/characters/mousse/index.html"
   },
   {
