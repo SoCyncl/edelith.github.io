@@ -179,7 +179,7 @@
       "dotsOn":          3,
       "dotsHalf":        1,
       "dotsOff":         1,
-      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
       "profileHref":     "/characters/peggle/index.html"
     },
     {
@@ -189,7 +189,7 @@
       "dotsOn":          4,
       "dotsHalf":        1,
       "dotsOff":         0,
-      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
       "profileHref":     "/characters/blobert/index.html"
     },
     {
@@ -199,8 +199,48 @@
       "dotsOn":          1,
       "dotsHalf":        1,
       "dotsOff":         3,
-      "backgroundImage": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
       "profileHref":     "/characters/blaze/index.html"
+    },
+    {
+      "name":            "Eight Nanako",
+      "race":            "Human",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        0,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/eight-card.png",
+      "profileHref":     "/characters/eight/index.html"
+    },
+    {
+      "name":            "Pizzaz",
+      "race":            "Tabaxi",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        0,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
+      "profileHref":     "/characters/pizzaz/index.html"
+    },
+    {
+      "name":            "Mathew",
+      "race":            "Astral Elf",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        0,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mathew-card.png",
+      "profileHref":     "/characters/mathew/index.html"
+    },
+    {
+      "name":            "Baxter Kokayin",
+      "race":            "Wood Gnome",
+      "closeness":       20,
+      "dotsOn":          1,
+      "dotsHalf":        0,
+      "dotsOff":         4,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
+      "profileHref":     "/characters/baxter/index.html"
     }
   ],
 
