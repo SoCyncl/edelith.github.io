@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "pageTitle": "Liorah",
+    "ogDescription": "Once a fallen angel, now a patron and companion to Blobert, seeking to see the world.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/l-card.png",
+    "themeColor": "#8a826f",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+  "cp":         "#6f4bb8",
+  "cs":         "#ffffff",
+  "ct":         "#c7b5f5",
+  "cd":         "#24163f",
+  "cl":         "#f4f0ff",
+
+  "ink":        "#120a24",
+  "inkMid":     "#24163f",
+  "inkLight":   "#4a3475",
+
+  "fog":        "#b8add8",
+  "fogDim":     "#7c6aa3",
+
+  "frost":      "#e6dcff",
+
+  "void":       "#05030a",
+
+  "gold":       "#d7c5ff",
+  "goldDim":    "#8f7ac9"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/banner.gif",
+      "avatar":  "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/l-doodle.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/lioralite.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/mood1.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/mood2.gif",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/mood3.gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/mood4.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/bg.jpg",
+      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/stamp1.png",
+      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/stamp2.png",
+      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/l-doodle.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Liorah",
+    "fullName":   "Liorah",
+    "watermark":  "NPC",
+    "quote":      "What is your name?",
+    "playlistUrl": "https://youtu.be/aYHzV2Y9UgY?si=arwVWT95qrClJZ51",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/starmie.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/lunatone.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/absol.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/yamask-galar.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/umbreon.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/lugia-shadow.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Liorah was an observer to humanity, showing particular interest in Blobert, before she was struck down from the heavens. her consciousness now within this anomaly, she studies what it means to truly live.",
+     "personality": "Tsundere.",
+    "likes":    ["Work in progress!"],
+    "dislikes": ["Work in progress!"],
+    "trivia": [
+      { "text": "Work in progress!", "redacted": false },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true }
+    ],
+    "sideQuote": "Work in progress!"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Liorah" },
+    "alsoKnownAs": { "value": "Peggle in blobert's dreams - L" },
+    "gender":      { "value": "Nonbinary (She/Her)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Angel" },
+    "class":       { "value": "Patron" },
+    "subclass":    { "value": "Hexblade" },
+    "occupation":  { "value": "The Main Party's mascot", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/moodboard/lioralite.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/liorah/liorah.png",
+      "altText":   "Liorah reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "Slimey",
+      "build":    "Slime",
+      "demeanor": "Tsundere"
+    },
+    "colorPalette": {
+      "body": [
+        { "hex": "#655d7a" },
+        { "hex": "#dcd3f2" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "The Circlet" },
+      "region":           { "value": "Solstitheo" },
+      "currentLocation":  { "value": "Blobert" },
+      "affiliation":      { "value": null, "The Circlet": true },
+      "firstSeen":        { "value": "Session 17" },
+      "status":           { "value": "Congealed", "colorVar": "cp" }
+    },
+
+    "loreQuote": "Blobert.. I'll make sure to remember it from now on.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 17",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Liorah made her debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 18",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 19",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ]
+
+
+  },
+
+  "relationships": [
+    {
+      "name":            "Blobert",
+      "race":            "Plasmoid",
+      "closeness":       100,
+      "dotsOn":          5,
+      "dotsHalf":        0,
+      "dotsOff":         0,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}
