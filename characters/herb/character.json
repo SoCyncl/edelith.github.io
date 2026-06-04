@@ -241,6 +241,16 @@
       "dotsOff":         4,
       "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
       "profileHref":     "/characters/baxter/index.html"
+    },
+        {
+      "name":            "Mousse B. Bonic",
+      "race":            "Rat",
+      "closeness":       20,
+      "dotsOn":          1,
+      "dotsHalf":        0,
+      "dotsOff":         4,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mousse-card.png",
+      "profileHref":     "/characters/mousse/index.html"
     }
   ],
 
