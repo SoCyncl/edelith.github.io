@@ -1,7 +1,7 @@
 {
   "meta": {
     "pageTitle": "Mousse B. Bonic • Solstitheo",
-    "ogDescription": "Mousse B. Bonic, is a BloodHunter Rat, who met his unfortunate demise after... being exploded by Blobert's resurrection.",
+    "ogDescription": "Mousse B. Bonic, is a BloodHunter Mutant Rat, who met his unfortunate demise after... being exploded by Blobert's resurrection.",
     "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
     "themeColor": "#8a826f",
     "favicon": "/assets/img/ico/white.ico",
@@ -35,7 +35,7 @@
       "avatar":  "/characters/mousse/img/avi.png",
       "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Misc/Mousse.png",
       "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodboard1.gif",
-      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodimage2.webp",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/egg.gif",
       "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodimage3.gif",
       "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodboard4.jpg",
       "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/bg.jpg",
@@ -83,7 +83,7 @@
     "age":         { "value": null, "unknown": true },
     "race":        { "value": "Rat" },
     "class":       { "value": "Bloodhunter" },
-    "subclass":    { "value": "unknown" },
+    "subclass":    { "value": "Mutant" },
     "occupation":  { "value": "Retired", "unknown": false }
   },
 
