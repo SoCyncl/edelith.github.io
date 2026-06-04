@@ -164,6 +164,16 @@
   },
 
   "relationships": [
+        {
+      "name":            "Liorah",
+      "race":            "Plasmoid",
+      "closeness":       100,
+      "dotsOn":          5,
+      "dotsHalf":        0,
+      "dotsOff":         0,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/liorah-card.png",
+      "profileHref":     "/characters/liorah/index.html"
+    },
     {
       "name":            "Peggle Krastov",
       "race":            "Barbarian",
@@ -171,7 +181,7 @@
       "dotsOn":          3,
       "dotsHalf":        1,
       "dotsOff":         1,
-      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peggle-card.png",
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
       "profileHref":     "/characters/peggle/index.html"
     },
     {
