@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "pageTitle": "Mathew • Solstitheo",
+    "ogDescription": "An enigmatic and mysterious man found in the prison of Manor Seversova. He is an Astral Elf, Grave Domain Cleric.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mathew-card.png",
+    "themeColor": "#e1d4cd",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+  "cp":         "#4b4e55",
+  "cs":         "#ececea",
+  "ct":         "#767980",
+  "cd":         "#17191d",
+  "cl":         "#fafafa",
+
+  "ink":        "#0b0c0e",
+  "inkMid":     "#17191d",
+  "inkLight":   "#2a2d33",
+
+  "fog":        "#c7c9cd",
+  "fogDim":     "#767980",
+
+  "frost":      "#f1f3f5",
+
+  "void":       "#040506",
+
+  "gold":       "#b5bac2",
+  "goldDim":    "#4b4e55"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/banner.gif",
+      "avatar":  "/characters/mathew/img/avi.png",
+      "focal":   "/assets/img/homepage/biblio.gif",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard1.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard0.jpg",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/modboard3gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard4.jpg",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/bg",
+      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp1.png",
+      "stamp2":  "/https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp2.png",
+      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/mathew-doodle.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Mathew",
+    "fullName":   "Mathew",
+    "watermark":  "Player",
+    "quote":      "The Butterflies are extensions of me.",
+    "playlistUrl": "https://youtu.be/OPlK5HwFxcw?si=Z3sDkNOm6RMz_hYT",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/butterfree.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/venomoth.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/articuno-galar.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/drifblim.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/reshiram.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/cursola.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Mathew, no last name, is an Astral Elf, Grave Domain Cleric, a mysterious figure who seemingly can control butterflies and heal the sick with ease. His face is covered by these butterflies. He has a gentle and almost ethereal nature, however, not much is known about him. He was found after the main party was captured and held in the prison in Manor Seversova, freed and went alongside them..",
+     "personality": "He is seemingly polite, gentle, and ethereal in his actions and words. He is softspoken and calm.",
+    "likes":    ["Work in progress!"],
+    "dislikes": ["Work in progress!"],
+    "trivia": [
+      { "text": "Work in progress!", "redacted": false },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true }
+    ],
+    "sideQuote": "Work in progress!"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Mathew" },
+    "alsoKnownAs": { "value": "Unkown" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Astral Elf" },
+    "class":       { "value": "Cleric" },
+    "subclass":    { "value": "Grave Domain" },
+    "occupation":  { "value": "Alive", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
+      "altText":   "Eight reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "Unkown",
+      "build":    "Avarage",
+      "demeanor": "Gentle"
+    },
+    "colorPalette": {
+      "body": [
+        { "hex": "#817a8b" }
+      ],
+      "other": [
+        { "hex": "#dadced" },
+        { "hex": "#4f4956" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Unkown" },
+      "region":           { "value": "Unkown" },
+      "currentLocation":  { "value": "Unkown" },
+      "affiliation":      { "value": null, "Unkown": true },
+      "firstSeen":        { "value": "Session 1" },
+      "status":           { "value": "Unkown", "colorVar": "cp" }
+    },
+
+    "loreQuote": "Unkown.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 28",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Mathew made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 29",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 30",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ]
+
+
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "Plasmoid",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        0,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Blaze Holiday",
+      "race":            "Tiefling",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+      "profileHref":     "/characters/blaze/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}

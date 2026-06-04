@@ -337,9 +337,9 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_red.png" class="nav-icon" alt="Fun Fact Friday">
             <span>Fun Fact Friday</span>
           </a>
-          <a href="/edelithle.html">
-            <img src="/assets/img/homepage/Biblio_purple.png" class="nav-icon" alt="Edelitle">
-            <span>Edelithle</span>
+          <a href="/gallery.html">
+            <img src="/assets/img/homepage/Biblio_purple.png" class="nav-icon" alt="Gallery">
+            <span>Gallery</span>
           </a>
           <a href="/regions/index.html">
             <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">

@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "pageTitle": "Eight • Solstitheo",
+    "ogDescription": "Eight Nanako is a human, divine soul sorcerer at a crossroads in life who wants to see what the world offers.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+    "themeColor": "#e1d4cd",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+      "cp":         "#8c6f2f",
+      "cs":         "#ffe9b0",
+      "ct":         "#a58a52",
+      "cd":         "#241a0d",
+      "cl":         "#fff4cf",
+    
+      "ink":        "#1a1207",
+      "inkMid":     "#241a0d",
+      "inkLight":   "#2e2212",
+    
+      "fog":        "#e6d9b2",
+      "fogDim":     "#a58a52",
+    
+      "frost":      "#ffd65c",
+    
+      "void":       "#120c05",
+    
+      "gold":       "#ffb732",
+      "goldDim":    "#8c6f2f"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/header.gif",
+      "avatar":  "/characters/eight/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight_nanako-close.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/moodboard1.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/mooadboard2.png",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/moodboard3.gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/moodboard4.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/moodboard/background.png",
+      "stamp1":  "/characters/eight/img/stamp1.png",
+      "stamp2":  "/characters/eight/img/stamp2.png",
+      "chibi":   "/characters/eight/img/chibi.webp"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Eight",
+    "fullName":   "Eight Nanako",
+    "watermark":  "Player",
+    "quote":      "I'm a pretty chill dude.",
+    "playlistUrl": "https://youtu.be/hCQqbZaBMRE?si=2BLSBNGfCJm-OsxU",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/raichu.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/ninetales.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/persian.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/arcanine.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/ho-oh.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/solrock.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Eight Nakano is a human, Divine Soul Sorcerer, with an unknown backstory, is at a crossroad in life, and the desire to see the world and find his place in it, so he seeks The Immortal City of Edelith for answers, journey, for something that lets him feel alive.",
+     "personality": "Eight is a very mellow, and chill guy, all jokes aside. He goes wherever the wind blows him and whatever option he thinks is best in the moment.",
+    "likes":    ["Work in progress!"],
+    "dislikes": ["Work in progress!"],
+    "trivia": [
+      { "text": "Work in progress!", "redacted": false },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true }
+    ],
+    "sideQuote": "Work in progress!"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Eight Nanako" },
+    "alsoKnownAs": { "value": "Eight" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Human" },
+    "class":       { "value": "Sorcerer" },
+    "subclass":    { "value": "Divine" },
+    "occupation":  { "value": "Vibing", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
+      "altText":   "Eight reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "5'11\" / 180cm",
+      "build":    "Twink",
+      "demeanor": "Chill Asf"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#596742" },
+        { "hex": "#293540" }
+      ],
+      "body": [
+        { "hex": "#e0b5a7" }
+      ],
+      "other": [
+        { "hex": "#f0965a" },
+        { "hex": "#e6d9d1" },
+        { "hex": "#775353" },
+        { "hex": "#253448" },
+        { "hex": "#a16b5f" },
+        { "hex": "#6D6663" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Unkown" },
+      "region":           { "value": "Unkown" },
+      "currentLocation":  { "value": "Unkown" },
+      "affiliation":      { "value": null, "Unkown": true },
+      "firstSeen":        { "value": "Session 1" },
+      "status":           { "value": "Unkown", "colorVar": "cp" }
+    },
+
+    "loreQuote": "Unkown.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 1",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Eight made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 2",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 3",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ]
+
+
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+    {
+      "name":            "Blobert Goopington",
+      "race":            "Plasmoid",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        0,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+      "profileHref":     "/characters/blobert/index.html"
+    },
+    {
+      "name":            "Peggle Krastov",
+      "race":            "Goliath",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+      "profileHref":     "/characters/peggle/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/stxrry4.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/stxrry4.png",
+      "caption":   "Art by @Stxrry4_ on X !!",
+      "altText":   "Gallery image by @Stxrry4_"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}

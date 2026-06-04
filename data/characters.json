@@ -5,17 +5,17 @@
     "race": "Woodsworn",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
     "link": "/characters/herb/index.html"
   },
   {
     "id": "avao",
-    "name": "Avao",
+    "name": "Avao Rosa",
     "race": "Woodsworn",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/avao-card.png",
+    "link": "/characters/avao/index.html"
   },
   {
     "id": "peggle-krastov",
@@ -23,8 +23,8 @@
     "race": "Goliath",
     "date": 1,
     "categories": ["main", "bjornguard"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+    "link": "/characters/peggle/index.html"
   },
   {
     "id": "blobert-goopington",
@@ -32,8 +32,8 @@
     "race": "Plasmoid",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blob-card.png",
+    "link": "/characters/blobert/index.html"
   },
   {
     "id": "eight-nanako",
@@ -41,8 +41,8 @@
     "race": "Dude",
     "date": 1,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/eight-card.png",
+    "link": "/characters/eight/index.html"
   },
   {
     "id": "baxter-kokayin",
@@ -50,8 +50,8 @@
     "race": "Wood Gnome",
     "date": 2,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
+    "link": "/characters/baxter/index.html"
   },
   {
     "id": "mousse-b-bonic",
@@ -59,17 +59,17 @@
     "race": "Rat",
     "date": 13,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mousse-card.png",
+    "link": "/characters/mousse/index.html"
   },
   {
-    "id": "tau-zervas",
-    "name": "Tau Zervas",
-    "race": "Changeling",
-    "date": 222,
+    "id": "blaze-holiday",
+    "name": "Blaze Holiday",
+    "race": "Tiefling",
+    "date": 25,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
+    "link": "/characters/blaze/index.html"
   },
   {
     "id": "mathew",
@@ -77,8 +77,8 @@
     "race": "Unknown",
     "date": 26,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
-    "link": ""
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mathew-card.png",
+    "link": "/characters/mathew/index.html"
   },
   {
     "id": "pizzaz",
@@ -86,7 +86,7 @@
     "race": "Feline",
     "date": 22,
     "categories": ["main"],
-    "bg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/universe/da41f44e7ab5b24f336e8c6198e04fdb13ee5554-1920x1080.jpg",
+    "bg": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
     "link": ""
   },
   {
