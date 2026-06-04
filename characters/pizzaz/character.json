@@ -1,70 +1,70 @@
 {
   "meta": {
-    "pageTitle": "Mathew • Solstitheo",
-    "ogDescription": "An enigmatic and mysterious man found in the prison of Manor Seversova. He is an Astral Elf, Grave Domain Cleric.",
-    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/mathew-card.png",
-    "themeColor": "#e1d4cd",
+    "pageTitle": "Pizzaz • Solstitheo",
+    "ogDescription": "Pizzaz .",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
+    "themeColor": "#d4a017",
     "favicon": "/assets/img/ico/white.ico",
     "glossary": "off"
   },
 
   "theme": {
     "colors": {
-  "cp":         "#4b4e55",
-  "cs":         "#ececea",
-  "ct":         "#767980",
-  "cd":         "#17191d",
-  "cl":         "#fafafa",
+  "cp":         "#d4a017",
+  "cs":         "#fff4b8",
+  "ct":         "#f2c94c",
+  "cd":         "#2c313a",
+  "cl":         "#fffdf5",
 
-  "ink":        "#0b0c0e",
-  "inkMid":     "#17191d",
-  "inkLight":   "#2a2d33",
+  "ink":        "#0f1318",
+  "inkMid":     "#1d232b",
+  "inkLight":   "#313844",
 
-  "fog":        "#c7c9cd",
-  "fogDim":     "#767980",
+  "fog":        "#c6ccd4",
+  "fogDim":     "#7a828d",
 
-  "frost":      "#f1f3f5",
+  "frost":      "#fff27a",
 
-  "void":       "#040506",
+  "void":       "#06080b",
 
-  "gold":       "#b5bac2",
-  "goldDim":    "#4b4e55"
+  "gold":       "#ffd000",
+  "goldDim":    "#b88a00"
     },
     "images": {
-      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/banner.gif",
-      "avatar":  "/characters/mathew/img/avi.png",
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/banner.gif",
+      "avatar":  "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/pizzaz-doodle.png",
       "focal":   "/assets/img/homepage/biblio.gif",
-      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard1.gif",
-      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard0.jpg",
-      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/modboard3gif",
-      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard4.jpg",
-      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/bg",
-      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp1.png",
-      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp2.png",
-      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/mathew-doodle.png"
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/moodboard1.gif",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/mood2.jpg",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/mood3.gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/mood4.gif",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/bg",
+      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/stamp1.png",
+      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/pizzaz/moodboard/stamp2.png",
+      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/pizzaz-doodle.png"
     }
   },
 
   "hero": {
     "eyebrow":    "Solstitheo Archives",
-    "name":       "Mathew",
-    "fullName":   "Mathew",
+    "name":       "Pizzaz",
+    "fullName":   "Pizzaz",
     "watermark":  "Player",
-    "quote":      "The Butterflies are extensions of me.",
-    "playlistUrl": "https://youtu.be/OPlK5HwFxcw?si=Z3sDkNOm6RMz_hYT",
+    "quote":      "I came here for a haircut.",
+    "playlistUrl": "https://youtu.be/SmHh6o-GE9g?si=mNgdt_-5C0GMrn3E",
     "pokemonTeam": [
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/butterfree.png",
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/venomoth.png",
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/articuno-galar.png",
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/drifblim.png",
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/reshiram.png",
-      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/cursola.png"
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/arcanine.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/ninetales.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/jolteon.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/zapdos.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/dedenne.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/lycanroc-dusk.png"
     ]
   },
 
   "overview": {
-    "summary": "Mathew, no last name, is an Astral Elf, Grave Domain Cleric, a mysterious figure who seemingly can control butterflies and heal the sick with ease. His face is covered by these butterflies. He has a gentle and almost ethereal nature, however, not much is known about him. He was found after the main party was captured and held in the prison in Manor Seversova, freed and went alongside them..",
-     "personality": "He is seemingly polite, gentle, and ethereal in his actions and words. He is softspoken and calm.",
+    "summary": "Appeared suddenly at the Woodwode tent, in the Coronal Valley. Pizzaz seems to be very hyper and excited to learn Tabaxi.",
+     "personality": "She is very hyper, prone to dry wit and curious.",
     "likes":    ["Work in progress!"],
     "dislikes": ["Work in progress!"],
     "trivia": [
@@ -77,13 +77,13 @@
   },
 
   "dossier": {
-    "fullName":    { "value": "Mathew" },
+    "fullName":    { "value": "Pizazz" },
     "alsoKnownAs": { "value": "Unkown" },
     "gender":      { "value": "Male (He/Him)" },
     "age":         { "value": null, "unknown": true },
-    "race":        { "value": "Astral Elf" },
-    "class":       { "value": "Cleric" },
-    "subclass":    { "value": "Grave Domain" },
+    "race":        { "value": "Tabaxi" },
+    "class":       { "value": "Rogue" },
+    "subclass":    { "value": "Assasin" },
     "occupation":  { "value": "Alive", "unknown": false }
   },
 
@@ -95,16 +95,20 @@
     },
     "physicalBuild": {
       "height":   "Unkown",
-      "build":    "Avarage",
-      "demeanor": "Gentle"
+      "build":    "Feline",
+      "demeanor": "Hyper"
     },
     "colorPalette": {
+      "eyes": [
+        { "hex": "#e0d550" }
+      ],
       "body": [
-        { "hex": "#817a8b" }
+        { "hex": "#c0894d" }
       ],
       "other": [
-        { "hex": "#dadced" },
-        { "hex": "#4f4956" }
+        { "hex": "#a4472a" },
+        { "hex": "#752a1e" },
+        { "hex": "#482310" }
       ]
     },
     "notes": [
@@ -122,7 +126,7 @@
       "region":           { "value": "Unkown" },
       "currentLocation":  { "value": "Unkown" },
       "affiliation":      { "value": null, "Unkown": true },
-      "firstSeen":        { "value": "Session 1" },
+      "firstSeen":        { "value": "Session 22" },
       "status":           { "value": "Unkown", "colorVar": "cp" }
     },
 
@@ -131,15 +135,15 @@
     "sessions": [
       {
         "isIntro":  true,
-        "episode":  "Session 28",
+        "episode":  "Session 22",
         "date":     "—",
         "title":    "First Appearance",
-        "body":     "Mathew made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "body":     "Pizzaz made his debut in Session 01 of the Immortal City of Edelith campaign..",
         "isLast":   false
       },
       {
         "isIntro":  false,
-        "episode":  "Session 29",
+        "episode":  "Session 23",
         "date":     "—",
         "title":    "Placeholder Session Title",
         "body":     "Summary",
@@ -147,7 +151,7 @@
       },
       {
         "isIntro":  false,
-        "episode":  "Session 30",
+        "episode":  "Session 24",
         "date":     "—",
         "title":    "Placeholder Session Title",
         "body":     "Summary",
@@ -188,6 +192,26 @@
       "dotsOff":         5,
       "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/blaze-card.png",
       "profileHref":     "/characters/blaze/index.html"
+    }.
+        {
+      "name":            "Baxter Kokayin",
+      "race":            "Wood Gnome",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/baxter-card.png",
+      "profileHref":     "/characters/baxter/index.html"
+    },
+            {
+      "name":            "Peggle Krastov",
+      "race":            "Goliath",
+      "closeness":       10,
+      "dotsOn":          0,
+      "dotsHalf":        1,
+      "dotsOff":         5,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+      "profileHref":     "/characters/peggle/index.html"
     }
   ],
 
