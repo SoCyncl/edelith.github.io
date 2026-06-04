@@ -40,7 +40,7 @@
       "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/moodboard4.jpg",
       "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/bg",
       "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp1.png",
-      "stamp2":  "/https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp2.png",
+      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mathew/moodboard/stamp2.png",
       "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/mathew-doodle.png"
     }
   },
@@ -89,9 +89,9 @@
 
   "design": {
     "referenceSheet": {
-      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
-      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Eight/Eight%20concept.png",
-      "altText":   "Eight reference sheet"
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "altText":   "lacking reference sheet"
     },
     "physicalBuild": {
       "height":   "Unkown",
