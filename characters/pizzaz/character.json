@@ -1,7 +1,7 @@
 {
   "meta": {
     "pageTitle": "Pizzaz • Solstitheo",
-    "ogDescription": "Pizzaz .",
+    "ogDescription": "Pizzaz is a Tabaxi, Swashbuckler Rogue, the fastest that they come. However he intentions still remain unkown.",
     "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
     "themeColor": "#d4a017",
     "favicon": "/assets/img/ico/white.ico",
@@ -83,7 +83,7 @@
     "age":         { "value": null, "unknown": true },
     "race":        { "value": "Tabaxi" },
     "class":       { "value": "Rogue" },
-    "subclass":    { "value": "Assasin" },
+    "subclass":    { "value": "Swashbuckler" },
     "occupation":  { "value": "Alive", "unknown": false }
   },
 
