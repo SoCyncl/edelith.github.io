@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "pageTitle": "Mousse B. Bonic • Solstitheo",
+    "ogDescription": "Mousse B. Bonic, is a BloodHunter Rat, who met his unfortunate demise after... being exploded by Blobert's resurrection.",
+    "ogImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/pizzaz-card.png",
+    "themeColor": "#8a826f",
+    "favicon": "/assets/img/ico/white.ico",
+    "glossary": "off"
+  },
+
+  "theme": {
+    "colors": {
+  "cp":         "#5b4637",
+  "cs":         "#d8c15f",
+  "ct":         "#8f857c",
+  "cd":         "#1f1b18",
+  "cl":         "#e7dfd7",
+
+  "ink":        "#120f0d",
+  "inkMid":     "#1f1b18",
+  "inkLight":   "#342d28",
+
+  "fog":        "#9e9790",
+  "fogDim":     "#6d645c",
+
+  "frost":      "#d9a4b3",
+
+  "void":       "#070605",
+
+  "gold":       "#e0bf4d",
+  "goldDim":    "#8f7430"
+    },
+    "images": {
+      "banner":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/banner.gif",
+      "avatar":  "/characters/mousse/img/avi.png",
+      "focal":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Misc/Mousse.png",
+      "mood1":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodimage1.webp",
+      "mood2":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodimage2.webp",
+      "mood3":   "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodimage3.gif",
+      "mood4": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/moodboard4.jpg",
+      "lorebg":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/bg.jpg",
+      "stamp1":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/stamp1.png",
+      "stamp2":  "https://file.garden/aE4BmvQeoiKwc59V/Character-art/mousse/moodboard/stamp2.png",
+      "chibi":   "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/icons/mousse-doodle.png"
+    }
+  },
+
+  "hero": {
+    "eyebrow":    "Solstitheo Archives",
+    "name":       "Mousse",
+    "fullName":   "Mousse B. Bonic",
+    "watermark":  "Player",
+    "quote":      "I Don't feel so good.",
+    "playlistUrl": "https://youtu.be/aYHzV2Y9UgY?si=arwVWT95qrClJZ51",
+    "pokemonTeam": [
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/dedenne.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/raichu.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/magmortar.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/bewear.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/togedemaru.png",
+      "https://file.garden/aE4BmvQeoiKwc59V/pokemon/emolga.png"
+    ]
+  },
+
+  "overview": {
+    "summary": "Appearing on the way to Macrabell smuggling himself onto the supplies. Mousse B. Bonic is a rat, Bloodhunter, who was with the party briefly before his untimely demise at Fort Adamo. He is connected to Cosa Nostratta, and Buratta Nostrata who interrogated the main party seeking his whereabouts.",
+     "personality": "Mousse was very lost, he is a very unwise and tepid person, and very willing to do just about whatever is safest for him, the path of least resistance. He is a lazy bum. They blew up the poor bastard.",
+    "likes":    ["Work in progress!"],
+    "dislikes": ["Work in progress!"],
+    "trivia": [
+      { "text": "Work in progress!", "redacted": false },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true },
+      { "text": "Work in progress!", "redacted": true }
+    ],
+    "sideQuote": "Work in progress!"
+  },
+
+  "dossier": {
+    "fullName":    { "value": "Mousse B. Bonic" },
+    "alsoKnownAs": { "value": "Unkown" },
+    "gender":      { "value": "Male (He/Him)" },
+    "age":         { "value": null, "unknown": true },
+    "race":        { "value": "Rat" },
+    "class":       { "value": "Bloodhunter" },
+    "subclass":    { "value": "unknown" },
+    "occupation":  { "value": "Retired", "unknown": false }
+  },
+
+  "design": {
+    "referenceSheet": {
+      "thumbnail": "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Misc/mousse3.png",
+      "full":      "https://file.garden/aE4BmvQeoiKwc59V/Character-art/Misc/mousse3.png",
+      "altText":   "lacking reference sheet"
+    },
+    "physicalBuild": {
+      "height":   "Small",
+      "build":    "Rat",
+      "demeanor": "Timid"
+    },
+    "colorPalette": {
+      "eyes": [
+        { "hex": "#566c53" }
+      ],
+      "body": [
+        { "hex": "#7d7d81" }
+      ],
+      "other": [
+        { "hex": "#5c5b68" },
+        { "hex": "#3c3b47" },
+        { "hex": "#f4e769" }
+      ]
+    },
+    "notes": [
+      "Nothing here yet."
+    ]
+  },
+
+  "lore": {
+    "biography": [
+      "Currently being written"
+    ],
+
+    "origin": {
+      "birthplace":       { "value": "Unkown" },
+      "region":           { "value": "Unkown" },
+      "currentLocation":  { "value": "Scattered about in Fort Adamo" },
+      "affiliation":      { "value": null, "Unkown": true },
+      "firstSeen":        { "value": "Session 13" },
+      "status":           { "value": "Retired", "colorVar": "cp" }
+    },
+
+    "loreQuote": "Unkown.",
+
+    "sessions": [
+      {
+        "isIntro":  true,
+        "episode":  "Session 13",
+        "date":     "—",
+        "title":    "First Appearance",
+        "body":     "Mousse made his debut in Session 01 of the Immortal City of Edelith campaign..",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 14",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   false
+      },
+      {
+        "isIntro":  false,
+        "episode":  "Session 15",
+        "date":     "—",
+        "title":    "Placeholder Session Title",
+        "body":     "Summary",
+        "isLast":   true
+      }
+    ]
+
+
+  },
+
+  "relationships": [
+    {
+      "name":            "Herb Passerine",
+      "race":            "Woodsworn",
+      "closeness":       30,
+      "dotsOn":          1,
+      "dotsHalf":        1,
+      "dotsOff":         4,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/herb-card.png",
+      "profileHref":     "/characters/herb/index.html"
+    },
+            {
+      "name":            "Peggle Krastov",
+      "race":            "Goliath",
+      "closeness":       30,
+      "dotsOn":          1,
+      "dotsHalf":        1,
+      "dotsOff":         4,
+      "backgroundImage": "https://file.garden/aE4BmvQeoiKwc59V/character%20cards/peg-card.png",
+      "profileHref":     "/characters/peggle/index.html"
+    }
+  ],
+
+  "gallery": [
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    },
+    {
+      "thumbnail": "/assets/img/homepage/biblio.gif",
+      "full":      "/assets/img/homepage/biblio.gif",
+      "caption":   "Art by me! @Cyncl.art",
+      "altText":   "Gallery image by @Cyncl.art"
+    }
+  ]
+}
