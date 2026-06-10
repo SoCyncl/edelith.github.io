@@ -308,10 +308,10 @@ class Footer extends HTMLElement {
     <div class="sf__ornament" aria-hidden="true">◆ &nbsp; ◆ &nbsp; ◆</div>
 
     <nav class="sf__links" aria-label="Footer navigation">
-      <a href="/wiki/landing.html">Wiki</a>
-      <a href="/index.html">Main Site</a>
-      <a href="/shop.html">Shop</a>    
-      <a href="/credits.html">Credits</a>
+      <a href="edelith.org/wiki/landing.html">Wiki</a>
+      <a href="edelith.org/index.html">Main Site</a>
+      <a href="edelith.org/shop.html">Shop</a>    
+      <a href="edelith/credits.html">Credits</a>
     </nav>
 
     <div class="sf__updated" aria-label="Last updated">
