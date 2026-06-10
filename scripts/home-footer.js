@@ -290,7 +290,7 @@ class Footer extends HTMLElement {
   <!-- Content -->
   <div class="sf__body">
 
-    <img src="/assets/img/themes/default/logo.png" alt="Solstitheo Archives" class="sf__logo">
+    <img src="https://edelith.org/assets/img/themes/default/logo.png" alt="Solstitheo Archives" class="sf__logo">
 
     <p class="sf__tagline">
       A fan archive for <em>The Immortal City of Edelith</em>,
