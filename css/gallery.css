@@ -590,8 +590,9 @@
   transition: opacity 0.2s ease;
 }
 .glb-caption {
-  font-family: var(--f-italic); font-style: italic;
-  font-size: 0.93rem; line-height: 1.78; color: var(--fog);
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: var(--fog);
 }
 .glb-details { display: flex; flex-direction: column; }
 .glb-detail-row {
