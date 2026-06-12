@@ -307,12 +307,25 @@
   display: flex; gap: 28px;
   max-width: min(1100px, 92vw); max-height: 90vh; align-items: flex-start;
 }
-.glb-img-wrap { position: relative; flex-shrink: 0; max-width: min(580px, 58vw); }
+.glb-img-wrap {
+  position: relative; flex-shrink: 0; max-width: min(580px, 58vw);
+  overflow: hidden; /* needed for zoom clipping */
+  cursor: zoom-in;
+}
+.glb-img-wrap.glb-zoomed     { cursor: grab; }
+.glb-img-wrap.glb-dragging   { cursor: grabbing; }
 .glb-img {
   display: block; max-width: 100%; max-height: 85vh; object-fit: contain;
   border: 1px solid rgba(201,168,76,0.15); transition: opacity 0.3s ease;
+  transform-origin: 0 0;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .glb-img--loading { opacity: 0; }
+/* suppress default transition during drag for performance */
+.glb-img-wrap.glb-dragging .glb-img { transition: none !important; }
+
 .glb-img-loader {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -320,6 +333,65 @@
   opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
 }
 .glb-img-loader--active { opacity: 1; }
+
+/* ── Zoom controls ──────────────────────────────────────── */
+.glb-zoom-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  background: rgba(6,7,10,0.84);
+  border: 1px solid rgba(201,168,76,0.22);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  white-space: nowrap;
+}
+/* always show bar when zoomed in; show on hover otherwise */
+.glb-img-wrap:hover .glb-zoom-bar,
+.glb-img-wrap.glb-zoomed .glb-zoom-bar {
+  opacity: 1;
+  pointer-events: all;
+}
+.glb-zoom-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: rgba(201,168,76,0.55);
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 0.72rem;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.glb-zoom-btn:hover:not(:disabled) {
+  color: var(--gold);
+  border-color: rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.08);
+}
+.glb-zoom-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
+.glb-zoom-pct {
+  font-family: var(--f-label);
+  font-size: 0.45rem;
+  letter-spacing: 1.5px;
+  color: rgba(201,168,76,0.55);
+  min-width: 34px;
+  text-align: center;
+  padding: 0 3px;
+  user-select: none;
+}
+.glb-zoom-sep {
+  width: 1px; height: 14px;
+  background: rgba(201,168,76,0.15);
+  margin: 0 2px; flex-shrink: 0;
+}
+
+/* ── Meta panel ─────────────────────────────────────────── */
 .glb-meta {
   flex: 1; overflow-y: auto; max-height: 85vh;
   padding-right: 4px; display: flex; flex-direction: column; gap: 14px;
@@ -382,9 +454,266 @@
   .gal-masthead { padding: 24px 20px 18px; }
   .gal-masthead-title { font-size: 1.6rem; }
   .gal-masthead-watermark { display: none; }
+  /* on mobile lightbox, image wrap is full width so zoom bar can live inside */
+  .glb-img-wrap { max-width: 100% !important; }
 }
 @media (max-width: 500px) { .gal-col-sizer, .gal-card { width: calc(50% - 5px); } }
 </style>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   LIGHTBOX ZOOM MODULE
+   Self-contained. Call LightboxZoom.attach(imgWrapEl) once after
+   the lightbox DOM exists, then LightboxZoom.reset() on close /
+   image navigation.
+═══════════════════════════════════════════════════════════════ */
+const LightboxZoom = (() => {
+  const MIN   = 1;
+  const MAX   = 5;
+  const STEP  = 0.55;   // button step
+  const CLICK_STEP = 1.2; // single-click step
+
+  let wrap, img, bar, pctLabel, btnOut, btnIn, btnReset;
+  let scale = 1, ox = 0, oy = 0;
+  let dragging = false, dsx, dsy, dox, doy;
+  let lastClickTime = 0;
+  // touch pinch state
+  let lastPinchDist = null;
+  // single-finger pan state
+  let touchPanOrigin = null;
+  // whether we moved enough to count as a drag (suppress click)
+  let didDrag = false;
+
+  /* ── clamp pan offsets so image never leaves the viewport ── */
+  function clamp(s, x, y) {
+    const ww = wrap.clientWidth;
+    const wh = wrap.clientHeight;
+    // natural rendered size of image at scale=1
+    const iw = img.offsetWidth;
+    const ih = img.offsetHeight;
+    const rw = iw * s;
+    const rh = ih * s;
+    return {
+      x: rw  <= ww ? (ww - rw) / 2  : Math.max(ww - rw,  Math.min(0, x)),
+      y: rh  <= wh ? (wh - rh) / 2  : Math.max(wh - rh,  Math.min(0, y))
+    };
+  }
+
+  /* ── apply CSS transform ─────────────────────────────────── */
+  function apply(animate) {
+    if (!img) return;
+    img.style.transition = animate
+      ? 'transform 0.24s cubic-bezier(0.25,0.8,0.25,1), opacity 0.3s ease'
+      : 'opacity 0.3s ease';
+    img.style.transformOrigin = '0 0';
+    img.style.transform = `translate(${ox}px,${oy}px) scale(${scale})`;
+
+    // update bar UI
+    const pct = Math.round(scale * 100);
+    if (pctLabel)  pctLabel.textContent = pct + '%';
+    if (btnOut)    btnOut.disabled  = scale <= MIN;
+    if (btnIn)     btnIn.disabled   = scale >= MAX;
+    if (btnReset)  btnReset.disabled = scale === MIN;
+
+    wrap.classList.toggle('glb-zoomed', scale > MIN);
+  }
+
+  /* ── zoom toward a pivot point (wrap-local px coords) ────── */
+  function zoomTo(newS, px, py) {
+    newS = Math.max(MIN, Math.min(MAX, newS));
+    const ratio = newS / scale;
+    ox = px - ratio * (px - ox);
+    oy = py - ratio * (py - oy);
+    scale = newS;
+    const c = clamp(scale, ox, oy);
+    ox = c.x; oy = c.y;
+    apply(true);
+  }
+
+  /* ── reset everything ────────────────────────────────────── */
+  function reset() {
+    scale = 1; ox = 0; oy = 0;
+    dragging = false; didDrag = false;
+    lastPinchDist = null; touchPanOrigin = null;
+    if (img) {
+      img.style.transform = '';
+      img.style.transition = '';
+      img.style.transformOrigin = '';
+    }
+    if (wrap) {
+      wrap.classList.remove('glb-zoomed', 'glb-dragging');
+    }
+    if (pctLabel)  pctLabel.textContent = '100%';
+    if (btnOut)    btnOut.disabled  = true;
+    if (btnIn)     btnIn.disabled   = false;
+    if (btnReset)  btnReset.disabled = true;
+  }
+
+  /* ── build the zoom bar DOM ──────────────────────────────── */
+  function buildBar() {
+    const el = document.createElement('div');
+    el.className = 'glb-zoom-bar';
+    el.innerHTML = `
+      <button class="glb-zoom-btn" data-z="out"   title="Zoom out"><i class="fa-solid fa-minus"></i></button>
+      <span   class="glb-zoom-pct">100%</span>
+      <button class="glb-zoom-btn" data-z="in"    title="Zoom in"><i class="fa-solid fa-plus"></i></button>
+      <div    class="glb-zoom-sep"></div>
+      <button class="glb-zoom-btn" data-z="reset" title="Reset zoom"><i class="fa-solid fa-compress"></i></button>
+    `;
+    // stop bar clicks from bubbling to the wrap (which has click-to-zoom)
+    el.addEventListener('mousedown', e => e.stopPropagation());
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const btn = e.target.closest('[data-z]');
+      if (!btn) return;
+      const cx = wrap.clientWidth  / 2;
+      const cy = wrap.clientHeight / 2;
+      if      (btn.dataset.z === 'in')    zoomTo(scale + STEP, cx, cy);
+      else if (btn.dataset.z === 'out')   zoomTo(scale - STEP, cx, cy);
+      else if (btn.dataset.z === 'reset') reset();
+    });
+    return el;
+  }
+
+  /* ── get wrap-local coords from a mouse/touch event ──────── */
+  function localCoords(e) {
+    const r = wrap.getBoundingClientRect();
+    const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    return { cx, cy };
+  }
+
+  /* ── attach once to the .glb-img-wrap element ────────────── */
+  function attach(imgWrap) {
+    if (imgWrap._zoomBound) return;
+    imgWrap._zoomBound = true;
+    wrap = imgWrap;
+
+    // img may not exist yet when we attach; resolve lazily
+    function getImg() {
+      if (!img) img = wrap.querySelector('.glb-img');
+      return img;
+    }
+
+    // inject zoom bar
+    bar      = buildBar();
+    pctLabel = bar.querySelector('.glb-zoom-pct');
+    btnOut   = bar.querySelector('[data-z="out"]');
+    btnIn    = bar.querySelector('[data-z="in"]');
+    btnReset = bar.querySelector('[data-z="reset"]');
+    wrap.appendChild(bar);
+
+    // initialise disabled states
+    btnOut.disabled   = true;
+    btnReset.disabled = true;
+
+    /* ── scroll-wheel zoom ─── */
+    wrap.addEventListener('wheel', e => {
+      e.preventDefault();
+      getImg();
+      const { cx, cy } = localCoords(e);
+      const delta = e.deltaY < 0 ? STEP * 0.45 : -STEP * 0.45;
+      zoomTo(scale + delta, cx, cy);
+    }, { passive: false });
+
+    /* ── mouse: click to zoom / double-click to reset ─── */
+    wrap.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      getImg();
+      if (scale > MIN) {
+        dragging = true; didDrag = false;
+        dsx = e.clientX; dsy = e.clientY;
+        dox = ox; doy = oy;
+        wrap.classList.add('glb-dragging');
+        e.preventDefault(); // prevent text selection while dragging
+      }
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const dx = e.clientX - dsx;
+      const dy = e.clientY - dsy;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) didDrag = true;
+      const c = clamp(scale, dox + dx, doy + dy);
+      ox = c.x; oy = c.y;
+      apply(false);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('glb-dragging');
+    });
+
+    wrap.addEventListener('click', e => {
+      // ignore clicks that were actually drags
+      if (didDrag) { didDrag = false; return; }
+      getImg();
+      const now = Date.now();
+      const { cx, cy } = localCoords(e);
+      if (now - lastClickTime < 320) {
+        // double-click → reset
+        reset();
+        lastClickTime = 0;
+      } else {
+        lastClickTime = now;
+        // single click: zoom in (or reset if already at max)
+        if (scale >= MAX) reset();
+        else zoomTo(scale + CLICK_STEP, cx, cy);
+      }
+    });
+
+    /* ── touch: pinch-to-zoom ─── */
+    wrap.addEventListener('touchstart', e => {
+      getImg();
+      if (e.touches.length === 2) {
+        lastPinchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        touchPanOrigin = null; // cancel pan while pinching
+      } else if (e.touches.length === 1 && scale > MIN) {
+        touchPanOrigin = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox, oy };
+      }
+    }, { passive: true });
+
+    wrap.addEventListener('touchmove', e => {
+      if (e.touches.length === 2 && lastPinchDist !== null) {
+        e.preventDefault();
+        const dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        const r = wrap.getBoundingClientRect();
+        const mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - r.left;
+        const my = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - r.top;
+        zoomTo(scale * (dist / lastPinchDist), mx, my);
+        lastPinchDist = dist;
+      } else if (e.touches.length === 1 && touchPanOrigin && scale > MIN) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - touchPanOrigin.x;
+        const dy = e.touches[0].clientY - touchPanOrigin.y;
+        const c = clamp(scale, touchPanOrigin.ox + dx, touchPanOrigin.oy + dy);
+        ox = c.x; oy = c.y;
+        apply(false);
+      }
+    }, { passive: false });
+
+    wrap.addEventListener('touchend', e => {
+      if (e.touches.length < 2) lastPinchDist = null;
+      if (e.touches.length < 1) touchPanOrigin = null;
+    });
+  }
+
+  /* ── called when lightbox navigates to a new image ───────── */
+  function onImageChange() {
+    img = null; // re-resolve on next interaction
+    reset();
+  }
+
+  return { attach, reset, onImageChange };
+})();
+</script>
 
 <script>
 (async () => {
@@ -401,8 +730,8 @@
   items.sort((a, b) => dateToMs(b.date) - dateToMs(a.date));
 
   /* ─── 4. DOM refs ───────────────────────────────────────── */
-  const grid      = document.getElementById('gal-masonry');
-  const emptyMsg  = document.getElementById('gal-empty');
+  const grid        = document.getElementById('gal-masonry');
+  const emptyMsg    = document.getElementById('gal-empty');
   const searchInput = document.getElementById('galSearch');
   const searchClear = document.getElementById('galSearchClear');
   const galCount    = document.getElementById('gal-count');
@@ -423,9 +752,57 @@
   /* ─── 7. Lightbox ───────────────────────────────────────── */
   const lightbox = GalleryCore.buildLightbox({ prefix: 'glb', showChars: true });
 
+  /* After the lightbox DOM exists (first open), attach zoom once */
+  let zoomAttached = false;
+  function maybeAttachZoom() {
+    if (zoomAttached) return;
+    const imgWrap = document.querySelector('.glb-img-wrap');
+    if (!imgWrap) return;
+    zoomAttached = true;
+    LightboxZoom.attach(imgWrap);
+  }
+
+  /* Patch nav buttons to reset zoom on image change */
+  function patchNavButtons() {
+    document.querySelectorAll('.glb-nav').forEach(btn => {
+      btn.addEventListener('click', () => {
+        LightboxZoom.onImageChange();
+      });
+    });
+    // also reset on close
+    const closeBtn = document.querySelector('.glb-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => LightboxZoom.reset());
+    }
+    // reset on overlay backdrop click
+    const overlay = document.querySelector('.glb-overlay');
+    if (overlay) {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) LightboxZoom.reset();
+      });
+    }
+  }
+
   function openLightbox(vi) {
     lightboxIndex = vi;
     lightbox.open(visibleItems, vi);
+
+    /* Wait a tick for GalleryCore to inject the lightbox DOM */
+    requestAnimationFrame(() => {
+      maybeAttachZoom();
+      patchNavButtons();
+      // reset zoom whenever we switch images via keyboard too
+      document.addEventListener('keydown', onKey, { once: false });
+    });
+  }
+
+  function onKey(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      LightboxZoom.onImageChange();
+    }
+    if (e.key === 'Escape') {
+      LightboxZoom.reset();
+    }
   }
 
   /* ─── 8. Cards ──────────────────────────────────────────── */
