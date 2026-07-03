@@ -1,0 +1,42 @@
+{
+  "indexImage": "assets/miswak/demon/index.png",
+  "gif": "assets/miswak/demon-bg.gif",
+  "decisionSound": "https://filegarden.com/REPLACE/decision-demon.mp3",
+  "playlist": [
+    "https://filegarden.com/REPLACE/demon-track-1.mp3",
+    "https://filegarden.com/REPLACE/demon-track-2.mp3",
+    "https://filegarden.com/REPLACE/demon-track-3.mp3"
+  ],
+  "title": "Five truths, the rest are lies",
+  "boxes": [
+    { "text": "The gate was left open", "fulfilled": false },
+    { "text": "A name was forgotten", "fulfilled": true },
+    { "text": "The river ran backward", "fulfilled": false },
+    { "text": "No one came home", "fulfilled": true },
+    { "text": "The bell rang thirteen times", "fulfilled": false },
+
+    { "text": "The last light went out", "fulfilled": false },
+    { "text": "A promise was kept", "fulfilled": true },
+    { "text": "The mirror cracked first", "fulfilled": false },
+    { "text": "The choir sang in silence", "fulfilled": false },
+    { "text": "Salt was spilled twice", "fulfilled": false },
+
+    { "text": "The letter never arrived", "fulfilled": true },
+    { "text": "A shadow walked alone", "fulfilled": false },
+    { "text": "The clock struck midnight early", "fulfilled": false },
+    { "text": "The well ran dry", "fulfilled": false },
+    { "text": "A stranger knew your name", "fulfilled": false },
+
+    { "text": "The crows counted wrong", "fulfilled": false },
+    { "text": "The door locked itself", "fulfilled": false },
+    { "text": "Two moons were seen", "fulfilled": false },
+    { "text": "The candle would not catch", "fulfilled": false },
+    { "text": "The oath was broken", "fulfilled": true },
+
+    { "text": "Ash fell where there was no fire", "fulfilled": false },
+    { "text": "The road led back to itself", "fulfilled": false },
+    { "text": "A voice called from below", "fulfilled": false },
+    { "text": "The seal remained unbroken", "fulfilled": false },
+    { "text": "Nothing came at all", "fulfilled": false }
+  ]
+}
