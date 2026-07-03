@@ -1,0 +1,516 @@
+/* ============================================================
+   MISWAK — Prophecies from an Angel / a Demon
+   ============================================================ */
+
+@font-face {
+  font-family: "Fraktion Serif Fallback";
+  src: local("Georgia");
+}
+
+:root {
+  --black: #030303;
+  --black-soft: #0a0908;
+
+  /* Angel palette */
+  --angel-gold: #cbb078;
+  --angel-bone: #ece3d2;
+  --angel-glow: rgba(203, 176, 120, 0.35);
+
+  /* Demon palette */
+  --demon-crimson: #8a1f2b;
+  --demon-bone: #d8cfc4;
+  --demon-glow: rgba(138, 31, 43, 0.4);
+
+  --ease-slide: cubic-bezier(0.65, 0, 0.15, 1);
+  --ease-fade: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --font-display-angel: "Iowan Old Style", "Palatino Linotype", "Fraktion Serif Fallback", Georgia, serif;
+  --font-display-demon: "Oswald", "Arial Narrow", sans-serif;
+  --font-body: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--black);
+  color: var(--angel-bone);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: var(--black);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+a { color: inherit; }
+
+/* ============================================================
+   SCREEN MANAGEMENT (SPA)
+   ============================================================ */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  min-height: 100vh;
+  background: var(--black);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-fade);
+}
+
+.screen.is-active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   THE MASKING SYSTEM
+   White (and translucent) pixels of the PNG reveal the GIF.
+   Black pixels stay black — the page bg shows straight through.
+   ============================================================ */
+
+.mask-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.mask-figure__gif {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  background-image: var(--gif);
+  background-size: cover;
+  background-position: center;
+
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Text version of the mask trick — glyphs become the window onto the gif */
+.gif-text {
+  background-image: var(--gif);
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* ============================================================
+   CROSSROADS (index) SCREEN
+   ============================================================ */
+
+#screen-crossroads {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6vh 5vw;
+}
+
+.crossroads-title {
+  font-family: var(--font-display-angel);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  letter-spacing: 0.08em;
+  color: var(--angel-bone);
+  text-align: center;
+  margin: 0 0 6vh;
+  opacity: 0.9;
+}
+
+.crossroads-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 7rem);
+  width: 100%;
+  max-width: 1100px;
+}
+
+.crossroads-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  width: min(38vw, 340px);
+}
+
+.crossroads-figure {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  transition: transform 0.5s var(--ease-fade);
+  cursor: pointer;
+}
+
+.crossroads-figure:hover,
+.crossroads-figure:focus-visible {
+  transform: scale(1.045);
+}
+
+.crossroads-label {
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: none;
+  padding: 0;
+}
+
+.crossroads-option--angel .crossroads-label {
+  font-family: var(--font-display-angel);
+  color: var(--angel-gold);
+}
+
+.crossroads-option--demon .crossroads-label {
+  font-family: var(--font-display-demon);
+  color: var(--demon-crimson);
+  letter-spacing: 0.22em;
+}
+
+/* ============================================================
+   SHARED SCREEN CHROME (angel + demon)
+   ============================================================ */
+
+.screen-back {
+  position: fixed;
+  top: 2.2rem;
+  left: 2.2rem;
+  z-index: 40;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.screen-back:hover { opacity: 1; }
+
+/* ============================================================
+   ANGEL SCREEN — CAROUSEL
+   ============================================================ */
+
+#screen-angel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  transition: transform 0.7s var(--ease-slide);
+  will-change: transform;
+}
+
+.carousel-item {
+  position: relative;
+  width: clamp(220px, 26vw, 340px);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.8s var(--ease-fade);
+}
+
+.carousel-item[data-distance="0"] { opacity: 1; }
+.carousel-item[data-distance="1"],
+.carousel-item[data-distance="-1"] { opacity: 1; }
+.carousel-item[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-item-title {
+  font-size: clamp(0.95rem, 1.6vw, 1.4rem);
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  transition: opacity 1s var(--ease-fade);
+  opacity: 0.28;
+}
+
+.carousel-item[data-distance="0"] .carousel-item-title {
+  opacity: 1;
+}
+
+.carousel-item-title.angelic-serif { font-family: var(--font-display-angel); font-style: italic; }
+.carousel-item-title.angelic-caps { font-family: var(--font-display-angel); text-transform: uppercase; letter-spacing: 0.22em; }
+
+.carousel-figure-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.7s var(--ease-slide), filter 0.7s var(--ease-fade);
+}
+
+.carousel-item[data-distance="0"] .carousel-figure-wrap {
+  transform: scale(1);
+  filter: none;
+}
+
+.carousel-item[data-distance="1"] .carousel-figure-wrap,
+.carousel-item[data-distance="-1"] .carousel-figure-wrap {
+  transform: scale(0.88);
+  filter: brightness(0.32) saturate(0.7);
+}
+
+.carousel-figure-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.carousel-arrow {
+  font-size: 1.6rem;
+  color: var(--angel-gold);
+  opacity: 0.8;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.carousel-arrow:hover:not(:disabled) { opacity: 1; transform: scale(1.15); }
+.carousel-arrow:disabled { opacity: 0.15; cursor: default; }
+
+.carousel-progress {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--angel-gold);
+  opacity: 0.6;
+}
+
+/* ============================================================
+   DEMON SCREEN — 5x5 BINGO GRID
+   ============================================================ */
+
+#screen-demon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+}
+
+.demon-title {
+  font-family: var(--font-display-demon);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin: 0 0 3.5vh;
+
+  /* the camouflage treatment: white-through-gif fill, black stroke outline */
+  -webkit-text-stroke: 1.5px #000;
+  paint-order: stroke fill;
+}
+
+.bingo-wrap {
+  position: relative;
+  width: min(90vw, 780px);
+  aspect-ratio: 1 / 1;
+}
+
+.bingo-gif-layer {
+  position: absolute;
+  inset: 0;
+  background-image: var(--gif);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.bingo-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.bingo-box {
+  position: relative;
+  background: rgba(3, 3, 3, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bingo-box-text {
+  font-size: clamp(0.55rem, 1.05vw, 0.8rem);
+  line-height: 1.25;
+  color: var(--demon-bone);
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 2;
+}
+
+.bingo-box-x {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display-demon);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  color: var(--demon-crimson);
+  background: rgba(3, 3, 3, 0.93);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.4s var(--ease-fade), transform 0.4s var(--ease-fade);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.bingo-box.is-fulfilled .bingo-box-x {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.demon-controls {
+  margin-top: 3vh;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.fulfilled-toggle {
+  font-family: var(--font-display-demon);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--demon-bone);
+  border: 1px solid var(--demon-crimson);
+  padding: 0.6rem 1.6rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.fulfilled-toggle.is-on,
+.fulfilled-toggle:hover {
+  background: var(--demon-crimson);
+  color: var(--black);
+}
+
+/* ============================================================
+   BOTTOM AUDIO BAR
+   ============================================================ */
+
+.audio-bar {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(10, 9, 8, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.audio-bar.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.audio-bar-btn {
+  font-size: 1rem;
+  color: var(--angel-bone);
+  width: 1.6rem;
+  text-align: center;
+}
+
+.audio-bar input[type="range"] {
+  width: 110px;
+  accent-color: var(--angel-gold);
+}
+
+.audio-bar-track {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 720px) {
+  .crossroads-row { flex-direction: column; align-items: center; gap: 3rem; }
+  .crossroads-option { width: min(70vw, 320px); }
+  .carousel-viewport { height: 52vh; }
+  .demon-title { font-size: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}
