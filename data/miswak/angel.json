@@ -1,0 +1,42 @@
+{
+  "indexImage": "assets/miswak/angel/index.png",
+  "gif": "assets/miswak/angel-bg.gif",
+  "decisionSound": "https://filegarden.com/REPLACE/decision-angel.mp3",
+  "playlist": [
+    "https://filegarden.com/REPLACE/angel-track-1.mp3",
+    "https://filegarden.com/REPLACE/angel-track-2.mp3",
+    "https://filegarden.com/REPLACE/angel-track-3.mp3"
+  ],
+  "items": [
+    {
+      "image": "assets/miswak/angel/01.png",
+      "text": "The First Vow",
+      "textPosition": "top",
+      "textStyle": "angelic-serif"
+    },
+    {
+      "image": "assets/miswak/angel/02.png",
+      "text": "A Wing Unfolded",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+    {
+      "image": "assets/miswak/angel/03.png",
+      "text": "The Watcher",
+      "textPosition": "top",
+      "textStyle": "angelic-serif"
+    },
+    {
+      "image": "assets/miswak/angel/04.png",
+      "text": "Light Before Dawn",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+    {
+      "image": "assets/miswak/angel/05.png",
+      "text": "The Last Herald",
+      "textPosition": "top",
+      "textStyle": "angelic-serif"
+    }
+  ]
+}
