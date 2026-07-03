@@ -345,13 +345,13 @@ class NavbarTransparent extends HTMLElement {
             <img src="/assets/img/homepage/Biblio_orange.png" class="nav-icon" alt="Regions">
             <span>Regions</span>
           </a>
-          <a href="/shop.html">
-            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Shop">
+          <a href="//wiki.edelith.org">
+            <img src="/assets/img/homepage/Biblio_gray.png" class="nav-icon" alt="Wiki">
             <span>Shop</span>
           </a>
-          <a href="//stocks.edelith.org">
+          <a href="/miswak.html">
             <img src="/assets/img/homepage/Biblio_green.png" class="nav-icon" alt="Stocks">
-            <span>Edel Exchange</span>
+            <span>Prophesies</span>
           </a>
         </div>
 
