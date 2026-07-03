@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/assets/img/ico/yellow.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prophesies — The Immortal City of Edelith</title>
+    <meta name="description" content="A fan-built archive documenting the lore, characters, and world of The Immortal City of Edelith — an original D&D campaign created by Horkah.">
+    <meta name="author" content="Solstitheo Archives">
+    <meta name="keywords" content="Edelith, Solstitheo, DnD, D&D, campaign, lore, worldbuilding, characters, beastiary, regions">
+    <meta name="theme-color" content="#2a211b">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://edelith.org">
+    <meta property="og:title" content="Prophesies — The Immortal City of Edelith">
+    <meta property="og:description" content="A fan-built archive documenting the lore, characters, and world of The Immortal City of Edelith — an original D&D campaign created by Horkah.">
+    <meta property="og:image" content="/assets/img/favicon.png">
+    <meta property="og:image:alt" content="Solstitheo Archives Logo">
+    <meta property="og:site_name" content="Solstitheo Archives">
+    <meta property="og:locale" content="en_US">
+
+      <link rel="stylesheet" href="/style/miswak.css"/>
+      <script src="/scripts/miswak.js" type="text/javascript" defer></script>    
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============================================================
+       SCREEN 1 — CROSSROADS
+       ============================================================ -->
+  <section id="screen-crossroads" class="screen">
+    <h1 class="crossroads-title">Prophecies from&hellip;</h1>
+
+    <div class="crossroads-row">
+
+      <div class="crossroads-option crossroads-option--angel">
+        <div class="crossroads-figure" id="crossroads-angel-figure" tabindex="0">
+          <div class="mask-figure">
+            <div class="mask-figure__gif"></div>
+          </div>
+        </div>
+        <button class="crossroads-label" id="choose-angel">&hellip;An Angel</button>
+      </div>
+
+      <div class="crossroads-option crossroads-option--demon">
+        <div class="crossroads-figure" id="crossroads-demon-figure" tabindex="0">
+          <div class="mask-figure">
+            <div class="mask-figure__gif"></div>
+          </div>
+        </div>
+        <button class="crossroads-label" id="choose-demon">&hellip;A Demon</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 2 — ANGEL CAROUSEL
+       ============================================================ -->
+  <section id="screen-angel" class="screen">
+    <button class="screen-back">&larr; Crossroads</button>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carousel-track"></div>
+    </div>
+
+    <div class="carousel-nav">
+      <button class="carousel-arrow" id="carousel-prev">&#8592;</button>
+      <span class="carousel-progress" id="carousel-progress">1 / 1</span>
+      <button class="carousel-arrow" id="carousel-next">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3 — DEMON BINGO GRID
+       ============================================================ -->
+  <section id="screen-demon" class="screen">
+    <button class="screen-back">&larr; Crossroads</button>
+
+    <h2 class="demon-title" id="demon-title"></h2>
+
+    <div class="bingo-wrap">
+      <div class="bingo-gif-layer" id="bingo-gif-layer"></div>
+      <div class="bingo-grid" id="bingo-grid"></div>
+    </div>
+
+    <div class="demon-controls">
+      <button class="fulfilled-toggle" id="fulfilled-toggle">Fulfilled?</button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PERSISTENT BOTTOM AUDIO BAR
+       ============================================================ -->
+  <div class="audio-bar" id="audio-bar">
+    <button class="audio-bar-btn" id="audio-pause-btn">&#9208;</button>
+    <input type="range" id="audio-volume" min="0" max="1" step="0.01" />
+    <span class="audio-bar-track" id="audio-track-label"></span>
+  </div>
+
+</div>
+</body>
+</html>
