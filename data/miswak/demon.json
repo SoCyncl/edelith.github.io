@@ -1,42 +1,42 @@
 {
-  "indexImage": "assets/miswak/demon/index.png",
-  "gif": "assets/miswak/demon-bg.gif",
-  "decisionSound": "https://filegarden.com/REPLACE/decision-demon.mp3",
+  "indexImage": "assets/miswak/demon/placeholder.png",
+  "gif": "assets/miswak/depth-red.png",
+  "decisionSound": "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/weird-route-jingle.mp3",
   "playlist": [
-    "https://filegarden.com/REPLACE/demon-track-1.mp3",
-    "https://filegarden.com/REPLACE/demon-track-2.mp3",
-    "https://filegarden.com/REPLACE/demon-track-3.mp3"
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/Deltarune%20Character%20Creation%20theme%20(with%20background).mp3",
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/35.%20GLACEIR%20(DELTARUNE%20Chapter%203%2B4%20Soundtrack)%20-%20Toby%20Fox.mp3",
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/Deltarune%20Character%20Creation%20theme%20(with%20background).mp3"
   ],
   "title": "Five truths, the rest are lies",
   "boxes": [
-    { "text": "The gate was left open", "fulfilled": false },
-    { "text": "A name was forgotten", "fulfilled": true },
-    { "text": "The river ran backward", "fulfilled": false },
-    { "text": "No one came home", "fulfilled": true },
-    { "text": "The bell rang thirteen times", "fulfilled": false },
+    { "text": "You have already met two different Horsemen and the real Arvegum beast.", "fulfilled": false },
+    { "text": "Herb has a secret third personality like fuckass Moon Knight.", "fulfilled": false },
+    { "text": "Watanabe is still alive.", "fulfilled": false },
+    { "text": "Anubis killing Gorta was the right thing in Hindsight because she was eating the townsfolk and blamed the Beast.", "fulfilled": false },
+    { "text": "An important NPC will be introduced later, named Shmorby.", "fulfilled": false },
 
-    { "text": "The last light went out", "fulfilled": false },
-    { "text": "A promise was kept", "fulfilled": true },
-    { "text": "The mirror cracked first", "fulfilled": false },
-    { "text": "The choir sang in silence", "fulfilled": false },
-    { "text": "Salt was spilled twice", "fulfilled": false },
+    { "text": "Baylis died because you took too long.", "fulfilled": false },
+    { "text": "Glint is real, and they are coming to kill you.", "fulfilled": true },
+    { "text": "Gimic will kill an important NPC if you do not stop him now.", "fulfilled": false },
+    { "text": "Blobert died in the Obsidian Crystalis and was replaced with a doppelganger.", "fulfilled": false },
+    { "text": "The inspiration for an NPC you've met is genuinely Lola Bunny.", "fulfilled": false },
 
-    { "text": "The letter never arrived", "fulfilled": true },
-    { "text": "A shadow walked alone", "fulfilled": false },
-    { "text": "The clock struck midnight early", "fulfilled": false },
-    { "text": "The well ran dry", "fulfilled": false },
-    { "text": "A stranger knew your name", "fulfilled": false },
+    { "text": "The Gods all died, and Aurelia is responsible.", "fulfilled": false },
+    { "text": "Rusty is an undercover agent for a secret organization.", "fulfilled": false },
+    { "text": "Pouboo is cracked at Fortnite.", "fulfilled": false },
+    { "text": "L will beat Rusty in a fight and literally rip his metal arm off.", "fulfilled": false },
+    { "text": "Skrapp and Soko have a child", "fulfilled": false },
 
-    { "text": "The crows counted wrong", "fulfilled": false },
-    { "text": "The door locked itself", "fulfilled": false },
-    { "text": "Two moons were seen", "fulfilled": false },
-    { "text": "The candle would not catch", "fulfilled": false },
-    { "text": "The oath was broken", "fulfilled": true },
+    { "text": "Damien is an actual demon that replaced the real Damien long ago and killed him.", "fulfilled": false },
+    { "text": "Aurelia will be the Death Horsemen.", "fulfilled": false },
+    { "text": "Ze Beast is going through a Fight Club-esque situation.", "fulfilled": false },
+    { "text": "If Peggle becomes a druid, he will slowly start dying.", "fulfilled": false },
+    { "text": "Demons are the lost souls of people trying to make it to Edelith, and you are monsters for killing them.", "fulfilled": false },
 
-    { "text": "Ash fell where there was no fire", "fulfilled": false },
-    { "text": "The road led back to itself", "fulfilled": false },
-    { "text": "A voice called from below", "fulfilled": false },
-    { "text": "The seal remained unbroken", "fulfilled": false },
-    { "text": "Nothing came at all", "fulfilled": false }
+    { "text": "Korg has a backup installed in a Steelside Legion server.", "fulfilled": false },
+    { "text": "Mousse is alive (Somehow) and Plotting Revenge.", "fulfilled": false },
+    { "text": "Mr. V is still alive.", "fulfilled": false },
+    { "text": "Tinka isn't a warforged but another creature in a mech suit.", "fulfilled": false },
+    { "text": "Vaskel is coming to kill Broomhilda still, the other stuff was a misdirection.", "fulfilled": false }
   ]
 }
