@@ -1,42 +1,72 @@
 {
-  "indexImage": "assets/miswak/angel/index.png",
-  "gif": "assets/miswak/angel-bg.gif",
-  "decisionSound": "https://filegarden.com/REPLACE/decision-angel.mp3",
+  "indexImage": "assets/miswak/angel/placeholder.png",
+  "gif": "assets/miswak/depth-blue.png",
+  "decisionSound": "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/weird_route_cancel.mp3",
   "playlist": [
-    "https://filegarden.com/REPLACE/angel-track-1.mp3",
-    "https://filegarden.com/REPLACE/angel-track-2.mp3",
-    "https://filegarden.com/REPLACE/angel-track-3.mp3"
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/64.%20Dark%20Place%20(DELTARUNE%20Chapter%203%2B4%20Soundtrack)%20-%20Toby%20Fox%20-%20Toby%20Fox%20(128k).mp3",
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/64.%20Dark%20Place%20(DELTARUNE%20Chapter%203%2B4%20Soundtrack)%20-%20Toby%20Fox%20-%20Toby%20Fox%20(128k).mp3",
+    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/64.%20Dark%20Place%20(DELTARUNE%20Chapter%203%2B4%20Soundtrack)%20-%20Toby%20Fox%20-%20Toby%20Fox%20(128k).mp3"
   ],
   "items": [
     {
-      "image": "assets/miswak/angel/01.png",
-      "text": "The First Vow",
-      "textPosition": "top",
-      "textStyle": "angelic-serif"
-    },
-    {
-      "image": "assets/miswak/angel/02.png",
-      "text": "A Wing Unfolded",
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE HORSEMEN SHRIEK THE DEMON'S CALL. A SHATTERED CIRCLET EDELITH'S FALL.",
       "textPosition": "top",
       "textStyle": "angelic-caps"
     },
     {
-      "image": "assets/miswak/angel/03.png",
-      "text": "The Watcher",
-      "textPosition": "top",
-      "textStyle": "angelic-serif"
-    },
-    {
-      "image": "assets/miswak/angel/04.png",
-      "text": "Light Before Dawn",
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "ANGEL WINGS GUIDE HEROES IMMORTAL. SHROUDCROSSERS FROM THE DESERT PORTAL..",
       "textPosition": "top",
       "textStyle": "angelic-caps"
     },
     {
-      "image": "assets/miswak/angel/05.png",
-      "text": "The Last Herald",
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE FIRST HERO. THE SLIME, REBORN WITH A GOLDEN SOUL",
       "textPosition": "top",
-      "textStyle": "angelic-serif"
+      "textStyle": "angelic-caps"
+    },
+    {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE SECOND HERO. THE MASKS, PUPPETEERING ONE BODY",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+    {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE THIRD HERO. THE NOBLE, RED WITH PRIMAL FLAME!",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+        {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE CRYSTAL PROPHET, ROOTED IN DIVINITY",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+        {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE CARRIAGE WILL SET IN FLAMING SUN",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+        {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "MOTHER OF BEASTS CLENCHES AURELIA'S ARM",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+            {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE GENTLE MARE ALIGHT WITH THE SERPENT",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
+    },
+            {
+      "image": "assets/miswak/angel/placeholder.png",
+      "text": "THE GOURD BOY WILL PASS THROUGH",
+      "textPosition": "top",
+      "textStyle": "angelic-caps"
     }
   ]
 }
